@@ -6,7 +6,6 @@
     CompanyName       = 'Unknown'
     Copyright         = '(c) Admin. All rights reserved.'
     FunctionsToExport = @(
-        'Initialize-MyGit'
         'Add-MyGit'
         'Add-MyGitP'
         'Add-MyGitI'
@@ -44,7 +43,6 @@
     CmdletsToExport   = @()
     VariablesToExport = '*'
     AliasesToExport   = @(
-        'ginit'
         'a'
         'ap'
         'ai'

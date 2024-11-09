@@ -1,16 +1,4 @@
-﻿function Initialize-MyGit {
-    if (Test-MyStrictPath -LiteralPath '.\.git') {
-        throw 'Git repository is already in place.'
-    }
-
-    git init $args
-    if (!(Test-MyStrictPath -LiteralPath '.\.gitignore')) {
-        New-Item -Path '.\' -Name '.gitignore' -ItemType 'file'
-    }
-    git add '.\.gitignore'
-    git commit -m 'First commit'
-}
-function Add-MyGit {
+﻿function Add-MyGit {
     git add $args
 }
 function Add-MyGitP {
