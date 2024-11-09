@@ -1,0 +1,13 @@
+{
+  "[powershell]": {
+    "files.encoding": "utf8bom"
+  },
+  "editor.formatOnSave": true,
+  "files.autoGuessEncoding": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "powershell.codeFormatting.autoCorrectAliases": true,
+  "powershell.codeFormatting.useConstantStrings": true,
+  "powershell.codeFormatting.useCorrectCasing": true
+}
