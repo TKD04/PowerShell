@@ -1,5 +1,6 @@
 ﻿[hashtable]$aliases = @{
-    'g' = 'git'
+    'g'  = 'git'
+    'pn' = 'pnpm'
 }
 
 $aliases.GetEnumerator() | ForEach-Object {
