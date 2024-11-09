@@ -19,4 +19,9 @@ function Initialize-MyNpm {
 
     git add '.\.gitignore' '.\package.json'
     git commit -m 'Add npm'
+
+    pnpm
+
+    git add '.\package.json'
+    git commit -m 'Add pnpm as packageManager'
 }
