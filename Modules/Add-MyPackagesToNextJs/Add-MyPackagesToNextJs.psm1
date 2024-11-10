@@ -25,8 +25,6 @@ function Add-MyPackagesToNextJs {
         'forceConsistentCasingInFileNames'   = $true
     }
 
-    <# npm-check-updates #>
-    Install-MyNpmCheckUpdates
     <# TypeScript #>
     # Make tsconfig more strict
     [hashtable]$tsConfig = Import-MyJSON -LiteralPath '.\tsconfig.json' -AsHashTable
