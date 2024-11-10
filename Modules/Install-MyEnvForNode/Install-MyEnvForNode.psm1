@@ -40,7 +40,7 @@ function Install-MyEnvForNode {
     git add '.\.gitignore' '.\package.json' '.\src\app.ts'
     git commit -m 'Add environment for Node'
 
-    npm run format
+    pnpm run format
     git add .
     git commit -m 'Format by prettier'
 }

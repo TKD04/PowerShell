@@ -195,12 +195,12 @@ function Install-MyESLint {
         'plugin:tailwindcss/recommended'
         'prettier'
     )
-    npm i -D $neededDevPackages
+    pnpm i -D $neededDevPackages
     Export-MyJSON -LiteralPath $eslintrcPath -CustomObject $eslintrc
     Add-MyNpmScript -NameToScript @{
         'lint' = 'eslint .'
     }
 
-    git add '.\.eslintrc.json' '.\package-lock.json' '.\package.json'
+    git add '.\.eslintrc.json' '.\pnpm-lock.yaml' '.\package.json'
     git commit -m 'Add ESLint'
 }

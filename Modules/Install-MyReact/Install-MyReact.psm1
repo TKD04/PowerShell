@@ -15,9 +15,9 @@ function Install-MyReact {
         '@types/react-dom'
     )
 
-    npm i $neededPackages
-    npm i -D $neededDevPackages
+    pnpm i $neededPackages
+    pnpm i -D $neededDevPackages
 
-    git add '.\package-lock.json' '.\package.json'
+    git add '.\pnpm-lock.yaml' '.\package.json'
     git commit -m 'Add React'
 }

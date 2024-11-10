@@ -50,8 +50,8 @@ function Install-MyJest {
     Add-MyNpmScript -NameToScript @{
         'test' = 'jest'
     }
-    npm i -D $neededDevPackages
+    pnpm i -D $neededDevPackages
 
-    git add '.\package-lock.json' '.\package.json' $jestConfigPath
+    git add '.\pnpm-lock.yaml' '.\package.json' $jestConfigPath
     git commit -m 'Add Jest'
 }

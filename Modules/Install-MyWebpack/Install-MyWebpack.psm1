@@ -28,9 +28,9 @@ function Install-MyWebpack {
         Export-MyJSON -LiteralPath '.\package.json' -CustomObject $package
         <# Add npm scripts for webpack to package.json #>
         Add-MyNpmScript -NameToScript $npmScripts
-        npm i -D $neededDevPackages
+        pnpm i -D $neededDevPackages
 
-        git add '.\package-lock.json' '.\package.json' '.\webpack.config.js'
+        git add '.\pnpm-lock.yaml' '.\package.json' '.\webpack.config.js'
         git commit -m 'Add webpack'
         return
     }
@@ -84,8 +84,8 @@ function Install-MyWebpack {
     Export-MyJSON -LiteralPath '.\package.json' -CustomObject $package
     <# Add npm scripts for webpack to package.json #>
     Add-MyNpmScript -NameToScript $npmScripts
-    npm i -D $neededDevPackages
+    pnpm i -D $neededDevPackages
 
-    git add '.\package-lock.json' '.\package.json' '.\webpack.config.js' '.\tailwind.config.js' '.\src'
+    git add '.\pnpm-lock.yaml' '.\package.json' '.\webpack.config.js' '.\tailwind.config.js' '.\src'
     git commit -m 'Add webpack'
 }

@@ -33,7 +33,7 @@ function Install-MyEnvForWeb {
     Install-MyTypeDoc
     Install-MyVSCodeSettingsForWeb
 
-    npm run format
+    pnpm run format
     git add .
     git commit -m 'Format by prettier'
 }

@@ -32,7 +32,7 @@ function Install-MyTailwindCss {
     )
 
     if ($IsNextJs) {
-        npm i -D @tailwindcss/typography
+        pnpm i -D @tailwindcss/typography
         if ($UseDaisyUi) {
             Copy-Item -LiteralPath "$PSScriptRoot\tailwind-nextjs-daisyui.config.ts" -Destination '.\tailwind.config.ts' -Force
         }
@@ -40,7 +40,7 @@ function Install-MyTailwindCss {
             Copy-Item -LiteralPath "$PSScriptRoot\tailwind-nextjs.config.ts" -Destination '.\tailwind.config.ts' -Force
         }
 
-        git add '.\package-lock.json' '.\package.json' '.\tailwind.config.ts'
+        git add '.\pnpm-lock.yaml' '.\package.json' '.\tailwind.config.ts'
         git commit -m 'Add `@tailwindcss/typography`'
 
         return
@@ -74,8 +74,8 @@ function Install-MyTailwindCss {
         $neededDevPackages += 'daisyui'
     }
     Copy-Item -LiteralPath "$PSScriptRoot\postcss.config.js" -Destination '.\postcss.config.js'
-    npm i -D $neededDevPackages
+    pnpm i -D $neededDevPackages
 
-    git add '.\package-lock.json' '.\package.json' '.\tailwind.config.js' '.\postcss.config.js'
+    git add '.\pnpm-lock.yaml' '.\package.json' '.\tailwind.config.js' '.\postcss.config.js'
     git commit -m 'Add Tailwind CSS'
 }
