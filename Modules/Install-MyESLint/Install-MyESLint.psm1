@@ -94,7 +94,8 @@ function Install-MyESLint {
             'eslint-plugin-react'
             'eslint-plugin-react-hooks'
             'eslint-plugin-jsx-a11y'
-            'eslint-plugin-react-compiler'
+            'eslint-plugin-react-compiler@beta'
+            'babel-plugin-react-compiler@beta'
         )
         $eslintrc.extends += @(
             'airbnb'
@@ -123,6 +124,7 @@ function Install-MyESLint {
         if ($UseReact) {
             $eslintrc.extends += 'airbnb-typescript'
             $eslintrc.rules.Add('react/react-in-jsx-scope', 'off')
+            $eslintrc.rules.Add('react-compiler/react-compiler', 'error')
         }
         else {
             $eslintrc.extends += 'airbnb-typescript/base'
