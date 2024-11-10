@@ -34,6 +34,7 @@ function Add-MyPackagesToNextJs {
     Export-MyJSON -LiteralPath '.\tsconfig.json' -CustomObject $tsConfig
     git add '.\tsconfig.json'
     git commit -m 'Make tsconfig more strict'
+
     <# ESLint #>
     # Replace `next lint` with `eslint .` on `lint` npm script
     [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
@@ -49,14 +50,17 @@ function Add-MyPackagesToNextJs {
     Export-MyJSON -LiteralPath '.\.eslintrc.json' -CustomObject $eslintrc
     git add '.\.eslintrc.json' '.\package.json' '.\package-lock.json'
     git commit -m 'Make eslintrc more strict'
+
     <# Jest #>
     Install-MyJest -UseBrowser -UseReact
     # Replace `<rootDir>/src` with `<rootDir>` in roots to work properly in Next.js
     Copy-Item -LiteralPath "$PSScriptRoot\jest-nextjs.config.js" -Destination '.\jest.config.js' -Force
     git add '.\jest.config.js'
     git commit -m 'Change `roots` from "<rootDir>/src" to "<rootDir>"'
+
     <# Prettier #>
     Install-MyPrettier -UseTailwindcss
+
     <# Tailwind CSS #>
     Install-MyTailwindCss -IsNextJs -UseDaisyUi:$UseDaisyUi
     Install-MyVSCodeSettingsForWeb
