@@ -100,7 +100,6 @@ function Push-MyGit {
 }
 
 [hashtable]$aliasesToFunctions = @{
-    'ginit'   = 'Initialize-MyGit'
     'a'       = 'Add-MyGit'
     'ap'      = 'Add-MyGitP'
     'ai'      = 'Add-MyGitI'
