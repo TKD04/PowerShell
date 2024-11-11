@@ -45,6 +45,7 @@ function Add-MyPackagesToNextJs {
     Install-MyESLint -UseTypeScript -UseReact -UseJest -IsNextJs
     [hashtable]$eslintrc = Import-MyJSON -LiteralPath '.\.eslintrc.json' -AsHashTable
     # https://nextjs.org/docs/app/building-your-application/configuring/eslint#migrating-existing-config
+    pnpm rm eslint-config-next
     pnpm i -D @next/eslint-plugin-next
     $eslintrc.extends += 'plugin:@next/next/recommended'
     Export-MyJSON -LiteralPath '.\.eslintrc.json' -CustomObject $eslintrc
