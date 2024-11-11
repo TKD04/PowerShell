@@ -2,12 +2,16 @@
 .SYNOPSIS
 Adds some needed packages to a Vite
 
+.PARAMETER DeployToGitHubPages
+Whether to use GitHub Pages to publish a site
+
 .PARAMETER UseDaisyUi
 Whether to support daisyUI
 #>
 function Add-MyPackagesToVite {
     [OutputType([void])]
     param (
+        [switch]$DeployToGitHubPages,
         [switch]$UseDaisyUi
     )
 
@@ -87,6 +91,18 @@ function Add-MyPackagesToVite {
     Export-MyJSON -LiteralPath '.\package.json' -CustomObject $package
     git add '.\package.json'
     git commit -m 'Add `--open` to `dev` and `preview` npm scirpt'
+
+    <# Add vite.yml to deploy to GitHub Pages #>
+    if ($DeployToGitHubPages) {
+        if (Test-MyStrictPath('.\.github\workflows\vite.yml')) {
+            throw 'vite.yml is already in place.'
+        }
+
+        [string]$viteWorkflowFilePath = Join-Path -Path $PSScriptRoot -ChildPath '.\vite.yml'
+        New-Item -Path '.\' -Name '.github' -ItemType 'directory'
+        New-Item -Path '.\.github' -Name 'workflows' -ItemType 'directory'
+        Copy-Item -LiteralPath $viteWorkflowFilePath -Destination '.\.github\workflows'
+    }
 
     <# Format all files by Prettier #>
     pnpm run format
