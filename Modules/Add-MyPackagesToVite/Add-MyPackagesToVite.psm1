@@ -11,7 +11,7 @@ function Add-MyPackagesToVite {
         [switch]$UseDaisyUi
     )
 
-    [hashtable]$missingCompilerOptions = [ordered]@{
+    [hashtable]$viteDefaultCompilerOptions = [ordered]@{
         <# Vite Default Settings #>
         'useDefineForClassFields'    = $true
         'allowImportingTsExtensions' = $true
@@ -30,7 +30,7 @@ function Add-MyPackagesToVite {
     Install-MyTypeScript -UseReact -NoEmit
     [hashtable]$tsConfig = Import-MyJSON -LiteralPath '.\tsconfig.json' -AsHashTable
     # Add Vite default settings
-    $missingCompilerOptions.GetEnumerator() | ForEach-Object {
+    $viteDefaultCompilerOptions.GetEnumerator() | ForEach-Object {
         $tsConfig.compilerOptions.Add($_.Key, $_.Value)
     }
     # Override existing properties
