@@ -33,6 +33,7 @@ function Add-MyPackagesToVite {
     $missingCompilerOptions.GetEnumerator() | ForEach-Object {
         $tsConfig.compilerOptions.Add($_.Key, $_.Value)
     }
+    # Override existing properties
     $tsConfig.compilerOptions.target = 'es2020'
     $tsConfig.compilerOptions.module = 'esnext'
     $tsConfig.compilerOptions.moduleResolution = 'bundler'
