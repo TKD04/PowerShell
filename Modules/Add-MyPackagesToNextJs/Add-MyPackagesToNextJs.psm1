@@ -2,12 +2,16 @@
 .SYNOPSIS
 Adds some needed packages to a Next.js project.
 
+.PARAMETER DeployToGitHubPages
+Whether to use GitHub Pages to publish a site
+
 .PARAMETER UseDaisyUi
 Whether to support daisyUI
 #>
 function Add-MyPackagesToNextJs {
     [OutputType([void])]
     param (
+        [switch]$DeployToGitHubPages,
         [switch]$UseDaisyUi
     )
 
@@ -65,4 +69,16 @@ function Add-MyPackagesToNextJs {
     <# Tailwind CSS #>
     Install-MyTailwindCss -IsNextJs -UseDaisyUi:$UseDaisyUi
     Install-MyVSCodeSettingsForWeb
+
+    <# Add next.yml to deploy to GitHub Pages #>
+    if ($DeployToGitHubPages) {
+        if (Test-MyStrictPath('.\.github\workflows\next.yml')) {
+            throw 'next.yml is already in place.'
+        }
+
+        [string]$nextWorkflowFilePath = Join-Path -Path $PSScriptRoot -ChildPath '.\next.yml'
+        New-Item -Path '.\' -Name '.github' -ItemType 'directory'
+        New-Item -Path '.\.github' -Name 'workflows' -ItemType 'directory'
+        Copy-Item -LiteralPath $nextWorkflowFilePath -Destination '.\.github\workflows'
+    }
 }
