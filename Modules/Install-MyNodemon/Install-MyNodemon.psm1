@@ -9,7 +9,7 @@ function Install-MyNodemon {
     Add-MyNpmScript -NameToScript @{
         'watch' = 'nodemon --watch src/**/*.ts --exec ts-node src/app.ts'
     }
-    pnpm i -D nodemon
+    pnpm add -D nodemon
 
     git add '.\pnpm-lock.yaml' '.\package.json'
     git commit -m 'Add nodemon'

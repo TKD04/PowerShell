@@ -11,11 +11,11 @@ function Install-MyGulp {
         [switch]$UseTypeScript
     )
 
-    pnpm i -D gulp gulp-cli
+    pnpm add -D gulp gulp-cli
     New-Item -Path '.\' -Name 'gulpfile.mjs' -ItemType 'File'
 
     if ($UseTypeScript) {
-        pnpm i -D @types/gulp
+        pnpm add -D @types/gulp
     }
 
     git add '.\pnpm-lock.yaml' '.\package.json' '.\gulpfile.mjs'

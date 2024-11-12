@@ -9,7 +9,7 @@ function Install-MyTypeDoc {
     Add-MyNpmScript -NameToScript @{
         'docs' = 'typedoc --out docs --entryPointStrategy expand src'
     }
-    pnpm i -D typedoc
+    pnpm add -D typedoc
 
     git add '.\pnpm-lock.yaml' '.\package.json'
     git commit -m 'Add TypeDoc'

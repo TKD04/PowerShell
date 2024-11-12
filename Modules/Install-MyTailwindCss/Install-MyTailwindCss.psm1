@@ -37,7 +37,7 @@ function Install-MyTailwindCss {
     }
     if ($IsNextJs) {
         # Tailwind CSS is already installed on Next.js project.
-        pnpm i -D @tailwindcss/typography
+        pnpm add -D @tailwindcss/typography
         if ($UseDaisyUi) {
             Join-Path -Path $PSScriptRoot -ChildPath 'nextjs\tailwind.daisyui.config.ts' |
             Copy-Item -Destination '.\tailwind.config.ts' -Force
@@ -69,7 +69,7 @@ function Install-MyTailwindCss {
     if ($UseDaisyUi) {
         $neededDevPackages += 'daisyui'
     }
-    pnpm i -D $neededDevPackages
+    pnpm add -D $neededDevPackages
 
     git add '.\pnpm-lock.yaml' '.\package.json' '.\tailwind.config.js' '.\postcss.config.js' '.\src\index.css'
     git commit -m 'Add Tailwind CSS'

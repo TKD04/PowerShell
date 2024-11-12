@@ -48,7 +48,7 @@ function Install-MyPrettier {
     Add-MyNpmScript -NameToScript @{
         'format' = 'prettier . --write'
     }
-    pnpm i -D $neededDevPackages
+    pnpm add -D $neededDevPackages
 
     git add '.\pnpm-lock.yaml' '.\package.json'
     git commit -m 'Add Prettier'

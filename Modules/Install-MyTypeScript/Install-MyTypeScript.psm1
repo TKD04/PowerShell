@@ -77,7 +77,7 @@ function Install-MyTypeScript {
         $tsConfig.compilerOptions.lib = @(
             'es2023'
         )
-        pnpm i -D @types/node
+        pnpm add -D @types/node
     }
     if ($NoEmit) {
         $tsConfig.compilerOptions.Add('noEmit', $true)
@@ -85,7 +85,7 @@ function Install-MyTypeScript {
     if ($UseReact) {
         $tsConfig.compilerOptions.Add('jsx', 'react-jsx')
     }
-    pnpm i -D typescript
+    pnpm add -D typescript
     Export-MyJSON -LiteralPath '.\tsconfig.json' -CustomObject $tsConfig
 
     git add '.\pnpm-lock.yaml' '.\package.json' '.\tsconfig.json'
