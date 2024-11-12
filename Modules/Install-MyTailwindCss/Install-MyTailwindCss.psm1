@@ -69,7 +69,7 @@ function Install-MyTailwindCss {
     if ($UseDaisyUi) {
         $neededDevPackages += 'daisyui'
     }
-    pnpm add -D $neededDevPackages
+    pnpm add -D @neededDevPackages
 
     git add '.\pnpm-lock.yaml' '.\package.json' '.\tailwind.config.js' '.\postcss.config.js' '.\src\index.css'
     git commit -m 'Add Tailwind CSS'

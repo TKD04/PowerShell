@@ -197,7 +197,7 @@ function Install-MyESLint {
         'plugin:tailwindcss/recommended'
         'prettier'
     )
-    pnpm add -D $neededDevPackages
+    pnpm add -D @neededDevPackages
     Export-MyJSON -LiteralPath $eslintrcPath -CustomObject $eslintrc
     Add-MyNpmScript -NameToScript @{
         'lint' = 'eslint .'
