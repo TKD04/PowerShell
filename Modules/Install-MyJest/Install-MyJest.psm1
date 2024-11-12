@@ -31,13 +31,13 @@ function Install-MyJest {
     )
 
     if ($UseBrowser) {
-        [string]$SrcJestConfigPath = Join-Path -Path $PSScriptRoot -ChildPath '.\ts.browser.jest.config.js'
-        Copy-Item -LiteralPath $SrcJestConfigPath -Destination $jestConfigPath
+        Join-Path -Path $PSScriptRoot -ChildPath 'browser\jest.ts.config.js' |
+        Copy-Item -Destination $jestConfigPath
         $neededDevPackages += 'jest-environment-jsdom'
     }
     if ($UseNode) {
-        [string]$SrcJestConfigPath = Join-Path -Path $PSScriptRoot -ChildPath '.\ts.node.jest.config.js'
-        Copy-Item -LiteralPath $SrcJestConfigPath -Destination $jestConfigPath
+        Join-Path -Path $PSScriptRoot -ChildPath 'node\jest.ts.config.js' |
+        Copy-Item -Destination $jestConfigPath
     }
     if ($UseReact) {
         $neededDevPackages += @(

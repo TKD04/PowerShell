@@ -59,7 +59,8 @@ function Add-MyPackagesToNextJs {
     <# Jest #>
     Install-MyJest -UseBrowser -UseReact
     # Replace `<rootDir>/src` with `<rootDir>` in roots to work properly in Next.js
-    Copy-Item -LiteralPath "$PSScriptRoot\jest-nextjs.config.js" -Destination '.\jest.config.js' -Force
+    Join-Path -Path $PSScriptRoot -ChildPath 'base\jest-nextjs.config.js' |
+    Copy-Item -Destination '.\jest.config.js' -Force
     git add '.\jest.config.js'
     git commit -m 'Change `roots` from "<rootDir>/src" to "<rootDir>"'
 
@@ -76,9 +77,9 @@ function Add-MyPackagesToNextJs {
             throw 'next.yml is already in place.'
         }
 
-        [string]$nextWorkflowFilePath = Join-Path -Path $PSScriptRoot -ChildPath '.\next.yml'
         New-Item -Path '.\' -Name '.github' -ItemType 'directory'
         New-Item -Path '.\.github' -Name 'workflows' -ItemType 'directory'
-        Copy-Item -LiteralPath $nextWorkflowFilePath -Destination '.\.github\workflows'
+        Join-Path -Path $PSScriptRoot -ChildPath 'base\next.yml' |
+        Copy-Item -Destination '.\.github\workflows'
     }
 }

@@ -21,7 +21,8 @@ function Install-MyWebpack {
     }
 
     if ($OnlyTs) {
-        Copy-Item -LiteralPath "$PSScriptRoot\onlyts-webpack.config.js" -Destination '.\webpack.config.js'
+        Join-Path -Path $PSScriptRoot -ChildPath 'onlyts\webpack.config.js' |
+        Copy-Item -Destination '.\webpack.config.js'
         <# Add "sideEffects: false" to package.json #>
         [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
         $package.Add('sideEffects', $false)
@@ -69,11 +70,11 @@ function Install-MyWebpack {
         '.\src\ts'
     )
     [hashtable]$sourcesToDestinations = @{
-        "$PSScriptRoot\webpack.config.js"  = '.\webpack.config.js'
-        "$PSScriptRoot\tailwind.config.js" = '.\tailwind.config.js'
-        "$PSScriptRoot\_layout.pug"        = '.\src\pug\_layout.pug'
-        "$PSScriptRoot\index.pug"          = '.\src\pug\index.pug'
-        "$PSScriptRoot\style.scss"         = '.\src\scss\style.scss'
+        (Join-Path -Path $PSScriptRoot -ChildPath 'base\webpack.config.js')  = '.\webpack.config.js'
+        (Join-Path -Path $PSScriptRoot -ChildPath 'base\tailwind.config.js') = '.\tailwind.config.js'
+        (Join-Path -Path $PSScriptRoot -ChildPath 'base\_layout.pug' )       = '.\src\pug\_layout.pug'
+        (Join-Path -Path $PSScriptRoot -ChildPath 'base\index.pug'   )       = '.\src\pug\index.pug'
+        (Join-Path -Path $PSScriptRoot -ChildPath 'base\style.scss'  )       = '.\src\scss\style.scss'
     }
     New-MyDirectories -DirectoryPaths $neededDirectories
     Copy-MyFiles -SourcesToDestinations $sourcesToDestinations

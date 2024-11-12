@@ -1,6 +1,6 @@
 ﻿<#
 .SYNOPSIS
-Adds Tailwind CSS to the current directory.
+Adds Tailwind CSS to the current dirNameectory.
 
 .PARAMETER IsVite
 Whether to support a project created by Vite.
@@ -19,10 +19,6 @@ function Install-MyTailwindCss {
         [switch]$UseDaisyUi
     )
 
-    if ($IsVite -and $IsNextJs) {
-        throw 'Only enable either $IsVite or $IsNextJs'
-    }
-
     [string[]]$neededDevPackages = @(
         'tailwindcss'
         'postcss'
@@ -30,14 +26,25 @@ function Install-MyTailwindCss {
         '@tailwindcss/typography'
         '@tailwindcss/forms'
     )
+    [string]$dirName = 'base'
 
+    if ($IsVite -and $IsNextJs) {
+        throw 'Only enable either $IsVite or $IsNextJs'
+    }
+
+    if ($IsVite) {
+        $dirName = 'vite'
+    }
     if ($IsNextJs) {
+        # Tailwind CSS is already installed on Next.js project.
         pnpm i -D @tailwindcss/typography
         if ($UseDaisyUi) {
-            Copy-Item -LiteralPath "$PSScriptRoot\tailwind-nextjs-daisyui.config.ts" -Destination '.\tailwind.config.ts' -Force
+            Join-Path -Path $PSScriptRoot -ChildPath 'nextjs\tailwind.daisyui.config.ts' |
+            Copy-Item -Destination '.\tailwind.config.ts' -Force
         }
         else {
-            Copy-Item -LiteralPath "$PSScriptRoot\tailwind-nextjs.config.ts" -Destination '.\tailwind.config.ts' -Force
+            Join-Path -Path $PSScriptRoot -ChildPath 'nextjs\tailwind.config.ts' |
+            Copy-Item -Destination '.\tailwind.config.ts' -Force
         }
 
         git add '.\pnpm-lock.yaml' '.\package.json' '.\tailwind.config.ts'
@@ -45,37 +52,25 @@ function Install-MyTailwindCss {
 
         return
     }
-    if ($IsVite) {
-        if ($UseDaisyUi) {
-            Copy-Item -LiteralPath "$PSScriptRoot\tailwind-vite-daisyui.config.js" -Destination '.\tailwind.config.js' -Force
-        }
-        else {
-            Copy-Item -LiteralPath "$PSScriptRoot\tailwind-vite.config.js" -Destination '.\tailwind.config.js' -Force
-
-        }
-        Copy-Item -LiteralPath "$PSScriptRoot\index-vite.css" -Destination '.\src\index.css' -Force
-
-        git add '.\src\index.css'
+    if ($UseDaisyUi) {
+        Join-Path -Path $PSScriptRoot -ChildPath "\$dirName\tailwind.daisyui.config.js" |
+        Copy-Item -Destination '.\tailwind.config.js' -Force
     }
     else {
-        if ($UseDaisyUi) {
-            Copy-Item -LiteralPath "$PSScriptRoot\tailwind-daisyui.config.js" -Destination '.\tailwind.config.js' -Force
-        }
-        else {
-            Copy-Item -LiteralPath "$PSScriptRoot\tailwind.config.js" -Destination '.\tailwind.config.js' -Force
-        }
-        Copy-Item -LiteralPath "$PSScriptRoot\index.css" -Destination '.\index.css' -Force
-
-        git add '.\index.css'
+        Join-Path -Path $PSScriptRoot -ChildPath "\$dirName\tailwind.config.js" |
+        Copy-Item -Destination '.\tailwind.config.js' -Force
     }
+    Join-Path -Path $PSScriptRoot -ChildPath 'base\index.css'
+    Copy-Item -Destination '.\src\index.css' -Force
+    Join-Path -Path $PSScriptRoot -ChildPath 'base\postcss.config.js'
+    Copy-Item -Destination '.\postcss.config.js'
     # https://tailwindcss.com/docs/optimizing-for-production
     $neededDevPackages += 'cssnano'
     if ($UseDaisyUi) {
         $neededDevPackages += 'daisyui'
     }
-    Copy-Item -LiteralPath "$PSScriptRoot\postcss.config.js" -Destination '.\postcss.config.js'
     pnpm i -D $neededDevPackages
 
-    git add '.\pnpm-lock.yaml' '.\package.json' '.\tailwind.config.js' '.\postcss.config.js'
+    git add '.\pnpm-lock.yaml' '.\package.json' '.\tailwind.config.js' '.\postcss.config.js' '.\src\index.css'
     git commit -m 'Add Tailwind CSS'
 }

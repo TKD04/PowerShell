@@ -27,19 +27,19 @@ function Install-MyPrettier {
                 '@prettier/plugin-pug'
                 'prettier-plugin-tailwindcss'
             )
-            $prettierConfigPath = "$PSScriptRoot\pug.tailwind.prettier.config.js"
+            $prettierConfigPath = Join-Path -Path $PSScriptRoot -ChildPath 'pug\prettier.tailwind.config.js'
         }
         elseif ($UsePug -and !$UseTailwindcss) {
             $neededDevPackages += @(
                 '@prettier/plugin-pug'
             )
-            $prettierConfigPath = "$PSScriptRoot\pug.prettier.config.js"
+            $prettierConfigPath = Join-Path -Path $PSScriptRoot -ChildPath 'pug\prettier.config.js'
         }
         elseif (!$UsePug -and $UseTailwindcss) {
             $neededDevPackages += @(
                 'prettier-plugin-tailwindcss'
             )
-            $prettierConfigPath = "$PSScriptRoot\tailwind.prettier.config.js"
+            $prettierConfigPath = Join-Path -Path $PSScriptRoot -ChildPath 'tailwind\prettier.config.js'
         }
         Copy-Item -LiteralPath $prettierConfigPath -Destination '.\prettier.config.js'
 
