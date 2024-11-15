@@ -13,8 +13,8 @@ function Initialize-MyNpm {
     $package.scripts.Remove('test')
     Export-MyJSON -LiteralPath '.\package.json' -CustomObject $package
     Add-Content -LiteralPath '.\.gitignore' -Value @(
-        '/node_modules/'
-        '/dist/'
+        'node_modules/'
+        'dist/'
     )
 
     git add '.\.gitignore' '.\package.json'
