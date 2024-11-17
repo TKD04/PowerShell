@@ -8,9 +8,6 @@ Whether to support the global variables in browser.
 .PARAMETER UseNode
 Whether to support the global varialbes in Node.
 
-.PARAMETER UseWebExtensions
-Whether to support the global variables in web extensions.
-
 .PARAMETER IsNextJs
 Whether to support a project created by Next.js
 
@@ -28,7 +25,6 @@ function Install-MyESLint {
     param (
         [switch]$UseBrower,
         [switch]$UseNode,
-        [switch]$UseWebExtensions,
         [switch]$IsNextJs,
         [switch]$UseTypeScript,
         [switch]$UseReact,
@@ -83,9 +79,6 @@ function Install-MyESLint {
                 'always'
             )
         )
-    }
-    if ($UseWebExtensions) {
-        $eslintrc.env.Add('webextensions', $true)
     }
     if ($UseReact) {
         # https://www.npmjs.com/package/eslint-config-airbnb
