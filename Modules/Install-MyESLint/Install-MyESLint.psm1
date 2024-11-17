@@ -8,9 +8,6 @@ Whether to support the global variables in browser.
 .PARAMETER UseNode
 Whether to support the global varialbes in Node.
 
-.PARAMETER IsNextJs
-Whether to support a project created by Next.js
-
 .PARAMETER UseTypeScript
 Whether to add the rules for TypeScript.
 
@@ -19,16 +16,19 @@ Whether to add the rules for React.
 
 .PARAMETER UseJest
 Whether to add the rules for Jest.
+
+.PARAMETER IsNextJs
+Whether to support a project created by Next.js
 #>
 function Install-MyESLint {
     [OutputType([void])]
     param (
         [switch]$UseBrower,
         [switch]$UseNode,
-        [switch]$IsNextJs,
         [switch]$UseTypeScript,
         [switch]$UseReact,
-        [switch]$UseJest
+        [switch]$UseJest,
+        [switch]$IsNextJs
     )
     [string]$eslintrcPath = '.\.eslintrc.json'
     [hashtable]$eslintrc = @{
