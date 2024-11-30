@@ -22,6 +22,8 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    env:
+      repositoryName: ${{ github.event.repository.name }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,7 +37,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Build
-        run: pnpm build --base=/nametsubu_clone/
+        run: pnpm build --base=/$repositoryName/
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
