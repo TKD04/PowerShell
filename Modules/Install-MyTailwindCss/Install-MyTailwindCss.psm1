@@ -26,7 +26,7 @@ function Install-MyTailwindCss {
         '@tailwindcss/typography'
         '@tailwindcss/forms'
     )
-    [string]$dirName = 'base'
+    [string]$dirName = 'common'
 
     if ($IsVite -and $IsNextJs) {
         throw 'Only enable either $IsVite or $IsNextJs'
@@ -60,9 +60,9 @@ function Install-MyTailwindCss {
         Join-Path -Path $PSScriptRoot -ChildPath "\$dirName\tailwind.config.js" |
         Copy-Item -Destination '.\tailwind.config.js' -Force
     }
-    Join-Path -Path $PSScriptRoot -ChildPath 'base\index.css'
+    Join-Path -Path $PSScriptRoot -ChildPath 'common\index.css'
     Copy-Item -Destination '.\src\index.css' -Force
-    Join-Path -Path $PSScriptRoot -ChildPath 'base\postcss.config.js'
+    Join-Path -Path $PSScriptRoot -ChildPath 'common\postcss.config.js'
     Copy-Item -Destination '.\postcss.config.js'
     # https://tailwindcss.com/docs/optimizing-for-production
     $neededDevPackages += 'cssnano'

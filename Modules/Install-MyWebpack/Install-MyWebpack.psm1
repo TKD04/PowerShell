@@ -70,11 +70,11 @@ function Install-MyWebpack {
         '.\src\ts'
     )
     [hashtable]$sourcesToDestinations = @{
-        (Join-Path -Path $PSScriptRoot -ChildPath 'base\webpack.config.js')  = '.\webpack.config.js'
-        (Join-Path -Path $PSScriptRoot -ChildPath 'base\tailwind.config.js') = '.\tailwind.config.js'
-        (Join-Path -Path $PSScriptRoot -ChildPath 'base\_layout.pug' )       = '.\src\pug\_layout.pug'
-        (Join-Path -Path $PSScriptRoot -ChildPath 'base\index.pug'   )       = '.\src\pug\index.pug'
-        (Join-Path -Path $PSScriptRoot -ChildPath 'base\style.scss'  )       = '.\src\scss\style.scss'
+        (Join-Path -Path $PSScriptRoot -ChildPath 'common\webpack.config.js')  = '.\webpack.config.js'
+        (Join-Path -Path $PSScriptRoot -ChildPath 'common\tailwind.config.js') = '.\tailwind.config.js'
+        (Join-Path -Path $PSScriptRoot -ChildPath 'common\_layout.pug' )       = '.\src\pug\_layout.pug'
+        (Join-Path -Path $PSScriptRoot -ChildPath 'common\index.pug'   )       = '.\src\pug\index.pug'
+        (Join-Path -Path $PSScriptRoot -ChildPath 'common\style.scss'  )       = '.\src\scss\style.scss'
     }
     New-MyDirectories -DirectoryPaths $neededDirectories
     Copy-MyFiles -SourcesToDestinations $sourcesToDestinations

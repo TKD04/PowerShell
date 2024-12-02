@@ -100,7 +100,7 @@ function Add-MyPackagesToVite {
 
         New-Item -Path '.\' -Name '.github' -ItemType 'directory'
         New-Item -Path '.\.github' -Name 'workflows' -ItemType 'directory'
-        Join-Path -Path $PSScriptRoot -ChildPath 'base\vite.yml' |
+        Join-Path -Path $PSScriptRoot -ChildPath 'common\vite.yml' |
         Copy-Item -Destination '.\.github\workflows'
     }
 
