@@ -1,21 +1,13 @@
 <#
 .SYNOPSIS
 Adds ESLint and its settings to the current directory.
-
-.PARAMETER UseBrowser
-Whether to support the global variables in browser.
+It installs the browser settings by default.
 
 .PARAMETER UseNode
 Whether to support the global varialbes in Node.
 
-.PARAMETER UseTypeScript
-Whether to add the rules for TypeScript.
-
 .PARAMETER UseReact
 Whether to add the rules for React.
-
-.PARAMETER UseJest
-Whether to add the rules for Jest.
 
 .PARAMETER IsNextJs
 Whether to support a project created by Next.js
@@ -23,179 +15,94 @@ Whether to support a project created by Next.js
 function Install-MyESLint {
     [OutputType([void])]
     param (
-        [switch]$UseBrower,
         [switch]$UseNode,
-        [switch]$UseTypeScript,
         [switch]$UseReact,
-        [switch]$UseJest,
         [switch]$IsNextJs
     )
-    [string]$eslintrcPath = '.\.eslintrc.json'
-    [hashtable]$eslintrc = @{
-        root           = $true
-        env            = @{
-            es2021 = $true
-        }
-        parserOptions  = @{
-            ecmaVersion = 'latest'
-            sourceType  = 'module'
-        }
-        extends        = @()
-        plugins        = @()
-        ignorePatterns = @(
-            '/dist/'
-        )
-        rules          = @{
-            # https://stackoverflow.com/questions/44939304/eslint-should-be-listed-in-the-projects-dependencies-not-devdependencies
-            'import/no-extraneous-dependencies' = @(
-                'error'
-                @{
-                    'devDependencies' = @(
-                        '**/*.test.*'
-                        'gulpfile.*js'
-                        '*.config.*js'
-                        '*.config.ts'
-                    )
-                }
-            )
-        }
+    if (($UseNode -and $UseReact) -or ($UseNode -and $IsNextJs)) {
+        throw '$UseNode cannot be used with $UseReact or $IsNextJs'
     }
+    [string]$tsconfigEslintDest = '.\tsconfig.eslint.json'
+    [string]$eslintConfigDest = '.\eslint.config.mjs'
     [string[]]$neededDevPackages = @(
+        '@eslint/eslintrc',
+        '@eslint/js',
+        '@typescript-eslint/eslint-plugin^7'
+        '@typescript-eslint/parser^7'
         'eslint'
-        'eslint-plugin-import'
-        'eslint-plugin-tailwindcss'
+        'eslint-config-airbnb-typescript'
         'eslint-config-prettier'
+        'eslint-import-resolver-typescript'
+        'eslint-plugin-import'
+        'eslint-plugin-jest'
+        'eslint-plugin-jsdoc'
+        'eslint-plugin-perfectionist'
+        'eslint-plugin-regexp'
+        'eslint-plugin-simple-import-sort'
+        'eslint-plugin-unicorn'
+        'globals'
+        'typescript-eslint'
     )
 
-    if ($UseBrower) {
-        $eslintrc.env.Add('browser', $true)
-    }
     if ($UseNode) {
-        $eslintrc.env.Add('node', $true)
-        # Since we can't omit the extension on the import statements in ESM.
-        $eslintrc.rules.Add(
-            'import/extensions', @(
-                'error'
-                'always'
-            )
-        )
-    }
-    if ($UseReact) {
-        # https://www.npmjs.com/package/eslint-config-airbnb
-        $neededDevPackages += @(
-            'eslint-config-airbnb'
-            'eslint-plugin-react'
-            'eslint-plugin-react-hooks'
-            'eslint-plugin-jsx-a11y'
-            'eslint-plugin-react-compiler@beta'
-            'babel-plugin-react-compiler@beta'
-        )
-        $eslintrc.extends += @(
-            'airbnb'
-            'airbnb/hooks'
-        )
-        $eslintrc.plugins += 'eslint-plugin-react-compiler'
+        Join-Path -Path $PSScriptRoot -ChildPath 'base\tsconfig.eslint.json' |
+        Copy-Item -Destination $tsconfigEslintDest
+        Join-Path -Path $PSScriptRoot -ChildPath 'node\eslint.config.mjs' |
+        Copy-Item -Destination $eslintConfigDest
     }
     else {
-        # https://www.npmjs.com/package/eslint-config-airbnb-base
-        $neededDevPackages += 'eslint-config-airbnb-base'
-        $eslintrc.extends += 'airbnb-base'
-    }
-    if ($UseTypeScript) {
-        # https://www.npmjs.com/package/eslint-config-airbnb-typescript
-        # https://typescript-eslint.io/linting/typed-linting/
-        # https://typescriptbook.jp/tutorials/eslint#typescript-eslint%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E4%BD%9C%E3%82%8B
         $neededDevPackages += @(
-            'eslint-config-airbnb-typescript'
-            '@typescript-eslint/eslint-plugin'
-            '@typescript-eslint/parser'
+            'eslint-plugin-jest-dom'
+            'eslint-plugin-tailwindcss'
+            'eslint-plugin-testing-library'
         )
-        $eslintrc.Add('parser', '@typescript-eslint/parser')
-        $eslintrc.parserOptions.Add('project', './tsconfig.eslint.json')
-        $eslintrc.parserOptions.Add('tsconfigRootDir', './')
-        $eslintrc.plugins += '@typescript-eslint'
         if ($UseReact) {
-            $eslintrc.extends += 'airbnb-typescript'
-            $eslintrc.rules.Add('react/react-in-jsx-scope', 'off')
-            $eslintrc.rules.Add('react-compiler/react-compiler', 'error')
+            $neededDevPackages += @(
+                'babel-plugin-react-compiler@beta'
+                'eslint-config-airbnb'
+                'eslint-plugin-jsx-a11y'
+                'eslint-plugin-react'
+                'eslint-plugin-react-compiler@beta'
+                'eslint-plugin-react-hooks'
+                'eslint-plugin-react-refresh'
+            )
+            if ($IsNextJs) {
+                # Make configs more strict and add support for FlatConfig
+                $neededDevPackages += '@next/eslint-plugin-next'
+                # Remove "lint" from npm scripts to replace "next lint" with "eslint ."
+                [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
+                $package.scripts.Remove('lint')
+                Export-MyJSON -LiteralPath '.\package.json' -CustomObject $package
+                # Remove unused existing .eslintrc.json
+                git rm '.\.eslintrc.json'
+                # Remove unused "esilnt-config-next"
+                pnpm rm eslint-config-next
+                Join-Path -Path $PSScriptRoot -ChildPath 'base\tsconfig-next.eslint.json' |
+                Copy-Item -Destination $tsconfigEslintDest
+                Join-Path -Path $PSScriptRoot -ChildPath 'browser\eslint-next.config.mjs' |
+                Copy-Item -Destination $eslintConfigDest
+            }
+            else {
+                Join-Path -Path $PSScriptRoot -ChildPath 'base\tsconfig.eslint.json' |
+                Copy-Item -Destination $tsconfigEslintDest
+                Join-Path -Path $PSScriptRoot -ChildPath 'browser\eslint-react.config.mjs' |
+                Copy-Item -Destination $eslintConfigDest
+            }
         }
         else {
-            $eslintrc.extends += 'airbnb-typescript/base'
+            $neededDevPackages += 'eslint-config-airbnb-base'
+            Join-Path -Path $PSScriptRoot -ChildPath 'base\tsconfig.eslint.json' |
+            Copy-Item -Destination $tsconfigEslintDest
+            Join-Path -Path $PSScriptRoot -ChildPath 'browser\eslint.config.mjs' |
+            Copy-Item -Destination $eslintConfigDest
         }
-        $eslintrc.extends += 'plugin:@typescript-eslint/recommended-requiring-type-checking'
-        # Use ESLint rules instead of `verbatimModuleSyntax`, as it still has some compatibility issues.
-        # https://zenn.dev/teppeis/articles/2023-04-typescript-5_0-verbatim-module-syntax#verbatimmodulesyntax%E3%81%A8-cjs-%E3%81%AE%E7%9B%B8%E6%80%A7%E3%81%8C%E6%82%AA%E3%81%84
-        # https://johnnyreilly.com/typescript-5-importsnotusedasvalues-error-eslint-consistent-type-imports
-        $eslintrc.rules.Add('@typescript-eslint/consistent-type-imports', 'error')
-        $eslintrc.rules.Add('@typescript-eslint/no-import-type-side-effects', 'error')
-        $eslintrc.rules.Add('import/consistent-type-specifier-style', @(
-                'error'
-                'prefer-top-level'
-            )
-        )
-        <# Create tsconfig.eslint.json to avoid the error below. #>
-        # https://typescript-eslint.io/linting/troubleshooting/#i-get-errors-telling-me-eslint-was-configured-to-run--however-that-tsconfig-does-not--none-of-those-tsconfigs-include-this-file
-        [string]$tsconfigEslintPath = '.\tsconfig.eslint.json'
-        [hashtable]$tsconfigEslint = [ordered]@{
-            extends         = './tsconfig'
-            include         = @(
-                'src',
-                '*.*js',
-                '*.ts'
-            )
-            compilerOptions = @{
-                noEmit = $true
-            }
-        }
-        if ($IsNextJs) {
-            $tsconfigEslint = [ordered]@{
-                extends         = './tsconfig'
-                include         = @(
-                    'next-env.d.ts',
-                    '*.*js',
-                    '**/*.ts',
-                    '**/*.tsx',
-                    '.next/types/**/*.ts'
-                )
-                compilerOptions = @{
-                    noEmit = $true
-                }
-            }
-            # To fix error importing "nextConfig.mjs"
-            $eslintrc.rules.Add('import/extensions', 'off')
-            # To fix error importing non ts files like images
-            $eslintrc.rules.Add('import/order', 'off')
-        }
-        Export-MyJSON -LiteralPath $tsconfigEslintPath -CustomObject $tsconfigEslint
-        git add $tsconfigEslintPath
     }
-    if ($UseJest) {
-        # https://www.npmjs.com/package/eslint-plugin-jest
-        # https://github.com/jest-community/eslint-plugin-jest#running-rules-only-on-test-related-files
-        $neededDevPackages += 'eslint-plugin-jest'
-        [hashtable]$eslintOverridesJest = [ordered]@{
-            env     = @{
-                jest = $true
-            }
-            plugins = @('jest')
-            extends = 'plugin:jest/all'
-            files   = @('*.test.js')
-        }
-        if ($UseTypeScript) {
-            $eslintOverridesJest.files = @('*.test.ts')
-        }
-        $eslintrc.Add('overrides', @($eslintOverridesJest))
-    }
-    $eslintrc.extends += @(
-        'plugin:tailwindcss/recommended'
-        'prettier'
-    )
     pnpm add -D @neededDevPackages
     Export-MyJSON -LiteralPath $eslintrcPath -CustomObject $eslintrc
     Add-MyNpmScript -NameToScript @{
         'lint' = 'eslint .'
     }
 
-    git add '.\.eslintrc.json' '.\pnpm-lock.yaml' '.\package.json'
+    git add '.\package.json' '.\pnpm-lock.yaml' $tsconfigEslintDest $eslintConfigDest
     git commit -m 'Add ESLint'
 }

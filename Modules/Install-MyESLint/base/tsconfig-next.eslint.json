@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig",
+  "include": [
+    "next-env.d.ts",
+    "*.*js",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "compilerOptions": {
+    "noEmit": true
+  }
+}

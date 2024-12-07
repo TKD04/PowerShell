@@ -40,21 +40,8 @@ function Add-MyPackagesToNextJs {
     git commit -m 'Make tsconfig more strict'
 
     <# ESLint #>
-    # Replace `next lint` with `eslint .` on `lint` npm script
-    [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
-    $package.scripts.Remove('lint')
-    Export-MyJSON -LiteralPath '.\package.json' -CustomObject $package
-    # Make eslintrc more strict
-    git rm '.\.eslintrc.json'
-    Install-MyESLint -UseTypeScript -UseReact -UseJest -IsNextJs
-    [hashtable]$eslintrc = Import-MyJSON -LiteralPath '.\.eslintrc.json' -AsHashTable
-    # https://nextjs.org/docs/app/building-your-application/configuring/eslint#migrating-existing-config
-    pnpm rm eslint-config-next
-    pnpm add -D @next/eslint-plugin-next
-    $eslintrc.extends += 'plugin:@next/next/recommended'
-    Export-MyJSON -LiteralPath '.\.eslintrc.json' -CustomObject $eslintrc
-    git add '.\.eslintrc.json' '.\package.json' '.\package-lock.json'
-    git commit -m 'Make eslintrc more strict'
+    # Make eslint config more strict
+    Install-MyESLint -UseReact -IsNextJs
 
     <# Jest #>
     Install-MyJest -UseBrowser -UseReact

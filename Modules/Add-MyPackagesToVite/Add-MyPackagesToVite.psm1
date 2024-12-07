@@ -51,7 +51,7 @@ function Add-MyPackagesToVite {
     pnpm rm @esilnt/js eslint globals typescript-eslint eslint-plugin-react-hooks
     git rm '.\eslint.config.js'
     # Make eslintrc more strict
-    Install-MyESLint -UseBrower -UseTypeScript -UseReact -UseJest
+    Install-MyESLint -UseReact
     [hashtable]$eslintrc = Import-MyJSON -LiteralPath '.\.eslintrc.json' -AsHashTable
     # Add Vite default settings
     $eslintrc.env.Remove('es2021')

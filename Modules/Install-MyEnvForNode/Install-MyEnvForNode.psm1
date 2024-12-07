@@ -21,7 +21,7 @@ function Install-MyEnvForNode {
     Initialize-MyGit
     Initialize-MyNpm
     Install-MyTypeScript -UseNode
-    Install-MyESLint -UseTypeScript -UseNode -UseJest:$UseJest
+    Install-MyESLint -UseNode
     if ($UseJest) {
         Install-MyJest -UseNode
     }

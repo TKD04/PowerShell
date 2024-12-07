@@ -26,7 +26,7 @@ function Install-MyEnvForWeb {
     if ($UseReact) {
         Install-MyReact
     }
-    Install-MyESLint -UseTypeScript -UseJest -UseBrower -UseReact:$UseReact
+    Install-MyESLint -UseReact:$UseReact
     Install-MyJest -UseBrowser -UseReact:$UseReact
     Install-MyPrettier -UseTailwindcss:(!$OnlyTs) -UsePug:(!$OnlyTs)
     Install-MyWebpack -OnlyTs:$OnlyTs
