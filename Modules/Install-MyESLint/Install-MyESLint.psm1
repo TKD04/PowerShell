@@ -19,6 +19,7 @@ function Install-MyESLint {
         [switch]$UseReact,
         [switch]$IsNextJs
     )
+
     if (($UseNode -and $UseReact) -or ($UseNode -and $IsNextJs)) {
         throw '$UseNode cannot be used with $UseReact or $IsNextJs'
     }
