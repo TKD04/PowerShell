@@ -31,12 +31,12 @@ function Install-MyJest {
     )
 
     if ($UseBrowser) {
-        Join-Path -Path $PSScriptRoot -ChildPath 'browser\jest.ts.config.cjs' |
+        Join-Path -Path $PSScriptRoot -ChildPath 'browser\jest.config.cjs' |
         Copy-Item -Destination $jestConfigPath
         $neededDevPackages += 'jest-environment-jsdom'
     }
     if ($UseNode) {
-        Join-Path -Path $PSScriptRoot -ChildPath 'node\jest.ts.config.cjs' |
+        Join-Path -Path $PSScriptRoot -ChildPath 'node\jest.config.cjs' |
         Copy-Item -Destination $jestConfigPath
     }
     if ($UseReact) {
