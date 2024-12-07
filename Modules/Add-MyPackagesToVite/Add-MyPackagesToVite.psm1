@@ -2,21 +2,21 @@
 .SYNOPSIS
 Adds some needed packages to a Vite
 
-.PARAMETER DeployToGitHubPages
-Whether to use GitHub Pages to publish a site
-
 .PARAMETER UseReact
 Whether to support React.
 
 .PARAMETER UseDaisyUi
 Whether to support daisyUI
+
+.PARAMETER DeployToGitHubPages
+Whether to use GitHub Pages to publish a site
 #>
 function Add-MyPackagesToVite {
     [OutputType([void])]
     param (
-        [switch]$DeployToGitHubPages,
         [switch]$UseDaisyUi,
-        [switch]$UseReact
+        [switch]$UseReact,
+        [switch]$DeployToGitHubPages
     )
 
     [hashtable]$viteDefaultCompilerOptions = [ordered]@{
