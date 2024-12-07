@@ -69,7 +69,7 @@ function Add-MyPackagesToVite {
     git commit -m 'Make eslintrc more strict'
 
     <# Jest #>
-    Install-MyJest -UseBrowser -UseReact
+    Install-MyJest -UseReact
 
     <# Prettier #>
     Install-MyPrettier -UseTailwindcss

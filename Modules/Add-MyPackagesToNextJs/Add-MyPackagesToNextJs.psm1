@@ -44,7 +44,7 @@ function Add-MyPackagesToNextJs {
     Install-MyESLint -UseReact -IsNextJs
 
     <# Jest #>
-    Install-MyJest -UseBrowser -UseReact
+    Install-MyJest -UseReact
     # Replace `<rootDir>/src` with `<rootDir>` in roots to work properly in Next.js
     Join-Path -Path $PSScriptRoot -ChildPath 'common\jest-nextjs.config.cjs' |
     Copy-Item -Destination '.\jest.config.cjs' -Force

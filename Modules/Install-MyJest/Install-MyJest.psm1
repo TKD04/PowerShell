@@ -1,9 +1,7 @@
 <#
 .SYNOPSIS
 Adds Jest and its settings to the current directory.
-
-.PARAMETER UseBrowser
-Whether to support browser (dom).
+It installs the browser settings by default.
 
 .PARAMETER UseNode
 Whether to support Node.
@@ -14,13 +12,12 @@ Whether to support React.
 function Install-MyJest {
     [OutputType([void])]
     param(
-        [switch]$UseBrowser,
         [switch]$UseNode,
         [switch]$UseReact
     )
 
-    if (($UseBrowser -and $UseNode) -or !($UseBrowser -or $UseNode) ) {
-        throw 'Only enable either $UserBrowser or $UseNode'
+    if (($UseNode -and $UseReact)) {
+        throw 'Only enable either $UseNode or $UseReact'
     }
 
     [string]$jestConfigPath = '.\jest.config.cjs'
@@ -31,21 +28,25 @@ function Install-MyJest {
     )
 
     if ($UseBrowser) {
-        Join-Path -Path $PSScriptRoot -ChildPath 'browser\jest.config.cjs' |
-        Copy-Item -Destination $jestConfigPath
-        $neededDevPackages += 'jest-environment-jsdom'
     }
     if ($UseNode) {
         Join-Path -Path $PSScriptRoot -ChildPath 'node\jest.config.cjs' |
         Copy-Item -Destination $jestConfigPath
     }
-    if ($UseReact) {
+    else {
+        Join-Path -Path $PSScriptRoot -ChildPath 'browser\jest.config.cjs' |
+        Copy-Item -Destination $jestConfigPath
         $neededDevPackages += @(
             '@testing-library/dom'
             '@testing-library/jest-dom'
-            '@testing-library/react'
-            '@testing-library/user-event'
+            'jest-environment-jsdom'
         )
+        if ($UseReact) {
+            $neededDevPackages += @(
+                '@testing-library/react'
+                '@testing-library/user-event'
+            )
+        }
     }
     Add-MyNpmScript -NameToScript @{
         'test' = 'jest'
