@@ -99,7 +99,6 @@ function Install-MyESLint {
         }
     }
     pnpm add -D @neededDevPackages
-    Export-MyJSON -LiteralPath $eslintrcPath -CustomObject $eslintrc
     Add-MyNpmScript -NameToScript @{
         'lint' = 'eslint .'
     }
