@@ -23,7 +23,7 @@ function Install-MyJest {
         throw 'Only enable either $UserBrowser or $UseNode'
     }
 
-    [string]$jestConfigPath = '.\jest.config.js'
+    [string]$jestConfigPath = '.\jest.config.cjs'
     [string[]]$neededDevPackages = @(
         'jest'
         'ts-jest'
@@ -31,12 +31,12 @@ function Install-MyJest {
     )
 
     if ($UseBrowser) {
-        Join-Path -Path $PSScriptRoot -ChildPath 'browser\jest.ts.config.js' |
+        Join-Path -Path $PSScriptRoot -ChildPath 'browser\jest.ts.config.cjs' |
         Copy-Item -Destination $jestConfigPath
         $neededDevPackages += 'jest-environment-jsdom'
     }
     if ($UseNode) {
-        Join-Path -Path $PSScriptRoot -ChildPath 'node\jest.ts.config.js' |
+        Join-Path -Path $PSScriptRoot -ChildPath 'node\jest.ts.config.cjs' |
         Copy-Item -Destination $jestConfigPath
     }
     if ($UseReact) {

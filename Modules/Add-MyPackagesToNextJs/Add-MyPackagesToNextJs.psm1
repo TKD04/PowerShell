@@ -46,9 +46,9 @@ function Add-MyPackagesToNextJs {
     <# Jest #>
     Install-MyJest -UseBrowser -UseReact
     # Replace `<rootDir>/src` with `<rootDir>` in roots to work properly in Next.js
-    Join-Path -Path $PSScriptRoot -ChildPath 'common\jest-nextjs.config.js' |
-    Copy-Item -Destination '.\jest.config.js' -Force
-    git add '.\jest.config.js'
+    Join-Path -Path $PSScriptRoot -ChildPath 'common\jest-nextjs.config.cjs' |
+    Copy-Item -Destination '.\jest.config.cjs' -Force
+    git add '.\jest.config.cjs'
     git commit -m 'Change `roots` from "<rootDir>/src" to "<rootDir>"'
 
     <# Prettier #>
