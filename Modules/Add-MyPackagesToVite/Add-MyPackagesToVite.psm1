@@ -5,6 +5,9 @@ Adds some needed packages to a Vite
 .PARAMETER DeployToGitHubPages
 Whether to use GitHub Pages to publish a site
 
+.PARAMETER UseReact
+Whether to support React.
+
 .PARAMETER UseDaisyUi
 Whether to support daisyUI
 #>
@@ -12,7 +15,8 @@ function Add-MyPackagesToVite {
     [OutputType([void])]
     param (
         [switch]$DeployToGitHubPages,
-        [switch]$UseDaisyUi
+        [switch]$UseDaisyUi,
+        [switch]$UseReact
     )
 
     [hashtable]$viteDefaultCompilerOptions = [ordered]@{
@@ -31,7 +35,7 @@ function Add-MyPackagesToVite {
     <# TypeScript #>
     # Make tsconfig more strict
     git rm '.\tsconfig.json'
-    Install-MyTypeScript -UseReact -NoEmit
+    Install-MyTypeScript -UseReact:$UseReact -NoEmit
     [hashtable]$tsConfig = Import-MyJSON -LiteralPath '.\tsconfig.json' -AsHashTable
     # Add Vite default settings
     $viteDefaultCompilerOptions.GetEnumerator() | ForEach-Object {
@@ -51,7 +55,7 @@ function Add-MyPackagesToVite {
     pnpm rm @esilnt/js eslint globals typescript-eslint eslint-plugin-react-hooks
     git rm '.\eslint.config.js'
     # Make eslintrc more strict
-    Install-MyESLint -UseReact
+    Install-MyESLint -UseReact:$UseReact
     [hashtable]$eslintrc = Import-MyJSON -LiteralPath '.\.eslintrc.json' -AsHashTable
     # Add Vite default settings
     $eslintrc.env.Remove('es2021')
@@ -69,7 +73,7 @@ function Add-MyPackagesToVite {
     git commit -m 'Make eslintrc more strict'
 
     <# Jest #>
-    Install-MyJest -UseReact
+    Install-MyJest -UseReact:$UseReact
 
     <# Prettier #>
     Install-MyPrettier -UseTailwindcss
