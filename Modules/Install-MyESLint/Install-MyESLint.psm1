@@ -28,8 +28,8 @@ function Install-MyESLint {
     [string[]]$neededDevPackages = @(
         '@eslint/eslintrc',
         '@eslint/js',
-        '@typescript-eslint/eslint-plugin^7'
-        '@typescript-eslint/parser^7'
+        '@typescript-eslint/eslint-plugin@^7'
+        '@typescript-eslint/parser@^7'
         'eslint'
         'eslint-config-airbnb-typescript'
         'eslint-config-prettier'
