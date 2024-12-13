@@ -24,7 +24,7 @@ function Install-MyJest {
     [string[]]$neededDevPackages = @(
         'jest'
         'ts-jest'
-        '@types/jest'
+        "@jest/globals"
     )
 
     if ($UseBrowser) {
