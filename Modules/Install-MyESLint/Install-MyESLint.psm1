@@ -30,7 +30,7 @@ function Install-MyESLint {
         '@eslint/js',
         '@typescript-eslint/eslint-plugin@^7'
         '@typescript-eslint/parser@^7'
-        'eslint'
+        'eslint@^8'
         'eslint-config-airbnb-typescript'
         'eslint-config-prettier'
         'eslint-import-resolver-typescript'
