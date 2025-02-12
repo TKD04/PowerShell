@@ -206,14 +206,5 @@ export default tseslint.config(
       jest: jestPlugin,
     },
   },
-  {
-    files: ["**/*.config.{js,mjs,cjs,ts}"],
-    languageOptions: {
-      parserOptions: {
-        project: "./tsconfig.eslint.json",
-      },
-    },
-    name: "config files",
-  },
   prettierConfig
 );

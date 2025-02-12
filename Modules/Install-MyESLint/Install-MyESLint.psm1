@@ -23,7 +23,6 @@ function Install-MyESLint {
     if (($UseNode -and $UseReact) -or ($UseNode -and $IsNextJs)) {
         throw '$UseNode cannot be used with $UseReact or $IsNextJs'
     }
-    [string]$tsconfigEslintDest = '.\tsconfig.eslint.json'
     [string]$eslintConfigDest = '.\eslint.config.mjs'
     [string[]]$neededDevPackages = @(
         '@eslint/eslintrc',
@@ -46,8 +45,6 @@ function Install-MyESLint {
     )
 
     if ($UseNode) {
-        Join-Path -Path $PSScriptRoot -ChildPath 'base\tsconfig.eslint.json' |
-        Copy-Item -Destination $tsconfigEslintDest
         Join-Path -Path $PSScriptRoot -ChildPath 'node\eslint.config.mjs' |
         Copy-Item -Destination $eslintConfigDest
     }
@@ -78,22 +75,16 @@ function Install-MyESLint {
                 git rm '.\.eslintrc.json'
                 # Remove unused "esilnt-config-next"
                 pnpm rm eslint-config-next
-                Join-Path -Path $PSScriptRoot -ChildPath 'base\tsconfig-next.eslint.json' |
-                Copy-Item -Destination $tsconfigEslintDest
                 Join-Path -Path $PSScriptRoot -ChildPath 'browser\eslint-next.config.mjs' |
                 Copy-Item -Destination $eslintConfigDest
             }
             else {
-                Join-Path -Path $PSScriptRoot -ChildPath 'base\tsconfig.eslint.json' |
-                Copy-Item -Destination $tsconfigEslintDest
                 Join-Path -Path $PSScriptRoot -ChildPath 'browser\eslint-react.config.mjs' |
                 Copy-Item -Destination $eslintConfigDest
             }
         }
         else {
             $neededDevPackages += 'eslint-config-airbnb-base'
-            Join-Path -Path $PSScriptRoot -ChildPath 'base\tsconfig.eslint.json' |
-            Copy-Item -Destination $tsconfigEslintDest
             Join-Path -Path $PSScriptRoot -ChildPath 'browser\eslint.config.mjs' |
             Copy-Item -Destination $eslintConfigDest
         }
@@ -103,6 +94,6 @@ function Install-MyESLint {
         'lint' = 'eslint .'
     }
 
-    git add '.\package.json' '.\pnpm-lock.yaml' $tsconfigEslintDest $eslintConfigDest
+    git add '.\package.json' '.\pnpm-lock.yaml' $eslintConfigDest
     git commit -m 'Add ESLint'
 }
