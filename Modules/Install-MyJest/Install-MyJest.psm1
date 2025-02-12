@@ -27,8 +27,6 @@ function Install-MyJest {
         '@jest/globals'
     )
 
-    if ($UseBrowser) {
-    }
     if ($UseNode) {
         Join-Path -Path $PSScriptRoot -ChildPath 'node\jest.config.cjs' |
         Copy-Item -Destination $jestConfigPath
