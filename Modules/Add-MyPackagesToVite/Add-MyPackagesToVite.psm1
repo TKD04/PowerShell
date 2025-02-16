@@ -80,6 +80,8 @@ function Add-MyPackagesToVite {
 
     <# Tailwind CSS #>
     Install-MyTailwindCss -IsVite -UseDaisyUi:$UseDaisyUi
+
+    <# VSCode config #>
     Install-MyVSCodeSettingsForWeb
 
     <# Rename .js .cjs for config files to work in type: module #>

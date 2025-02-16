@@ -56,6 +56,8 @@ function Add-MyPackagesToNextJs {
 
     <# Tailwind CSS #>
     Install-MyTailwindCss -IsNextJs -UseDaisyUi:$UseDaisyUi
+
+    <# VSCode config #>
     Install-MyVSCodeSettingsForWeb
 
     <# Add next.yml to deploy to GitHub Pages #>
