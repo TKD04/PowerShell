@@ -68,6 +68,9 @@ function Install-MyTypeScript {
         }
     }
 
+    if ($NoEmit) {
+        $tsConfig.compilerOptions.Add('noEmit', $true)
+    }
     if ($UseNode) {
         # https://gist.github.com/azu/56a0411d69e2fc333d545bfe57933d07
         # https://github.com/tsconfig/bases/tree/main/bases
@@ -78,9 +81,6 @@ function Install-MyTypeScript {
             'es2023'
         )
         pnpm add -D @types/node
-    }
-    if ($NoEmit) {
-        $tsConfig.compilerOptions.Add('noEmit', $true)
     }
     if ($UseReact) {
         $tsConfig.compilerOptions.Add('jsx', 'react-jsx')
