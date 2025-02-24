@@ -75,7 +75,7 @@ function Install-MyTypeScript {
     if ($UseNode) {
         # https://gist.github.com/azu/56a0411d69e2fc333d545bfe57933d07
         # https://github.com/tsconfig/bases/tree/main/bases
-        # For node-lts (node18)
+        # For Node 22
         $tsConfig.compilerOptions.module = 'node16'
         $tsConfig.compilerOptions.target = 'es2022'
         $tsConfig.compilerOptions.lib = @(
