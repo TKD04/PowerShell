@@ -28,11 +28,11 @@ function Install-MyJest {
     )
 
     if ($UseNode) {
-        Join-Path -Path $PSScriptRoot -ChildPath 'node\jest.ts.config.cjs' |
+        Join-Path -Path $PSScriptRoot -ChildPath 'node\jest-ts.config.cjs' |
         Copy-Item -Destination $jestConfigPath
     }
     else {
-        Join-Path -Path $PSScriptRoot -ChildPath 'browser\jest.ts.config.cjs' |
+        Join-Path -Path $PSScriptRoot -ChildPath 'browser\jest-ts.config.cjs' |
         Copy-Item -Destination $jestConfigPath
         $devDependencies += @(
             '@testing-library/dom'
