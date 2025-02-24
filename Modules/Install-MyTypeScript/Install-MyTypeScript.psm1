@@ -41,8 +41,6 @@ function Install-MyTypeScript {
             'module'                             = 'node16'
             'moduleResolution'                   = 'node16'
             'resolveJsonModule'                  = $true
-            # https://stackoverflow.com/questions/35193111/compiling-typescript-using-gulp-is-creating-an-unwanted-destination-folder
-            'rootDir'                            = './src'
             <# Emit #>
             'outDir'                             = './dist'
             'sourceMap'                          = $true
