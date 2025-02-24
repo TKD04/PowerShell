@@ -11,7 +11,7 @@ function Install-MyWebpack {
         [switch]$OnlyTs
     )
 
-    [string[]]$neededDevPackages = @(
+    [string[]]$devDependencies = @(
         'webpack'
         'webpack-cli'
         'ts-loader'
@@ -29,14 +29,14 @@ function Install-MyWebpack {
         Export-MyJSON -LiteralPath '.\package.json' -CustomObject $package
         <# Add npm scripts for webpack to package.json #>
         Add-MyNpmScript -NameToScript $npmScripts
-        pnpm add -D @neededDevPackages
+        pnpm add -D @devDependencies
 
         git add '.\pnpm-lock.yaml' '.\package.json' '.\webpack.config.js'
         git commit -m 'Add webpack'
         return
     }
     <# Add needed packages and npm scirpt #>
-    $neededDevPackages += @(
+    $devDependencies += @(
         'webpack-dev-server'
         'pug-plugin'
         'css-loader'
@@ -85,7 +85,7 @@ function Install-MyWebpack {
     Export-MyJSON -LiteralPath '.\package.json' -CustomObject $package
     <# Add npm scripts for webpack to package.json #>
     Add-MyNpmScript -NameToScript $npmScripts
-    pnpm add -D @neededDevPackages
+    pnpm add -D @devDependencies
 
     git add '.\pnpm-lock.yaml' '.\package.json' '.\webpack.config.js' '.\tailwind.config.js' '.\src'
     git commit -m 'Add webpack'

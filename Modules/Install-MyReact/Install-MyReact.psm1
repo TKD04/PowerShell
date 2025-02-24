@@ -10,13 +10,13 @@ function Install-MyReact {
         'react'
         'react-dom'
     )
-    [string[]]$neededDevPackages = @(
+    [string[]]$devDependencies = @(
         '@types/react'
         '@types/react-dom'
     )
 
     pnpm add @neededPackages
-    pnpm add -D @neededDevPackages
+    pnpm add -D @devDependencies
 
     git add '.\pnpm-lock.yaml' '.\package.json'
     git commit -m 'Add React'

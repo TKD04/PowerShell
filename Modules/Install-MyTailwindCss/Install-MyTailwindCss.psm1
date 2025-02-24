@@ -19,7 +19,7 @@ function Install-MyTailwindCss {
         [switch]$UseDaisyUi
     )
 
-    [string[]]$neededDevPackages = @(
+    [string[]]$devDependencies = @(
         'tailwindcss'
         'postcss'
         'autoprefixer'
@@ -65,11 +65,11 @@ function Install-MyTailwindCss {
     Join-Path -Path $PSScriptRoot -ChildPath 'common\postcss.config.js'
     Copy-Item -Destination '.\postcss.config.js'
     # https://tailwindcss.com/docs/optimizing-for-production
-    $neededDevPackages += 'cssnano'
+    $devDependencies += 'cssnano'
     if ($UseDaisyUi) {
-        $neededDevPackages += 'daisyui'
+        $devDependencies += 'daisyui'
     }
-    pnpm add -D @neededDevPackages
+    pnpm add -D @devDependencies
 
     git add '.\pnpm-lock.yaml' '.\package.json' '.\tailwind.config.js' '.\postcss.config.js' '.\src\index.css'
     git commit -m 'Add Tailwind CSS'

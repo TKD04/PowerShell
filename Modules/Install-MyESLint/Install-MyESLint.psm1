@@ -24,7 +24,7 @@ function Install-MyESLint {
         throw '$UseNode cannot be used with $UseReact or $IsNextJs'
     }
     [string]$eslintConfigDest = '.\eslint.config.mjs'
-    [string[]]$neededDevPackages = @(
+    [string[]]$devDependencies = @(
         '@eslint/eslintrc',
         '@eslint/js',
         '@typescript-eslint/eslint-plugin@^7'
@@ -49,13 +49,13 @@ function Install-MyESLint {
         Copy-Item -Destination $eslintConfigDest
     }
     else {
-        $neededDevPackages += @(
+        $devDependencies += @(
             'eslint-plugin-jest-dom'
             'eslint-plugin-tailwindcss'
             'eslint-plugin-testing-library'
         )
         if ($UseReact) {
-            $neededDevPackages += @(
+            $devDependencies += @(
                 'babel-plugin-react-compiler@beta'
                 'eslint-config-airbnb'
                 'eslint-plugin-jsx-a11y'
@@ -66,7 +66,7 @@ function Install-MyESLint {
             )
             if ($IsNextJs) {
                 # Make configs more strict and add support for FlatConfig
-                $neededDevPackages += '@next/eslint-plugin-next'
+                $devDependencies += '@next/eslint-plugin-next'
                 # Remove "lint" from npm scripts to replace "next lint" with "eslint ."
                 [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
                 $package.scripts.Remove('lint')
@@ -84,12 +84,12 @@ function Install-MyESLint {
             }
         }
         else {
-            $neededDevPackages += 'eslint-config-airbnb-base'
+            $devDependencies += 'eslint-config-airbnb-base'
             Join-Path -Path $PSScriptRoot -ChildPath 'browser\eslint.config.mjs' |
             Copy-Item -Destination $eslintConfigDest
         }
     }
-    pnpm add -D @neededDevPackages
+    pnpm add -D @devDependencies
     Add-MyNpmScript -NameToScript @{
         'lint' = 'eslint .'
     }

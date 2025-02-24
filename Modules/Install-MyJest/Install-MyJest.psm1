@@ -21,7 +21,7 @@ function Install-MyJest {
     }
 
     [string]$jestConfigPath = '.\jest.config.cjs'
-    [string[]]$neededDevPackages = @(
+    [string[]]$devDependencies = @(
         'jest'
         'ts-jest'
         '@jest/globals'
@@ -34,13 +34,13 @@ function Install-MyJest {
     else {
         Join-Path -Path $PSScriptRoot -ChildPath 'browser\jest.ts.config.cjs' |
         Copy-Item -Destination $jestConfigPath
-        $neededDevPackages += @(
+        $devDependencies += @(
             '@testing-library/dom'
             '@testing-library/jest-dom'
             'jest-environment-jsdom'
         )
         if ($UseReact) {
-            $neededDevPackages += @(
+            $devDependencies += @(
                 '@testing-library/react'
                 '@testing-library/user-event'
             )
@@ -49,7 +49,7 @@ function Install-MyJest {
     Add-MyNpmScript -NameToScript @{
         'test' = 'jest'
     }
-    pnpm add -D @neededDevPackages
+    pnpm add -D @devDependencies
 
     git add '.\pnpm-lock.yaml' '.\package.json' $jestConfigPath
     git commit -m 'Add Jest'

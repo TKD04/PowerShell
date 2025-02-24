@@ -15,7 +15,7 @@ function Install-MyPrettier {
         [switch]$UseTailwindcss
     )
 
-    [string[]]$neededDevPackages = @(
+    [string[]]$devDependencies = @(
         'prettier'
     )
 
@@ -23,20 +23,20 @@ function Install-MyPrettier {
         [string]$prettierConfigPath = ''
 
         if ($UsePug -and $UseTailwindcss) {
-            $neededDevPackages += @(
+            $devDependencies += @(
                 '@prettier/plugin-pug'
                 'prettier-plugin-tailwindcss'
             )
             $prettierConfigPath = Join-Path -Path $PSScriptRoot -ChildPath 'pug\prettier.tailwind.config.js'
         }
         elseif ($UsePug -and !$UseTailwindcss) {
-            $neededDevPackages += @(
+            $devDependencies += @(
                 '@prettier/plugin-pug'
             )
             $prettierConfigPath = Join-Path -Path $PSScriptRoot -ChildPath 'pug\prettier.config.js'
         }
         elseif (!$UsePug -and $UseTailwindcss) {
-            $neededDevPackages += @(
+            $devDependencies += @(
                 'prettier-plugin-tailwindcss'
             )
             $prettierConfigPath = Join-Path -Path $PSScriptRoot -ChildPath 'tailwind\prettier.config.js'
@@ -48,7 +48,7 @@ function Install-MyPrettier {
     Add-MyNpmScript -NameToScript @{
         'format' = 'prettier . --write'
     }
-    pnpm add -D @neededDevPackages
+    pnpm add -D @devDependencies
 
     git add '.\pnpm-lock.yaml' '.\package.json'
     git commit -m 'Add Prettier'
