@@ -38,7 +38,7 @@ function Install-MyTypeScript {
             'noUnusedParameters'                 = $true
             'strict'                             = $true
             <# Modules #>
-            'module'                             = 'node16'
+            'module'                             = 'esnext'
             'moduleResolution'                   = 'node16'
             'resolveJsonModule'                  = $true
             <# Emit #>
