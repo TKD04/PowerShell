@@ -35,7 +35,7 @@ function Add-MyPackagesToVite {
     <# TypeScript #>
     # Make tsconfig more strict
     git rm '.\tsconfig.json'
-    Install-MyTypeScript -UseReact:$UseReact -NoEmit
+    Install-MyTypeScript -NoEmit -UseReact:$UseReact
     [hashtable]$tsConfig = Import-MyJSON -LiteralPath '.\tsconfig.json' -AsHashTable
     # Add Vite default settings
     $viteDefaultCompilerOptions.GetEnumerator() | ForEach-Object {
