@@ -10,13 +10,17 @@ Whether to support Node.
 
 .PARAMETER UseReact
 Whether to support React.
+
+.PARAMETER IsVite
+Whether to add Vite default configs.
 #>
 function Install-MyTypeScript {
     [OutputType([void])]
     param (
         [switch]$NoEmit,
         [switch]$UseNode,
-        [switch]$UseReact
+        [switch]$UseReact,
+        [switch]$IsVite
     )
 
     [hashtable]$tsConfig = [ordered]@{
@@ -66,8 +70,10 @@ function Install-MyTypeScript {
     [string[]]$devDependencies = @(
         'typescript'
     )
+    [string]$tsConfigPath = '.\tsconfig.json'
+    [string]$commitMessage = 'Add TypeScript'
 
-    if ($NoEmit) {
+    if ($NoEmit -or $IsVite) {
         $tsConfig.compilerOptions.Add('noEmit', $true)
     }
     if ($UseNode) {
@@ -84,9 +90,37 @@ function Install-MyTypeScript {
     if ($UseReact) {
         $tsConfig.compilerOptions.Add('jsx', 'react-jsx')
     }
-    pnpm add -D @devDependencies
-    Export-MyJSON -LiteralPath '.\tsconfig.json' -CustomObject $tsConfig
+    if ($IsVite) {
+        [hashtable]$viteDefaultCompilerOptions = [ordered]@{
+            'allowImportingTsExtensions' = $true
+            'moduleDetection'            = 'force'
+            'useDefineForClassFields'    = $true
+        }
 
-    git add '.\pnpm-lock.yaml' '.\package.json' '.\tsconfig.json'
-    git commit -m 'Add TypeScript'
+        if ($UseReact) {
+            $tsConfigPath = '.\tsconfig.app.json'
+            $viteDefaultCompilerOptions.Add(
+                'tsBuildInfoFile', './node_modules/.tmp/tsconfig.app.tsbuildinfo'
+            )
+        }
+        $viteDefaultCompilerOptions.GetEnumerator() | ForEach-Object {
+            $tsConfig.compilerOptions.Add($_.Key, $_.Value)
+        }
+        $tsConfig.compilerOptions.moduleResolution = 'bundler'
+        $tsConfig.compilerOptions.lib = @(
+            'es2020'
+            'dom'
+            'dom.iterable'
+        )
+        $tsConfig.compilerOptions.target = 'es2020'
+        $tsConfig.compilerOptions.Remove('outDir')
+        $commitMessage = 'Make tsconfig more strict'
+
+        git rm $tsConfigPath
+    }
+    pnpm add -D @devDependencies
+    Export-MyJSON -LiteralPath $tsConfigPath -CustomObject $tsConfig
+
+    git add '.\pnpm-lock.yaml' '.\package.json' $tsConfigPath
+    git commit -m $commitMessage
 }
