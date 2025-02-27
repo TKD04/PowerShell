@@ -23,7 +23,6 @@ function Install-MyESLint {
     if (($UseNode -and $UseReact) -or ($UseNode -and $IsNextJs)) {
         throw '$UseNode cannot be used with $UseReact or $IsNextJs'
     }
-    [string]$eslintConfigDest = '.\eslint.config.mjs'
     [string[]]$devDependencies = @(
         '@eslint/eslintrc',
         '@eslint/js',
@@ -46,7 +45,7 @@ function Install-MyESLint {
 
     if ($UseNode) {
         Join-Path -Path $PSScriptRoot -ChildPath 'node\eslint.config.mjs' |
-        Copy-Item -Destination $eslintConfigDest
+        Copy-Item -Destination '.\eslint.config.mjs'
     }
     else {
         $devDependencies += @(
@@ -76,17 +75,17 @@ function Install-MyESLint {
                 # Remove unused "esilnt-config-next"
                 pnpm rm eslint-config-next
                 Join-Path -Path $PSScriptRoot -ChildPath 'browser\eslint-next.config.mjs' |
-                Copy-Item -Destination $eslintConfigDest
+                Copy-Item -Destination '.\eslint.config.mjs'
             }
             else {
                 Join-Path -Path $PSScriptRoot -ChildPath 'browser\eslint-react.config.mjs' |
-                Copy-Item -Destination $eslintConfigDest
+                Copy-Item -Destination '.\eslint.config.mjs'
             }
         }
         else {
             $devDependencies += 'eslint-config-airbnb-base'
             Join-Path -Path $PSScriptRoot -ChildPath 'browser\eslint.config.mjs' |
-            Copy-Item -Destination $eslintConfigDest
+            Copy-Item -Destination '.\eslint.config.mjs'
         }
     }
     pnpm add -D @devDependencies
@@ -94,6 +93,6 @@ function Install-MyESLint {
         'lint' = 'eslint .'
     }
 
-    git add '.\package.json' '.\pnpm-lock.yaml' $eslintConfigDest
+    git add '.\package.json' '.\pnpm-lock.yaml' '.\eslint.config.mjs'
     git commit -m 'Add ESLint'
 }
