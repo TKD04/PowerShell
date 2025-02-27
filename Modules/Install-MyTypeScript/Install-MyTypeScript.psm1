@@ -23,6 +23,8 @@ function Install-MyTypeScript {
         [switch]$IsVite
     )
 
+    [string]$commitMessage = 'Add TypeScript'
+    [string]$tsConfigPath = '.\tsconfig.json'
     [hashtable]$tsConfig = [ordered]@{
         # https://www.typescriptlang.org/tsconfig
         'include'         = @(
@@ -70,8 +72,6 @@ function Install-MyTypeScript {
     [string[]]$devDependencies = @(
         'typescript'
     )
-    [string]$tsConfigPath = '.\tsconfig.json'
-    [string]$commitMessage = 'Add TypeScript'
 
     if ($NoEmit -or $IsVite) {
         $tsConfig.compilerOptions.Add('noEmit', $true)
