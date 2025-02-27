@@ -22,7 +22,12 @@ function Add-MyNpmScript {
     # since [PSCustomObject] returns an error when new properties are added to it.
     [hashtable]$package = Import-MyJSON -LiteralPath $packagePath -AsHashTable
     $NameToScript.GetEnumerator() | ForEach-Object {
-        $package.scripts.Add($_.Key, $_.Value)
+        if ($package.ContainsKey($_.Key)) {
+            Write-Warning -Message 'The key "{0}" is already in place.' -f $_.Key
+        }
+        else {
+            $package.scripts.Add($_.Key, $_.Value)
+        }
     }
     Export-MyJSON -LiteralPath $packagePath -CustomObject $package
 }
