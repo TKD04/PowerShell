@@ -43,50 +43,60 @@ function Install-MyESLint {
         'typescript-eslint'
     )
 
-    if ($UseNode) {
-        Join-Path -Path $PSScriptRoot -ChildPath 'node\eslint.config.mjs' |
-        Copy-Item -Destination '.\eslint.config.mjs'
-    }
-    else {
+    <# Browser #>
+    if (!$UseNode) {
         $devDependencies += @(
             'eslint-plugin-jest-dom'
             'eslint-plugin-tailwindcss'
             'eslint-plugin-testing-library'
         )
-        if ($UseReact) {
-            $devDependencies += @(
-                'babel-plugin-react-compiler@beta'
-                'eslint-config-airbnb'
-                'eslint-plugin-jsx-a11y'
-                'eslint-plugin-react'
-                'eslint-plugin-react-compiler@beta'
-                'eslint-plugin-react-hooks'
-                'eslint-plugin-react-refresh'
-            )
-            if ($IsNextJs) {
-                # Make configs more strict and add support for FlatConfig
-                $devDependencies += '@next/eslint-plugin-next'
-                # Remove "lint" from npm scripts to replace "next lint" with "eslint ."
-                [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
-                $package.scripts.Remove('lint')
-                Export-MyJSON -LiteralPath '.\package.json' -CustomObject $package
-                # Remove unused existing .eslintrc.json
-                git rm '.\.eslintrc.json'
-                # Remove unused "esilnt-config-next"
-                pnpm rm eslint-config-next
-                Join-Path -Path $PSScriptRoot -ChildPath 'browser\eslint-next.config.mjs' |
-                Copy-Item -Destination '.\eslint.config.mjs'
-            }
-            else {
-                Join-Path -Path $PSScriptRoot -ChildPath 'browser\eslint-react.config.mjs' |
-                Copy-Item -Destination '.\eslint.config.mjs'
-            }
-        }
-        else {
-            $devDependencies += 'eslint-config-airbnb-base'
-            Join-Path -Path $PSScriptRoot -ChildPath 'browser\eslint.config.mjs' |
-            Copy-Item -Destination '.\eslint.config.mjs'
-        }
+    }
+    <# Not React #>
+    if (!$UseReact -and !$IsNextJs) {
+        $devDependencies += 'eslint-config-airbnb-base'
+    }
+    <# React #>
+    if ($UseReact -or $IsNextJs) {
+        $devDependencies += @(
+            'babel-plugin-react-compiler@beta'
+            'eslint-config-airbnb'
+            'eslint-plugin-jsx-a11y'
+            'eslint-plugin-react'
+            'eslint-plugin-react-compiler@beta'
+            'eslint-plugin-react-hooks'
+            'eslint-plugin-react-refresh'
+        )
+    }
+
+    <# Node.js #>
+    if ($UseNode) {
+        Copy-MyPSScriptRootItem
+        -ChildPath 'node\eslint.config.mjs' -Destination '.\eslint.config.mjs'
+    }
+    <# Vanilla #>
+    if (!$UseReact -and !$IsNextJs) {
+        $devDependencies += 'eslint-config-airbnb-base'
+        Copy-MyPSScriptRootItem
+        -ChildPath 'browser\eslint.config.mjs' -Destination '.\eslint.config.mjs'
+    }
+    <# React #>
+    if ($UseReact -and !$IsNextJs) {
+        Copy-MyPSScriptRootItem
+        -ChildPath 'browser\eslint-react.config.mjs' -Destination '.\eslint.config.mjs'
+    }
+    <# Next.js #>
+    if ($IsNextJs) {
+        [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
+
+        $devDependencies += '@next/eslint-plugin-next'
+        pnpm rm eslint-config-next
+        git rm '.\.eslintrc.json'
+        # Remove "lint" from npm scripts to replace "next lint" with "eslint ."
+        $package.scripts.Remove('lint')
+        Export-MyJSON -LiteralPath '.\package.json' -CustomObject $package
+
+        Copy-MyPSScriptRootItem
+        -ChildPath 'browser\eslint-next.config.mjs' -Destination '.\eslint.config.mjs'
     }
     pnpm add -D @devDependencies
     Add-MyNpmScript -NameToScript @{
