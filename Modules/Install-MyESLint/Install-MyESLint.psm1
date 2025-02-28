@@ -23,6 +23,7 @@ function Install-MyESLint {
     if ($UseNode -and ($UseReact -or $IsNextJs)) {
         throw '$UseNode cannot be used with $UseReact or $IsNextJs'
     }
+    [string]$eslintConfigSource = ''
     [string[]]$devDependencies = @(
         '@eslint/eslintrc',
         '@eslint/js',
@@ -70,38 +71,35 @@ function Install-MyESLint {
 
     <# Node.js #>
     if ($UseNode) {
-        Copy-MyPSScriptRootItem
-        -ChildPath 'node\eslint.config.mjs' -Destination '.\eslint.config.mjs'
+        $eslintConfigSource = 'node\eslint.config.mjs'
     }
     <# Vanilla #>
     if (!$UseReact -and !$IsNextJs) {
         $devDependencies += 'eslint-config-airbnb-base'
-        Copy-MyPSScriptRootItem
-        -ChildPath 'browser\eslint.config.mjs' -Destination '.\eslint.config.mjs'
+        $eslintConfigSource = 'browser\eslint.config.mjs'
     }
     <# React #>
     if ($UseReact -and !$IsNextJs) {
-        Copy-MyPSScriptRootItem
-        -ChildPath 'browser\eslint-react.config.mjs' -Destination '.\eslint.config.mjs'
+        $eslintConfigSource = 'browser\eslint-react.config.mjs'
     }
     <# Next.js #>
     if ($IsNextJs) {
         [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
 
         $devDependencies += '@next/eslint-plugin-next'
+        $eslintConfigSource = 'browser\eslint-next.config.mjs'
         pnpm rm eslint-config-next
         git rm '.\.eslintrc.json'
         # Remove "lint" from npm scripts to replace "next lint" with "eslint ."
         $package.scripts.Remove('lint')
         Export-MyJSON -LiteralPath '.\package.json' -CustomObject $package
-
-        Copy-MyPSScriptRootItem
-        -ChildPath 'browser\eslint-next.config.mjs' -Destination '.\eslint.config.mjs'
     }
     pnpm add -D @devDependencies
     Add-MyNpmScript -NameToScript @{
         'lint' = 'eslint .'
     }
+    Copy-MyPSScriptRootItem
+    -ChildPath $eslintConfigSource -Destination '.\eslint.config.mjs'
 
     git add '.\package.json' '.\pnpm-lock.yaml' '.\eslint.config.mjs'
     git commit -m 'Add ESLint'
