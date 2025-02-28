@@ -20,7 +20,7 @@ function Install-MyESLint {
         [switch]$IsNextJs
     )
 
-    if (($UseNode -and $UseReact) -or ($UseNode -and $IsNextJs)) {
+    if ($UseNode -and ($UseReact -or $IsNextJs)) {
         throw '$UseNode cannot be used with $UseReact or $IsNextJs'
     }
     [string[]]$devDependencies = @(
