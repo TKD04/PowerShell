@@ -118,7 +118,7 @@ export default tseslint.config(
       "simple-import-sort/imports": "error",
     },
     settings: {
-      // Require eslint-import-resolver-typescript
+      // eslint-plugin-import requires eslint-import-resolver-typescript
       "import/resolver": {
         node: true,
         typescript: true,
