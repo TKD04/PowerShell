@@ -64,8 +64,6 @@ export default tseslint.config(
       "simple-import-sort": simpleImportSortPlugin,
     },
     rules: {
-      // Use ESLint rules instead of `verbatimModuleSyntax`, as it still has some compatibility issues.
-      // https://zenn.dev/teppeis/articles/2023-04-typescript-5_0-verbatim-module-syntax#verbatimmodulesyntax%E3%81%A8-cjs-%E3%81%AE%E7%9B%B8%E6%80%A7%E3%81%8C%E6%82%AA%E3%81%84
       // https://johnnyreilly.com/typescript-5-importsnotusedasvalues-error-eslint-consistent-type-imports
       "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/no-import-type-side-effects": "error",
@@ -124,7 +122,6 @@ export default tseslint.config(
       "simple-import-sort/imports": "error",
     },
     settings: {
-      // eslint-plugin-import requires eslint-import-resolver-typescript
       "import/resolver": {
         node: true,
         typescript: true,
