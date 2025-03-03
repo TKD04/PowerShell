@@ -51,7 +51,7 @@ export default tseslint.config(
   tailwindPlugin.configs["flat/recommended"],
   {
     // https://eslint.org/docs/latest/use/configure/configuration-files#globally-ignoring-files-with-ignores
-    ignores: ["**/dist/", "**/docs/"],
+    ignores: ["dist/", "docs/"],
     name: "global ignores",
   },
   {
