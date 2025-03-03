@@ -136,7 +136,7 @@ export default tseslint.config(
   },
   {
     extends: [jestPlugin.configs["flat/all"]],
-    files: ["**/*.test.{js,mjs,cjs,ts}"],
+    files: ["**/*.test.ts"],
     languageOptions: {
       globals: globals.jest,
     },

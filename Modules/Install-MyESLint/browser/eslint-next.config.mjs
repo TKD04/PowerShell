@@ -194,7 +194,7 @@ export default tseslint.config(
       jestDomPlugin.configs["flat/all"],
       testingLibraryPlugin.configs["flat/react"],
     ],
-    files: ["**/*.test.{js,mjs,cjs,ts}"],
+    files: ["**/*.test.ts"],
     languageOptions: {
       globals: globals.jest,
     },
