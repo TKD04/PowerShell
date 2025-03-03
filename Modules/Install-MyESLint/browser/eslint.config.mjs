@@ -133,7 +133,7 @@ export default tseslint.config(
       jestDomPlugin.configs["flat/all"],
       testingLibraryPlugin.configs["flat/dom"],
     ],
-    files: ["**/*.spec.{js,mjs,cjs,ts}", "**/*.test.{js,mjs,cjs,ts}"],
+    files: ["**/*.test.{js,mjs,cjs,ts}"],
     languageOptions: {
       globals: globals.jest,
     },
