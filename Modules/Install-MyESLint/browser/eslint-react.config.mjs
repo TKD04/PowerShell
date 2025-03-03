@@ -140,7 +140,7 @@ export default tseslint.config(
       reactRefreshPlugin.configs.recommended,
       jsxA11yPlugin.configs.strict,
     ],
-    files: ["**/*.{js,ts}x"],
+    files: ["**/*.tsx"],
     languageOptions: {
       parserOptions: {
         ecmaFeatures: {
