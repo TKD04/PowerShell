@@ -98,8 +98,7 @@ function Install-MyESLint {
     Add-MyNpmScript -NameToScript @{
         'lint' = 'eslint .'
     }
-    Copy-MyPSScriptRootItem
-    -ChildPath $eslintConfigSource -Destination '.\eslint.config.mjs'
+    Copy-MyPSScriptRootItem -ChildPath $eslintConfigSource -Destination '.\eslint.config.mjs'
 
     git add '.\package.json' '.\pnpm-lock.yaml' '.\eslint.config.mjs'
     git commit -m 'Add ESLint'
