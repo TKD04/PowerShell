@@ -1,4 +1,5 @@
-﻿New-Alias -Name 'pn' -Value 'pnpm'
+﻿New-Alias -Name 'n' -Value 'npm'
+New-Alias -Name 'pn' -Value 'pnpm'
 
 function Add-MyGit {
     git add $args
