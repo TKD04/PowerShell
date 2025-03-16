@@ -1,5 +1,4 @@
 ﻿[hashtable]$aliases = @{
-    'g'  = 'git'
     'pn' = 'pnpm'
 }
 
