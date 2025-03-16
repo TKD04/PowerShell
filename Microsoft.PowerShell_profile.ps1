@@ -1,4 +1,5 @@
 ﻿New-Alias -Name 'n' -Value 'npm'
+New-Alias -Name 'nr' -Value 'npm run'
 New-Alias -Name 'pn' -Value 'pnpm'
 
 function Add-MyGit {
