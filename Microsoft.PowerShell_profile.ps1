@@ -158,6 +158,11 @@ function Get-MyGitLog {
 }
 New-Alias -Name 'log' -Value 'Get-MyGitLog'
 
+function Get-MyGitLog3 {
+    git log --oneline --graph $args
+}
+New-Alias -Name 'log3' -Value 'Get-MyGitLog3'
+
 function Show-MyGit {
     git show $args
 }
