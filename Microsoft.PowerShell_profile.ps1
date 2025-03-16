@@ -98,6 +98,11 @@ function Merge-MyGit {
 }
 New-Alias -Name 'merge' -Value 'Merge-MyGit'
 
+function Merge-MyGitAbort {
+    git merge $args
+}
+New-Alias -Name 'mergea' -Value 'Merge-MyGitAbort'
+
 function Set-MyGitRebase {
     git rebase $args
 }
