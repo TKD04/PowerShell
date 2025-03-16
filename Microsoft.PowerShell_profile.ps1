@@ -12,11 +12,6 @@ function Add-MyGitP {
 }
 New-Alias -Name 'ap' -Value 'Add-MyGitiP'
 
-function Add-MyGitI {
-    git add -i $args
-}
-New-Alias -Name 'ai' -Value 'Add-MyGitI'
-
 function Set-MyGitUnstage {
     git reset HEAD $args
 }
