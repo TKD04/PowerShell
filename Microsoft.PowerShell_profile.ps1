@@ -1,10 +1,4 @@
-﻿[hashtable]$aliases = @{
-    'pn' = 'pnpm'
-}
-
-$aliases.GetEnumerator() | ForEach-Object {
-    New-Alias -Name $_.Key -Value $_.Value
-}
+﻿New-Alias -Name 'pn' -Value 'pnpm'
 
 function Add-MyGit {
     git add $args
