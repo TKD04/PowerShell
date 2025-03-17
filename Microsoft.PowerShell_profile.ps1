@@ -113,6 +113,11 @@ function Set-MyGitStashU {
 }
 New-Alias -Name 'stashu' -Value 'Set-MyGitStashU'
 
+function Set-MyGitStashList {
+    git stash list $args
+}
+New-Alias -Name 'stashl' -Value 'Set-MyGitStashList'
+
 function Pop-MyGit {
     git stash pop $args
 }
