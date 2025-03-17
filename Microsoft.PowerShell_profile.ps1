@@ -33,7 +33,8 @@ function Set-MyGitCommit {
 New-Alias -Name 'c' -Value 'Set-MyGitCommit'
 
 function Set-MyGitCommitAll {
-    git commit -am $args
+    git add .
+    git commit -m $args
 }
 New-Alias -Name 'ca' -Value 'Set-MyGitCommitAll'
 
