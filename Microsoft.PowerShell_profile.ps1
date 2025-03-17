@@ -129,6 +129,7 @@ function Set-MyGitClean {
 New-Alias -Name 'cl' -Value 'Set-MyGitClean'
 
 function Set-MyGitCleanX {
+    # It even removes the files and directories on .gitignore.
     git clean -xdf
 }
 New-Alias -Name 'clx' -Value 'Set-MyGitCleanX'
