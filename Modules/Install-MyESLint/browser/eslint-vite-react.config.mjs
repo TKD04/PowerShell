@@ -56,7 +56,7 @@ export default tseslint.config(
   tailwindPlugin.configs["flat/recommended"],
   {
     // https://eslint.org/docs/latest/use/configure/configuration-files#globally-ignoring-files-with-ignores
-    ignores: ["dist/", "docs/"],
+    ignores: ["dist/", "docs/", "public/"],
   },
   {
     files: ["**/*.{js,mjs,cjs,jsx,ts,tsx}"],
