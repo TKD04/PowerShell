@@ -138,7 +138,6 @@ export default tseslint.config(
     },
   },
   {
-    // https://typescript-eslint.io/getting-started/typed-linting/#how-can-i-disable-type-aware-linting-for-a-subset-of-files
     extends: [tseslint.configs.disableTypeChecked],
     files: ["**/*.{js,mjs,cjs}"],
     name: "js",
