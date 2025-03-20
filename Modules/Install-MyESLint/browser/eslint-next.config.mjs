@@ -89,7 +89,6 @@ export default tseslint.config(
           tsx: "never",
         },
       ],
-      // https://stackoverflow.com/questions/44939304/eslint-should-be-listed-in-the-projects-dependencies-not-devdependencies
       "import/no-extraneous-dependencies": [
         "error",
         {

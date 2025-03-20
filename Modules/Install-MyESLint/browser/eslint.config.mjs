@@ -71,7 +71,6 @@ export default tseslint.config(
       "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/no-import-type-side-effects": "error",
       "import/consistent-type-specifier-style": ["error", "prefer-top-level"],
-      // https://stackoverflow.com/questions/44939304/eslint-should-be-listed-in-the-projects-dependencies-not-devdependencies
       "import/no-extraneous-dependencies": [
         "error",
         {
