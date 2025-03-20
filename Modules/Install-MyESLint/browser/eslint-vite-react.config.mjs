@@ -82,7 +82,7 @@ export default tseslint.config(
         "error",
         {
           devDependencies: [
-            "**/*.test.ts",
+            "**/*.test.{ts,tsx}",
             "**/*.config.{js,mjs,cjs}",
             "**/gulpfile.{js,mjs,cjs}",
           ],
@@ -161,7 +161,7 @@ export default tseslint.config(
       jestDomPlugin.configs["flat/all"],
       testingLibraryPlugin.configs["flat/react"],
     ],
-    files: ["**/*.test.ts"],
+    files: ["**/*.test.{ts,tsx}"],
     languageOptions: {
       globals: globals.jest,
     },
