@@ -48,7 +48,6 @@ export default tseslint.config(
   {
     // https://eslint.org/docs/latest/use/configure/configuration-files#globally-ignoring-files-with-ignores
     ignores: ["dist/", "docs/"],
-    name: "global ignores",
   },
   {
     languageOptions: {

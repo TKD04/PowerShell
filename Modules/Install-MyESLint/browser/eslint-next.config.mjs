@@ -58,7 +58,6 @@ export default tseslint.config(
   {
     // https://eslint.org/docs/latest/use/configure/configuration-files#globally-ignoring-files-with-ignores
     ignores: ["dist/", "docs/", ".next/"],
-    name: "global ignores",
   },
   {
     files: ["**/*.{js,mjs,cjs,jsx,ts,tsx}"],
