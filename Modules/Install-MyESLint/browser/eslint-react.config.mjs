@@ -80,8 +80,8 @@ export default tseslint.config(
         {
           devDependencies: [
             "**/*.test.{ts,tsx}",
-            "**/*.config.{js,mjs,cjs,ts}",
-            "**/gulpfile.{js,mjs,cjs}",
+            "*.config.{js,mjs,cjs,ts}",
+            "gulpfile.{js,mjs,cjs}",
           ],
         },
       ],
