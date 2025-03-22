@@ -10,7 +10,7 @@ import jsdocPlugin from "eslint-plugin-jsdoc";
 import perfectionitstPlugin from "eslint-plugin-perfectionist";
 import regexpPlugin from "eslint-plugin-regexp";
 import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
-import eslintPluginUnicorn from "eslint-plugin-unicorn";
+import unicornPlugin from "eslint-plugin-unicorn";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
@@ -33,7 +33,7 @@ export default tseslint.config(
   },
   tseslint.configs.strictTypeChecked,
   tseslint.configs.stylisticTypeChecked,
-  eslintPluginUnicorn.configs["flat/recommended"],
+  unicornPlugin.configs["flat/recommended"],
   perfectionitstPlugin.configs["recommended-natural"],
   regexpPlugin.configs["flat/recommended"],
   jsdocPlugin.configs["flat/recommended-typescript-error"],
