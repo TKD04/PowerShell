@@ -33,7 +33,7 @@ export default tseslint.config(
   },
   tseslint.configs.strictTypeChecked,
   tseslint.configs.stylisticTypeChecked,
-  unicornPlugin.configs["flat/recommended"],
+  unicornPlugin.configs.all,
   perfectionitstPlugin.configs["recommended-natural"],
   regexpPlugin.configs["flat/recommended"],
   jsdocPlugin.configs["flat/recommended-typescript-error"],
