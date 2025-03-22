@@ -14,10 +14,8 @@ import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
-const { dirname } = nodePath;
-
 const fileName = fileURLToPath(import.meta.url);
-const directoryName = dirname(fileName);
+const directoryName = nodePath.dirname(fileName);
 const compat = new FlatCompat({
   allConfig: eslint.configs.all,
   baseDirectory: directoryName,
