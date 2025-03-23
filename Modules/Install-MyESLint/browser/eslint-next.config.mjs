@@ -12,7 +12,7 @@ import jsdocPlugin from "eslint-plugin-jsdoc";
 import jsxA11yPlugin from "eslint-plugin-jsx-a11y";
 import perfectionistPlugin from "eslint-plugin-perfectionist";
 import reactPlugin from "eslint-plugin-react";
-import reactCompiler from "eslint-plugin-react-compiler";
+import reactCompilerPlugin from "eslint-plugin-react-compiler";
 import reactHooksPlugin from "eslint-plugin-react-hooks";
 import reactRefreshPlugin from "eslint-plugin-react-refresh";
 import regexpPlugin from "eslint-plugin-regexp";
@@ -153,7 +153,7 @@ export default tseslint.config(
     },
     name: "react",
     plugins: {
-      "react-compiler": reactCompiler,
+      "react-compiler": reactCompilerPlugin,
     },
     rules: {
       "react-compiler/react-compiler": "error",
