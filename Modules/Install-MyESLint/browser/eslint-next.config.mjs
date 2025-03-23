@@ -10,7 +10,7 @@ import jestPlugin from "eslint-plugin-jest";
 import jestDomPlugin from "eslint-plugin-jest-dom";
 import jsdocPlugin from "eslint-plugin-jsdoc";
 import jsxA11yPlugin from "eslint-plugin-jsx-a11y";
-import perfectionitstPlugin from "eslint-plugin-perfectionist";
+import perfectionistPlugin from "eslint-plugin-perfectionist";
 import reactPlugin from "eslint-plugin-react";
 import reactCompiler from "eslint-plugin-react-compiler";
 import reactHooksPlugin from "eslint-plugin-react-hooks";
@@ -44,7 +44,7 @@ export default tseslint.config(
   tseslint.configs.strictTypeChecked,
   tseslint.configs.stylisticTypeChecked,
   unicornPlugin.configs.all,
-  perfectionitstPlugin.configs["recommended-natural"],
+  perfectionistPlugin.configs["recommended-natural"],
   regexpPlugin.configs["flat/recommended"],
   jsdocPlugin.configs["flat/recommended-typescript-error"],
   {

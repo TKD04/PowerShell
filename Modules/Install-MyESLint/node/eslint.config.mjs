@@ -7,7 +7,7 @@ import prettierConfig from "eslint-config-prettier";
 import importPlugin from "eslint-plugin-import";
 import jestPlugin from "eslint-plugin-jest";
 import jsdocPlugin from "eslint-plugin-jsdoc";
-import perfectionitstPlugin from "eslint-plugin-perfectionist";
+import perfectionistPlugin from "eslint-plugin-perfectionist";
 import regexpPlugin from "eslint-plugin-regexp";
 import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
 import unicornPlugin from "eslint-plugin-unicorn";
@@ -35,7 +35,7 @@ export default tseslint.config(
   tseslint.configs.strictTypeChecked,
   tseslint.configs.stylisticTypeChecked,
   unicornPlugin.configs.all,
-  perfectionitstPlugin.configs["recommended-natural"],
+  perfectionistPlugin.configs["recommended-natural"],
   regexpPlugin.configs["flat/recommended"],
   jsdocPlugin.configs["flat/recommended-typescript-error"],
   {
