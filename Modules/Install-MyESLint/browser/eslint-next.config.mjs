@@ -23,6 +23,7 @@ import unicornPlugin from "eslint-plugin-unicorn";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
+// https://eslint.org/docs/latest/use/configure/migration-guide#using-eslintrc-configs-in-flat-config
 const fileName = fileURLToPath(import.meta.url);
 const directoryName = nodePath.dirname(fileName);
 const compat = new FlatCompat({
