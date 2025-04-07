@@ -147,6 +147,11 @@ export default tseslint.config(
       "react-compiler/react-compiler": "error",
       "react/react-in-jsx-scope": "off",
     },
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
   },
   {
     extends: [

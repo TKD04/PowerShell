@@ -159,6 +159,11 @@ export default tseslint.config(
       "react-compiler/react-compiler": "error",
       "react/react-in-jsx-scope": "off",
     },
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
   },
   {
     // https://github.com/vercel/next.js/discussions/49337#discussioncomment-5998603
