@@ -133,7 +133,7 @@ export default tseslint.config(
       reactRefreshPlugin.configs.vite,
       jsxA11yPlugin.configs.strict,
     ],
-    files: ["**/*.tsx"],
+    files: ["src/**/*.tsx"],
     name: "react",
     plugins: {
       "react-compiler": reactCompilerPlugin,

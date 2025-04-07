@@ -144,7 +144,7 @@ export default tseslint.config(
       reactRefreshPlugin.configs.recommended,
       jsxA11yPlugin.configs.strict,
     ],
-    files: ["**/*.tsx"],
+    files: ["app/**/*.tsx"],
     name: "react",
     plugins: {
       "react-compiler": reactCompilerPlugin,
