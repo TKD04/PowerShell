@@ -133,13 +133,6 @@ export default tseslint.config(
       jsxA11yPlugin.configs.strict,
     ],
     files: ["**/*.tsx"],
-    languageOptions: {
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
-    },
     name: "react",
     plugins: {
       "react-compiler": reactCompilerPlugin,
