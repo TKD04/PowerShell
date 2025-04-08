@@ -131,7 +131,7 @@ export default tseslint.config(
       reactPlugin.configs.flat["jsx-runtime"],
       reactHooksPlugin.configs.recommended,
       reactRefreshPlugin.configs.vite,
-      jsxA11yPlugin.configs.strict,
+      jsxA11yPlugin.flatConfigs.strict,
     ],
     files: ["src/**/*.tsx"],
     name: "react",
