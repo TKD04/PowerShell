@@ -126,7 +126,7 @@ export default tseslint.config(
   },
   {
     extends: [
-      reactPlugin.configs.recommended,
+      reactPlugin.configs.flat.recommended,
       reactPlugin.configs.flat["jsx-runtime"],
       reactHooksPlugin.configs.recommended,
       reactRefreshPlugin.configs.recommended,
