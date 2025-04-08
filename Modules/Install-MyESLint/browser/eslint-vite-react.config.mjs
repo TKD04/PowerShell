@@ -157,7 +157,7 @@ export default tseslint.config(
     languageOptions: {
       globals: globals.jest,
     },
-    name: "jest",
+    name: "test",
     plugins: {
       jest: jestPlugin,
     },
