@@ -25,8 +25,8 @@ function Install-MyESLint {
     }
     [string]$eslintConfigSource = ''
     [string[]]$devDependencies = @(
-        '@eslint/eslintrc',
-        '@eslint/js',
+        '@eslint/eslintrc'
+        '@eslint/js'
         '@typescript-eslint/eslint-plugin@^7'
         '@typescript-eslint/parser@^7'
         'eslint@^8'
