@@ -96,7 +96,7 @@ function Install-MyESLint {
     }
     pnpm add -D @devDependencies
     Add-MyNpmScript -NameToScript @{
-        'lint' = 'eslint .'
+        'lint' = 'eslint . --cache'
     }
     Join-Path -Path $PSScriptRoot -ChildPath $eslintConfigSource |
     Copy-Item -Destination '.\eslint.config.mjs'
