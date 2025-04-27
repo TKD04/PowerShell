@@ -3,6 +3,7 @@
 Removes the given name of npm script from package.json.
 
 .PARAMETER ScriptName
+A name of npm sciprt.
 #>
 function Remove-MyNpmScript {
     [OutputType([void])]
