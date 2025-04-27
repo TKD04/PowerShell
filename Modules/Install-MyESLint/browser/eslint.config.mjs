@@ -3,15 +3,15 @@ import { fileURLToPath } from "node:url";
 
 import { FlatCompat } from "@eslint/eslintrc";
 import eslint from "@eslint/js";
+import stylisticPlugin from "@stylistic/eslint-plugin";
 import prettierConfig from "eslint-config-prettier";
-import importPlugin from "eslint-plugin-import";
 import jestPlugin from "eslint-plugin-jest";
 import jestDomPlugin from "eslint-plugin-jest-dom";
 import jsdocPlugin from "eslint-plugin-jsdoc";
 import perfectionistPlugin from "eslint-plugin-perfectionist";
 import regexpPlugin from "eslint-plugin-regexp";
 import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
-import tailwindPlugin from "eslint-plugin-tailwindcss";
+import tailwindCssPlugin from "eslint-plugin-tailwindcss";
 import testingLibraryPlugin from "eslint-plugin-testing-library";
 import unicornPlugin from "eslint-plugin-unicorn";
 import globals from "globals";
@@ -25,43 +25,88 @@ const compat = new FlatCompat({
   baseDirectory: directoryName,
   recommendedConfig: eslint.configs.recommended,
 });
+// Replace the deprecated "@typescript-eslint@^7" rules with the latest ones in "eslint-config-airbnb-typescript"
+// https://gist.github.com/xfournet/ed9f2f02e411b86188bad4aeb9b1bddb
+const legacyRulesToLatestOnes = new Map([
+  [
+    "@typescript-eslint/no-throw-literal",
+    "@typescript-eslint/only-throw-error",
+  ],
+  ...[
+    "brace-style",
+    "comma-dangle",
+    "comma-spacing",
+    "func-call-spacing",
+    "indent",
+    "keyward-spacing",
+    "lines-between-class-members",
+    "no-extra-semi",
+    "space-before-blocks",
+    "quotes",
+    "semi",
+    "space-before-function-paren",
+    "space-infix-ops",
+    "object-curly-spacing",
+  ].map((rule) => [`@typescript-eslint/${rule}`, `@stylistic/${rule}`]),
+]);
+const fixupDeprecatedTsEslintRules = (configs) =>
+  configs.map((config) => {
+    const copiedConfig = config;
+    const hasRules = copiedConfig.rules !== undefined;
+
+    delete copiedConfig.plugins;
+    delete copiedConfig.parser;
+    if (hasRules) {
+      for (const [
+        legacyRule,
+        latestRule,
+      ] of legacyRulesToLatestOnes.entries()) {
+        const hasLegacyRule = copiedConfig.rules[legacyRule] !== undefined;
+        const hasLatestRule = copiedConfig.rules[latestRule] !== undefined;
+
+        if (hasLegacyRule) {
+          const ruleValue = copiedConfig.rules[legacyRule];
+
+          // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+          delete copiedConfig.rules[legacyRule];
+          if (!hasLatestRule) {
+            copiedConfig.rules[latestRule] = ruleValue;
+          }
+        }
+      }
+    }
+
+    return copiedConfig;
+  });
 
 export default tseslint.config(
-  eslint.configs.recommended,
-  compat.extends("airbnb-base"),
-  {
-    // To avoid the error `"Key "plugins": Cannot redefine plugin "@typescript-eslint"`
-    rules: {
-      ...compat.extends("airbnb-typescript/base").rules,
-    },
-  },
-  tseslint.configs.strictTypeChecked,
-  tseslint.configs.stylisticTypeChecked,
-  unicornPlugin.configs.all,
-  perfectionistPlugin.configs["recommended-natural"],
-  regexpPlugin.configs["flat/recommended"],
-  jsdocPlugin.configs["flat/recommended-typescript-error"],
-  {
-    // To avoid the error `Key "plugins": Cannot redefine plugin "import"`
-    rules: {
-      ...importPlugin.flatConfigs.recommended.rules,
-    },
-  },
-  tailwindPlugin.configs["flat/recommended"],
   {
     // https://eslint.org/docs/latest/use/configure/configuration-files#globally-ignoring-files-with-ignores
-    ignores: ["dist/", "docs/"],
+    ignores: ["dist/", "docs/", "public/"],
   },
   {
+    extends: [
+      compat.extends("airbnb-base"),
+      tseslint.configs.strictTypeChecked,
+      tseslint.configs.stylisticTypeChecked,
+      fixupDeprecatedTsEslintRules(compat.extends("airbnb-typescript/base")),
+      unicornPlugin.configs.all,
+      jsdocPlugin.configs["flat/recommended-typescript-error"],
+      regexpPlugin.configs["flat/all"],
+      perfectionistPlugin.configs["recommended-natural"],
+      prettierConfig,
+    ],
+    files: ["src/**/*.ts", "*.{js,mjs,cjs,ts}"],
     languageOptions: {
       globals: globals.browser,
       parserOptions: {
-        projectService: true,
+        project: "./tsconfig.json",
         tsconfigRootDir: import.meta.dirname,
       },
     },
-    name: "common",
+    name: "base",
     plugins: {
+      "@stylistic": stylisticPlugin,
       jsdoc: jsdocPlugin,
       "simple-import-sort": simpleImportSortPlugin,
     },
@@ -70,6 +115,7 @@ export default tseslint.config(
       "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/no-import-type-side-effects": "error",
       "import/consistent-type-specifier-style": ["error", "prefer-top-level"],
+      "import/no-absolute-path": "off",
       "import/no-extraneous-dependencies": [
         "error",
         {
@@ -107,8 +153,11 @@ export default tseslint.config(
       "simple-import-sort/imports": "error",
     },
     settings: {
+      // Merge "node" in eslint-config-airbnb-typescript and "typescript"
       "import/resolver": {
-        node: true,
+        node: {
+          extensions: [".mjs", ".js", ".json", ".ts", ".d.ts"],
+        },
         typescript: true,
       },
     },
@@ -133,5 +182,8 @@ export default tseslint.config(
       jest: jestPlugin,
     },
   },
-  prettierConfig
+  {
+    extends: [tailwindCssPlugin.configs["flat/recommended"]],
+    files: ["src/**/*.{ts,tsx}", "*.html"],
+  }
 );
