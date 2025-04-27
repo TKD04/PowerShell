@@ -41,7 +41,7 @@ function Add-MyPackagesToNextJs {
 
     <# ESLint #>
     # Make eslint config more strict
-    Install-MyESLint -UseReact -IsNextJs
+    Install-MyESLint -IsNextJs
 
     <# Jest #>
     Install-MyJest -UseReact
