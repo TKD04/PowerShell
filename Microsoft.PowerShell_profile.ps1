@@ -126,7 +126,7 @@ New-Alias -Name 'pop' -Value 'Pop-MyGit'
 function Set-MyGitDrop {
     git stash drop $args
 }
-New-Alias -Name 'drop' -Value 'drop'
+New-Alias -Name 'drop' -Value 'Set-MyGitDrop'
 
 function Set-MyGitClean {
     git clean -df
