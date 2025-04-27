@@ -1,6 +1,6 @@
 ﻿<#
 .SYNOPSIS
-Adds the given npm scripts to the npm settings file.
+Adds the given npm scripts to package.json.
 
 .PARAMETER NameToScript
 Pairs of script name and script.
