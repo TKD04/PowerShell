@@ -27,9 +27,10 @@ function Install-MyESLint {
     [string[]]$devDependencies = @(
         '@eslint/eslintrc'
         '@eslint/js'
+        '@stylistic/eslint-plugin'
         '@typescript-eslint/eslint-plugin@^7'
         '@typescript-eslint/parser@^7'
-        'eslint@^8'
+        'eslint'
         'eslint-config-airbnb-typescript'
         'eslint-config-prettier'
         'eslint-import-resolver-typescript'
@@ -104,3 +105,4 @@ function Install-MyESLint {
     git add '.\package.json' '.\pnpm-lock.yaml' '.\eslint.config.mjs'
     git commit -m 'Add ESLint'
 }
+t
