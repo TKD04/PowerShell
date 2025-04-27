@@ -20,8 +20,8 @@ function Add-MyNpmScript {
     # since [PSCustomObject] returns an error when new properties are added to it.
     [hashtable]$package = Import-MyJSON -LiteralPath './package.json' -AsHashTable
     $NameToScript.GetEnumerator() | ForEach-Object {
-        if ($package.ContainsKey($_.Key)) {
-            Write-Warning -Message 'The key "{0}" already exists in npm script.' -f $_.Key
+        if ($package.scripts.ContainsKey($_.Key)) {
+            Write-Warning -Message 'The key "{0}" already exists in npm scripts.' -f $_.Key
         }
         else {
             $package.scripts.Add($_.Key, $_.Value)
