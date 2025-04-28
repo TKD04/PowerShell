@@ -7,5 +7,5 @@ function Remove-MyAllFiles {
     [OutputType([void])]
     param ()
 
-    Get-ChildItem -File | Remove-Item $allFiles -Confirm:$Confirm -WhatIf
+    Get-ChildItem -File | Remove-Item -Confirm
 }
