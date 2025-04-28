@@ -30,31 +30,24 @@ function Add-MyPackagesToNextJs {
     }
     [hashtable]$tsConfig = Import-MyJSON -LiteralPath '.\tsconfig.json' -AsHashTable
 
-    <# TypeScript #>
-    # Make tsconfig more strict
+    # Make .\tsconfig.json more strict
     $missingCompilerOptions.GetEnumerator() | ForEach-Object {
         $tsConfig.compilerOptions.Add($_.Key, $_.Value)
     }
     Export-MyJSON -LiteralPath '.\tsconfig.json' -CustomObject $tsConfig
     git add '.\tsconfig.json'
-    git commit -m 'Make tsconfig more strict'
-    <# ESLint #>
-    # Make eslint config more strict
+    git commit -m 'Make .\tsconfig.json more strict'
     Install-MyESLint -IsNextJs
-    <# Jest #>
     Install-MyJest -UseReact
-    # Replace `<rootDir>/src` with `<rootDir>` in roots to work properly in Next.js
+    # Replace `<rootDir>/src` with `<rootDir>` in roots for Jest to work properly in Next.js
     Join-Path -Path $PSScriptRoot -ChildPath 'common\jest-nextjs.config.cjs' |
     Copy-Item -Destination '.\jest.config.cjs' -Force
     git add '.\jest.config.cjs'
     git commit -m 'Change `roots` from "<rootDir>/src" to "<rootDir>"'
-    <# Prettier #>
     Install-MyPrettier -UseTailwindcss
-    <# Tailwind CSS #>
     Install-MyTailwindCss -IsNextJs -UseDaisyUi:$UseDaisyUi
-    <# VSCode config #>
     Install-MyVSCodeSettingsForWeb
-    <# Add next.yml to deploy to GitHub Pages #>
+    # Add next.yml to deploy to GitHub Pages
     if ($DeployToGitHubPages) {
         if (Test-MyStrictPath('.\.github\workflows\next.yml')) {
             Write-Warning -Message '.\.github\workflows\next.yml is already in place.'
