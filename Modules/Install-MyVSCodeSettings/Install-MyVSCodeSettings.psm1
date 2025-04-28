@@ -28,5 +28,5 @@ function Install-MyVSCodeSettings {
     }
     Pop-Location
 
-    git commit -m 'Add vscode settings and extensions'
+    git commit -m 'Add .vscode'
 }
