@@ -26,7 +26,9 @@ function Add-MyPackagesToNextJs {
         'noUncheckedIndexedAccess'           = $true
         'noUnusedLocals'                     = $true
         'noUnusedParameters'                 = $true
+        'noUncheckedSideEffectImports'       = $true
         'forceConsistentCasingInFileNames'   = $true
+        'verbatimModuleSyntax'               = $true
     }
     [hashtable]$tsConfig = Import-MyJSON -LiteralPath '.\tsconfig.json' -AsHashTable
 
