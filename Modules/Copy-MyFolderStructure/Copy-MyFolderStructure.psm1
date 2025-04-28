@@ -26,7 +26,6 @@ function Copy-MyFolderStructure {
     if (!(Test-MyStrictPath -LiteralPath $destPath)) {
         New-Item -Path '.\' -Name $destPath -ItemType 'Directory'
     }
-
     # https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/xcopy#parameter
     xcopy.exe /E /T $LiteralPath $destPath
 }

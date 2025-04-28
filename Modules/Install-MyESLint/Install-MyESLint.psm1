@@ -69,7 +69,6 @@ function Install-MyESLint {
             'eslint-plugin-react-refresh'
         )
     }
-
     <# Node.js #>
     if ($UseNode) {
         $eslintConfigSource = 'node\eslint.config.mjs'

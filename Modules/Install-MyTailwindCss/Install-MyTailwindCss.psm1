@@ -31,7 +31,6 @@ function Install-MyTailwindCss {
     if ($IsVite -and $IsNextJs) {
         throw 'Only enable either $IsVite or $IsNextJs'
     }
-
     if ($IsVite) {
         $dirName = 'vite'
     }

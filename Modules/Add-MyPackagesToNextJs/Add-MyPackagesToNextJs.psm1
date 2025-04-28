@@ -28,21 +28,19 @@ function Add-MyPackagesToNextJs {
         'noUnusedParameters'                 = $true
         'forceConsistentCasingInFileNames'   = $true
     }
+    [hashtable]$tsConfig = Import-MyJSON -LiteralPath '.\tsconfig.json' -AsHashTable
 
     <# TypeScript #>
     # Make tsconfig more strict
-    [hashtable]$tsConfig = Import-MyJSON -LiteralPath '.\tsconfig.json' -AsHashTable
     $missingCompilerOptions.GetEnumerator() | ForEach-Object {
         $tsConfig.compilerOptions.Add($_.Key, $_.Value)
     }
     Export-MyJSON -LiteralPath '.\tsconfig.json' -CustomObject $tsConfig
     git add '.\tsconfig.json'
     git commit -m 'Make tsconfig more strict'
-
     <# ESLint #>
     # Make eslint config more strict
     Install-MyESLint -IsNextJs
-
     <# Jest #>
     Install-MyJest -UseReact
     # Replace `<rootDir>/src` with `<rootDir>` in roots to work properly in Next.js
@@ -50,16 +48,12 @@ function Add-MyPackagesToNextJs {
     Copy-Item -Destination '.\jest.config.cjs' -Force
     git add '.\jest.config.cjs'
     git commit -m 'Change `roots` from "<rootDir>/src" to "<rootDir>"'
-
     <# Prettier #>
     Install-MyPrettier -UseTailwindcss
-
     <# Tailwind CSS #>
     Install-MyTailwindCss -IsNextJs -UseDaisyUi:$UseDaisyUi
-
     <# VSCode config #>
     Install-MyVSCodeSettingsForWeb
-
     <# Add next.yml to deploy to GitHub Pages #>
     if ($DeployToGitHubPages) {
         if (Test-MyStrictPath('.\.github\workflows\next.yml')) {

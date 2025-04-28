@@ -15,7 +15,6 @@ function Remove-MyNpmScript {
     if (!(Test-MyStrictPath -LiteralPath './package.json')) {
         throw '.\package.json was not found.'
     }
-
     [hashtable]$package = Import-MyJSON -LiteralPath './package.json' -AsHashTable
     [boolean]$hasScript = $package.scripts.ContainsKey($ScriptName)
 

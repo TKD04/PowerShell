@@ -15,10 +15,10 @@ function Add-MyNpmScript {
     if (!(Test-MyStrictPath -LiteralPath './package.json')) {
         throw '.\package.json was not found.'
     }
-
     # NOTE: To add new properties we need to use [hashtable] instead of [PSCustomObject]
     # since [PSCustomObject] returns an error when new properties are added to it.
     [hashtable]$package = Import-MyJSON -LiteralPath './package.json' -AsHashTable
+
     $NameToScript.GetEnumerator() | ForEach-Object {
         if ($package.scripts.ContainsKey($_.Key)) {
             Write-Warning -Message ('The key "{0}" already exists in npm scripts.' -f $_.Key)
