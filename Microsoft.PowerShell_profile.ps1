@@ -94,7 +94,7 @@ function Merge-MyGit {
 New-Alias -Name 'merge' -Value 'Merge-MyGit'
 
 function Merge-MyGitAbort {
-    git merge $args
+    git merge --abort $args
 }
 New-Alias -Name 'mergea' -Value 'Merge-MyGitAbort'
 
