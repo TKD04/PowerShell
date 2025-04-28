@@ -105,4 +105,3 @@ function Install-MyESLint {
     git add '.\package.json' '.\pnpm-lock.yaml' '.\eslint.config.mjs'
     git commit -m 'Add ESLint'
 }
-t
