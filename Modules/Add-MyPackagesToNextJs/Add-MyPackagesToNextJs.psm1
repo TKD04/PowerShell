@@ -57,13 +57,14 @@ function Add-MyPackagesToNextJs {
     <# Add next.yml to deploy to GitHub Pages #>
     if ($DeployToGitHubPages) {
         if (Test-MyStrictPath('.\.github\workflows\next.yml')) {
-            throw 'next.yml is already in place.'
+            Write-Warning -Message '.\.github\workflows\next.yml is already in place.'
         }
-
-        New-Item -Path '.\' -Name '.github' -ItemType 'directory'
-        New-Item -Path '.\.github' -Name 'workflows' -ItemType 'directory'
-        Join-Path -Path $PSScriptRoot -ChildPath 'common\next.yml' |
-        Copy-Item -Destination '.\.github\workflows'
+        else {
+            New-Item -Path '.\' -Name '.github' -ItemType 'directory'
+            New-Item -Path '.\.github' -Name 'workflows' -ItemType 'directory'
+            Join-Path -Path $PSScriptRoot -ChildPath 'common\next.yml' |
+            Copy-Item -Destination '.\.github\workflows'
+        }
     }
     Write-MySuccess -Message 'Added the needed packages and configs to the Next.js project.'
 }
