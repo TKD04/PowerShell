@@ -85,14 +85,16 @@ function Install-MyESLint {
     <# Next.js #>
     if ($IsNextJs) {
         [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
+        [bool]$hasNpmScriptLint = $package.scripts.ContainsKey('lint')
 
+        # Remove "lint" from npm scripts to replace "next lint" with "eslint . --cache"
+        if ($hasNpmScriptLint) {
+            Remove-MyNpmScript('lint')
+            pnpm rm eslint-config-next
+            git rm '.\eslint.config.mjs'
+        }
         $devDependencies += '@next/eslint-plugin-next'
         $eslintConfigSource = 'browser\eslint-next.config.mjs'
-        pnpm rm eslint-config-next
-        git rm '.\.eslintrc.json'
-        # Remove "lint" from npm scripts to replace "next lint" with "eslint ."
-        $package.scripts.Remove('lint')
-        Export-MyJSON -LiteralPath '.\package.json' -CustomObject $package
     }
     pnpm add -D @devDependencies
     Add-MyNpmScript -NameToScript @{
