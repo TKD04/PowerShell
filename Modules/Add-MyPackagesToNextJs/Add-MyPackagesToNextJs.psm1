@@ -36,7 +36,7 @@ function Add-MyPackagesToNextJs {
     }
     Export-MyJSON -LiteralPath '.\tsconfig.json' -CustomObject $tsConfig
     git add '.\tsconfig.json'
-    git commit -m 'Make .\tsconfig.json more strict'
+    git commit -m 'Make tsconfig.json more strict'
     Install-MyESLint -IsNextJs
     Install-MyJest -UseReact
     # Replace `<rootDir>/src` with `<rootDir>` in roots for Jest to work properly in Next.js
