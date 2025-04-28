@@ -26,7 +26,7 @@ function Export-MyJSON {
         Set-Content -LiteralPath $LiteralPath -ErrorAction Stop
     }
     catch {
-        Write-Error -Message "Failed to export JSON to $LiteralPath. $_"
+        throw "Failed to export JSON to $LiteralPath. $_"
     }
     Write-MySuccess -Message ('Exported JSON to {0}.' -f $LiteralPath)
 }

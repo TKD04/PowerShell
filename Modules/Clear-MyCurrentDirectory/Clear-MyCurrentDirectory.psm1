@@ -15,7 +15,7 @@ function Clear-MyCurrentDirectory {
         $files | Remove-Item -Recurse -Force -ErrorAction Stop
     }
     catch {
-        Write-Error -Message "Failed to clear the current directory: $_"
+        throw "Failed to clear the current directory: $_"
     }
     Write-MySuccess -Message 'Removed all the files and directories from the current directory.'
 }

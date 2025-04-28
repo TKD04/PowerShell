@@ -29,7 +29,7 @@ function Import-MyJSON {
         ConvertFrom-Json -InputObject $json -AsHashtable:$AsHashTable
     }
     catch {
-        Write-Error -Message "Failed to import JSON from $LiteralPath. $_"
+        throw "Failed to import JSON from $LiteralPath. $_"
     }
     Write-MySuccess -Message ('Imported JSON from "{0}".' -f $LiteralPath)
 }
