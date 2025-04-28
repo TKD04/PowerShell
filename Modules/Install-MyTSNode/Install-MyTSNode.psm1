@@ -19,4 +19,5 @@ function Install-MyTSNode {
 
     git add '.\pnpm-lock.yaml' '.\package.json' '.\tsconfig.json'
     git commit -m 'Add ts-node'
+    Write-MySuccess -Message 'Added ts-node.'
 }

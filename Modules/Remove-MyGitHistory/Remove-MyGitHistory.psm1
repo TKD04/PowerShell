@@ -8,4 +8,5 @@ function Remove-MyGitHistory {
     param()
 
     Remove-Item -LiteralPath '.\.git' -Recurse -Force -Confirm
+    Write-MySuccess -Message 'Removed .\.git directory.'
 }

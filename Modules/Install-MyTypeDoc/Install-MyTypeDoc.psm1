@@ -13,4 +13,5 @@ function Install-MyTypeDoc {
 
     git add '.\pnpm-lock.yaml' '.\package.json'
     git commit -m 'Add TypeDoc'
+    Write-MySuccess -Message 'Added TypeDoc and its npm script "docs".'
 }

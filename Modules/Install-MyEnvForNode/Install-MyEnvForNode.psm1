@@ -42,4 +42,5 @@ function Install-MyEnvForNode {
     pnpm run format
     git add .
     git commit -m 'Format by prettier'
+    Write-MySuccess -Message 'Set up development environments for Node.js.'
 }

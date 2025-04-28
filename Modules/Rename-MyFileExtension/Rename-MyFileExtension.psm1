@@ -39,4 +39,5 @@ function Rename-MyFileExtension {
             Rename-Item -LiteralPath $file.FullName -NewName $newName
         }
     }
+    Write-MySuccess -Message ('Changed the file extension "{0}" -> "{1}".' -f $OldExtension, $NewExtension)
 }

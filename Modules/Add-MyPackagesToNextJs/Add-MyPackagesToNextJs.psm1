@@ -65,4 +65,5 @@ function Add-MyPackagesToNextJs {
         Join-Path -Path $PSScriptRoot -ChildPath 'common\next.yml' |
         Copy-Item -Destination '.\.github\workflows'
     }
+    Write-MySuccess -Message 'Added the needed packages and configs to the Next.js project.'
 }

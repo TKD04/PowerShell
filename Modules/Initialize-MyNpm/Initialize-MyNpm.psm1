@@ -22,4 +22,5 @@ function Initialize-MyNpm {
     pnpm
     git add '.\package.json'
     git commit -m 'Add pnpm as packageManager'
+    Write-MySuccess -Message 'Initialized npm.'
 }

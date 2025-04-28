@@ -28,4 +28,5 @@ function Install-MyVSCodeSettingsForPwsh {
     }
 
     Install-MyVSCodeSettings -Settings $settings -Extensions $extensions
+    Write-MySuccess -Message 'Added .\.vscode for PowerShell.'
 }

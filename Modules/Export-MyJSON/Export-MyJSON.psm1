@@ -28,4 +28,5 @@ function Export-MyJSON {
     catch {
         Write-Error -Message "Failed to export JSON to $LiteralPath. $_"
     }
+    Write-MySuccess -Message ('Exported JSON to {0}.' -f $LiteralPath)
 }

@@ -72,4 +72,5 @@ function Install-MyTailwindCss {
 
     git add '.\pnpm-lock.yaml' '.\package.json' '.\tailwind.config.js' '.\postcss.config.js' '.\src\index.css'
     git commit -m 'Add Tailwind CSS'
+    Write-MySuccess -Message 'Added Tailwind CSS.'
 }

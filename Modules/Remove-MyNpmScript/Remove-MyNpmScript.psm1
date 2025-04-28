@@ -25,4 +25,5 @@ function Remove-MyNpmScript {
         throw 'The key "{0}" was not found in npm scripts.' -f $ScriptName
     }
     Export-MyJSON -LiteralPath './package.json' -CustomObject $package
+    Write-MySuccess -Message ('Removed npm script "{0}" from .\package.json.' -f $ScriptName)
 }

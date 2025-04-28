@@ -8,4 +8,5 @@ function Remove-MyAllFiles {
     param ()
 
     Get-ChildItem -File | Remove-Item -Confirm
+    Write-MySuccess -Message 'Removed all the files from the current directory.'
 }

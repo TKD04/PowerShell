@@ -28,4 +28,5 @@ function Add-MyNpmScript {
         }
     }
     Export-MyJSON -LiteralPath './package.json' -CustomObject $package
+    Write-MySuccess -Message ('Added npm script "{0}" to .\package.json.' -f ([string]$NameToScript.Keys).Replace(' ', ', '))
 }
