@@ -99,7 +99,7 @@ export default tseslint.config(
       perfectionistPlugin.configs["recommended-natural"],
       prettierConfig,
     ],
-    files: ["app/**/*.{ts,tsx}", "*.{js,mjs,cjs,ts}"],
+    files: ["{app,lib}/**/*.{ts,tsx}", "*.{js,mjs,cjs,ts}"],
     languageOptions: {
       globals: globals.browser,
       parserOptions: {
@@ -131,7 +131,7 @@ export default tseslint.config(
         "error",
         {
           devDependencies: [
-            "app/**/*.test.{ts,tsx}",
+            "{app,lib}/**/*.test.{ts,tsx}",
             "*.config.{js,mjs,cjs,ts}",
             "gulpfile.{js,mjs,cjs}",
           ],
@@ -204,7 +204,7 @@ export default tseslint.config(
       jestDomPlugin.configs["flat/all"],
       testingLibraryPlugin.configs["flat/react"],
     ],
-    files: ["app/**/*.test.{ts,tsx}"],
+    files: ["{app,lib}/**/*.test.{ts,tsx}"],
     languageOptions: {
       globals: globals.jest,
     },
