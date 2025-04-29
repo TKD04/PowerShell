@@ -49,7 +49,6 @@ function Install-MyESLint {
     if (!$UseNode) {
         $devDependencies += @(
             'eslint-plugin-jest-dom'
-            'eslint-plugin-tailwindcss'
             'eslint-plugin-testing-library'
         )
     }

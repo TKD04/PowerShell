@@ -11,7 +11,6 @@ import jsdocPlugin from "eslint-plugin-jsdoc";
 import perfectionistPlugin from "eslint-plugin-perfectionist";
 import regexpPlugin from "eslint-plugin-regexp";
 import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
-import tailwindCssPlugin from "eslint-plugin-tailwindcss";
 import testingLibraryPlugin from "eslint-plugin-testing-library";
 import unicornPlugin from "eslint-plugin-unicorn";
 import globals from "globals";
@@ -181,9 +180,5 @@ export default tseslint.config(
     plugins: {
       jest: jestPlugin,
     },
-  },
-  {
-    extends: [tailwindCssPlugin.configs["flat/recommended"]],
-    files: ["src/**/*.{ts,tsx}", "*.html"],
   }
 );
