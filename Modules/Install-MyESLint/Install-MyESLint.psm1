@@ -95,7 +95,6 @@ function Install-MyESLint {
     }
     <# Vanilla #>
     else {
-        $devDependencies += 'eslint-config-airbnb-base'
         $eslintConfigSource = 'browser\eslint.config.mjs'
     }
     pnpm add -D @devDependencies
