@@ -7,7 +7,7 @@ It installs the browser settings by default.
 Whether to support the global varialbes in Node.
 
 .PARAMETER UseViteReact
-Whether to add the rules for React using Vite.
+Whether to add the rules for React with Vite.
 
 .PARAMETER IsNextJs
 Whether to support a project created by Next.js
