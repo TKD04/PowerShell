@@ -23,6 +23,9 @@ function Install-MyESLint {
     if ($UseNode -and ($UseViteReact -or $IsNextJs)) {
         throw '$UseNode cannot be used with $UseViteReact or $IsNextJs'
     }
+    elseif ($UseViteReact -and $IsNextJs) {
+        throw '$UseViteReact cannot be used with $IsNextJs'
+    }
     [string]$eslintConfigSource = ''
     [string[]]$devDependencies = @(
         '@eslint/eslintrc'
@@ -72,17 +75,12 @@ function Install-MyESLint {
     if ($UseNode) {
         $eslintConfigSource = 'node\eslint.config.mjs'
     }
-    <# Vanilla #>
-    if (!$UseViteReact -and !$IsNextJs) {
-        $devDependencies += 'eslint-config-airbnb-base'
-        $eslintConfigSource = 'browser\eslint.config.mjs'
-    }
-    <# React #>
-    if ($UseViteReact -and !$IsNextJs) {
+    <# React with Vite #>
+    elseif ($UseViteReact) {
         $eslintConfigSource = 'browser\eslint-react.config.mjs'
     }
     <# Next.js #>
-    if ($IsNextJs) {
+    elseif ($IsNextJs) {
         [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
         [bool]$hasNpmScriptLint = $package.scripts.ContainsKey('lint')
 
@@ -94,6 +92,11 @@ function Install-MyESLint {
         }
         $devDependencies += '@next/eslint-plugin-next'
         $eslintConfigSource = 'browser\eslint-next.config.mjs'
+    }
+    <# Vanilla #>
+    else {
+        $devDependencies += 'eslint-config-airbnb-base'
+        $eslintConfigSource = 'browser\eslint.config.mjs'
     }
     pnpm add -D @devDependencies
     Add-MyNpmScript -NameToScript @{
