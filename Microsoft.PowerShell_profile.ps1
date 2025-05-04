@@ -169,6 +169,11 @@ function Show-MyGit {
 }
 New-Alias -Name 'show' -Value 'Show-MyGit'
 
+function Set-MyGitFetch {
+    git fetch $args
+}
+New-Alias -Name 'fetch' -Value 'Set-MyGitFetch'
+
 function Push-MyGit {
     git push $args
 }
