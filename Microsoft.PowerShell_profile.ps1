@@ -174,6 +174,11 @@ function Set-MyGitFetch {
 }
 New-Alias -Name 'fetch' -Value 'Set-MyGitFetch'
 
+function Set-MyGitPull {
+    git pull $args
+}
+New-Alias -Name 'pull' -Value 'Set-MyGitPull'
+
 function Push-MyGit {
     git push $args
 }
