@@ -12,12 +12,8 @@ function Initialize-MyNpm {
     [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
     $package.scripts.Remove('test')
     Export-MyJSON -LiteralPath '.\package.json' -CustomObject $package
-    Add-Content -LiteralPath '.\.gitignore' -Value @(
-        'node_modules/'
-        'dist/'
-    )
 
-    git add '.\.gitignore' '.\package.json'
+    git add '.\package.json'
     git commit -m 'Add npm'
     pnpm
     git add '.\package.json'
