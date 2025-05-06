@@ -2,16 +2,12 @@
 .SYNOPSIS
 Adds Prettier to the current directory.
 
-.PARAMETER UsePug
-Whether to support Pug.
-
 .PARAMETER UseTailwindcss
 Whether to support automatic class sorting of tailwindcss.
 #>
 function Install-MyPrettier {
     [OutputType([void])]
     param (
-        [switch]$UsePug,
         [switch]$UseTailwindcss
     )
 
@@ -19,28 +15,11 @@ function Install-MyPrettier {
         'prettier'
     )
 
-    if ($UsePug -or $UseTailwindcss) {
-        [string]$prettierConfigPath = ''
-
-        if ($UsePug -and $UseTailwindcss) {
-            $devDependencies += @(
-                '@prettier/plugin-pug'
-                'prettier-plugin-tailwindcss'
-            )
-            $prettierConfigPath = Join-Path -Path $PSScriptRoot -ChildPath 'pug\prettier.tailwind.config.js'
-        }
-        elseif ($UsePug -and !$UseTailwindcss) {
-            $devDependencies += @(
-                '@prettier/plugin-pug'
-            )
-            $prettierConfigPath = Join-Path -Path $PSScriptRoot -ChildPath 'pug\prettier.config.js'
-        }
-        elseif (!$UsePug -and $UseTailwindcss) {
-            $devDependencies += @(
-                'prettier-plugin-tailwindcss'
-            )
-            $prettierConfigPath = Join-Path -Path $PSScriptRoot -ChildPath 'tailwind\prettier.config.js'
-        }
+    if ($UseTailwindcss) {
+        $devDependencies += @(
+            'prettier-plugin-tailwindcss'
+        )
+        Join-Path -Path $PSScriptRoot -ChildPath 'common\prettier-tailwindcss.config.js' |
         Copy-Item -LiteralPath $prettierConfigPath -Destination '.\prettier.config.js'
 
         git add '.\prettier.config.js'
