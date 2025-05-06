@@ -15,8 +15,13 @@ function Initialize-MyNpm {
 
     git add '.\package.json'
     git commit -m 'Initialize npm'
-    pnpm
-    git add '.\package.json'
-    git commit -m 'Add pnpm as packageManager'
     Write-MySuccess -Message 'Initialized npm.'
+    if ((Test-MyCommandExists -Command 'pnpm')) {
+        git add '.\package.json'
+        git commit -m 'Add pnpm as packageManager'
+        Write-MySuccess -Message 'Added pnpm as packageManager.'
+    }
+    else {
+        throw 'A command "pnpm" was not found.'
+    }
 }
