@@ -14,7 +14,7 @@ function Initialize-MyNpm {
     Export-MyJSON -LiteralPath '.\package.json' -CustomObject $package
 
     git add '.\package.json'
-    git commit -m 'Add npm'
+    git commit -m 'Initialize npm'
     pnpm
     git add '.\package.json'
     git commit -m 'Add pnpm as packageManager'
