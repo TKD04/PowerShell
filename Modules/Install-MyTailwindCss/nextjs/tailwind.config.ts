@@ -1,5 +1,3 @@
-import tailwindForms from "@tailwindcss/forms";
-import tailwindTypography from "@tailwindcss/typography";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -17,7 +15,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [tailwindTypography, tailwindForms],
 };
 
 export default config;

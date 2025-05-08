@@ -23,8 +23,6 @@ function Install-MyTailwindCss {
         'tailwindcss'
         'postcss'
         'autoprefixer'
-        '@tailwindcss/typography'
-        '@tailwindcss/forms'
     )
     [string]$dirName = 'common'
 
@@ -36,7 +34,6 @@ function Install-MyTailwindCss {
     }
     if ($IsNextJs) {
         # Tailwind CSS is already installed on Next.js project.
-        pnpm add -D @tailwindcss/typography
         if ($UseDaisyUi) {
             Join-Path -Path $PSScriptRoot -ChildPath 'nextjs\tailwind.daisyui.config.ts' |
             Copy-Item -Destination '.\tailwind.config.ts' -Force
