@@ -47,7 +47,6 @@ function Add-MyPackagesToNextJs {
     git add '.\jest.config.cjs'
     git commit -m 'Change `roots` from "<rootDir>/src" to "<rootDir>"'
     Install-MyPrettier -UseTailwindcss
-    Install-MyTailwindCss -IsNextJs
     Install-MyVSCodeSettingsForWeb
     # Add next.yml to deploy to GitHub Pages
     if ($DeployToGitHubPages) {
