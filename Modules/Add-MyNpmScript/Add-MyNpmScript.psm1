@@ -17,7 +17,7 @@ function Add-MyNpmScript {
     }
     # NOTE: To add new properties we need to use [hashtable] instead of [PSCustomObject]
     # since [PSCustomObject] returns an error when new properties are added to it.
-    [hashtable]$package = Import-MyJSON -LiteralPath './package.json' -AsHashTable
+    [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
 
     $NameToScript.GetEnumerator() | ForEach-Object {
         if ($package.scripts.ContainsKey($_.Key)) {
@@ -27,6 +27,6 @@ function Add-MyNpmScript {
             $package.scripts.Add($_.Key, $_.Value)
         }
     }
-    Export-MyJSON -LiteralPath './package.json' -CustomObject $package
+    Export-MyJSON -LiteralPath '.\package.json' -CustomObject $package
     Write-MySuccess -Message ('Added npm script "{0}" to .\package.json.' -f ([string]$NameToScript.Keys).Replace(' ', ', '))
 }
