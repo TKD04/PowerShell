@@ -48,15 +48,15 @@ function Add-MyPackagesToNextJs {
     git commit -m 'Change `roots` from "<rootDir>/src" to "<rootDir>"'
     Install-MyPrettier -UseTailwindcss
     Install-MyVSCodeSettingsForWeb
-    # Add next.yml to deploy to GitHub Pages
+    # Add nextjs.yml to deploy to GitHub Pages
     if ($DeployToGitHubPages) {
-        if (Test-MyStrictPath('.\.github\workflows\next.yml')) {
-            Write-Warning -Message '.\.github\workflows\next.yml is already in place.'
+        if (Test-MyStrictPath('.\.github\workflows\nextjs.yml')) {
+            Write-Warning -Message '.\.github\workflows\nextjs.yml is already in place.'
         }
         else {
             New-Item -Path '.\' -Name '.github' -ItemType 'directory'
             New-Item -Path '.\.github' -Name 'workflows' -ItemType 'directory'
-            Join-Path -Path $PSScriptRoot -ChildPath 'common\next.yml' |
+            Join-Path -Path $PSScriptRoot -ChildPath 'common\nextjs.yml' |
             Copy-Item -Destination '.\.github\workflows'
         }
     }
