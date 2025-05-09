@@ -32,6 +32,8 @@ function Add-MyPackagesToNextJs {
     # https://eslint.org/docs/latest/use/getting-started#manual-set-up
     Join-Path -Path $PSScriptRoot -ChildPath 'common\.npmrc' |
     Copy-Item -Destination '.\.npmrc'
+    git add '.\.npmrc'
+    git commit -m 'Add .npmrc for pnpm to work properly'
     # Make .\tsconfig.json more strict
     $missingCompilerOptions.GetEnumerator() | ForEach-Object {
         $tsConfig.compilerOptions.Add($_.Key, $_.Value)
