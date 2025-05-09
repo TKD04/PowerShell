@@ -4,15 +4,11 @@ Adds some needed packages to a Next.js project.
 
 .PARAMETER DeployToGitHubPages
 Whether to use GitHub Pages to publish a site
-
-.PARAMETER UseDaisyUi
-Whether to support daisyUI
 #>
 function Add-MyPackagesToNextJs {
     [OutputType([void])]
     param (
-        [switch]$DeployToGitHubPages,
-        [switch]$UseDaisyUi
+        [switch]$DeployToGitHubPages
     )
 
     [hashtable]$missingCompilerOptions = @{
@@ -51,7 +47,7 @@ function Add-MyPackagesToNextJs {
     git add '.\jest.config.cjs'
     git commit -m 'Change `roots` from "<rootDir>/src" to "<rootDir>"'
     Install-MyPrettier -UseTailwindcss
-    Install-MyTailwindCss -IsNextJs -UseDaisyUi:$UseDaisyUi
+    Install-MyTailwindCss -IsNextJs
     Install-MyVSCodeSettingsForWeb
     # Add next.yml to deploy to GitHub Pages
     if ($DeployToGitHubPages) {
