@@ -32,6 +32,10 @@ function Add-MyPackagesToNextJs {
     }
     [hashtable]$tsConfig = Import-MyJSON -LiteralPath '.\tsconfig.json' -AsHashTable
 
+    # Add .\.npmrc for pnpm
+    # https://eslint.org/docs/latest/use/getting-started#manual-set-up
+    Join-Path -Path $PSScriptRoot -ChildPath 'common\.npmrc' |
+    Copy-Item -Destination '.\.npmrc'
     # Make .\tsconfig.json more strict
     $missingCompilerOptions.GetEnumerator() | ForEach-Object {
         $tsConfig.compilerOptions.Add($_.Key, $_.Value)

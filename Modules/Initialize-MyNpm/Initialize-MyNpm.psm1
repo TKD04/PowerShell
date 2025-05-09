@@ -17,8 +17,11 @@ function Initialize-MyNpm {
     git commit -m 'Initialize npm'
     Write-MySuccess -Message 'Initialized npm.'
     if ((Test-MyCommandExists -Command 'pnpm')) {
+        # https://eslint.org/docs/latest/use/getting-started#manual-set-up
+        Join-Path -Path $PSScriptRoot -ChildPath 'common\.npmrc' |
+        Copy-Item -Destination '.\.npmrc'
         pnpm
-        git add '.\package.json'
+        git add '.\.npmrc' '.\package.json'
         git commit -m 'Add pnpm as packageManager'
         Write-MySuccess -Message 'Added pnpm as packageManager.'
     }
