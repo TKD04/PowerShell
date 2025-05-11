@@ -28,6 +28,14 @@ function Add-MyPackagesToNextJs {
     }
     [hashtable]$tsConfig = Import-MyJSON -LiteralPath '.\tsconfig.json' -AsHashTable
 
+    # Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore
+    # https://github.com/github/gitignore
+    git rm '.\.gitignore'
+    Join-Path -Path $PSScriptRoot -ChildPath 'common\Node.gitignore' |
+    Copy-Item -Destination '.\.gitignore'
+    git add '.\.gitignore'
+    git commit -m 'Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore'
+    Write-MySuccess -Message 'Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore'
     # Add .\.npmrc for pnpm
     # https://eslint.org/docs/latest/use/getting-started#manual-set-up
     Join-Path -Path $PSScriptRoot -ChildPath 'common\.npmrc' |
