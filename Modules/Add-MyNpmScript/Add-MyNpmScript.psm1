@@ -12,7 +12,7 @@ function Add-MyNpmScript {
         [hashtable]$NameToScript
     )
 
-    if (!(Test-MyStrictPath -LiteralPath './package.json')) {
+    if (!(Test-MyStrictPath -LiteralPath '.\package.json')) {
         throw '.\package.json was not found.'
     }
     # NOTE: To add new properties we need to use [hashtable] instead of [PSCustomObject]

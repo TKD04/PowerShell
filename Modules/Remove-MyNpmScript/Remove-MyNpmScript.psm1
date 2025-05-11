@@ -12,10 +12,10 @@ function Remove-MyNpmScript {
         [string]$ScriptName
     )
 
-    if (!(Test-MyStrictPath -LiteralPath './package.json')) {
+    if (!(Test-MyStrictPath -LiteralPath '.\package.json')) {
         throw '.\package.json was not found.'
     }
-    [hashtable]$package = Import-MyJSON -LiteralPath './package.json' -AsHashTable
+    [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
     [boolean]$hasScript = $package.scripts.ContainsKey($ScriptName)
 
     if ($hasScript) {
@@ -24,6 +24,6 @@ function Remove-MyNpmScript {
     else {
         throw 'The key "{0}" was not found in npm scripts.' -f $ScriptName
     }
-    Export-MyJSON -LiteralPath './package.json' -CustomObject $package
+    Export-MyJSON -LiteralPath '.\package.json' -CustomObject $package
     Write-MySuccess -Message ('Removed npm script "{0}" from .\package.json.' -f $ScriptName)
 }
