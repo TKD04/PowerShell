@@ -67,7 +67,7 @@ function Add-MyPackagesToNextJs {
             New-Item -Path '.\' -Name '.github' -ItemType 'directory'
             New-Item -Path '.\.github' -Name 'workflows' -ItemType 'directory'
             Join-Path -Path $PSScriptRoot -ChildPath 'common\nextjs.yml' |
-            Copy-Item -Destination '.\.github\workflows'
+            Copy-Item -Destination '.\.github\workflows\nextjs.yml'
         }
     }
     Write-MySuccess -Message 'Added the needed packages and configs to the Next.js project.'
