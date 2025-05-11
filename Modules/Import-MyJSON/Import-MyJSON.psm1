@@ -31,5 +31,5 @@ function Import-MyJSON {
     catch {
         throw "Failed to import JSON from $LiteralPath. $_"
     }
-    Write-MySuccess -Message ('Imported JSON from "{0}".' -f $LiteralPath)
+    Write-MySuccess -Message ('Imported JSON from {0}.' -f $LiteralPath)
 }
