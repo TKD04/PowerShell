@@ -39,7 +39,7 @@ function Add-MyPackagesToNextJs {
     Write-MySuccess -Message 'Replaced generated .gitignore by Next.js with Node.gitignore from github/gitignore.'
 
     <# .npmrc #>
-    # Add .\.npmrc for pnpm to be more compatible with npm
+    # Add .npmrc for pnpm to be more compatible with npm
     # https://eslint.org/docs/latest/use/getting-started#manual-set-up
     Join-Path -Path $PSScriptRoot -ChildPath 'common\.npmrc' |
     Copy-Item -Destination '.\.npmrc'
@@ -61,7 +61,7 @@ function Add-MyPackagesToNextJs {
     Write-MySuccess -Message 'Added globals.d.ts to fix error when importing like *.css files.'
 
     <# tscofnig.json #>
-    # Make .\tsconfig.json more strict
+    # Make tsconfig.json more strict
     $missingCompilerOptions.GetEnumerator() | ForEach-Object {
         $tsConfig.compilerOptions.Add($_.Key, $_.Value)
     }
