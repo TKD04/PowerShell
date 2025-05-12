@@ -41,7 +41,7 @@ function Add-MyPackagesToNextJs {
     Join-Path -Path $PSScriptRoot -ChildPath 'common\.npmrc' |
     Copy-Item -Destination '.\.npmrc'
     git add '.\.npmrc'
-    git commit -m 'Added .npmrc for pnpm to be more compatible with npm'
+    git commit -m 'Add .npmrc for pnpm to be more compatible with npm'
     # Add globals.d.ts to fix error when importing like *.css files
     # https://www.typescriptlang.org/tsconfig/#noUncheckedSideEffectImports
     if (!(Test-MyStrictPath -LiteralPath '.\lib')) {
