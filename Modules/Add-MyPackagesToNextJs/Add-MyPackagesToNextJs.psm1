@@ -42,6 +42,17 @@ function Add-MyPackagesToNextJs {
     Copy-Item -Destination '.\.npmrc'
     git add '.\.npmrc'
     git commit -m 'Add .npmrc for pnpm to work properly'
+    # Add globals.d.ts to fix error when importing like *.css files
+    # https://www.typescriptlang.org/tsconfig/#noUncheckedSideEffectImports
+    if (!(Test-MyStrictPath -LiteralPath '.\lib')) {
+        New-Item -Path '.\' -Name 'lib' -ItemType 'Directory'
+    }
+    New-Item -Path '.\lib' -Name 'types' -ItemType 'Directory'
+    Join-Path -Path $PSScriptRoot -ChildPath 'common\globals.d.ts' |
+    Copy-Item -Destination '.\lib\types\globals.d.ts'
+    git add '.\lib\types\globals.d.ts'
+    git commit -m 'Add globals.d.ts to fix error when importing like *.css files'
+    Write-MySuccess -Message 'Added globals.d.ts to fix error when importing like *.css files'
     # Make .\tsconfig.json more strict
     $missingCompilerOptions.GetEnumerator() | ForEach-Object {
         $tsConfig.compilerOptions.Add($_.Key, $_.Value)
