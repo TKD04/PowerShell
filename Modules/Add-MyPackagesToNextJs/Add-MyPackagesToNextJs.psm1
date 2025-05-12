@@ -36,12 +36,12 @@ function Add-MyPackagesToNextJs {
     git add '.\.gitignore'
     git commit -m 'Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore'
     Write-MySuccess -Message 'Replaced generated .gitignore by Next.js with Node.gitignore from github/gitignore'
-    # Add .\.npmrc for pnpm
+    # Add .\.npmrc for pnpm to be more compatible with npm
     # https://eslint.org/docs/latest/use/getting-started#manual-set-up
     Join-Path -Path $PSScriptRoot -ChildPath 'common\.npmrc' |
     Copy-Item -Destination '.\.npmrc'
     git add '.\.npmrc'
-    git commit -m 'Added .npmrc for pnpm to work properly'
+    git commit -m 'Added .npmrc for pnpm to be more compatible with npm'
     # Add globals.d.ts to fix error when importing like *.css files
     # https://www.typescriptlang.org/tsconfig/#noUncheckedSideEffectImports
     if (!(Test-MyStrictPath -LiteralPath '.\lib')) {
