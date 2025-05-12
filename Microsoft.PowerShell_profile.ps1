@@ -157,7 +157,7 @@ New-Alias -Name 'difs' -Value 'Get-MyGitDiffStaged'
 function Get-MyGitLog {
     git log --oneline --graph $args
 }
-New-Alias -Name 'log' -Value 'Get-MyGitLog'
+New-Alias -Name 'l' -Value 'Get-MyGitLog'
 
 function Get-MyGitLog3 {
     git log --oneline --graph -3 $args
