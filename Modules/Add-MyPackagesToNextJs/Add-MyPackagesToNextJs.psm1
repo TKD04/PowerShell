@@ -28,6 +28,7 @@ function Add-MyPackagesToNextJs {
     }
     [hashtable]$tsConfig = Import-MyJSON -LiteralPath '.\tsconfig.json' -AsHashTable
 
+    <# .gitignore #>
     # Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore
     # https://github.com/github/gitignore
     git rm '.\.gitignore'
@@ -36,6 +37,8 @@ function Add-MyPackagesToNextJs {
     git add '.\.gitignore'
     git commit -m 'Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore'
     Write-MySuccess -Message 'Replaced generated .gitignore by Next.js with Node.gitignore from github/gitignore.'
+
+    <# .npmrc #>
     # Add .\.npmrc for pnpm to be more compatible with npm
     # https://eslint.org/docs/latest/use/getting-started#manual-set-up
     Join-Path -Path $PSScriptRoot -ChildPath 'common\.npmrc' |
@@ -43,6 +46,8 @@ function Add-MyPackagesToNextJs {
     git add '.\.npmrc'
     git commit -m 'Add .npmrc for pnpm to be more compatible with npm'
     Write-MySuccess -Message 'Added .npmrc for pnpm to be more compatible with npm.'
+
+    <# globals.d.ts #>
     # Add globals.d.ts to fix error when importing like *.css files
     # https://www.typescriptlang.org/tsconfig/#noUncheckedSideEffectImports
     if (!(Test-MyStrictPath -LiteralPath '.\lib')) {
@@ -54,6 +59,8 @@ function Add-MyPackagesToNextJs {
     git add '.\lib\types\globals.d.ts'
     git commit -m 'Add globals.d.ts to fix error when importing like *.css files'
     Write-MySuccess -Message 'Added globals.d.ts to fix error when importing like *.css files.'
+
+    <# tscofnig.json #>
     # Make .\tsconfig.json more strict
     $missingCompilerOptions.GetEnumerator() | ForEach-Object {
         $tsConfig.compilerOptions.Add($_.Key, $_.Value)
@@ -61,15 +68,21 @@ function Add-MyPackagesToNextJs {
     Export-MyJSON -LiteralPath '.\tsconfig.json' -CustomObject $tsConfig
     git add '.\tsconfig.json'
     git commit -m 'Make tsconfig.json more strict'
+
     Install-MyESLint -IsNextJs
     Install-MyJest -UseReact
+
+    <# jest.config.cjs #>
     # Replace `<rootDir>/src` with `<rootDir>` in roots for Jest to work properly in Next.js
     Join-Path -Path $PSScriptRoot -ChildPath 'common\jest-nextjs.config.cjs' |
     Copy-Item -Destination '.\jest.config.cjs' -Force
     git add '.\jest.config.cjs'
     git commit -m 'Change `roots` from "<rootDir>/src" to "<rootDir>"'
+
     Install-MyPrettier -UseTailwindcss
     Install-MyVSCodeSettingsForWeb
+
+    <# nextjs.yml #>
     # Add nextjs.yml to deploy to GitHub Pages
     if ($DeployToGitHubPages) {
         if (Test-MyStrictPath('.\.github\workflows\nextjs.yml')) {
