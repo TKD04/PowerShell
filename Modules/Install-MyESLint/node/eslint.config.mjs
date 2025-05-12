@@ -1,6 +1,3 @@
-import nodePath from "node:path";
-import { fileURLToPath } from "node:url";
-
 import { FlatCompat } from "@eslint/eslintrc";
 import eslint from "@eslint/js";
 import stylisticPlugin from "@stylistic/eslint-plugin";
@@ -15,11 +12,9 @@ import globals from "globals";
 import tseslint from "typescript-eslint";
 
 // https://eslint.org/docs/latest/use/configure/migration-guide#using-eslintrc-configs-in-flat-config
-const fileName = fileURLToPath(import.meta.url);
-const directoryName = nodePath.dirname(fileName);
 const compat = new FlatCompat({
   allConfig: eslint.configs.all,
-  baseDirectory: directoryName,
+  baseDirectory: import.meta.dirname,
   recommendedConfig: eslint.configs.recommended,
 });
 // Replace the deprecated "@typescript-eslint@^7" rules with the latest ones in "eslint-config-airbnb-typescript"
