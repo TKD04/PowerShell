@@ -35,13 +35,13 @@ function Add-MyPackagesToNextJs {
     Copy-Item -Destination '.\.gitignore'
     git add '.\.gitignore'
     git commit -m 'Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore'
-    Write-MySuccess -Message 'Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore'
+    Write-MySuccess -Message 'Replaced generated .gitignore by Next.js with Node.gitignore from github/gitignore'
     # Add .\.npmrc for pnpm
     # https://eslint.org/docs/latest/use/getting-started#manual-set-up
     Join-Path -Path $PSScriptRoot -ChildPath 'common\.npmrc' |
     Copy-Item -Destination '.\.npmrc'
     git add '.\.npmrc'
-    git commit -m 'Add .npmrc for pnpm to work properly'
+    git commit -m 'Added .npmrc for pnpm to work properly'
     # Add globals.d.ts to fix error when importing like *.css files
     # https://www.typescriptlang.org/tsconfig/#noUncheckedSideEffectImports
     if (!(Test-MyStrictPath -LiteralPath '.\lib')) {
@@ -81,7 +81,7 @@ function Add-MyPackagesToNextJs {
             Copy-Item -Destination '.\.github\workflows\nextjs.yml'
             git add '.\.github\workflows\nextjs.yml'
             git commit -m 'Add nextjs.yml to deploy to GtiHub Pages'
-            Write-MySuccess -Message 'Add nextjs.yml to deploy to GtiHub Pages'
+            Write-MySuccess -Message 'Added nextjs.yml to deploy to GtiHub Pages'
         }
     }
     Write-MySuccess -Message 'Added the needed packages and configs to the Next.js project.'
