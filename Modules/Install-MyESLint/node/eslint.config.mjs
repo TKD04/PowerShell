@@ -30,7 +30,7 @@ const legacyRulesToLatestOnes = new Map([
     "comma-spacing",
     "func-call-spacing",
     "indent",
-    "keyward-spacing",
+    "keyword-spacing",
     "lines-between-class-members",
     "no-extra-semi",
     "space-before-blocks",
