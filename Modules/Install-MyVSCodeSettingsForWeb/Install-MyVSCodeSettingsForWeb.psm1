@@ -29,10 +29,7 @@ function Install-MyVSCodeSettingsForWeb {
     [PSCustomObject]$extensions = [PSCustomObject]@{
         'recommendations' = @(
             'dbaeumer.vscode-eslint'
-            'davidanson.vscode-markdownlint'
             'esbenp.prettier-vscode'
-            'orta.vscode-jest'
-            'bradlc.vscode-tailwindcss'
         )
     }
 
