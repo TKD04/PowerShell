@@ -178,15 +178,10 @@ export default tseslint.config(
       compat.extends("airbnb/hooks"),
       reactPlugin.configs.flat["jsx-runtime"],
       reactRefreshPlugin.configs.recommended,
+      reactCompilerPlugin.configs.recommended,
     ],
     files: ["app/**/*.tsx"],
     name: "react",
-    plugins: {
-      "react-compiler": reactCompilerPlugin,
-    },
-    rules: {
-      "react-compiler/react-compiler": "error",
-    },
     settings: {
       react: {
         version: "detect",

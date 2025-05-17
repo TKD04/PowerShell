@@ -65,7 +65,7 @@ function Install-MyESLint {
             'eslint-config-airbnb'
             'eslint-plugin-jsx-a11y'
             'eslint-plugin-react'
-            'eslint-plugin-react-compiler@beta'
+            'eslint-plugin-react-compiler'
             'eslint-plugin-react-hooks'
             'eslint-plugin-react-refresh'
         )
