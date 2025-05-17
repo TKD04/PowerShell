@@ -62,7 +62,6 @@ function Install-MyESLint {
     <# React #>
     if ($UseViteReact -or $IsNextJs) {
         $devDependencies += @(
-            'babel-plugin-react-compiler@beta'
             'eslint-config-airbnb'
             'eslint-plugin-jsx-a11y'
             'eslint-plugin-react'
