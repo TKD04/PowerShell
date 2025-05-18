@@ -1,6 +1,6 @@
 ﻿<#
 .SYNOPSIS
-Adds Tailwind CSS to the current dirNameectory.
+Adds Tailwind CSS to the current directory.
 
 .PARAMETER IsVite
 Whether to support a project created by Vite.
