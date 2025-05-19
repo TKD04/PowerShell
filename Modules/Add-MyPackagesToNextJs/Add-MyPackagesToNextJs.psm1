@@ -1,6 +1,6 @@
 ﻿<#
 .SYNOPSIS
-Adds some needed packages to a Next.js project.
+Adds some required packages to a Next.js project.
 
 .PARAMETER DeployToGitHubPages
 Whether to use GitHub Pages to publish a site
@@ -98,5 +98,5 @@ function Add-MyPackagesToNextJs {
             Write-MySuccess -Message 'Added nextjs.yml to deploy to GtiHub Pages.'
         }
     }
-    Write-MySuccess -Message 'Added the needed packages and configs to the Next.js project.'
+    Write-MySuccess -Message 'Added the required packages and configs to the Next.js project.'
 }

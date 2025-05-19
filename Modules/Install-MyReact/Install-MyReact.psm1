@@ -6,7 +6,7 @@ function Install-MyReact {
     [OutputType([void])]
     param ()
 
-    [string[]]$neededPackages = @(
+    [string[]]$requiredPackages = @(
         'react'
         'react-dom'
     )
@@ -15,7 +15,7 @@ function Install-MyReact {
         '@types/react-dom'
     )
 
-    pnpm add @neededPackages
+    pnpm add @requiredPackages
     pnpm add -D @devDependencies
 
     git add '.\pnpm-lock.yaml' '.\package.json'

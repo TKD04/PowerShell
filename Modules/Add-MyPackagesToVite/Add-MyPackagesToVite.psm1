@@ -1,6 +1,6 @@
 ﻿<#
 .SYNOPSIS
-Adds some needed packages to a Vite
+Adds some required packages to a Vite
 
 .PARAMETER UseReact
 Whether to support React.
@@ -84,5 +84,5 @@ function Add-MyPackagesToVite {
     pnpm run format
     git add .
     git commit -m 'Format all the files by Prettier'
-    Write-MySuccess -Message 'Added the needed packages and configs to the Vite project.'
+    Write-MySuccess -Message 'Added the required packages and configs to the Vite project.'
 }
