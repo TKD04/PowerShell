@@ -1,6 +1,8 @@
 ﻿<#
 .SYNOPSIS
 Adds some required packages to a Next.js project.
+You should use the command "npx create-next-app@latest --use-pnpm" to create the project.
+Otherwise this function will throw error.
 
 .PARAMETER DeployToGitHubPages
 Whether to use GitHub Pages to publish a site
@@ -27,6 +29,10 @@ function Add-MyPackagesToNextJs {
         'verbatimModuleSyntax'               = $true
     }
     [hashtable]$tsConfig = Import-MyJSON -LiteralPath '.\tsconfig.json' -AsHashTable
+
+    if (!(Test-MyStrictPath -LiteralPath '.\pnpm-lock.yaml')) {
+        throw 'You should use the command "npx create-next-app@latest --use-pnpm" to create the project.'
+    }
 
     <# .npmrc #>
     # Add .npmrc for pnpm to be more compatible with npm
