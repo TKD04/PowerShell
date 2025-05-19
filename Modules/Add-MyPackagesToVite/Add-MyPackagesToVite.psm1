@@ -57,10 +57,10 @@ function Add-MyPackagesToVite {
     Install-MyTailwindCss -IsVite -UseDaisyUi:$UseDaisyUi
     <# VSCode config #>
     Install-MyVSCodeSettingsForWeb
-    <# Rename .js .cjs for config files to work in type: module #>
+    # Rename .js .cjs for config files to work in type: module
     Rename-MyFileExtension -OldExtension 'js' -NewExtension 'cjs' -UseGitMv
     git commit -m 'Rename .js .cjs for config files to work in `type: module`'
-    <# Add `--open` to `dev` and `preview` npm scirpts #>
+    # Add `--open` to `dev` and `preview` npm scirpts
     [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
     $package.scripts.Remove('dev')
     $package.scripts.Remove('preview')
@@ -80,7 +80,7 @@ function Add-MyPackagesToVite {
         Join-Path -Path $PSScriptRoot -ChildPath 'common\vite.yml' |
         Copy-Item -Destination '.\.github\workflows'
     }
-    <# Format all files by Prettier #>
+    # Format all files by Prettier
     pnpm run format
     git add .
     git commit -m 'Format all the files by Prettier'
