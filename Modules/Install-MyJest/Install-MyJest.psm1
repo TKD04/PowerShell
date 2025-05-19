@@ -50,7 +50,6 @@ function Install-MyJest {
         'test' = 'jest'
     }
     pnpm add -D @devDependencies
-
     git add '.\pnpm-lock.yaml' '.\package.json' $jestConfigPath
     git commit -m 'Add Jest'
     Write-MySuccess -Message 'Added Jest, its configs, and its npm script "test".'

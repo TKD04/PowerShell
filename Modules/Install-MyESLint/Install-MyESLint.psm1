@@ -102,7 +102,6 @@ function Install-MyESLint {
     }
     Join-Path -Path $PSScriptRoot -ChildPath $eslintConfigSource |
     Copy-Item -Destination '.\eslint.config.mjs'
-
     git add '.\package.json' '.\pnpm-lock.yaml' '.\eslint.config.mjs'
     git commit -m 'Add ESLint'
     Write-MySuccess -Message 'Added ESLint, its configs, and its npm script "lint".'

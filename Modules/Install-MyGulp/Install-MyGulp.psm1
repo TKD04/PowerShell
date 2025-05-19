@@ -16,7 +16,6 @@ function Install-MyGulp {
     if ($UseTypeScript) {
         pnpm add -D @types/gulp
     }
-
     git add '.\pnpm-lock.yaml' '.\package.json' '.\gulpfile.mjs'
     git commit -m 'Add gulp'
     Write-MySuccess -Message 'Added Gulp.'

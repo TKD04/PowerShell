@@ -120,7 +120,6 @@ function Install-MyTypeScript {
     }
     pnpm add -D @devDependencies
     Export-MyJSON -LiteralPath $tsConfigPath -CustomObject $tsConfig
-
     git add '.\pnpm-lock.yaml' '.\package.json' $tsConfigPath
     git commit -m $commitMessage
     Write-MySuccess -Message 'Added TypeScript and its configs.'

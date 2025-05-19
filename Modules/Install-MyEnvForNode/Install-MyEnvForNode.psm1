@@ -36,7 +36,6 @@ function Install-MyEnvForNode {
     Copy-Item -Destination '.\.gitignore'
     New-Item -Path '.\' -Name 'src' -ItemType 'Directory'
     New-Item -Path '.\src' -Name 'app.ts' -ItemType 'File'
-
     git add '.\.gitignore' '.\package.json' '.\src\app.ts'
     git commit -m 'Add environment for Node'
     pnpm run format
