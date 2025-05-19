@@ -4,15 +4,11 @@ Adds Tailwind CSS to the current directory.
 
 .PARAMETER IsVite
 Whether to support a project created by Vite.
-
-.PARAMETER IsNextJs
-Whether to support a project created by NextJS.
 #>
 function Install-MyTailwindCss {
     [OutputType([void])]
     param (
-        [switch]$IsVite,
-        [switch]$IsNextJs
+        [switch]$IsVite
     )
 
     [string[]]$devDependencies = @(
@@ -22,20 +18,8 @@ function Install-MyTailwindCss {
     )
     [string]$dirName = 'common'
 
-    if ($IsVite -and $IsNextJs) {
-        throw 'Only enable either $IsVite or $IsNextJs'
-    }
     if ($IsVite) {
         $dirName = 'vite'
-    }
-    if ($IsNextJs) {
-        # Tailwind CSS is already installed on Next.js project.
-        Join-Path -Path $PSScriptRoot -ChildPath 'nextjs\tailwind.config.ts' |
-        Copy-Item -Destination '.\tailwind.config.ts' -Force
-        git add '.\pnpm-lock.yaml' '.\package.json' '.\tailwind.config.ts'
-        git commit -m 'Add `@tailwindcss/typography`'
-
-        return
     }
     Join-Path -Path $PSScriptRoot -ChildPath "\$dirName\tailwind.config.js" |
     Copy-Item -Destination '.\tailwind.config.js' -Force
