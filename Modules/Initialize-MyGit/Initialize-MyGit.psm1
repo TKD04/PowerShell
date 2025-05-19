@@ -17,7 +17,7 @@ function Initialize-MyGit {
     )
 
     if (Test-MyStrictPath -LiteralPath '.\.git') {
-        throw 'Git repository is already in place.'
+        throw 'Git repository is already in place (abort).'
     }
     git init $args
     if (!(Test-MyStrictPath -LiteralPath '.\.gitignore')) {
@@ -35,7 +35,7 @@ function Initialize-MyGit {
         }
     }
     else {
-        Write-Warning -Message '.gitignore is already in place.'
+        Write-Warning -Message '.gitignore is already in place (skip).'
     }
     git commit -m 'First commit'
     Write-MySuccess -Message 'Created Git repository in the current directory.'

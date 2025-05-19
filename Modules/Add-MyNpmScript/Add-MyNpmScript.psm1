@@ -21,7 +21,7 @@ function Add-MyNpmScript {
 
     $NameToScript.GetEnumerator() | ForEach-Object {
         if ($package.scripts.ContainsKey($_.Key)) {
-            Write-Warning -Message ('The key "{0}" already exists in npm scripts.' -f $_.Key)
+            Write-Warning -Message ('The key "{0}" already exists in npm scripts (skip).' -f $_.Key)
         }
         else {
             $package.scripts.Add($_.Key, $_.Value)
