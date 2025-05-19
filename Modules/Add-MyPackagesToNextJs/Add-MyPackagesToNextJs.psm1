@@ -28,6 +28,15 @@ function Add-MyPackagesToNextJs {
     }
     [hashtable]$tsConfig = Import-MyJSON -LiteralPath '.\tsconfig.json' -AsHashTable
 
+    <# .npmrc #>
+    # Add .npmrc for pnpm to be more compatible with npm
+    # https://eslint.org/docs/latest/use/getting-started#manual-set-up
+    Join-Path -Path $PSScriptRoot -ChildPath 'common\.npmrc' |
+    Copy-Item -Destination '.\.npmrc'
+    git add '.\.npmrc'
+    git commit -m 'Add .npmrc for pnpm to be more compatible with npm'
+    Write-MySuccess -Message 'Added .npmrc for pnpm to be more compatible with npm.'
+
     <# .gitignore #>
     # Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore
     # https://github.com/github/gitignore
@@ -37,15 +46,6 @@ function Add-MyPackagesToNextJs {
     git add '.\.gitignore'
     git commit -m 'Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore'
     Write-MySuccess -Message 'Replaced generated .gitignore by Next.js with Node.gitignore from github/gitignore.'
-
-    <# .npmrc #>
-    # Add .npmrc for pnpm to be more compatible with npm
-    # https://eslint.org/docs/latest/use/getting-started#manual-set-up
-    Join-Path -Path $PSScriptRoot -ChildPath 'common\.npmrc' |
-    Copy-Item -Destination '.\.npmrc'
-    git add '.\.npmrc'
-    git commit -m 'Add .npmrc for pnpm to be more compatible with npm'
-    Write-MySuccess -Message 'Added .npmrc for pnpm to be more compatible with npm.'
 
     <# globals.d.ts #>
     # Add globals.d.ts to fix error when importing like *.css files
