@@ -5,16 +5,12 @@ Adds some required packages to a Vite
 .PARAMETER UseReact
 Whether to support React.
 
-.PARAMETER UseDaisyUi
-Whether to support daisyUI
-
 .PARAMETER DeployToGitHubPages
 Whether to use GitHub Pages to publish a site
 #>
 function Add-MyPackagesToVite {
     [OutputType([void])]
     param (
-        [switch]$UseDaisyUi,
         [switch]$UseReact,
         [switch]$DeployToGitHubPages
     )
@@ -54,7 +50,7 @@ function Add-MyPackagesToVite {
     <# Prettier #>
     Install-MyPrettier -UseTailwindcss
     <# Tailwind CSS #>
-    Install-MyTailwindCss -IsVite -UseDaisyUi:$UseDaisyUi
+    Install-MyTailwindCss -IsVite
     <# VSCode config #>
     Install-MyVSCodeSettingsForWeb
     # Rename .js .cjs for config files to work in type: module
