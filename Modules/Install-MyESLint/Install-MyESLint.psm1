@@ -74,7 +74,7 @@ function Install-MyESLint {
     if ($UseNode) {
         $eslintConfigSource = 'node\eslint.config.mjs'
     }
-    <# React with Vite #>
+    <# Vite with React #>
     elseif ($UseViteReact) {
         $eslintConfigSource = 'browser\eslint-react.config.mjs'
     }
