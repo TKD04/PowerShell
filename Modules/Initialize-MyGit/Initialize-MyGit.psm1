@@ -31,12 +31,12 @@ function Initialize-MyGit {
         }
         else {
             New-Item -Path '.\' -Name '.gitignore' -ItemType 'file'
-            git add '.\.gitignore'
         }
     }
     else {
         Write-Warning -Message '.gitignore is already in place (skip).'
     }
+    git add '.\.gitignore'
     git commit -m 'First commit'
     Write-MySuccess -Message 'Created Git repository in the current directory.'
 }
