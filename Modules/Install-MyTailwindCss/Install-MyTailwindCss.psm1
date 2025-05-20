@@ -11,26 +11,46 @@ function Install-MyTailwindCss {
         [switch]$IsVite
     )
 
-    [string[]]$devDependencies = @(
+    [string[]]$dependencies = @(
         'tailwindcss'
-        'postcss'
-        'autoprefixer'
     )
-    [string]$dirName = 'common'
+    [bool]$isViteReact = $IsVite -and (Test-MyStrictPath -LiteralPath '.\tsconfig.app.json')
 
-    if ($IsVite) {
-        $dirName = 'vite'
+    # Vite with React
+    if ($IsVite -and $isViteReact) {
+        $dependencies += '@tailwindcss/vite'
+        Join-Path -Path $PSScriptRoot -ChildPath 'common\vite-react.config.ts' |
+        Copy-Item -Destination '.\vite.config.ts'
+        Join-Path -Path $PSScriptRoot -ChildPath 'common\vite-react-index.css' |
+        Copy-Item -Destination '.\src\index.css' -Force
+        git add '.\vite.config.ts' '.\src\index.css'
     }
-    Join-Path -Path $PSScriptRoot -ChildPath "\$dirName\tailwind.config.js" |
-    Copy-Item -Destination '.\tailwind.config.js' -Force
-    Join-Path -Path $PSScriptRoot -ChildPath 'common\index.css'
-    Copy-Item -Destination '.\src\index.css' -Force
-    Join-Path -Path $PSScriptRoot -ChildPath 'common\postcss.config.js'
-    Copy-Item -Destination '.\postcss.config.js'
-    # https://tailwindcss.com/docs/optimizing-for-production
-    $devDependencies += 'cssnano'
-    pnpm add -D @devDependencies
-    git add '.\pnpm-lock.yaml' '.\package.json' '.\tailwind.config.js' '.\postcss.config.js' '.\src\index.css'
+    # Vite
+    elseif ($IsVite) {
+        $dependencies += '@tailwindcss/vite'
+        Join-Path -Path $PSScriptRoot -ChildPath 'common\vite.config.mjs' |
+        Copy-Item -Destination '.\vite.config.mjs'
+        Join-Path -Path $PSScriptRoot -ChildPath 'common\vite-style.css' |
+        Copy-Item -Destination '.\src\style.css' -Force
+        git add '.\vite.config.mjs' '.\src\style.css'
+    }
+    # No framework
+    else {
+        $dependencies += @(
+            '@tailwindcss/postcss'
+            'postcss'
+        )
+        if (!(Test-MyStrictPath -LiteralPath '.\src')) {
+            New-Item -Path '.\' -Name 'src' -ItemType 'Directory'
+        }
+        Join-Path -Path $PSScriptRoot -ChildPath 'common\postcss.config.mjs' |
+        Copy-Item -Destination '.\postcss.config.mjs'
+        Join-Path -Path $PSScriptRoot -ChildPath 'common\vanilla-style.css' |
+        Copy-Item -Destination '.\src\style.css' -Force
+        git add '.\postcss.config.mjs' '.\src\style.css'
+    }
+    pnpm add @dependencies
+    git add '.\pnpm-lock.yaml' '.\package.json'
     git commit -m 'Add Tailwind CSS'
     Write-MySuccess -Message 'Added Tailwind CSS.'
 }
