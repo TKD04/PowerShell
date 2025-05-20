@@ -26,7 +26,7 @@ function Add-MyPackagesToVite {
     git commit -m 'Add pnpm as packageManager'
 
     <# TypeScript #>
-    Install-MyTypeScript -NoEmit -UseViteReact:$UseReact
+    Install-MyTypeScript -NoEmit -IsViteReact:$UseReact
     <# ESLint #>
     # Use old version ESLint (v8) instead of new one (v9) which installed by Vite
     # because many packages which I use didn't support new one so far (2024-09-30)

@@ -6,7 +6,7 @@ It installs the browser settings by default.
 .PARAMETER UseNode
 Whether to support the global varialbes in Node.
 
-.PARAMETER UseViteReact
+.PARAMETER IsViteReact
 Whether to add the rules for React with Vite.
 
 .PARAMETER IsNextJs
@@ -16,15 +16,15 @@ function Install-MyESLint {
     [OutputType([void])]
     param (
         [switch]$UseNode,
-        [switch]$UseViteReact,
+        [switch]$IsViteReact,
         [switch]$IsNextJs
     )
 
-    if ($UseNode -and ($UseViteReact -or $IsNextJs)) {
-        throw '$UseNode cannot be used with $UseViteReact or $IsNextJs'
+    if ($UseNode -and ($IsViteReact -or $IsNextJs)) {
+        throw '$UseNode cannot be used with $IsViteReact or $IsNextJs'
     }
-    elseif ($UseViteReact -and $IsNextJs) {
-        throw '$UseViteReact cannot be used with $IsNextJs'
+    elseif ($IsViteReact -and $IsNextJs) {
+        throw '$IsViteReact cannot be used with $IsNextJs'
     }
     [string]$eslintConfigSource = ''
     [string[]]$devDependencies = @(
@@ -56,11 +56,11 @@ function Install-MyESLint {
         )
     }
     <# No React #>
-    if (!$UseViteReact -and !$IsNextJs) {
+    if (!$IsViteReact -and !$IsNextJs) {
         $devDependencies += 'eslint-config-airbnb-base'
     }
     <# React #>
-    if ($UseViteReact -or $IsNextJs) {
+    if ($IsViteReact -or $IsNextJs) {
         $devDependencies += @(
             'eslint-config-airbnb'
             'eslint-plugin-jsx-a11y'
@@ -75,7 +75,7 @@ function Install-MyESLint {
         $eslintConfigSource = 'node\eslint.config.mjs'
     }
     <# Vite with React #>
-    elseif ($UseViteReact) {
+    elseif ($IsViteReact) {
         $eslintConfigSource = 'browser\eslint-react.config.mjs'
     }
     <# Next.js #>
