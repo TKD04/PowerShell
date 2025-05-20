@@ -20,18 +20,16 @@ function Initialize-MyGit {
         throw 'Git repository is already in place (abort).'
     }
     git init $args
-    if (!(Test-MyStrictPath -LiteralPath '.\.gitignore')) {
-        if ($UseNode) {
-            Join-Path -Path $PSScriptRoot -ChildPath '\common\Node.gitignore' |
-            Copy-Item -Destination '.\.gitignore' -Force
-        }
-        elseif ($UsePython) {
-            Join-Path -Path $PSScriptRoot -ChildPath '\common\Python.gitignore' |
-            Copy-Item -Destination '.\.gitignore' -Force
-        }
-        else {
-            New-Item -Path '.\' -Name '.gitignore' -ItemType 'file'
-        }
+    if ($UseNode) {
+        Join-Path -Path $PSScriptRoot -ChildPath '\common\Node.gitignore' |
+        Copy-Item -Destination '.\.gitignore' -Force
+    }
+    elseif ($UsePython) {
+        Join-Path -Path $PSScriptRoot -ChildPath '\common\Python.gitignore' |
+        Copy-Item -Destination '.\.gitignore' -Force
+    }
+    elseif (!(Test-MyStrictPath -LiteralPath '.\.gitignore')) {
+        New-Item -Path '.\' -Name '.gitignore' -ItemType 'file'
     }
     else {
         Write-Warning -Message '.gitignore is already in place (skip).'
