@@ -19,6 +19,7 @@ function Initialize-MyGit {
     if (Test-MyStrictPath -LiteralPath '.\.git') {
         throw 'Git repository is already in place (abort).'
     }
+
     git init $args
     if ($UseNode) {
         Join-Path -Path $PSScriptRoot -ChildPath '\common\Node.gitignore' |
