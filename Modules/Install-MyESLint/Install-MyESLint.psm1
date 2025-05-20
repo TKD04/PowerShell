@@ -92,7 +92,7 @@ function Install-MyESLint {
         $devDependencies += '@next/eslint-plugin-next'
         $eslintConfigSource = 'browser\eslint-next.config.mjs'
     }
-    <# Vanilla #>
+    <# No framework #>
     else {
         $eslintConfigSource = 'browser\eslint.config.mjs'
     }
