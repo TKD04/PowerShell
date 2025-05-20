@@ -55,7 +55,7 @@ function Install-MyESLint {
             'eslint-plugin-testing-library'
         )
     }
-    <# Not React #>
+    <# No React #>
     if (!$UseViteReact -and !$IsNextJs) {
         $devDependencies += 'eslint-config-airbnb-base'
     }
