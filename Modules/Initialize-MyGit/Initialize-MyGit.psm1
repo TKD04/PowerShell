@@ -23,11 +23,11 @@ function Initialize-MyGit {
     if (!(Test-MyStrictPath -LiteralPath '.\.gitignore')) {
         if ($UseNode) {
             Join-Path -Path $PSScriptRoot -ChildPath '\common\Node.gitignore' |
-            Copy-Item -Destination '.\.gitignore'
+            Copy-Item -Destination '.\.gitignore' -Force
         }
         elseif ($UsePython) {
             Join-Path -Path $PSScriptRoot -ChildPath '\common\Python.gitignore' |
-            Copy-Item -Destination '.\.gitignore'
+            Copy-Item -Destination '.\.gitignore' -Force
         }
         else {
             New-Item -Path '.\' -Name '.gitignore' -ItemType 'file'
