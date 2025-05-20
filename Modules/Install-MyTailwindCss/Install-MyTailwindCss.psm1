@@ -11,14 +11,14 @@ function Install-MyTailwindCss {
         [switch]$IsVite
     )
 
-    [string[]]$dependencies = @(
+    [string[]]$devDependencies = @(
         'tailwindcss'
     )
     [bool]$isViteReact = $IsVite -and (Test-MyStrictPath -LiteralPath '.\tsconfig.app.json')
 
     <# Vite with React #>
     if ($IsVite -and $isViteReact) {
-        $dependencies += '@tailwindcss/vite'
+        $devDependencies += '@tailwindcss/vite'
         Join-Path -Path $PSScriptRoot -ChildPath 'common\vite-react.config.ts' |
         Copy-Item -Destination '.\vite.config.ts'
         Join-Path -Path $PSScriptRoot -ChildPath 'common\vite-react-index.css' |
@@ -27,7 +27,7 @@ function Install-MyTailwindCss {
     }
     <# Vite #>
     elseif ($IsVite) {
-        $dependencies += '@tailwindcss/vite'
+        $devDependencies += '@tailwindcss/vite'
         Join-Path -Path $PSScriptRoot -ChildPath 'common\vite.config.mjs' |
         Copy-Item -Destination '.\vite.config.mjs'
         Join-Path -Path $PSScriptRoot -ChildPath 'common\vite-style.css' |
@@ -36,7 +36,7 @@ function Install-MyTailwindCss {
     }
     <# No framework #>
     else {
-        $dependencies += @(
+        $devDependencies += @(
             '@tailwindcss/postcss'
             'postcss'
         )
@@ -49,7 +49,7 @@ function Install-MyTailwindCss {
         Copy-Item -Destination '.\src\style.css' -Force
         git add '.\postcss.config.mjs' '.\src\style.css'
     }
-    pnpm add @dependencies
+    pnpm add -D @devDependencies
     git add '.\pnpm-lock.yaml' '.\package.json'
     git commit -m 'Add Tailwind CSS'
     Write-MySuccess -Message 'Added Tailwind CSS.'
