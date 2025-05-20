@@ -16,7 +16,7 @@ function Install-MyTailwindCss {
     )
     [bool]$isViteReact = $IsVite -and (Test-MyStrictPath -LiteralPath '.\tsconfig.app.json')
 
-    # Vite with React
+    <# Vite with React #>
     if ($IsVite -and $isViteReact) {
         $dependencies += '@tailwindcss/vite'
         Join-Path -Path $PSScriptRoot -ChildPath 'common\vite-react.config.ts' |
@@ -25,7 +25,7 @@ function Install-MyTailwindCss {
         Copy-Item -Destination '.\src\index.css' -Force
         git add '.\vite.config.ts' '.\src\index.css'
     }
-    # Vite
+    <# Vite #>
     elseif ($IsVite) {
         $dependencies += '@tailwindcss/vite'
         Join-Path -Path $PSScriptRoot -ChildPath 'common\vite.config.mjs' |
@@ -34,7 +34,7 @@ function Install-MyTailwindCss {
         Copy-Item -Destination '.\src\style.css' -Force
         git add '.\vite.config.mjs' '.\src\style.css'
     }
-    # No framework
+    <# No framework #>
     else {
         $dependencies += @(
             '@tailwindcss/postcss'
