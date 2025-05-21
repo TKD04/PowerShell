@@ -50,6 +50,6 @@ function Install-MyJest {
         'test' = 'jest'
     }
     pnpm add -D @devDependencies
-    git add '.\pnpm-lock.yaml' '.\package.json' $jestConfigPath
+    git add '.\package.json' '.\pnpm-lock.yaml' $jestConfigPath
     git commit -m 'Add Jest'
 }

@@ -27,6 +27,6 @@ function Install-MyPrettier {
         'format' = 'prettier . --write'
     }
     pnpm add -D @devDependencies
-    git add '.\pnpm-lock.yaml' '.\package.json'
+    git add '.\package.json' '.\pnpm-lock.yaml'
     git commit -m 'Add Prettier'
 }
