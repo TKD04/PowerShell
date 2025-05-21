@@ -13,7 +13,7 @@ function Install-MyEnvForPython {
         throw 'Poetry was not found.'
     }
 
-    Initialize-MyGit
+    Initialize-MyGit -UsePython
     Install-MyVSCodeSettingsForPython
     # https://stackoverflow.com/questions/67802992/initialize-a-python-poetry-project-without-human-interaction
     poetry init --no-interaction
@@ -26,8 +26,6 @@ function Install-MyEnvForPython {
         New-Item -Path $_ -Name '__init__.py' -ItemType 'File'
     }
     New-Item -Path '.\' -Name 'README.md' -ItemType 'File'
-    Join-Path -Path $gitignoreDirPath -ChildPath 'Python.gitignore' |
-    Copy-Item -Destination '.\.gitignore'
-    git add '.\.gitignore' '.\poetry.lock' '.\pyproject.toml' '.\README.md' '.\tests' ".\$currentDirName"
+    git add '.\poetry.lock' '.\pyproject.toml' '.\README.md' '.\tests' ".\$currentDirName"
     git commit -m 'Add environment for Python'
 }
