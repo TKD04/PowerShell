@@ -17,7 +17,7 @@ function Install-MyTailwindCss {
     [bool]$isViteReact = $IsVite -and (Test-MyStrictPath -LiteralPath '.\tsconfig.app.json')
 
     <# Vite with React #>
-    if ($IsVite -and $isViteReact) {
+    if ($isViteReact) {
         $devDependencies += '@tailwindcss/vite'
         Join-Path -Path $PSScriptRoot -ChildPath 'common\vite-react.config.ts' |
         Copy-Item -Destination '.\vite.config.ts'
