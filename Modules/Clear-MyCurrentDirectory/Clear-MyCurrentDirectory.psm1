@@ -17,5 +17,4 @@ function Clear-MyCurrentDirectory {
     catch {
         throw "Failed to clear the current directory: $_"
     }
-    Write-MySuccess -Message 'Removed all the files and directories from the current directory.'
 }

@@ -84,5 +84,4 @@ function Add-MyPackagesToVite {
     pnpm run format
     git add .
     git commit -m 'Format all the files by Prettier'
-    Write-MySuccess -Message 'Added the required packages and configs to the Vite project.'
 }

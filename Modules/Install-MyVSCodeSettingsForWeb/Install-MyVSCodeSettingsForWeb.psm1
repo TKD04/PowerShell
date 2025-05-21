@@ -34,5 +34,4 @@ function Install-MyVSCodeSettingsForWeb {
     }
 
     Install-MyVSCodeSettings -Settings $settings -Extensions $extensions
-    Write-MySuccess -Message 'Added .\.vscode for web.'
 }

@@ -28,5 +28,4 @@ function Copy-MyFolderStructure {
     }
     # https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/xcopy#parameter
     xcopy.exe /E /T $LiteralPath $destPath
-    Write-MySuccess -Message ('Copied the specified folder structure from {0}.' -f $LiteralPath)
 }

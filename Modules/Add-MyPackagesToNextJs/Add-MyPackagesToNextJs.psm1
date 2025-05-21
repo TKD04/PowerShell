@@ -41,7 +41,6 @@ function Add-MyPackagesToNextJs {
     Copy-Item -Destination '.\.npmrc'
     git add '.\.npmrc'
     git commit -m 'Add .npmrc for pnpm to be more compatible with npm'
-    Write-MySuccess -Message 'Added .npmrc for pnpm to be more compatible with npm.'
 
     <# .gitignore #>
     # Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore
@@ -51,7 +50,6 @@ function Add-MyPackagesToNextJs {
     Copy-Item -Destination '.\.gitignore' -Force
     git add '.\.gitignore'
     git commit -m 'Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore'
-    Write-MySuccess -Message 'Replaced generated .gitignore by Next.js with Node.gitignore from github/gitignore.'
 
     <# globals.d.ts #>
     # Add globals.d.ts to fix error when importing like *.css files
@@ -64,7 +62,6 @@ function Add-MyPackagesToNextJs {
     Copy-Item -Destination '.\lib\types\globals.d.ts'
     git add '.\lib\types\globals.d.ts'
     git commit -m 'Add globals.d.ts to fix error when importing like *.css files'
-    Write-MySuccess -Message 'Added globals.d.ts to fix error when importing like *.css files.'
 
     <# tscofnig.json #>
     # Make tsconfig.json more strict
@@ -101,8 +98,6 @@ function Add-MyPackagesToNextJs {
             Copy-Item -Destination '.\.github\workflows\nextjs.yml'
             git add '.\.github\workflows\nextjs.yml'
             git commit -m 'Add nextjs.yml to deploy to GtiHub Pages'
-            Write-MySuccess -Message 'Added nextjs.yml to deploy to GtiHub Pages.'
         }
     }
-    Write-MySuccess -Message 'Added the required packages and configs to the Next.js project.'
 }

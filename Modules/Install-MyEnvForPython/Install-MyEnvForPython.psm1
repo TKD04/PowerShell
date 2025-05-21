@@ -30,5 +30,4 @@ function Install-MyEnvForPython {
     Copy-Item -Destination '.\.gitignore'
     git add '.\.gitignore' '.\poetry.lock' '.\pyproject.toml' '.\README.md' '.\tests' ".\$currentDirName"
     git commit -m 'Add environment for Python'
-    Write-MySuccess -Message 'Set up development environments for Python.'
 }

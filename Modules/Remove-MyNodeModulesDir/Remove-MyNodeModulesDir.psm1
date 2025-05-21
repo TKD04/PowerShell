@@ -11,5 +11,4 @@ function Remove-MyNodeModulesDir {
         throw '.\node_modules directory was not found.'
     }
     Remove-Item -LiteralPath '.\node_modules' -Recurse -Force
-    Write-MySuccess -Message 'Removed .\node_modules directory.'
 }

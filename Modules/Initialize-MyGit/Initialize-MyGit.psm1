@@ -37,5 +37,4 @@ function Initialize-MyGit {
     }
     git add '.\.gitignore'
     git commit -m 'First commit'
-    Write-MySuccess -Message 'Created Git repository in the current directory.'
 }

@@ -18,5 +18,4 @@ function Install-MyGulp {
     }
     git add '.\pnpm-lock.yaml' '.\package.json' '.\gulpfile.mjs'
     git commit -m 'Add gulp'
-    Write-MySuccess -Message 'Added Gulp.'
 }

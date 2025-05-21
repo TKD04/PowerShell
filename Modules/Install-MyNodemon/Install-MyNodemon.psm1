@@ -12,5 +12,4 @@ function Install-MyNodemon {
     pnpm add -D nodemon
     git add '.\pnpm-lock.yaml' '.\package.json'
     git commit -m 'Add nodemon'
-    Write-MySuccess -Message 'Added nodemon.'
 }

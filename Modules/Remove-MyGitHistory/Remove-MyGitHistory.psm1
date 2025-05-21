@@ -11,5 +11,4 @@ function Remove-MyGitHistory {
         throw '.\.git directory was not found.'
     }
     Remove-Item -LiteralPath '.\.git' -Recurse -Force -Confirm
-    Write-MySuccess -Message 'Removed .\.git directory.'
 }

@@ -61,5 +61,4 @@ function Install-MyVSCodeSettingsForPython {
     }
 
     Install-MyVSCodeSettings -Settings $settings -Extensions $extensions
-    Write-MySuccess -Message 'Added .\.vscode for Python.'
 }
