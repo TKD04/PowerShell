@@ -90,7 +90,11 @@ const config = tseslint.config(
       perfectionistPlugin.configs["recommended-natural"],
       prettierConfig,
     ],
-    files: ["{app,lib}/**/*.{ts,tsx}", "*.{js,mjs,cjs,ts}"],
+    files: [
+      "{app,components,features}/**/*.{ts,tsx}",
+      "{constants,hooks,lib}/**/*.ts",
+      "*.{js,mjs,cjs,ts}",
+    ],
     languageOptions: {
       globals: globals.browser,
       parserOptions: {
@@ -122,7 +126,8 @@ const config = tseslint.config(
         "error",
         {
           devDependencies: [
-            "{app,lib}/**/*.test.{ts,tsx}",
+            "{app,components,features}/**/*.test.{ts,tsx}",
+            "{constants,hooks,lib}/**/*.test.ts",
             "*.config.{js,mjs,cjs,ts}",
             "gulpfile.{js,mjs,cjs}",
           ],
@@ -176,7 +181,7 @@ const config = tseslint.config(
       reactRefreshPlugin.configs.recommended,
       reactCompilerPlugin.configs.recommended,
     ],
-    files: ["app/**/*.tsx"],
+    files: ["{app,components,features}/**/*.{ts,tsx}"],
     name: "react",
     settings: {
       react: {
@@ -186,7 +191,10 @@ const config = tseslint.config(
   },
   {
     extends: [vitestPlugin.configs.all],
-    files: ["{app,lib}/**/*.test.{ts,tsx}"],
+    files: [
+      "{app,components,features}/**/*.test.{ts,tsx}",
+      "{constants,hooks,lib}/**/*.test.ts",
+    ],
     name: "test",
     settings: {
       vitest: {
