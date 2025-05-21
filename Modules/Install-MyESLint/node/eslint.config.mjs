@@ -2,7 +2,6 @@ import { FlatCompat } from "@eslint/eslintrc";
 import eslint from "@eslint/js";
 import stylisticPlugin from "@stylistic/eslint-plugin";
 import prettierConfig from "eslint-config-prettier";
-import jestPlugin from "eslint-plugin-jest";
 import jsdocPlugin from "eslint-plugin-jsdoc";
 import perfectionistPlugin from "eslint-plugin-perfectionist";
 import regexpPlugin from "eslint-plugin-regexp";
@@ -158,14 +157,13 @@ const config = tseslint.config(
     name: "js",
   },
   {
-    extends: [jestPlugin.configs["flat/all"]],
+    extends: [vitestPlugin.configs.all],
     files: ["src/**/*.test.ts"],
-    languageOptions: {
-      globals: globals.jest,
-    },
     name: "test",
-    plugins: {
-      jest: jestPlugin,
+    settings: {
+      vitest: {
+        typecheck: true,
+      },
     },
   }
 );

@@ -38,23 +38,16 @@ function Install-MyESLint {
         'eslint-config-prettier'
         'eslint-import-resolver-typescript'
         'eslint-plugin-import'
-        'eslint-plugin-jest'
         'eslint-plugin-jsdoc'
         'eslint-plugin-perfectionist'
         'eslint-plugin-regexp'
         'eslint-plugin-simple-import-sort'
         'eslint-plugin-unicorn'
+        'eslint-plugin-vitest'
         'globals'
         'typescript-eslint'
     )
 
-    <# Browser #>
-    if (!$UseNode) {
-        $devDependencies += @(
-            'eslint-plugin-jest-dom'
-            'eslint-plugin-testing-library'
-        )
-    }
     <# No React #>
     if (!$IsViteReact -and !$IsNextJs) {
         $devDependencies += 'eslint-config-airbnb-base'
