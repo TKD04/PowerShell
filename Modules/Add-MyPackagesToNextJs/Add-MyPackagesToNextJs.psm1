@@ -73,7 +73,7 @@ function Add-MyPackagesToNextJs {
     git commit -m 'Make tsconfig.json more strict'
 
     Install-MyESLint -IsNextJs
-    Install-MyJest -UseReact
+    Install-MyVitest
 
     <# jest.config.cjs #>
     # Replace `<rootDir>/src` with `<rootDir>` in roots for Jest to work properly in Next.js

@@ -49,8 +49,8 @@ function Add-MyPackagesToVite {
     Export-MyJSON -LiteralPath '.\.eslintrc.json' -CustomObject $eslintrc
     git add '.\.eslintrc.json'
     git commit -m 'Make eslintrc more strict'
-    <# Jest #>
-    Install-MyJest -UseReact:$UseReact
+    <# Vitest #>
+    Install-MyVitest
     <# Prettier #>
     Install-MyPrettier -UseTailwindcss
     <# Tailwind CSS #>

@@ -4,8 +4,8 @@ Import-Module -Name 'New-UserVariables'
 .SYNOPSIS
 Adds the Node develop environment to the current directory.
 
-.PARAMETER UseJest
-Whether to use Jest.
+.PARAMETER UseVitest
+Whether to use Vitest.
 
 .PARAMETER AddWatch
 Whether to add `watch` to npm scripts.
@@ -14,7 +14,7 @@ function Install-MyEnvForNode {
     [Alias('ienvnode')]
     [OutputType([void])]
     param(
-        [switch]$UseJest,
+        [switch]$UseVitest,
         [switch]$AddWatch
     )
 
@@ -22,8 +22,8 @@ function Install-MyEnvForNode {
     Initialize-MyNpm
     Install-MyTypeScript -UseNode
     Install-MyESLint -UseNode
-    if ($UseJest) {
-        Install-MyJest -UseNode
+    if ($UseVitest) {
+        Install-MyVitest
     }
     Install-MyPrettier
     if ($AddWatch) {
