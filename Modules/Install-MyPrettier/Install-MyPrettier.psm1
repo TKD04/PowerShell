@@ -21,7 +21,7 @@ function Install-MyPrettier {
         )
         Join-Path -Path $PSScriptRoot -ChildPath 'common\prettier-tailwindcss.config.mjs' |
         Copy-Item -LiteralPath $prettierConfigPath -Destination '.\prettier.config.mjs'
-        git add '.\prettier.config.js'
+        git add '.\prettier.config.mjs'
     }
     Add-MyNpmScript -NameToScript @{
         'format' = 'prettier . --write'
