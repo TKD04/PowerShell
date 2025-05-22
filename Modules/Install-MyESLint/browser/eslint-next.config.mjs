@@ -179,11 +179,68 @@ const config = tseslint.config(
     extends: [
       compat.extends("airbnb/hooks"),
       reactPlugin.configs.flat["jsx-runtime"],
-      reactRefreshPlugin.configs.recommended,
       reactCompilerPlugin.configs.recommended,
     ],
     files: ["{app,components,features}/**/*.{ts,tsx}"],
     name: "react",
+    plugins: {
+      "react-refresh": reactRefreshPlugin,
+    },
+    rules: {
+      // https://gist.github.com/jeremy-code/548a9ffda0aba85523251c061a9feb30
+      "react-refresh/only-export-components": [
+        "error",
+        {
+          allowExportNames: [
+            /**
+             * Route segment config exports. Will be disabled if `dynamicIO` is
+             * enabled in `next.config.js`.
+             * @see {@link https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config}
+             */
+            "experimental_ppr",
+            "dynamic",
+            "dynamicParams",
+            "revalidate",
+            "fetchCache",
+            "runtime",
+            "preferredRegion",
+            "maxDuration",
+            /**
+             * @see {@link https://nextjs.org/docs/app/api-reference/functions/generate-image-metadata}
+             */
+            "generateImageMetadata",
+            /**
+             * @see {@link https://nextjs.org/docs/app/api-reference/functions/generate-static-params}
+             */
+            "generateStaticParams",
+            /**
+             * @see {@link https://nextjs.org/docs/app/api-reference/functions/generate-metadata#the-metadata-object}
+             */
+            "metadata",
+            /**
+             * @see {@link https://nextjs.org/docs/app/api-reference/functions/generate-metadata#generatemetadata-function}
+             */
+            "generateMetadata",
+            /**
+             * @see {@link https://nextjs.org/docs/app/api-reference/functions/generate-viewport#the-viewport-object}
+             */
+            "viewport",
+            /**
+             * @see {@link https://nextjs.org/docs/app/api-reference/functions/generate-viewport#generateviewport-function}
+             */
+            "generateViewport",
+            /**
+             * Image Metadata
+             * @see {@link https://nextjs.org/docs/app/api-reference/file-conventions/metadata/app-icons#config-exports}
+             * @see {@link https://nextjs.org/docs/app/api-reference/file-conventions/metadata/opengraph-image#config-exports}
+             */
+            "size",
+            "contentType",
+            "alt",
+          ],
+        },
+      ],
+    },
     settings: {
       react: {
         version: "detect",
