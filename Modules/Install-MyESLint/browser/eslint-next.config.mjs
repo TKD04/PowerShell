@@ -86,7 +86,6 @@ const config = tseslint.config(
       tseslint.configs.stylisticTypeChecked,
       fixupDeprecatedTsEslintRules(compat.extends("airbnb-typescript")),
       unicornPlugin.configs.all,
-      jsdocPlugin.configs["flat/recommended-typescript-error"],
       regexpPlugin.configs["flat/all"],
       perfectionistPlugin.configs["recommended-natural"],
       prettierConfig,
@@ -174,6 +173,15 @@ const config = tseslint.config(
     extends: [tseslint.configs.disableTypeChecked],
     files: ["*.{js,mjs,cjs}"],
     name: "js",
+  },
+  {
+    extends: [jsdocPlugin.configs["flat/recommended-typescript-error"]],
+    files: [
+      "{app,components,features}/**/*.ts",
+      "{constants,hooks,lib}/**/*.ts",
+      "*.{js,mjs,cjs,ts}",
+    ],
+    name: "jsdoc",
   },
   {
     extends: [
