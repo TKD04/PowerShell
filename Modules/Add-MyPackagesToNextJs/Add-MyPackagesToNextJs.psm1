@@ -74,14 +74,6 @@ function Add-MyPackagesToNextJs {
 
     Install-MyESLint -IsNextJs
     Install-MyVitest
-
-    <# jest.config.cjs #>
-    # Replace `<rootDir>/src` with `<rootDir>` in roots for Jest to work properly in Next.js
-    Join-Path -Path $PSScriptRoot -ChildPath 'common\jest-nextjs.config.cjs' |
-    Copy-Item -Destination '.\jest.config.cjs' -Force
-    git add '.\jest.config.cjs'
-    git commit -m 'Change `roots` from "<rootDir>/src" to "<rootDir>"'
-
     Install-MyPrettier -UseTailwindcss
     Install-MyVSCodeSettingsForWeb
 
