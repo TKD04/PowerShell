@@ -11,6 +11,7 @@ import reactRefreshPlugin from "eslint-plugin-react-refresh";
 import regexpPlugin from "eslint-plugin-regexp";
 import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
 import unicornPlugin from "eslint-plugin-unicorn";
+import vitestPlugin from "eslint-plugin-vitest";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
