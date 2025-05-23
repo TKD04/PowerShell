@@ -88,7 +88,7 @@ function Add-MyPackagesToNextJs {
             Join-Path -Path $PSScriptRoot -ChildPath 'common\nextjs.yml' |
             Copy-Item -Destination '.\.github\workflows\nextjs.yml'
             git add '.\.github\workflows\nextjs.yml'
-            git commit -m 'Add nextjs.yml to deploy to GtiHub Pages'
+            git commit -m 'Add nextjs.yml to deploy to GitHub Pages'
         }
     }
 }
