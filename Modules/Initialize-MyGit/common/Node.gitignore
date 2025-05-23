@@ -134,3 +134,24 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Add the missing .gitignore glob from the .gitignore of create-next-app
+# dependencies
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# vercel
+.vercel
+
+# typescript
+next-env.d.ts

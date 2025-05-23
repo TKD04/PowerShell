@@ -172,3 +172,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Add the missing .gitginore glob from the .gitignore of create-next-app
+# misc
+.DS_Store
+*.pem
