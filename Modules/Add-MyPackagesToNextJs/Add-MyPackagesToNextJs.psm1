@@ -95,4 +95,6 @@ function Add-MyPackagesToNextJs {
             git commit -m 'Add nextjs.yml to deploy to GitHub Pages'
         }
     }
+
+    Write-Host -Object '✅ Setup complete: Next.js project is now ready!' -ForegroundColor Green
 }
