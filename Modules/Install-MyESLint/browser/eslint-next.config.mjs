@@ -113,10 +113,6 @@ const config = tseslint.config(
       // https://github.com/vercel/next.js/discussions/49337#discussioncomment-5998603
       ...nextPlugin.configs.recommended.rules,
       ...nextPlugin.configs["core-web-vitals"].rules,
-      // To fix error importing "nextConfig.mjs"
-      "import/extensions": "off",
-      // To fix error importing non ts files like images
-      "import/order": "off",
       // https://johnnyreilly.com/typescript-5-importsnotusedasvalues-error-eslint-consistent-type-imports
       "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/no-import-type-side-effects": "error",
