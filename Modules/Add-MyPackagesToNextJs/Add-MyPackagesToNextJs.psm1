@@ -83,8 +83,12 @@ function Add-MyPackagesToNextJs {
             Write-Warning -Message '.\.github\workflows\nextjs.yml is already in place (skip).'
         }
         else {
-            New-Item -Path '.\' -Name '.github' -ItemType 'directory'
-            New-Item -Path '.\.github' -Name 'workflows' -ItemType 'directory'
+            if (!(Test-MyStrictPath -LiteralPath '.\.github')) {
+                New-Item -Path '.\' -Name '.github' -ItemType 'directory'
+            }
+            if (!(Test-MyStrictPath -LiteralPath '.\.github\workflows')) {
+                New-Item -Path '.\.github' -Name 'workflows' -ItemType 'directory'
+            }
             Join-Path -Path $PSScriptRoot -ChildPath 'common\nextjs.yml' |
             Copy-Item -Destination '.\.github\workflows\nextjs.yml'
             git add '.\.github\workflows\nextjs.yml'
