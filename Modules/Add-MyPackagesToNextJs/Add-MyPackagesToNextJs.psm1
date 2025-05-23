@@ -79,7 +79,7 @@ function Add-MyPackagesToNextJs {
     <# nextjs.yml #>
     # Add nextjs.yml to deploy to GitHub Pages
     if ($DeployToGitHubPages) {
-        if (Test-MyStrictPath('.\.github\workflows\nextjs.yml')) {
+        if (Test-MyStrictPath -LiteralPath '.\.github\workflows\nextjs.yml') {
             Write-Warning -Message '.\.github\workflows\nextjs.yml is already in place (skip).'
         }
         else {
