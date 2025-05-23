@@ -54,13 +54,12 @@ function Add-MyPackagesToNextJs {
     <# globals.d.ts #>
     # Add globals.d.ts to fix error when importing like *.css files
     # https://www.typescriptlang.org/tsconfig/#noUncheckedSideEffectImports
-    if (!(Test-MyStrictPath -LiteralPath '.\lib')) {
-        New-Item -Path '.\' -Name 'lib' -ItemType 'Directory'
+    if (!(Test-MyStrictPath -LiteralPath '.\types')) {
+        New-Item -Path '.\' -Name 'types' -ItemType 'Directory'
     }
-    New-Item -Path '.\lib' -Name 'types' -ItemType 'Directory'
     Join-Path -Path $PSScriptRoot -ChildPath 'common\globals.d.ts' |
-    Copy-Item -Destination '.\lib\types\globals.d.ts'
-    git add '.\lib\types\globals.d.ts'
+    Copy-Item -Destination '.\types\globals.d.ts'
+    git add '.\types\globals.d.ts'
     git commit -m 'Add globals.d.ts to fix error when importing like *.css files'
 
     <# tscofnig.json #>
