@@ -73,4 +73,6 @@ function Add-MyPackagesToVite {
             git commit -m 'Add vite.yml to deploy to GitHub Pages'
         }
     }
+
+    Write-Host -Object '✅ Setup complete: Next.js project is now ready!' -ForegroundColor Green
 }
