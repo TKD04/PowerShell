@@ -39,7 +39,7 @@ function Add-MyPackagesToVite {
     git add '.\package.json' '.\pnpm-lock.yaml'
     git commit -m 'Add pnpm as packageManager'
 
-    Install-MyTypeScript -NoEmit -IsViteReact:$UseReact
+    Install-MyTypeScript -NoEmit -IsVite -UseReact:$UseReact
     Install-MyESLint -IsViteReact:$UseReact
     Install-MyVitest
     Install-MyPrettier -UseTailwindcss
