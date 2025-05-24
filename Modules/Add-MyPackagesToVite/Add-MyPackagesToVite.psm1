@@ -69,5 +69,7 @@ function Add-MyPackagesToVite {
         }
         Join-Path -Path $PSScriptRoot -ChildPath 'common\vite.yml' |
         Copy-Item -Destination '.\.github\workflows\vite.yml'
+        git add '.\.github\workflows\vite.yml'
+        git commit -m 'Add vite.yml to deploy to GitHub Pages'
     }
 }
