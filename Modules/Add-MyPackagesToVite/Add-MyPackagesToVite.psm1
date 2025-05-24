@@ -80,7 +80,8 @@ function Add-MyPackagesToVite {
     git add '.\package.json'
     git commit -m 'Add `--open` to `dev` and `preview` npm scirpt'
 
-    <# Add vite.yml to deploy to GitHub Pages #>
+    <# vite.yml #>
+    # Add vite.yml to deploy to GitHub Pages
     if ($DeployToGitHubPages) {
         if (Test-MyStrictPath('.\.github\workflows\vite.yml')) {
             throw 'vite.yml is already in place.'
