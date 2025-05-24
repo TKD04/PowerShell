@@ -2,7 +2,7 @@
 .SYNOPSIS
 Adds some required packages to a Next.js project.
 You should use the command "npx create-next-app@latest --use-pnpm" to create the project.
-Otherwise this function will throw error.
+Otherwise this function will throw an error.
 
 .PARAMETER DeployToGitHubPages
 Whether to use GitHub Pages to publish a site.
