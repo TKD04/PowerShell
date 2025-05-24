@@ -74,5 +74,5 @@ function Add-MyPackagesToVite {
         }
     }
 
-    Write-Host -Object '✅ Setup complete: Next.js project is now ready!' -ForegroundColor Green
+    Write-Host -Object '✅ Setup complete: Vite project is now ready!' -ForegroundColor Green
 }
