@@ -1,6 +1,9 @@
 ﻿<#
 .SYNOPSIS
 Adds some required packages to a Vite.
+You should install "pnpm" on the your system beforehand,
+for example by using the command "corepack enable pnpm".
+Otherwise this function wil throw an error.
 
 .PARAMETER UseReact
 Whether to support React.
