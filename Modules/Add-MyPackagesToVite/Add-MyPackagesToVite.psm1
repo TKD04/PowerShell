@@ -1,12 +1,12 @@
 ﻿<#
 .SYNOPSIS
-Adds some required packages to a Vite
+Adds some required packages to a Vite.
 
 .PARAMETER UseReact
 Whether to support React.
 
 .PARAMETER DeployToGitHubPages
-Whether to use GitHub Pages to publish a site
+Whether to use GitHub Pages to publish a site.
 #>
 function Add-MyPackagesToVite {
     [OutputType([void])]

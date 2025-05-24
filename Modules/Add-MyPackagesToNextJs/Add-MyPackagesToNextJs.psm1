@@ -5,7 +5,7 @@ You should use the command "npx create-next-app@latest --use-pnpm" to create the
 Otherwise this function will throw error.
 
 .PARAMETER DeployToGitHubPages
-Whether to use GitHub Pages to publish a site
+Whether to use GitHub Pages to publish a site.
 #>
 function Add-MyPackagesToNextJs {
     [OutputType([void])]
