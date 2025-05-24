@@ -70,6 +70,9 @@ function Install-MyESLint {
     <# Vite with React #>
     elseif ($IsViteReact) {
         $eslintConfigSource = 'browser\eslint-react.config.mjs'
+        if (!(Test-MyStrictPath -LiteralPath '.\eslint.config.js')) {
+            git rm '.\eslint.config.js'
+        }
     }
     <# Next.js #>
     elseif ($IsNextJs) {
