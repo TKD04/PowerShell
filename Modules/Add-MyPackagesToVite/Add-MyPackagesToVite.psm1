@@ -96,9 +96,4 @@ function Add-MyPackagesToVite {
         Join-Path -Path $PSScriptRoot -ChildPath 'common\vite.yml' |
         Copy-Item -Destination '.\.github\workflows'
     }
-
-    # Format all files by Prettier
-    pnpm run format
-    git add .
-    git commit -m 'Format all the files by Prettier'
 }
