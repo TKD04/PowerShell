@@ -69,9 +69,6 @@ function Add-MyPackagesToVite {
     Install-MyTailwindCss -IsVite
     Install-MyVSCodeSettingsForWeb
 
-    # Rename .js .cjs for config files to work in type: module
-    Rename-MyFileExtension -OldExtension 'js' -NewExtension 'cjs' -UseGitMv
-    git commit -m 'Rename .js .cjs for config files to work in `type: module`'
     # Add `--open` to `dev` and `preview` npm scirpts
     [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
     $package.scripts['dev'] = 'vite --open'
