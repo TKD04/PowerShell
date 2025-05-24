@@ -74,10 +74,8 @@ function Add-MyPackagesToVite {
     git commit -m 'Rename .js .cjs for config files to work in `type: module`'
     # Add `--open` to `dev` and `preview` npm scirpts
     [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
-    $package.scripts.Remove('dev')
-    $package.scripts.Remove('preview')
-    $package.scripts.Add('dev', 'vite --open')
-    $package.scripts.Add('preview', 'vite preview --open')
+    $package.scripts['dev'] = 'vite --open'
+    $package.scripts['preview'] = 'vite preview --open'
     Export-MyJSON -LiteralPath '.\package.json' -CustomObject $package
     git add '.\package.json'
     git commit -m 'Add `--open` to `dev` and `preview` npm scirpt'
