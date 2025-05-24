@@ -34,14 +34,6 @@ function Add-MyPackagesToNextJs {
         throw 'You should use the command "npx create-next-app@latest --use-pnpm" to create the project.'
     }
 
-    <# .npmrc #>
-    # Add .npmrc for pnpm to be more compatible with npm
-    # https://eslint.org/docs/latest/use/getting-started#manual-set-up
-    Join-Path -Path $PSScriptRoot -ChildPath 'common\.npmrc' |
-    Copy-Item -Destination '.\.npmrc'
-    git add '.\.npmrc'
-    git commit -m 'Add .npmrc for pnpm to be more compatible with npm'
-
     <# .gitignore #>
     # Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore
     # https://github.com/github/gitignore
@@ -50,6 +42,14 @@ function Add-MyPackagesToNextJs {
     Copy-Item -Destination '.\.gitignore' -Force
     git add '.\.gitignore'
     git commit -m 'Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore'
+
+    <# .npmrc #>
+    # Add .npmrc for pnpm to be more compatible with npm
+    # https://eslint.org/docs/latest/use/getting-started#manual-set-up
+    Join-Path -Path $PSScriptRoot -ChildPath 'common\.npmrc' |
+    Copy-Item -Destination '.\.npmrc'
+    git add '.\.npmrc'
+    git commit -m 'Add .npmrc for pnpm to be more compatible with npm'
 
     <# globals.d.ts #>
     # Add globals.d.ts to fix error when importing like *.css files
