@@ -40,30 +40,7 @@ function Add-MyPackagesToVite {
     git commit -m 'Add pnpm as packageManager'
 
     Install-MyTypeScript -NoEmit -IsViteReact:$UseReact
-
-    <# ESLint #>
-    # Use old version ESLint (v8) instead of new one (v9) which installed by Vite
-    # because many packages which I use didn't support new one so far (2024-09-30)
-    pnpm rm @esilnt/js eslint globals typescript-eslint eslint-plugin-react-hooks
-    git rm '.\eslint.config.js'
-    # Make eslintrc more strict
     Install-MyESLint -IsViteReact:$UseReact
-    [hashtable]$eslintrc = Import-MyJSON -LiteralPath '.\.eslintrc.json' -AsHashTable
-    # Add Vite default settings
-    $eslintrc.env.Remove('es2021')
-    $eslintrc.env.Add('es2020', $true)
-    $eslintrc.plugins += 'react-refresh'
-    $eslintrc.rules.Add('react-refresh/only-export-components', @(
-            'warn', @{
-                allowConstantExport = $true
-            }
-        ))
-    # Vite uses absolute path ('/') to access public directory
-    $eslintrc.rules.Add('import/no-absolute-path', 'off')
-    Export-MyJSON -LiteralPath '.\.eslintrc.json' -CustomObject $eslintrc
-    git add '.\.eslintrc.json'
-    git commit -m 'Make eslintrc more strict'
-
     Install-MyVitest
     Install-MyPrettier -UseTailwindcss
     Install-MyTailwindCss -IsVite
