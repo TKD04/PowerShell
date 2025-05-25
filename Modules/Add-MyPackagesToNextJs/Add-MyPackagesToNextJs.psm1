@@ -76,7 +76,7 @@ function Add-MyPackagesToNextJs {
     Install-MyPrettier -UseTailwindcss
     Install-MyVSCodeSettingsForWeb
 
-    <# nextjs.yml #>
+    <# pnpm-nextjs.yml #>
     # Add nextjs.yml to deploy to GitHub Pages
     if ($DeployToGitHubPages) {
         if (Test-MyStrictPath -LiteralPath '.\.github\workflows\nextjs.yml') {
@@ -89,10 +89,10 @@ function Add-MyPackagesToNextJs {
             if (!(Test-MyStrictPath -LiteralPath '.\.github\workflows')) {
                 New-Item -Path '.\.github' -Name 'workflows' -ItemType 'directory'
             }
-            Join-Path -Path $PSScriptRoot -ChildPath 'common\nextjs.yml' |
-            Copy-Item -Destination '.\.github\workflows\nextjs.yml'
-            git add '.\.github\workflows\nextjs.yml'
-            git commit -m 'Add nextjs.yml to deploy to GitHub Pages'
+            Join-Path -Path $PSScriptRoot -ChildPath 'common\pnpm-nextjs.yml' |
+            Copy-Item -Destination '.\.github\workflows\pnpm-nextjs.yml'
+            git add '.\.github\workflows\pnpm-nextjs.yml'
+            git commit -m 'Add pnpm-nextjs.yml to deploy to GitHub Pages'
         }
     }
 
