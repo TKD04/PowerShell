@@ -35,7 +35,7 @@ jobs:
           node-version: "lts/*"
           cache: "pnpm"
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile --prefer-offline
       - name: Build
         run: pnpm build --base=/$repositoryName/
       - name: Setup Pages
