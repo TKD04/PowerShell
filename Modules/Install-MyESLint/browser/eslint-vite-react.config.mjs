@@ -161,10 +161,7 @@ const config = tseslint.config(
   },
   {
     extends: [jsdocPlugin.configs["flat/recommended-typescript-error"]],
-    files: [
-      "{app,components,features}/**/*.ts",
-      "{constants,hooks,lib}/**/*.ts",
-    ],
+    files: ["src/**/*.ts"],
     name: "jsdoc",
     plugins: {
       jsdoc: jsdocPlugin,
