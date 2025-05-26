@@ -100,7 +100,6 @@ const config = tseslint.config(
     name: "base",
     plugins: {
       "@stylistic": stylisticPlugin,
-      jsdoc: jsdocPlugin,
       "simple-import-sort": simpleImportSortPlugin,
     },
     rules: {
@@ -167,6 +166,9 @@ const config = tseslint.config(
       "{constants,hooks,lib}/**/*.ts",
     ],
     name: "jsdoc",
+    plugins: {
+      jsdoc: jsdocPlugin,
+    },
   },
   {
     extends: [
