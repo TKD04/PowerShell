@@ -165,7 +165,6 @@ const config = tseslint.config(
     files: [
       "{app,components,features}/**/*.ts",
       "{constants,hooks,lib}/**/*.ts",
-      "*.{js,mjs,cjs,ts}",
     ],
     name: "jsdoc",
   },
