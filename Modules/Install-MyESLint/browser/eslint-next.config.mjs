@@ -95,6 +95,7 @@ const config = tseslint.config(
       "{constants,hooks,lib}/**/*.ts",
       "*.{js,mjs,cjs,ts}",
     ],
+    ignores: ["next-env.d.ts"],
     languageOptions: {
       globals: globals.browser,
       parserOptions: {
