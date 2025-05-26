@@ -90,6 +90,7 @@ const config = tseslint.config(
       prettierConfig,
     ],
     files: ["src/**/*.{ts,tsx}", "*.{js,mjs,cjs,ts}"],
+    ignores: ["src/vite-env.d.ts"],
     languageOptions: {
       globals: globals.browser,
       parserOptions: {
