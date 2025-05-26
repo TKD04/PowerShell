@@ -73,7 +73,7 @@ const fixupDeprecatedTsEslintRules = (configs) =>
 const config = tseslint.config(
   {
     // https://eslint.org/docs/latest/use/configure/configuration-files#globally-ignoring-files-with-ignores
-    ignores: ["dist/", "docs/"],
+    ignores: ["dist/", "docs/", "coverage/"],
   },
   {
     extends: [
