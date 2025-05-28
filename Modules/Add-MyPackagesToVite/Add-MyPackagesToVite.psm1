@@ -19,7 +19,7 @@ function Add-MyPackagesToVite {
     )
 
     if (!(Test-MyCommandExists -Command 'pnpm')) {
-        throw 'A command "pnpm" was not found. You can install pnpm by using the command "corepack enable pnpm"'
+        throw 'A command "pnpm" was not found. You can install pnpm by using the command "corepack enable pnpm".'
     }
 
     Initialize-MyGit -UseNode
