@@ -20,7 +20,7 @@ function Install-MyTailwindCss {
     if ($isViteReact) {
         $devDependencies += '@tailwindcss/vite'
         Join-Path -Path $PSScriptRoot -ChildPath 'common\vite-react.config.ts' |
-        Copy-Item -Destination '.\vite.config.ts'
+        Copy-Item -Destination '.\vite.config.ts' -Force
         Join-Path -Path $PSScriptRoot -ChildPath 'common\vite-react-index.css' |
         Copy-Item -Destination '.\src\index.css' -Force
         git add '.\vite.config.ts' '.\src\index.css'
@@ -29,7 +29,7 @@ function Install-MyTailwindCss {
     elseif ($IsVite) {
         $devDependencies += '@tailwindcss/vite'
         Join-Path -Path $PSScriptRoot -ChildPath 'common\vite.config.mjs' |
-        Copy-Item -Destination '.\vite.config.mjs'
+        Copy-Item -Destination '.\vite.config.mjs' -Force
         Join-Path -Path $PSScriptRoot -ChildPath 'common\vite-style.css' |
         Copy-Item -Destination '.\src\style.css' -Force
         git add '.\vite.config.mjs' '.\src\style.css'
