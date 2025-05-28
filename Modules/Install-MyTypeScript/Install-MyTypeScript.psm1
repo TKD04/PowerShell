@@ -47,6 +47,11 @@ function Install-MyTypeScript {
             'module'                             = 'esnext'
             'moduleResolution'                   = 'node16'
             'noUncheckedSideEffectImports'       = $true
+            'paths'                              = @{
+                '@/*' = @(
+                    './src/*'
+                )
+            }
             'resolveJsonModule'                  = $true
             <# Emit #>
             'outDir'                             = './dist'
