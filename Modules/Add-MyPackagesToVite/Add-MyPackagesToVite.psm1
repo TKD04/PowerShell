@@ -39,6 +39,20 @@ function Add-MyPackagesToVite {
     git add '.\package.json' '.\pnpm-lock.yaml'
     git commit -m 'Add pnpm as packageManager'
 
+    # Add the alias `@/` -> `.\src` to the Vite config
+    if ($UseReact) {
+        Join-Path -Path $PSScriptRoot -ChildPath 'common\vite.config.ts' |
+        Copy-Item -Destination '.\vite.config.ts'
+        pnpm add -D @types/node
+        git add '.\package.json' '.\pnpm-lock.yaml' '.\vite.config.ts'
+    }
+    else {
+        Join-Path -Path $PSScriptRoot -ChildPath 'common\vite.config.mjs' |
+        Copy-Item -Destination '.\vite.config.mjs'
+        git add '.\vite.config.mjs'
+    }
+    git commit -m 'Add the alias `@/` -> `./src/*` to the Vite config file'
+
     Install-MyTypeScript -NoEmit -IsVite -UseReact:$UseReact
     Install-MyESLint -IsViteReact:$UseReact
     Install-MyVitest
