@@ -103,7 +103,7 @@ function Install-MyTypeScript {
         }
 
         if ($UseReact) {
-            [hashtable]$tsConfig = Import-MyJSON -LiteralPath '.\tsconfig.json' -AsHashTable
+            [hashtable]$tsConfigVite = Import-MyJSON -LiteralPath '.\tsconfig.json' -AsHashTable
             [hashtable]$missingPaths = @{
                 '@/*' = @(
                     './src/*'
@@ -111,10 +111,10 @@ function Install-MyTypeScript {
             }
 
             # Adds the alias "@/*" -> "./src/*" in tsconfig.json as well as in tsconfig.app.json
-            if (!$tsConfig.ContainsKey('compilerOptions')) {
+            if (!$tsConfigVite.ContainsKey('compilerOptions')) {
                 $tsConfig.Add('compilerOptions', @{})
             }
-            $tsConfig.compilerOptions.Add('paths', $missingPaths)
+            $tsConfigVite.compilerOptions.Add('paths', $missingPaths)
             Export-MyJSON -LiteralPath '.\tsconfig.json' -CustomObject $tsConfig
             git add '.\tsconfig.json'
             $tsConfigPath = '.\tsconfig.app.json'
