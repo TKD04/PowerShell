@@ -1,4 +1,5 @@
 ﻿New-Alias -Name 'pn' -Value 'pnpm'
+New-Alias -Name 'pnvite' -Value 'pnpm create vite@latest'
 
 function Add-MyGit {
     git add $args
