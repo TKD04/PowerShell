@@ -76,7 +76,7 @@ const fixupDeprecatedTsEslintRules = (configs) =>
 const config = tseslint.config(
   {
     // https://eslint.org/docs/latest/use/configure/configuration-files#globally-ignoring-files-with-ignores
-    ignores: ["dist/", "docs/", "public/", "coverage/"],
+    ignores: ["dist/", "docs/", "public/", "coverage/", "src/components/ui/"],
   },
   {
     extends: [
@@ -90,7 +90,7 @@ const config = tseslint.config(
       prettierConfig,
     ],
     files: ["src/**/*.{ts,tsx}", "*.{js,mjs,cjs,ts}"],
-    ignores: ["src/vite-env.d.ts"],
+    ignores: ["src/vite-env.d.ts", "src/lib/utils.ts"],
     languageOptions: {
       globals: globals.browser,
       parserOptions: {
@@ -163,6 +163,7 @@ const config = tseslint.config(
   {
     extends: [jsdocPlugin.configs["flat/recommended-typescript-error"]],
     files: ["src/**/*.ts"],
+    ignores: ["src/lib/utils.ts"],
     name: "jsdoc",
     plugins: {
       jsdoc: jsdocPlugin,

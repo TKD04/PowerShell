@@ -77,7 +77,15 @@ const fixupDeprecatedTsEslintRules = (configs) =>
 const config = tseslint.config(
   {
     // https://eslint.org/docs/latest/use/configure/configuration-files#globally-ignoring-files-with-ignores
-    ignores: ["dist/", "docs/", ".next/", "out/", "public/", "coverage/"],
+    ignores: [
+      "dist/",
+      "docs/",
+      ".next/",
+      "out/",
+      "public/",
+      "coverage/",
+      "components/ui/",
+    ],
   },
   {
     extends: [
@@ -95,7 +103,7 @@ const config = tseslint.config(
       "{constants,hooks,lib}/**/*.ts",
       "*.{js,mjs,cjs,ts}",
     ],
-    ignores: ["next-env.d.ts"],
+    ignores: ["next-env.d.ts", "lib/utils.ts"],
     languageOptions: {
       globals: globals.browser,
       parserOptions: {
@@ -176,6 +184,7 @@ const config = tseslint.config(
       "{app,components,features}/**/*.ts",
       "{constants,hooks,lib}/**/*.ts",
     ],
+    ignores: ["lib/utils.ts"],
     name: "jsdoc",
     plugins: {
       jsdoc: jsdocPlugin,
