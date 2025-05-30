@@ -10,7 +10,7 @@ function Install-MyEnvForPython {
     param ()
 
     if (!(Test-MyCommandExists -Command 'poetry')) {
-        throw 'Poetry was not found.'
+        throw 'Poetry could not be found.'
     }
 
     Initialize-MyGit -UsePython

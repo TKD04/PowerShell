@@ -8,7 +8,7 @@ function Remove-MyNodeModulesDir {
     param()
 
     if (!(Test-MyStrictPath -LiteralPath '.\node_modules')) {
-        throw '.\node_modules directory was not found.'
+        throw '.\node_modules directory could not be found.'
     }
     Remove-Item -LiteralPath '.\node_modules' -Recurse -Force
 }
