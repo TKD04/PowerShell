@@ -5,6 +5,11 @@ function Exit-MyPowerShell {
 }
 New-Alias -Name 'e' -Value 'Exit-MyPowerShell'
 
+function Install-MyPnpmVite {
+    pnpm create vite@latest
+}
+New-Alias -Name 'pnvite' -Value 'Install-MyPnpmVite'
+
 function Add-MyGit {
     git add $args
 }
