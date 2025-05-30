@@ -20,12 +20,7 @@ function Add-MyNpmScript {
     [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
 
     $NameToScript.GetEnumerator() | ForEach-Object {
-        if ($package.scripts.ContainsKey($_.Key)) {
-            Write-Warning -Message ('The key "{0}" already exists in npm scripts (skip).' -f $_.Key)
-        }
-        else {
-            $package.scripts.Add($_.Key, $_.Value)
-        }
+        $package.scripts[$_.Key] = $_.Value
     }
     Export-MyJSON -LiteralPath '.\package.json' -CustomObject $package
 }
