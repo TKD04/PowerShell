@@ -21,6 +21,15 @@ function Add-MyPackagesToVite {
     if (!(Test-MyCommandExists -Command 'pnpm')) {
         throw 'A command "pnpm" was not found. You can install pnpm by using the command "corepack enable pnpm".'
     }
+    # You should select "TypeScript + SWC" in "Select a variant" when initializing Vite.
+    if ($UseReact) {
+        [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
+        [bool]$hasViteJsPluginReactSwc = $package.devDependencies.ContainsKey('@vitejs/plugin-react-swc')
+
+        if (!$hasViteJsPluginReactSwc) {
+            throw '"@vitejs/plugin-react-swc" was not found in package.json. You should select "TypeScript + SWC" in "Select a variant" when initializing Vite'
+        }
+    }
 
     Initialize-MyGit -UseNode
     git add .
