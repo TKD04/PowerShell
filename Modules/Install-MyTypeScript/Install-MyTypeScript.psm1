@@ -116,6 +116,7 @@ function Install-MyTypeScript {
             }
             $tsConfig.compilerOptions.Add('paths', $missingPaths)
             Export-MyJSON -LiteralPath '.\tsconfig.json' -CustomObject $tsConfig
+            git add '.\tsconfig.json'
             $tsConfigPath = '.\tsconfig.app.json'
             $viteDefaultCompilerOptions.Add(
                 'tsBuildInfoFile', './node_modules/.tmp/tsconfig.app.tsbuildinfo'
