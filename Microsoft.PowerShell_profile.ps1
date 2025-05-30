@@ -1,5 +1,4 @@
 ﻿New-Alias -Name 'pn' -Value 'pnpm'
-New-Alias -Name 'pnvite' -Value 'pnpm create vite@latest'
 New-Alias -Name 'pnnext' -Value 'npx create-next-app@latest --use-pnpm'
 
 function Exit-MyPowerShell {
