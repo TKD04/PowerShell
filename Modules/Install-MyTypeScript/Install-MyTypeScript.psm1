@@ -112,10 +112,10 @@ function Install-MyTypeScript {
 
             # Adds the alias "@/*" -> "./src/*" in tsconfig.json as well as in tsconfig.app.json
             if (!$tsConfigVite.ContainsKey('compilerOptions')) {
-                $tsConfig.Add('compilerOptions', @{})
+                $tsConfigVite.Add('compilerOptions', @{})
             }
             $tsConfigVite.compilerOptions.Add('paths', $missingPaths)
-            Export-MyJSON -LiteralPath '.\tsconfig.json' -CustomObject $tsConfig
+            Export-MyJSON -LiteralPath '.\tsconfig.json' -CustomObject $tsConfigVite
             git add '.\tsconfig.json'
             $tsConfigPath = '.\tsconfig.app.json'
             $viteDefaultCompilerOptions.Add(
