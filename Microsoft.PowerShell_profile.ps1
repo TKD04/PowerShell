@@ -10,6 +10,11 @@ function Install-MyPnpmVite {
 }
 New-Alias -Name 'pnvite' -Value 'Install-MyPnpmVite'
 
+function Install-MyPnpmNext {
+    npx create-next-app@latest --use-pnpm
+}
+New-Alias -Name 'pnnext' -Value 'Install-MyPnpmNext'
+
 function Add-MyGit {
     git add $args
 }
