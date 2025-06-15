@@ -160,6 +160,7 @@ const config = tseslint.config(
       ],
       // Disable perfectionist/sort-imports to avoid conflicts with eslint-plugin-simple-import-sort
       "perfectionist/sort-imports": "off",
+      "regexp/require-unicode-sets-regexp": "off",
       "simple-import-sort/exports": "error",
       "simple-import-sort/imports": "error",
     },
