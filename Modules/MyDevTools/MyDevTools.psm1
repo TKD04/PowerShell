@@ -7,5 +7,5 @@ $functionFiles = Get-ChildItem -LiteralPath "$PSScriptRoot\Functions" -File -Fil
 Select-Object -Property FullName
 
 foreach ($functionFile in $functionFiles) {
-    . $functionFile
+    . $functionFile.FullName
 }
