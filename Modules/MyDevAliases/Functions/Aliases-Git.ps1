@@ -8,7 +8,7 @@ function Add-MyGitP {
     git add -p $args
 }
 
-New-Alias -Name 'ap' -Value 'Add-MyGitiP'
+New-Alias -Name 'ap' -Value 'Add-MyGitP'
 
 function Set-MyGitUnstage {
     git reset HEAD $args
