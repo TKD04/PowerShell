@@ -39,7 +39,7 @@
         'cldir'
         'copyfolderstructure'
         'ginit'
-        'nigit'
+        'ninit'
         'ienvnode'
         'ienvpy'
         'rmallfiles'
