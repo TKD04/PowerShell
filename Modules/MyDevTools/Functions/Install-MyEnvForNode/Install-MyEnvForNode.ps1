@@ -11,7 +11,6 @@ Whether to use Vitest.
 Whether to add `watch` to npm scripts.
 #>
 function Install-MyEnvForNode {
-    [Alias('ienvnode')]
     [OutputType([void])]
     param(
         [switch]$UseVitest,
@@ -42,3 +41,5 @@ function Install-MyEnvForNode {
     git add .
     git commit -m 'Format by prettier'
 }
+
+Set-Alias -Name 'ienvnode' -Value 'Install-MyEnvForNode'

@@ -3,7 +3,6 @@
 Removes the .git directory from the current directory.
 #>
 function Remove-MyGitHistory {
-    [Alias('rmgithis')]
     [OutputType([void])]
     param()
 
@@ -12,3 +11,5 @@ function Remove-MyGitHistory {
     }
     Remove-Item -LiteralPath '.\.git' -Recurse -Force -Confirm
 }
+
+Set-Alias -Name 'rmgithis' -Value 'Remove-MyGitHistory'

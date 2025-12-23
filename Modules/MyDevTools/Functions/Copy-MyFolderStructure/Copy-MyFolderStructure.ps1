@@ -6,7 +6,6 @@ Copies the folder structure of the given directory to the current directory.
 A source path to a directory to be copied.
 #>
 function Copy-MyFolderStructure {
-    [Alias('copyfolderstructure')]
     [OutputType([void])]
     param(
         [Parameter(Mandatory)]
@@ -29,3 +28,5 @@ function Copy-MyFolderStructure {
     # https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/xcopy#parameter
     xcopy.exe /E /T $LiteralPath $destPath
 }
+
+Set-Alias -Name 'copyfolderstructure' -Value 'Copy-MyFolderStructure'

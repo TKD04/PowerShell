@@ -3,7 +3,6 @@
 Removes the node_modules directory from the current directory.
 #>
 function Remove-MyNodeModulesDir {
-    [Alias('rmnodemodules')]
     [OutputType([void])]
     param()
 
@@ -12,3 +11,5 @@ function Remove-MyNodeModulesDir {
     }
     Remove-Item -LiteralPath '.\node_modules' -Recurse -Force
 }
+
+New-Alias -Name 'rmnodemodules' -Value 'Remove-MyNodeModulesDir'

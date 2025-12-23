@@ -3,7 +3,6 @@
 Removes all the files and directories from the current directory.
 #>
 function Clear-MyCurrentDirectory {
-    [Alias('cldir')]
     [OutputType([void])]
     param ()
 
@@ -18,3 +17,5 @@ function Clear-MyCurrentDirectory {
         throw "Failed to clear the current directory: $_"
     }
 }
+
+Set-Alias -Name 'cldir' -Value 'Clear-MyCurrentDirectory'

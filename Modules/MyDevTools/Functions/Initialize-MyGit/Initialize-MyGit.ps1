@@ -9,7 +9,6 @@ Whether to adds .gitignore for Node.js.
 Whether to adds .gitignore for Python.
 #>
 function Initialize-MyGit {
-    [Alias('ginit')]
     [OutputType([void])]
     param(
         [switch]$UseNode,
@@ -38,3 +37,5 @@ function Initialize-MyGit {
     git add '.\.gitignore'
     git commit -m 'First commit'
 }
+
+Set-Alias -Name 'ginit' -Value 'Initialize-MyGit'

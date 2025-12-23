@@ -9,3 +9,5 @@ function Remove-MyAllFiles {
 
     Get-ChildItem -File | Remove-Item -Confirm
 }
+
+Set-Alias -Name 'rmallfiles' -Value 'Remove-MyAllFiles'

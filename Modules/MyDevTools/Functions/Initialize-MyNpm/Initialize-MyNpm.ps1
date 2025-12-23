@@ -3,7 +3,6 @@
 Initializes npm in the current directory.
 #>
 function Initialize-MyNpm {
-    [Alias('ninit')]
     [OutputType([void])]
     param()
 
@@ -27,3 +26,5 @@ function Initialize-MyNpm {
         throw 'A command "pnpm" could not be found. You can install pnpm by using the command "corepack enable pnpm".'
     }
 }
+
+Set-Alias -Name 'ninit' -Value 'Initialize-MyNpm'

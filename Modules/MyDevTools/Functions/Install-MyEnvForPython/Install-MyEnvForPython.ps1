@@ -5,7 +5,6 @@ Import-Module -Name 'New-UserVariables'
 Adds the Python develop environment to the current directory.
 #>
 function Install-MyEnvForPython {
-    [Alias('ienvpy')]
     [OutputType([void])]
     param ()
 
@@ -29,3 +28,5 @@ function Install-MyEnvForPython {
     git add '.\poetry.lock' '.\pyproject.toml' '.\README.md' '.\tests' ".\$currentDirName"
     git commit -m 'Add environment for Python'
 }
+
+Set-Alias -Name 'ienvpy' -Value 'Install-MyEnvForPython'
