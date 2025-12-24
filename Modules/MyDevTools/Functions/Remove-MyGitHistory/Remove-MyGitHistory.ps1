@@ -12,4 +12,4 @@ function Remove-MyGitHistory {
     Remove-Item -LiteralPath '.\.git' -Recurse -Force -Confirm
 }
 
-Set-Alias -Name 'rmgithis' -Value 'Remove-MyGitHistory'
+Set-Alias -Name 'rmgh' -Value 'Remove-MyGitHistory'

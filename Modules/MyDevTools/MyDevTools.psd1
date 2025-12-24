@@ -41,7 +41,7 @@
         'ginit'
         'ninit'
         'rmfiles'
-        'rmgithis'
+        'rmgh'
         'rmnodemodules'
         'renameextension'
     )
