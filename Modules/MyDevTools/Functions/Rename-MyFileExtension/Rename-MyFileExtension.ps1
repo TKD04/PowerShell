@@ -41,4 +41,4 @@ function Rename-MyFileExtension {
     }
 }
 
-Set-Alias -Name 'renameextension' -Value 'Rename-MyFileExtension'
+Set-Alias -Name 'renext' -Value 'Rename-MyFileExtension'

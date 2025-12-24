@@ -43,6 +43,6 @@
         'rmfiles'
         'rmgh'
         'rmnodemods'
-        'renameextension'
+        'renext'
     )
 }
