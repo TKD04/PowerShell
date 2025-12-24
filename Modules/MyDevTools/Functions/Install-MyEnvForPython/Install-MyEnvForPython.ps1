@@ -28,5 +28,3 @@ function Install-MyEnvForPython {
     git add '.\poetry.lock' '.\pyproject.toml' '.\README.md' '.\tests' ".\$currentDirName"
     git commit -m 'Add environment for Python'
 }
-
-Set-Alias -Name 'ienvpy' -Value 'Install-MyEnvForPython'

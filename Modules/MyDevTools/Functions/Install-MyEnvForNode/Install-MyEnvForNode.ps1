@@ -41,5 +41,3 @@ function Install-MyEnvForNode {
     git add .
     git commit -m 'Format by prettier'
 }
-
-Set-Alias -Name 'ienvnode' -Value 'Install-MyEnvForNode'
