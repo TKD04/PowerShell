@@ -42,7 +42,7 @@
         'ninit'
         'rmfiles'
         'rmgh'
-        'rmnodemodules'
+        'rmnodemods'
         'renameextension'
     )
 }

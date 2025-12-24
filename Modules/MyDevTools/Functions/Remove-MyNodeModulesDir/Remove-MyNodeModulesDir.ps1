@@ -12,4 +12,4 @@ function Remove-MyNodeModulesDir {
     Remove-Item -LiteralPath '.\node_modules' -Recurse -Force
 }
 
-New-Alias -Name 'rmnodemodules' -Value 'Remove-MyNodeModulesDir'
+New-Alias -Name 'rmnodemods' -Value 'Remove-MyNodeModulesDir'
