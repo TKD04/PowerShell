@@ -37,7 +37,7 @@
     )
     AliasesToExport   = @(
         'cldir'
-        'copyfolderstructure'
+        'cptree'
         'ginit'
         'ninit'
         'rmallfiles'

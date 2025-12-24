@@ -29,4 +29,4 @@ function Copy-MyFolderStructure {
     xcopy.exe /E /T $LiteralPath $destPath
 }
 
-Set-Alias -Name 'copyfolderstructure' -Value 'Copy-MyFolderStructure'
+Set-Alias -Name 'cptree' -Value 'Copy-MyFolderStructure'
