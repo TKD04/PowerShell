@@ -40,7 +40,7 @@
         'cptree'
         'ginit'
         'ninit'
-        'rmallfiles'
+        'rmfiles'
         'rmgithis'
         'rmnodemodules'
         'renameextension'
