@@ -15,7 +15,6 @@ Whether to rename the matched files recursively.
 Whether to use git mv to rename files.
 #>
 function Rename-MyFileExtension {
-    [Alias('renameextension')]
     [OutputType([void])]
     param (
         [Parameter(Mandatory)]
