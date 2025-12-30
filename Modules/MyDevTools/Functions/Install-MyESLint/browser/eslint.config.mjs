@@ -70,7 +70,7 @@ const fixupDeprecatedTsEslintRules = (configs) =>
 
     return copiedConfig;
   });
-const config = tseslint.config(
+export default tseslint.config(
   {
     // https://eslint.org/docs/latest/use/configure/configuration-files#globally-ignoring-files-with-ignores
     ignores: ["dist/", "docs/", "public/", "coverage/"],
@@ -170,5 +170,3 @@ const config = tseslint.config(
     },
   }
 );
-
-export default config;
