@@ -36,6 +36,7 @@ const legacyRulesToLatestOnes = new Map([
     "indent",
     "keyword-spacing",
     "lines-between-class-members",
+    "no-extra-parens",
     "no-extra-semi",
     "space-before-blocks",
     "quotes",
