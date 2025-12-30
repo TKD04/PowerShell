@@ -21,8 +21,27 @@ const compat = new FlatCompat({
   baseDirectory: import.meta.dirname,
   recommendedConfig: eslint.configs.recommended,
 });
-// Replace the deprecated "@typescript-eslint@^7" rules with the latest ones in "eslint-config-airbnb-typescript"
-// https://gist.github.com/xfournet/ed9f2f02e411b86188bad4aeb9b1bddb
+const rulesToBeRemovedFromAirbnbTypeScript = [
+  /*
+   * This extension rule is no longer needed because the base rule added support for numeric separators.
+   * https://eslint.org/docs/latest/rules/no-loss-of-precision
+   * https://typescript-eslint.io/rules/no-loss-of-precision/
+   * https://github.com/airbnb/javascript/blob/0e2ef178a26ba9ac3495402a182891ad8096d3a0/packages/eslint-config-airbnb-base/rules/errors.js#L99
+   * https://github.com/iamturns/eslint-config-airbnb-typescript/blob/a81480efa6b0e3f6dbaf4dbf6317142bc58fbb3a/lib/shared.js#L142
+   */
+  "no-loss-of-precision",
+  "@typescript-eslint/no-loss-of-precision",
+  /*
+   * This rule was deprecated in ESLint v8.46.0. There is no replacement rule.
+   * https://eslint.org/docs/latest/rules/no-return-await
+   * https://github.com/iamturns/eslint-config-airbnb-typescript/blob/a81480efa6b0e3f6dbaf4dbf6317142bc58fbb3a/lib/shared.js#L217
+   */
+  "no-return-await",
+];
+/**
+ * Replace the deprecated "@typescript-eslint@^7" rules with the latest ones in "eslint-config-airbnb-typescript"
+ * https://gist.github.com/xfournet/ed9f2f02e411b86188bad4aeb9b1bddb
+ */
 const legacyRulesToLatestOnes = new Map([
   [
     "@typescript-eslint/no-throw-literal",
@@ -46,34 +65,72 @@ const legacyRulesToLatestOnes = new Map([
     "object-curly-spacing",
   ].map((rule) => [`@typescript-eslint/${rule}`, `@stylistic/${rule}`]),
 ]);
-const fixupDeprecatedTsEslintRules = (configs) =>
+const fixupDeprecatedAirbnb = (configs) =>
   configs.map((config) => {
-    const copiedConfig = config;
-    const hasRules = copiedConfig.rules !== undefined;
+    if (config["rules"] === undefined) {
+      return config;
+    }
 
-    delete copiedConfig.plugins;
-    delete copiedConfig.parser;
-    if (hasRules) {
-      for (const [
-        legacyRule,
-        latestRule,
-      ] of legacyRulesToLatestOnes.entries()) {
-        const hasLegacyRule = copiedConfig.rules[legacyRule] !== undefined;
-        const hasLatestRule = copiedConfig.rules[latestRule] !== undefined;
+    /*
+     * This rule was deprecated in ESLint v8.46.0. There is no replacement rule.
+     * https://eslint.org/docs/latest/rules/no-return-await
+     * https://github.com/airbnb/javascript/blob/0e2ef178a26ba9ac3495402a182891ad8096d3a0/packages/eslint-config-airbnb-base/rules/best-practices.js#L310
+     */
+    if (config.rules["no-return-await"] !== undefined) {
+      // eslint-disable-next-line no-param-reassign
+      delete config.rules["no-return-await"];
+    }
 
-        if (hasLegacyRule) {
-          const ruleValue = copiedConfig.rules[legacyRule];
+    return config;
+  });
+const fixupDeprecatedAirbnbTypeScript = (configs) =>
+  configs.map((config) => {
+    if (config["languageOptions"] !== undefined) {
+      // eslint-disable-next-line no-param-reassign
+      delete config["languageOptions"];
+    }
+    if (config["plugins"] !== undefined) {
+      // eslint-disable-next-line no-param-reassign
+      delete config["plugins"];
+    }
+    if (config["rules"] === undefined) {
+      return config;
+    }
 
-          // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-          delete copiedConfig.rules[legacyRule];
-          if (!hasLatestRule) {
-            copiedConfig.rules[latestRule] = ruleValue;
-          }
-        }
+    for (const ruleToBeRemoved of rulesToBeRemovedFromAirbnbTypeScript) {
+      if (config.rules[ruleToBeRemoved]) {
+        // eslint-disable-next-line no-param-reassign, @typescript-eslint/no-dynamic-delete
+        delete config.rules[ruleToBeRemoved];
+      }
+    }
+    /*
+     * This avoids setting the rule value to [undefined, "try-in-catch"].
+     * "eslint-config-airbnb-typescript" plugin dynamically determines
+     * rule values by importing "eslint-config-airbnb/base" plugin.
+     * I removed the original "no-return-await" rule in the "fixupDeprecatedAirbnb"
+     * function. This resulted in the rule value being set to [undefined, "try-in-catch"].
+     * https://typescript-eslint.io/rules/return-await/
+     * https://github.com/iamturns/eslint-config-airbnb-typescript/blob/a81480efa6b0e3f6dbaf4dbf6317142bc58fbb3a/lib/shared.js#L219
+     */
+    if (config.rules["@typescript-eslint/return-await"] !== undefined) {
+      // eslint-disable-next-line no-param-reassign
+      config.rules["@typescript-eslint/return-await"] = [
+        "error",
+        "in-try-catch",
+      ];
+    }
+    for (const [legacyRule, latestRule] of legacyRulesToLatestOnes.entries()) {
+      if (config.rules[legacyRule] !== undefined) {
+        const ruleValue = config.rules[legacyRule];
+
+        // eslint-disable-next-line no-param-reassign, @typescript-eslint/no-dynamic-delete
+        delete config.rules[legacyRule];
+        // eslint-disable-next-line no-param-reassign
+        config.rules[latestRule] = ruleValue;
       }
     }
 
-    return copiedConfig;
+    return config;
   });
 
 export default tseslint.config(
@@ -91,10 +148,10 @@ export default tseslint.config(
   },
   {
     extends: [
-      compat.extends("airbnb"),
+      fixupDeprecatedAirbnb(compat.extends("airbnb")),
       tseslint.configs.strictTypeChecked,
       tseslint.configs.stylisticTypeChecked,
-      fixupDeprecatedTsEslintRules(compat.extends("airbnb-typescript")),
+      fixupDeprecatedAirbnbTypeScript(compat.extends("airbnb-typescript")),
       unicornPlugin.configs.all,
       regexpPlugin.configs["flat/all"],
       perfectionistPlugin.configs["recommended-natural"],
