@@ -2,6 +2,7 @@ import { FlatCompat } from "@eslint/eslintrc";
 import eslint from "@eslint/js";
 import nextPlugin from "@next/eslint-plugin-next";
 import stylisticPlugin from "@stylistic/eslint-plugin";
+import { defineConfig, globalIgnores } from "eslint/config";
 import prettierConfig from "eslint-config-prettier";
 import jsdocPlugin from "eslint-plugin-jsdoc";
 import perfectionistPlugin from "eslint-plugin-perfectionist";
@@ -133,19 +134,16 @@ const fixupDeprecatedAirbnbTypeScript = (configs) =>
     return config;
   });
 
-export default tseslint.config(
-  {
-    // https://eslint.org/docs/latest/use/configure/configuration-files#globally-ignoring-files-with-ignores
-    ignores: [
-      "dist/",
-      "docs/",
-      ".next/",
-      "out/",
-      "public/",
-      "coverage/",
-      "components/ui/",
-    ],
-  },
+export default defineConfig([
+  globalIgnores([
+    "dist/",
+    "docs/",
+    ".next/",
+    "out/",
+    "public/",
+    "coverage/",
+    "components/ui/",
+  ]),
   {
     extends: [
       fixupDeprecatedAirbnb(compat.extends("airbnb")),
@@ -334,5 +332,5 @@ export default tseslint.config(
         typecheck: true,
       },
     },
-  }
-);
+  },
+]);
