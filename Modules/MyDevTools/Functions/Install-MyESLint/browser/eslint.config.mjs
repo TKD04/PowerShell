@@ -203,6 +203,13 @@ export default defineConfig([
       "regexp/require-unicode-sets-regexp": "off",
       "simple-import-sort/exports": "error",
       "simple-import-sort/imports": "error",
+      /*
+       * unicorn/prefer-json-parse-buffer assumes Buffer-based JSON parsing.
+       * This is not always TypeScript-friendly and  is unstable for browser
+       * or bundler environments. Keep unicorn/all enabled and disable this rule.
+       * https://github.com/sindresorhus/eslint-plugin-unicorn/blob/bd0901b160e7cbef7a3e3140ea628fc41b8b215d/docs/rules/prefer-json-parse-buffer.md
+       */
+      "unicorn/prefer-json-parse-buffer": "off",
     },
     settings: {
       // Merge "node" in eslint-config-airbnb-typescript and "typescript"
