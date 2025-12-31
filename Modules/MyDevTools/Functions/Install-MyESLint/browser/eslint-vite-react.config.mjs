@@ -15,32 +15,32 @@ import vitestPlugin from "eslint-plugin-vitest";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
-// https://eslint.org/docs/latest/use/configure/migration-guide#using-eslintrc-configs-in-flat-config
+/**
+ * @see https://eslint.org/docs/latest/use/configure/migration-guide#using-eslintrc-configs-in-flat-config
+ */
 const compat = new FlatCompat({
   allConfig: eslint.configs.all,
   baseDirectory: import.meta.dirname,
   recommendedConfig: eslint.configs.recommended,
 });
+/**
+ * - `no-loss-of-precision` is no longer needed because the base rule added support for numeric separators.
+ * @see https://eslint.org/docs/latest/rules/no-loss-of-precision
+ * @see https://typescript-eslint.io/rules/no-loss-of-precision/
+ * @see https://github.com/airbnb/javascript/blob/0e2ef178a26ba9ac3495402a182891ad8096d3a0/packages/eslint-config-airbnb-base/rules/errors.js#L99
+ * @see https://github.com/iamturns/eslint-config-airbnb-typescript/blob/a81480efa6b0e3f6dbaf4dbf6317142bc58fbb3a/lib/shared.js#L142
+ * - `no-return-await` was deprecated in ESLint v8.46.0. There is no replacement rule.
+ * @see https://eslint.org/docs/latest/rules/no-return-await
+ * @see https://github.com/iamturns/eslint-config-airbnb-typescript/blob/a81480efa6b0e3f6dbaf4dbf6317142bc58fbb3a/lib/shared.js#L217
+ */
 const rulesToBeRemovedFromAirbnbTypeScript = [
-  /*
-   * This extension rule is no longer needed because the base rule added support for numeric separators.
-   * https://eslint.org/docs/latest/rules/no-loss-of-precision
-   * https://typescript-eslint.io/rules/no-loss-of-precision/
-   * https://github.com/airbnb/javascript/blob/0e2ef178a26ba9ac3495402a182891ad8096d3a0/packages/eslint-config-airbnb-base/rules/errors.js#L99
-   * https://github.com/iamturns/eslint-config-airbnb-typescript/blob/a81480efa6b0e3f6dbaf4dbf6317142bc58fbb3a/lib/shared.js#L142
-   */
   "no-loss-of-precision",
   "@typescript-eslint/no-loss-of-precision",
-  /*
-   * This rule was deprecated in ESLint v8.46.0. There is no replacement rule.
-   * https://eslint.org/docs/latest/rules/no-return-await
-   * https://github.com/iamturns/eslint-config-airbnb-typescript/blob/a81480efa6b0e3f6dbaf4dbf6317142bc58fbb3a/lib/shared.js#L217
-   */
   "no-return-await",
 ];
 /**
  * Replace the deprecated "@typescript-eslint@^7" rules with the latest ones in "eslint-config-airbnb-typescript"
- * https://gist.github.com/xfournet/ed9f2f02e411b86188bad4aeb9b1bddb
+ * @see https://gist.github.com/xfournet/ed9f2f02e411b86188bad4aeb9b1bddb
  */
 const legacyRulesToLatestOnes = new Map([
   [
@@ -72,7 +72,7 @@ const fixupDeprecatedAirbnb = (configs) =>
     }
 
     /*
-     * This rule was deprecated in ESLint v8.46.0. There is no replacement rule.
+     * no-return-await was deprecated in ESLint v8.46.0. There is no replacement rule.
      * https://eslint.org/docs/latest/rules/no-return-await
      * https://github.com/airbnb/javascript/blob/0e2ef178a26ba9ac3495402a182891ad8096d3a0/packages/eslint-config-airbnb-base/rules/best-practices.js#L310
      */
@@ -182,9 +182,12 @@ export default defineConfig([
           ],
         },
       ],
-      // Remove "ForOfStatement" from eslint-config-airnbnb to avoid conflict with "unicorn/no-array-for-each"
-      // https://github.com/sindresorhus/eslint-plugin-unicorn/blob/v56.0.1/docs/rules/no-array-for-each.md
-      // https://github.com/airbnb/javascript/issues/1271
+      /*
+       * Remove "ForOfStatement" from eslint-config-airnbnb to avoid conflict with "unicorn/no-array-for-each"
+       * https://github.com/sindresorhus/eslint-plugin-unicorn/blob/v56.0.1/docs/rules/no-array-for-each.md
+       * https://github.com/airbnb/javascript/issues/1271
+       * https://github.com/airbnb/javascript/blob/0e2ef178a26ba9ac3495402a182891ad8096d3a0/packages/eslint-config-airbnb-base/rules/style.js#L340
+       */
       "no-restricted-syntax": [
         "error",
         {
