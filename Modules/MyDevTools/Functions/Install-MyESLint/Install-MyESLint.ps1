@@ -28,16 +28,14 @@ function Install-MyESLint {
     }
     [string]$eslintConfigSource = ''
     [string[]]$devDependencies = @(
-        '@eslint/eslintrc'
         '@eslint/js'
-        '@stylistic/eslint-plugin'
-        '@typescript-eslint/eslint-plugin@^7'
-        '@typescript-eslint/parser@^7'
-        'eslint'
-        'eslint-config-airbnb-typescript'
+        # eslint-config-airbnb-extended@2.3.3 uses @^3
+        '@stylistic/eslint-plugin@^3'
+        'eslint',
+        'eslint-config-airbnb-extended'
         'eslint-config-prettier'
         'eslint-import-resolver-typescript'
-        'eslint-plugin-import'
+        'eslint-plugin-import-x'
         'eslint-plugin-jsdoc'
         'eslint-plugin-perfectionist'
         'eslint-plugin-regexp'
@@ -48,14 +46,9 @@ function Install-MyESLint {
         'typescript-eslint'
     )
 
-    <# No React #>
-    if (!$IsViteReact -and !$IsNextJs) {
-        $devDependencies += 'eslint-config-airbnb-base'
-    }
     <# React #>
     if ($IsViteReact -or $IsNextJs) {
         $devDependencies += @(
-            'eslint-config-airbnb'
             'eslint-plugin-jsx-a11y'
             'eslint-plugin-react'
             'eslint-plugin-react-compiler'
@@ -65,6 +58,7 @@ function Install-MyESLint {
     }
     <# Node.js #>
     if ($UseNode) {
+        $devDependencies += 'eslint-plugin-n'
         $eslintConfigSource = 'node\eslint.config.mjs'
     }
     <# Vite with React #>
