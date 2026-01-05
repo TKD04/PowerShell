@@ -5,7 +5,7 @@ import {
   plugins as airbnbXPlugins,
   rules as airbnbXRules,
 } from "eslint-config-airbnb-extended";
-import prettierConfig from "eslint-config-prettier";
+import eslintConfigPrettier from "eslint-config-prettier";
 import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript";
 import { createNodeResolver } from "eslint-plugin-import-x";
 import jsdocPlugin from "eslint-plugin-jsdoc";
@@ -14,8 +14,8 @@ import reactPlugin from "eslint-plugin-react";
 import reactCompilerPlugin from "eslint-plugin-react-compiler";
 import reactRefreshPlugin from "eslint-plugin-react-refresh";
 import regexpPlugin from "eslint-plugin-regexp";
-import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
-import unicornPlugin from "eslint-plugin-unicorn";
+import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
+import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import vitestPlugin from "eslint-plugin-vitest";
 import globals from "globals";
 import tseslint from "typescript-eslint";
@@ -39,10 +39,10 @@ export default defineConfig([
       // Overrides the recommended Imoprt and TypeScript-ESLint rules with the stricter ones
       airbnbXRules.base.importsStrict,
       airbnbXRules.typescript.typescriptEslintStrict,
-      unicornPlugin.configs.all,
+      eslintPluginUnicorn.configs.all,
       regexpPlugin.configs["flat/all"],
       perfectionistPlugin.configs["recommended-natural"],
-      prettierConfig,
+      eslintConfigPrettier,
     ],
     files: ["src/**/*.{ts,tsx}", "*.{js,mjs,cjs,ts}"],
     ignores: ["src/vite-env.d.ts", "src/lib/utils.ts"],
@@ -60,7 +60,7 @@ export default defineConfig([
     },
     name: "base",
     plugins: {
-      "simple-import-sort": simpleImportSortPlugin,
+      "simple-import-sort": eslintPluginSimpleImportSort,
     },
     rules: {
       // Disabled because Vite allows importing assets from the public folder via root-relative paths.
