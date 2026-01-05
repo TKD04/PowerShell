@@ -145,6 +145,11 @@ export default defineConfig([
       airbnbXPlugins.reactHooks,
       airbnbXPlugins.reactA11y,
       airbnbXPlugins.next,
+      /*
+       * "jsx-runtime" configs from eslint-react-plugin are already included
+       * in airbnbXConfigs.next.recommended
+       * https://github.com/eslint-config/airbnb-extended/blob/1b7d222c1f6ab866b84541f5e176e015547cbb71/packages/eslint-config-airbnb-extended/extensions/next/recommended.ts#L14
+       */
       airbnbXConfigs.next.recommended,
       airbnbXConfigs.next.typescript,
       // Overrides the recommended React rules with the stricter ones
