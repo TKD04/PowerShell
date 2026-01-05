@@ -23,11 +23,11 @@ export default defineConfig([
   globalIgnores([
     "dist/",
     "docs/",
-    ".next/",
-    "out/",
     "public/",
     "coverage/",
     "components/ui/",
+    ".next/",
+    "out/",
   ]),
   {
     extends: [
