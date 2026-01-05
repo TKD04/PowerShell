@@ -141,10 +141,6 @@ export default defineConfig([
   },
   {
     extends: [
-      /*
-       * There is no need to add eslint-plugin-react here because it was already included via "jsx-runtime".
-       * https://github.com/jsx-eslint/eslint-plugin-react/blob/c8917b0885094b5e4cc2a6f613f7fb6f16fe932e/index.js#L163-L176
-       */
       airbnbXPlugins.react,
       airbnbXPlugins.reactHooks,
       airbnbXPlugins.reactA11y,
