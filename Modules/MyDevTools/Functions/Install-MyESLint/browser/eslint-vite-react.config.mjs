@@ -109,6 +109,14 @@ export default defineConfig([
        * https://github.com/sindresorhus/eslint-plugin-unicorn/blob/bd0901b160e7cbef7a3e3140ea628fc41b8b215d/docs/rules/prefer-json-parse-buffer.md
        */
       "unicorn/prefer-json-parse-buffer": "off",
+      "unicorn/prevent-abbreviations": [
+        "error",
+        {
+          allowList: {
+            env: true,
+          },
+        },
+      ],
     },
     settings: {
       "import-x/resolver-next": [
