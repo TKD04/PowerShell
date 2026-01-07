@@ -2,7 +2,7 @@ import path from "node:path";
 
 import { defineConfig } from "vite";
 
-/** @see {@link https://vite.dev/config/} */
+/** @see  https://vite.dev/config/ */
 const config = defineConfig({
   resolve: {
     alias: {

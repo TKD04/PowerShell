@@ -1,5 +1,5 @@
 /**
- * @see {@link https://prettier.io/docs/configuration}
+ * @see https://prettier.io/docs/configuration
  * @type {import("prettier").Config}
  */
 const config = {
