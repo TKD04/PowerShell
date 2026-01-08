@@ -15,7 +15,7 @@ function Initialize-MyNpm {
     git add '.\package.json'
     git commit -m 'Initialize npm'
     if ((Test-MyCommandExists -Command 'pnpm')) {
-        pnpm
+        corepack use pnpm@latest
         git add '.\.npmrc' '.\package.json'
         git commit -m 'Add pnpm as packageManager'
     }
