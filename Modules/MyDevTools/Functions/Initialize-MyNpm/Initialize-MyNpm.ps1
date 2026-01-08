@@ -20,7 +20,7 @@ function Initialize-MyNpm {
         git commit -m 'Add pnpm as packageManager'
     }
     else {
-        throw 'A command "pnpm" could not be found. You can install pnpm by using the command "corepack enable pnpm".'
+        throw 'A command "pnpm" could not be found. You can install pnpm by using the command "corepack enable".'
     }
 }
 
