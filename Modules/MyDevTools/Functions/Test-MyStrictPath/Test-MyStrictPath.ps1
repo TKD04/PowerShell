@@ -20,7 +20,6 @@ if a path is a valid one and has trailing whitespace (e.g. '/path/to/file ').
 function Test-MyStrictPath {
     [OutputType([bool])]
     param (
-        [Parameter(ValueFromPipeline)]
         [AllowEmptyString()]
         [string]$LiteralPath
     )

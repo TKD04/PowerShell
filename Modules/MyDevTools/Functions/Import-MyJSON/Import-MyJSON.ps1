@@ -11,7 +11,7 @@ Whether to import a JSON file as [HashTable].
 function Import-MyJSON {
     [OutputType([PSCustomObject])]
     param (
-        [Parameter(Mandatory, ValueFromPipeline)]
+        [Parameter(Mandatory)]
         [ValidateScript({
                 if (!(Test-MyStrictPath -LiteralPath $_)) {
                     throw "The path '$_' does not exist or is not accessible."

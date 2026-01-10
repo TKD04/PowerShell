@@ -8,7 +8,7 @@ A name of npm sciprt.
 function Remove-MyNpmScript {
     [OutputType([void])]
     param (
-        [Parameter(Mandatory, ValueFromPipeline)]
+        [Parameter(Mandatory)]
         [string]$ScriptName
     )
 

@@ -11,7 +11,7 @@ A command to be test.
 function Test-MyCommandExists {
     [OutputType([bool])]
     param (
-        [Parameter(Mandatory, ValueFromPipeline)]
+        [Parameter(Mandatory)]
         [string]$Command
     )
 

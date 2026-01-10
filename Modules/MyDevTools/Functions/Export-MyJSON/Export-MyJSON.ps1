@@ -16,7 +16,7 @@ function Export-MyJSON {
     param (
         [Parameter(Mandatory)]
         [string]$LiteralPath,
-        [Parameter(Mandatory, ValueFromPipeline)]
+        [Parameter(Mandatory)]
         [PSCustomObject]$CustomObject,
         [int]$Depth = 4
     )

@@ -5,7 +5,6 @@ Adds the given VSCode settings and extensions to the current directory.
 function Install-MyVSCodeSettings {
     [OutputType([void])]
     param (
-        [Parameter(ValueFromPipeline)]
         [PSCustomObject]$Settings,
         [PSCustomObject]$Extensions
     )

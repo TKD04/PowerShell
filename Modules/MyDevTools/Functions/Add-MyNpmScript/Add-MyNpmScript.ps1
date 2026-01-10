@@ -8,7 +8,7 @@ Pairs of script name and script.
 function Add-MyNpmScript {
     [OutputType([void])]
     param (
-        [Parameter(Mandatory, ValueFromPipeline)]
+        [Parameter(Mandatory)]
         [hashtable]$NameToScript
     )
 
