@@ -25,7 +25,7 @@ function Remove-MyDirectoryFast {
 
     [string]$EmptyDirPath = Join-Path -Path ([System.IO.Path]::GetTempPath()) -ChildPath ([System.Guid]::NewGuid())
     [string]$DirectoryFullPath = (Resolve-Path -LiteralPath $Directory).Path
-    [bool]$isCurrentDir = $PWD.Path -eq $DirectoryFullPath
+    [bool]$isCurrentDir = $PWD.Path -ieq $DirectoryFullPath
 
     if ($DirectoryFullPath -match '^[A-Z]:\\$|^\\\\[^\\]+\\[^\\]+$') {
         throw "Refusing to remove drive root: $DirectoryFullPath"
