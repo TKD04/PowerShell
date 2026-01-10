@@ -2,7 +2,7 @@
 .SYNOPSIS
 Removes all the files and directories inside the specified directory using a fast robocopy trick.
 
-.PARAMETER $Directory
+.PARAMETER Directory
 The directory to remove.
 #>
 function Remove-MyDirectoryFast {
