@@ -15,7 +15,7 @@ function Initialize-MyGit {
         [switch]$UsePython
     )
 
-    if (Test-MyStrictPath -LiteralPath '.\.git') {
+    if (Test-MyStrictPath -LiteralPath '.\.git' -PathType Container) {
         throw 'Git repository is already in place (abort).'
     }
 
@@ -28,7 +28,7 @@ function Initialize-MyGit {
         Join-Path -Path $PSScriptRoot -ChildPath '\common\Python.gitignore' |
         Copy-Item -Destination '.\.gitignore' -Force
     }
-    elseif (!(Test-MyStrictPath -LiteralPath '.\.gitignore')) {
+    elseif (!(Test-MyStrictPath -LiteralPath '.\.gitignore' -PathType Leaf)) {
         New-Item -Path '.\' -Name '.gitignore' -ItemType 'file'
     }
     else {

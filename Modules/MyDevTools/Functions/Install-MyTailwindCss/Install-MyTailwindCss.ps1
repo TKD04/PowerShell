@@ -14,7 +14,7 @@ function Install-MyTailwindCss {
     [string[]]$devDependencies = @(
         'tailwindcss'
     )
-    [bool]$isViteReact = $IsVite -and (Test-MyStrictPath -LiteralPath '.\tsconfig.app.json')
+    [bool]$isViteReact = $IsVite -and (Test-MyStrictPath -LiteralPath '.\tsconfig.app.json' -PathType Leaf)
 
     <# Vite with React #>
     if ($isViteReact) {
@@ -40,7 +40,7 @@ function Install-MyTailwindCss {
             '@tailwindcss/postcss'
             'postcss'
         )
-        if (!(Test-MyStrictPath -LiteralPath '.\src')) {
+        if (!(Test-MyStrictPath -LiteralPath '.\src' -PathType Container)) {
             New-Item -Path '.\' -Name 'src' -ItemType 'Directory'
         }
         Join-Path -Path $PSScriptRoot -ChildPath 'common\postcss.config.mjs' |

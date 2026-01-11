@@ -5,6 +5,9 @@ Tests whether the given path is a valid path, more strictly than Test-Path.
 .PARAMETER LiteralPath
 A path to be tested.
 
+.PARAMETER PathType
+
+
 .NOTES
 For these reasons, this script was created:
 
@@ -21,8 +24,12 @@ function Test-MyStrictPath {
     [OutputType([bool])]
     param (
         [AllowEmptyString()]
-        [string]$LiteralPath
+        [string]$LiteralPath,
+        [ValidateSet('Any', 'Container', 'Leaf')]
+        [string]$PathType = 'Any'
     )
 
-    [bool]$LiteralPath -and !$LiteralPath.EndsWith(' ') -and (Test-Path -LiteralPath $LiteralPath)
+    [bool]$LiteralPath`
+        -and !$LiteralPath.EndsWith(' ')`
+        -and (Test-Path -LiteralPath $LiteralPath -PathType $PathType)
 }

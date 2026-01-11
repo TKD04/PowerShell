@@ -13,7 +13,7 @@ function Import-MyJSON {
     param (
         [Parameter(Mandatory)]
         [ValidateScript({
-                if (!(Test-MyStrictPath -LiteralPath $_)) {
+                if (!(Test-MyStrictPath -LiteralPath $_ -PathType Leaf)) {
                     throw "The path '$_' does not exist or is not accessible."
                 }
 
