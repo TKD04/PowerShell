@@ -11,7 +11,7 @@ function Remove-MyDirectoryFast {
     param(
         [Parameter(Mandatory)]
         [ValidateScript({
-                if (!(Test-MyStrictPath -LiteralPath $_ -PathType Container)) {
+                if (-not (Test-MyStrictPath -LiteralPath $_ -PathType Container)) {
                     throw "Invalid path: $_"
                 }
 
@@ -35,7 +35,7 @@ function Remove-MyDirectoryFast {
             if ($LASTEXITCODE -ge 8) {
                 throw "Robocopy failed with exit code $LASTEXITCODE"
             }
-            if (!$isCurrentDir) {
+            if (-not $isCurrentDir) {
                 Remove-Item -LiteralPath $DirectoryFullPath -Recurse -Force -ErrorAction Stop
             }
 

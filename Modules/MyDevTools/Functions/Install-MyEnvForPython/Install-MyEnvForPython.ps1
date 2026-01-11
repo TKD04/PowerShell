@@ -8,7 +8,7 @@ function Install-MyEnvForPython {
     [OutputType([void])]
     param ()
 
-    if (!(Test-MyCommandExists -Command 'poetry')) {
+    if (-not (Test-MyCommandExists -Command 'poetry')) {
         throw 'Poetry could not be found.'
     }
 

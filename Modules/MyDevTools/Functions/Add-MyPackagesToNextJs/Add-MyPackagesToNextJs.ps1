@@ -30,7 +30,7 @@ function Add-MyPackagesToNextJs {
     }
     [hashtable]$tsConfig = Import-MyJSON -LiteralPath '.\tsconfig.json' -AsHashTable
 
-    if (!(Test-MyStrictPath -LiteralPath '.\pnpm-lock.yaml' -PathType Leaf)) {
+    if (-not (Test-MyStrictPath -LiteralPath '.\pnpm-lock.yaml' -PathType Leaf)) {
         throw 'You should use the command "npx create-next-app@latest --use-pnpm" to create the project.'
     }
 
@@ -54,7 +54,7 @@ function Add-MyPackagesToNextJs {
     <# globals.d.ts #>
     # Add globals.d.ts to fix error when importing like *.css files
     # https://www.typescriptlang.org/tsconfig/#noUncheckedSideEffectImports
-    if (!(Test-MyStrictPath -LiteralPath '.\types' -PathType Container)) {
+    if (-not (Test-MyStrictPath -LiteralPath '.\types' -PathType Container)) {
         New-Item -Path '.\' -Name 'types' -ItemType 'Directory'
     }
     Join-Path -Path $PSScriptRoot -ChildPath 'common\globals.d.ts' |
@@ -84,10 +84,10 @@ function Add-MyPackagesToNextJs {
             Write-Warning -Message '.\.github\workflows\nextjs.yml is already in place (skip).'
         }
         else {
-            if (!(Test-MyStrictPath -LiteralPath '.\.github' -PathType Container)) {
+            if (-not (Test-MyStrictPath -LiteralPath '.\.github' -PathType Container)) {
                 New-Item -Path '.\' -Name '.github' -ItemType 'directory'
             }
-            if (!(Test-MyStrictPath -LiteralPath '.\.github\workflows' -PathType Container)) {
+            if (-not (Test-MyStrictPath -LiteralPath '.\.github\workflows' -PathType Container)) {
                 New-Item -Path '.\.github' -Name 'workflows' -ItemType 'directory'
             }
             Join-Path -Path $PSScriptRoot -ChildPath 'common\pnpm-nextjs.yml' |
@@ -97,5 +97,5 @@ function Add-MyPackagesToNextJs {
         }
     }
 
-    Write-Host -Object '✅ Setup complete: Next.js project is now ready!' -ForegroundColor Green
+    Write-Host -Object '✅ Setup complete: Next.js project is now ready-not ' -ForegroundColor Green
 }

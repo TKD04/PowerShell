@@ -40,7 +40,7 @@ function Install-MyTailwindCss {
             '@tailwindcss/postcss'
             'postcss'
         )
-        if (!(Test-MyStrictPath -LiteralPath '.\src' -PathType Container)) {
+        if (-not (Test-MyStrictPath -LiteralPath '.\src' -PathType Container)) {
             New-Item -Path '.\' -Name 'src' -ItemType 'Directory'
         }
         Join-Path -Path $PSScriptRoot -ChildPath 'common\postcss.config.mjs' |

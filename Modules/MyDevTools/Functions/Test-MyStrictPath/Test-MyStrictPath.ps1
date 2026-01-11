@@ -30,6 +30,6 @@ function Test-MyStrictPath {
     )
 
     [bool]$LiteralPath`
-        -and !$LiteralPath.EndsWith(' ')`
+        -and -not $LiteralPath.EndsWith(' ')`
         -and (Test-Path -LiteralPath $LiteralPath -PathType $PathType)
 }

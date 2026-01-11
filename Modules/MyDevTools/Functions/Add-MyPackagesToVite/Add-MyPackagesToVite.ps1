@@ -18,7 +18,7 @@ function Add-MyPackagesToVite {
         [switch]$DeployToGitHubPages
     )
 
-    if (!(Test-MyCommandExists -Command 'pnpm')) {
+    if (-not (Test-MyCommandExists -Command 'pnpm')) {
         throw 'A command "pnpm" could not be found. You can install pnpm by using the command "corepack enable pnpm".'
     }
     # You should select "TypeScript + SWC" in "Select a variant" when initializing Vite.
@@ -26,7 +26,7 @@ function Add-MyPackagesToVite {
         [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
         [bool]$hasViteJsPluginReactSwc = $package.devDependencies.ContainsKey('@vitejs/plugin-react-swc')
 
-        if (!$hasViteJsPluginReactSwc) {
+        if (-not $hasViteJsPluginReactSwc) {
             throw '"@vitejs/plugin-react-swc" could not be found in package.json. You should select "TypeScript + SWC" in "Select a variant" when initializing Vite'
         }
     }
@@ -84,10 +84,10 @@ function Add-MyPackagesToVite {
             Write-Warning -Message '.\.github\workflows\vite.yml is already in place (skip).'
         }
         else {
-            if (!(Test-MyStrictPath -LiteralPath '.\.github' -PathType Container)) {
+            if (-not (Test-MyStrictPath -LiteralPath '.\.github' -PathType Container)) {
                 New-Item -Path '.\' -Name '.github' -ItemType 'directory'
             }
-            if (!(Test-MyStrictPath -LiteralPath '.\.github\workflows' -PathType Container)) {
+            if (-not (Test-MyStrictPath -LiteralPath '.\.github\workflows' -PathType Container)) {
                 New-Item -Path '.\.github' -Name 'workflows' -ItemType 'directory'
             }
             Join-Path -Path $PSScriptRoot -ChildPath 'common\vite.yml' |
@@ -97,5 +97,5 @@ function Add-MyPackagesToVite {
         }
     }
 
-    Write-Host -Object '✅ Setup complete: Vite project is now ready!' -ForegroundColor Green
+    Write-Host -Object '✅ Setup complete: Vite project is now ready-not ' -ForegroundColor Green
 }
