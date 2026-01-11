@@ -6,7 +6,12 @@ Tests whether the given path is a valid path, more strictly than Test-Path.
 A path to be tested.
 
 .PARAMETER PathType
+A type of item the path should represent.
+Acceptable values are:
 
+- 'Any'         : Any item (default)
+- 'Container'   : A directory
+- 'Leaf'        : A file
 
 .NOTES
 For these reasons, this script was created:
