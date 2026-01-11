@@ -122,8 +122,8 @@ function Install-MyTypeScript {
                 'tsBuildInfoFile', './node_modules/.tmp/tsconfig.app.tsbuildinfo'
             )
         }
-        $viteDefaultCompilerOptions.GetEnumerator() | ForEach-Object {
-            $tsConfig.compilerOptions.Add($_.Key, $_.Value)
+        foreach ($kv in $viteDefaultCompilerOptions.GetEnumerator()) {
+            $tsConfig.compilerOptions.Add($kv.Key, $kv.Value)
         }
         $tsConfig.compilerOptions.moduleResolution = 'bundler'
         $tsConfig.compilerOptions.lib = @(
