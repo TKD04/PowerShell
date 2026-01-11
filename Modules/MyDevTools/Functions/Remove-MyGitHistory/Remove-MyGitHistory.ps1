@@ -6,10 +6,9 @@ function Remove-MyGitHistory {
     [OutputType([void])]
     param()
 
-    if (!(Test-MyStrictPath -LiteralPath '.\.git')) {
-        throw '.\.git directory could not be found.'
-    }
-    Remove-Item -LiteralPath '.\.git' -Recurse -Force -Confirm
+    [string]$gitFullPath = (Resolve-Path -LiteralPath '.\.git' -ErrorAction Stop).Path
+
+    Remove-Item -LiteralPath $gitFullPath -Recurse -Force -Confirm
 }
 
 Set-Alias -Name 'rmgh' -Value 'Remove-MyGitHistory'

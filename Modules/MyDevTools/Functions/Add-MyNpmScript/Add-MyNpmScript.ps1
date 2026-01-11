@@ -12,15 +12,13 @@ function Add-MyNpmScript {
         [hashtable]$NameToScript
     )
 
-    if (!(Test-MyStrictPath -LiteralPath '.\package.json')) {
-        throw '.\package.json could not be found.'
-    }
+    [string]$packageJsonFullPath = (Resolve-Path -LiteralPath '.\package.json' -ErrorAction Stop).Path
     # NOTE: To add new properties we need to use [hashtable] instead of [PSCustomObject]
     # since [PSCustomObject] returns an error when new properties are added to it.
-    [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
+    [hashtable]$package = Import-MyJSON -LiteralPath $packageJsonFullPath -AsHashTable
 
     foreach ($kv in $NameToScript.GetEnumerator()) {
         $package.scripts[$kv.Key] = $kv.Value
     }
-    Export-MyJSON -LiteralPath '.\package.json' -CustomObject $package
+    Export-MyJSON -LiteralPath $packageJsonFullPath -CustomObject $package
 }
