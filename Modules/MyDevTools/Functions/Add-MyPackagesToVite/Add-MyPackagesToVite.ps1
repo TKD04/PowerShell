@@ -80,7 +80,7 @@ function Add-MyPackagesToVite {
     <# vite.yml #>
     # Add vite.yml to deploy to GitHub Pages
     if ($DeployToGitHubPages) {
-        if (Test-MyStrictPath('.\.github\workflows\vite.yml') -PathType Leaf) {
+        if (Test-MyStrictPath -LiteralPath '.\.github\workflows\vite.yml' -PathType Leaf) {
             Write-Warning -Message '.\.github\workflows\vite.yml is already in place (skip).'
         }
         else {
