@@ -24,7 +24,7 @@ function Add-MyPackagesToVite {
     # You should select "TypeScript + SWC" in "Select a variant" when initializing Vite.
     if ($UseReact) {
         [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
-        [bool]$hasViteJsPluginReactSwc = $package.devDependencies.ContainsKey('@vitejs/plugin-react-swc')
+        [bool]$hasViteJsPluginReactSwc = $package['devDependencies'].ContainsKey('@vitejs/plugin-react-swc')
 
         if (-not $hasViteJsPluginReactSwc) {
             throw '"@vitejs/plugin-react-swc" could not be found in package.json. You should select "TypeScript + SWC" in "Select a variant" when initializing Vite'
@@ -71,8 +71,8 @@ function Add-MyPackagesToVite {
 
     # Add `--open` to `dev` and `preview` npm scirpts
     [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
-    $package.scripts['dev'] = 'vite --open'
-    $package.scripts['preview'] = 'vite preview --open'
+    $package['scripts']['dev'] = 'vite --open'
+    $package['scripts']['preview'] = 'vite preview --open'
     Export-MyJSON -LiteralPath '.\package.json' -CustomObject $package
     git add '.\package.json'
     git commit -m 'Add `--open` to `dev` and `preview` npm scirpt'

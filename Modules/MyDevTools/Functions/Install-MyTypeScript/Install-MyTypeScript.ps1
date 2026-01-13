@@ -79,21 +79,21 @@ function Install-MyTypeScript {
     )
 
     if ($NoEmit -or $IsVite) {
-        $tsConfig.compilerOptions.Add('noEmit', $true)
+        $tsConfig['compilerOptions'].Add('noEmit', $true)
     }
     if ($UseNode) {
         # https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping
         # https://github.com/tsconfig/bases/tree/main/bases
         # For Node 22
-        $tsConfig.compilerOptions.module = 'node16'
-        $tsConfig.compilerOptions.target = 'es2022'
-        $tsConfig.compilerOptions.lib = @(
+        $tsConfig['compilerOptions']['module'] = 'node16'
+        $tsConfig['compilerOptions']['target'] = 'es2022'
+        $tsConfig['compilerOptions']['lib'] = @(
             'es2023'
         )
         $devDependencies += '@types/node'
     }
     if ($UseReact) {
-        $tsConfig.compilerOptions.Add('jsx', 'react-jsx')
+        $tsConfig['compilerOptions'].Add('jsx', 'react-jsx')
     }
     if ($IsVite) {
         [hashtable]$viteDefaultCompilerOptions = [ordered]@{
@@ -114,7 +114,7 @@ function Install-MyTypeScript {
             if (-not $tsConfigVite.ContainsKey('compilerOptions')) {
                 $tsConfigVite.Add('compilerOptions', @{})
             }
-            $tsConfigVite.compilerOptions.Add('paths', $missingPaths)
+            $tsConfigVite['compilerOptions'].Add('paths', $missingPaths)
             Export-MyJSON -LiteralPath '.\tsconfig.json' -CustomObject $tsConfigVite
             git add '.\tsconfig.json'
             $tsConfigPath = '.\tsconfig.app.json'
@@ -123,16 +123,16 @@ function Install-MyTypeScript {
             )
         }
         foreach ($kv in $viteDefaultCompilerOptions.GetEnumerator()) {
-            $tsConfig.compilerOptions.Add($kv.Key, $kv.Value)
+            $tsConfig['compilerOptions'].Add($kv.Key, $kv.Value)
         }
-        $tsConfig.compilerOptions.moduleResolution = 'bundler'
-        $tsConfig.compilerOptions.lib = @(
+        $tsConfig['compilerOptions']['moduleResolution'] = 'bundler'
+        $tsConfig['compilerOptions']['lib'] = @(
             'es2020'
             'dom'
             'dom.iterable'
         )
-        $tsConfig.compilerOptions.target = 'es2020'
-        $tsConfig.compilerOptions.Remove('outDir')
+        $tsConfig['compilerOptions']['target'] = 'es2020'
+        $tsConfig['compilerOptions'].Remove('outDir')
         $commitMessage = 'Make tsconfig more strict'
 
         git rm $tsConfigPath

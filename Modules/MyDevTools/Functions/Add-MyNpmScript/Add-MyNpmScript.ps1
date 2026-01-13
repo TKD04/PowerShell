@@ -18,10 +18,10 @@ function Add-MyNpmScript {
     [hashtable]$package = Import-MyJSON -LiteralPath $packageJsonFullPath -AsHashTable
 
     if (-not $package.ContainsKey('scripts')) {
-        $package.scripts = @{}
+        $package['scripts'] = @{}
     }
     foreach ($kv in $NameToScript.GetEnumerator()) {
-        $package.scripts[$kv.Key] = $kv.Value
+        $package['scripts'][$kv.Key] = $kv.Value
     }
     Export-MyJSON -LiteralPath $packageJsonFullPath -CustomObject $package
 }
