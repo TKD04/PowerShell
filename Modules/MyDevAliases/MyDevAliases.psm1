@@ -1,4 +1,6 @@
-﻿if (!(Test-Path -LiteralPath "$PSScriptRoot\Functions")) {
+﻿Set-StrictMode -Version 3.0
+
+if (!(Test-Path -LiteralPath "$PSScriptRoot\Functions")) {
     throw 'Functions directory could not be found.'
 }
 
