@@ -97,5 +97,5 @@ function Add-MyPackagesToVite {
         }
     }
 
-    Write-Host -Object '✅ Setup complete: Vite project is now ready-not ' -ForegroundColor Green
+    Write-Host -Object '✅ Setup complete: Vite project is now ready! ' -ForegroundColor Green
 }

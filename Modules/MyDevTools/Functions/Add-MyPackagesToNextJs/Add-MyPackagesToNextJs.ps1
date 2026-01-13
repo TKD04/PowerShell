@@ -97,5 +97,5 @@ function Add-MyPackagesToNextJs {
         }
     }
 
-    Write-Host -Object '✅ Setup complete: Next.js project is now ready-not ' -ForegroundColor Green
+    Write-Host -Object '✅ Setup complete: Next.js project is now ready!' -ForegroundColor Green
 }
