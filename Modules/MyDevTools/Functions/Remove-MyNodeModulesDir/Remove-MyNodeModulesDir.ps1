@@ -6,9 +6,7 @@ function Remove-MyNodeModulesDir {
     [OutputType([void])]
     param()
 
-    [string]$nodeModulesFullPath = (Resolve-Path -LiteralPath '.\node_modules' -ErrorAction Stop).Path
-
-    Remove-Item -LiteralPath $nodeModulesFullPath -Recurse -Force
+    Remove-MyDirectoryFast -Directory '.\node_modules'
 }
 
 New-Alias -Name 'rmnodemods' -Value 'Remove-MyNodeModulesDir'

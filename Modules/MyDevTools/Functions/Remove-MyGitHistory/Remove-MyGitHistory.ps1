@@ -6,9 +6,7 @@ function Remove-MyGitHistory {
     [OutputType([void])]
     param()
 
-    [string]$gitFullPath = (Resolve-Path -LiteralPath '.\.git' -ErrorAction Stop).Path
-
-    Remove-Item -LiteralPath $gitFullPath -Recurse -Force -Confirm
+    Remove-MyDirectoryFast -Directory '.\.git'
 }
 
 Set-Alias -Name 'rmgh' -Value 'Remove-MyGitHistory'

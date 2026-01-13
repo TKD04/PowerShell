@@ -6,16 +6,7 @@ function Clear-MyCurrentDirectory {
     [OutputType([void])]
     param ()
 
-    try {
-        $files = Get-ChildItem -LiteralPath '.\' -Force -ErrorAction Stop
-        if ($files.Count -eq 0) {
-            throw 'No files or directories found in the current directory.'
-        }
-        $files | Remove-Item -Recurse -Force -ErrorAction Stop
-    }
-    catch {
-        throw "Failed to clear the current directory: $_"
-    }
+    Remove-MyDirectoryFast -Directory $PWD
 }
 
 Set-Alias -Name 'cldir' -Value 'Clear-MyCurrentDirectory'
