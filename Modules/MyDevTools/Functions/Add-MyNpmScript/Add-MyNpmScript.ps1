@@ -17,8 +17,8 @@ function Add-MyNpmScript {
     # since [PSCustomObject] returns an error when new properties are added to it.
     [hashtable]$package = Import-MyJSON -LiteralPath $packageJsonFullPath -AsHashTable
 
-    if (-not $NameToScript.ContainsKey('scripts')) {
-        $NameToScript.scripts = @{}
+    if (-not $package.ContainsKey('scripts')) {
+        $package.scripts = @{}
     }
     foreach ($kv in $NameToScript.GetEnumerator()) {
         $package.scripts[$kv.Key] = $kv.Value
