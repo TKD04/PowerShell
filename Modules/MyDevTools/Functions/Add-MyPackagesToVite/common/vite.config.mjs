@@ -2,7 +2,6 @@ import path from "node:path";
 
 import { defineConfig } from "vite";
 
-/** @see  https://vite.dev/config/ */
 const config = defineConfig({
   resolve: {
     alias: {
