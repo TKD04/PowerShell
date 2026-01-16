@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react-swc";
 import { defineConfig } from "vite";
 
-const config = defineConfig({
+export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
@@ -13,5 +13,3 @@ const config = defineConfig({
     },
   },
 });
-
-export default config;

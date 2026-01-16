@@ -3,7 +3,7 @@ import path from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 
-const config = defineConfig({
+export default defineConfig({
   plugins: [tailwindcss()],
   resolve: {
     alias: {
@@ -12,5 +12,3 @@ const config = defineConfig({
     },
   },
 });
-
-export default config;
