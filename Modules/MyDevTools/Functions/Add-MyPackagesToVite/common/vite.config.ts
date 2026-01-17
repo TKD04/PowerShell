@@ -1,11 +1,11 @@
 import react from "@vitejs/plugin-react-swc";
-import { defineConfig } from "vite";
+import type { UserConfig } from "vite";
 
-export default defineConfig({
+export default {
   plugins: [react()],
   resolve: {
     alias: {
       "@": "/src",
     },
   },
-});
+} satisfies UserConfig;
