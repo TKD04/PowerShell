@@ -103,20 +103,6 @@ function Install-MyTypeScript {
         }
 
         if ($UseReact) {
-            [hashtable]$tsConfigVite = Import-MyJSON -LiteralPath '.\tsconfig.json' -AsHashTable
-            [hashtable]$missingPaths = @{
-                '@/*' = @(
-                    './src/*'
-                )
-            }
-
-            # Adds the alias "@/*" -> "./src/*" in tsconfig.json as well as in tsconfig.app.json
-            if (-not $tsConfigVite.ContainsKey('compilerOptions')) {
-                $tsConfigVite.Add('compilerOptions', @{})
-            }
-            $tsConfigVite['compilerOptions'].Add('paths', $missingPaths)
-            Export-MyJSON -LiteralPath '.\tsconfig.json' -CustomObject $tsConfigVite
-            git add '.\tsconfig.json'
             $tsConfigPath = '.\tsconfig.app.json'
             $viteDefaultCompilerOptions.Add(
                 'tsBuildInfoFile', './node_modules/.tmp/tsconfig.app.tsbuildinfo'
