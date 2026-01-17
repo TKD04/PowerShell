@@ -44,7 +44,6 @@ function Add-MyPackagesToVite {
     if ($UseReact) {
         Join-Path -Path $PSScriptRoot -ChildPath 'common\vite.config.ts' |
         Copy-Item -Destination '.\vite.config.ts'
-        pnpm add -D @types/node
         git add '.\package.json' '.\pnpm-lock.yaml' '.\vite.config.ts'
     }
     else {
