@@ -75,9 +75,6 @@ function Install-MyTypeScript {
         'typescript'
     )
 
-    if ($IsVite) {
-        $tsConfig['compilerOptions'].Add('noEmit', $true)
-    }
     if ($UseNode) {
         # https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping
         # https://github.com/tsconfig/bases/tree/main/bases
@@ -113,6 +110,7 @@ function Install-MyTypeScript {
             'dom.iterable'
         )
         $tsConfig['compilerOptions']['target'] = 'es2020'
+        $tsConfig['compilerOptions'].Add('noEmit', $true)
         $tsConfig['compilerOptions'].Remove('outDir')
         $commitMessage = 'Make tsconfig more strict'
 
