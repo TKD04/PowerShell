@@ -94,8 +94,7 @@ function Install-MyTypeScript {
     }
     if ($IsVite) {
         [hashtable]$viteDefaultCompilerOptions = [ordered]@{
-            'allowImportingTsExtensions' = $true
-            'moduleDetection'            = 'force'
+            'moduleDetection' = 'force'
         }
 
         if ($UseReact) {
