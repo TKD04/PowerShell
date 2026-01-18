@@ -64,6 +64,7 @@ function Install-MyTypeScript {
                 'dom.iterable'
             )
             'target'                             = 'es2016'
+            'useDefineForClassFields'            = $true
             <# Projects #>
             'incremental'                        = $true
             <# Completeness #>
@@ -95,7 +96,6 @@ function Install-MyTypeScript {
         [hashtable]$viteDefaultCompilerOptions = [ordered]@{
             'allowImportingTsExtensions' = $true
             'moduleDetection'            = 'force'
-            'useDefineForClassFields'    = $true
         }
 
         if ($UseReact) {
