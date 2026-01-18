@@ -82,10 +82,10 @@ function Install-MyTypeScript {
         # https://github.com/tsconfig/bases/tree/main/bases
         # For Node 22
         $tsConfig['compilerOptions']['module'] = 'node16'
-        $tsConfig['compilerOptions']['target'] = 'es2022'
         $tsConfig['compilerOptions']['lib'] = @(
             'es2023'
         )
+        $tsConfig['compilerOptions']['target'] = 'es2022'
         $devDependencies += '@types/node'
     }
     if ($UseReact) {
