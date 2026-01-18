@@ -53,7 +53,7 @@ function Add-MyPackagesToVite {
     }
     git commit -m 'Add the alias `@/` -> `./src/*` to the Vite config file'
 
-    Install-MyTypeScript -NoEmit -IsVite -UseReact:$UseReact
+    Install-MyTypeScript -IsVite -UseReact:$UseReact
     Install-MyESLint -IsViteReact:$UseReact
     Install-MyVitest
     Install-MyPrettier -UseTailwindcss

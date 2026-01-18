@@ -2,9 +2,6 @@
 .SYNOPSIS
 Adds TypeScript and its settings to the current directory.
 
-.PARAMETER NoEmit
-Whether to enable "noEmit".
-
 .PARAMETER UseNode
 Whether to support Node.
 
@@ -17,7 +14,6 @@ Whether to add Vite default configs.
 function Install-MyTypeScript {
     [OutputType([void])]
     param (
-        [switch]$NoEmit,
         [switch]$UseNode,
         [switch]$UseReact,
         [switch]$IsVite
@@ -78,7 +74,7 @@ function Install-MyTypeScript {
         'typescript'
     )
 
-    if ($NoEmit -or $IsVite) {
+    if ($IsVite) {
         $tsConfig['compilerOptions'].Add('noEmit', $true)
     }
     if ($UseNode) {
