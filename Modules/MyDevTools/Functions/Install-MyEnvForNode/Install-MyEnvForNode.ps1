@@ -1,5 +1,3 @@
-Import-Module -Name 'New-UserVariables'
-
 <#
 .SYNOPSIS
 Adds the Node develop environment to the current directory.
@@ -31,8 +29,10 @@ function Install-MyEnvForNode {
     }
     Install-MyTypeDoc
     Install-MyVSCodeSettingsForWeb
-    Join-Path -Path $gitignoreDirPath -ChildPath 'Node.gitignore' |
-    Copy-Item -Destination '.\.gitignore'
+    if (-not (Test-MyStrictPath -LiteralPath '.\.gitignore')) {
+        Join-Path -Path $PSScriptRoot -ChildPath 'common\Node.gitignore' |
+        Copy-Item -Destination '.\.gitignore'
+    }
     New-Item -Path '.\' -Name 'src' -ItemType 'Directory'
     New-Item -Path '.\src' -Name 'app.ts' -ItemType 'File'
     git add '.\package.json' '.\src\app.ts'
