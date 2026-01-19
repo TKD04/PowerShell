@@ -60,7 +60,7 @@ function Add-MyPackagesToVite {
     Install-MyTailwindCss -IsVite
     Install-MyVSCodeSettingsForWeb
 
-    # Add `--open` to `dev` and `preview` npm scirpts
+    # Add `--open` to `dev` and `preview` npm scripts
     [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
     $package['scripts']['dev'] = 'vite --open'
     $package['scripts']['preview'] = 'vite preview --open'
