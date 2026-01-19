@@ -10,7 +10,7 @@ import { createTypeScriptImportResolver } from "eslint-import-resolver-typescrip
 import { createNodeResolver } from "eslint-plugin-import-x";
 import jsdocPlugin from "eslint-plugin-jsdoc";
 import perfectionistPlugin from "eslint-plugin-perfectionist";
-import reactCompilerPlugin from "eslint-plugin-react-compiler";
+import reactHooksPlugin from "eslint-plugin-react-hooks";
 import reactRefreshPlugin from "eslint-plugin-react-refresh";
 import regexpPlugin from "eslint-plugin-regexp";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
@@ -141,6 +141,12 @@ export default defineConfig([
   },
   {
     extends: [
+      /*
+       * Rules from eslint-plugin-react-compiler are already included in
+       * eslint-plugin-react-hooks' recommended rules.
+       * https://react.dev/blog/2025/10/07/react-compiler-1#migrating-from-eslint-plugin-react-compiler-to-eslint-plugin-react-hooks
+       */
+      reactHooksPlugin.configs.flat.recommended,
       airbnbXPlugins.react,
       airbnbXPlugins.reactHooks,
       airbnbXPlugins.reactA11y,
@@ -155,7 +161,6 @@ export default defineConfig([
       // Overrides the recommended React rules with the stricter ones
       airbnbXRules.react.strict,
       reactRefreshPlugin.configs.next,
-      reactCompilerPlugin.configs.recommended,
     ],
     files: ["{app,components,features}/**/*.{ts,tsx}"],
     name: "react",

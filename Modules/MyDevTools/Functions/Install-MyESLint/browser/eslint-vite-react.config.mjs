@@ -11,7 +11,7 @@ import { createNodeResolver } from "eslint-plugin-import-x";
 import jsdocPlugin from "eslint-plugin-jsdoc";
 import perfectionistPlugin from "eslint-plugin-perfectionist";
 import reactPlugin from "eslint-plugin-react";
-import reactCompilerPlugin from "eslint-plugin-react-compiler";
+import reactHooksPlugin from "eslint-plugin-react-hooks";
 import reactRefreshPlugin from "eslint-plugin-react-refresh";
 import regexpPlugin from "eslint-plugin-regexp";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
@@ -142,10 +142,15 @@ export default defineConfig([
   {
     extends: [
       /*
+       * Rules from eslint-plugin-react-compiler are already included in
+       * eslint-plugin-react-hooks' recommended rules.
+       * https://react.dev/blog/2025/10/07/react-compiler-1#migrating-from-eslint-plugin-react-compiler-to-eslint-plugin-react-hooks
+       */
+      reactHooksPlugin.configs.flat.recommended,
+      /*
        * There is no need to add eslint-plugin-react here because it was already included via "jsx-runtime".
        * https://github.com/jsx-eslint/eslint-plugin-react/blob/c8917b0885094b5e4cc2a6f613f7fb6f16fe932e/index.js#L163-L176
        */
-      airbnbXPlugins.reactHooks,
       airbnbXPlugins.reactA11y,
       airbnbXConfigs.react.recommended,
       airbnbXConfigs.react.typescript,
@@ -153,7 +158,6 @@ export default defineConfig([
       airbnbXRules.react.strict,
       reactPlugin.configs.flat["jsx-runtime"],
       reactRefreshPlugin.configs.vite,
-      reactCompilerPlugin.configs.recommended,
     ],
     files: ["src/**/*.tsx"],
     name: "react",
