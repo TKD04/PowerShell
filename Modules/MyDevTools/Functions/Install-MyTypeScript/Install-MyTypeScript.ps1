@@ -2,25 +2,28 @@
 .SYNOPSIS
 Adds TypeScript and its settings to the current directory.
 
-.PARAMETER UseNode
-Whether to support Node.
+.PARAMETER Environment
+Exactly one environment must be selected:
+- Node.js
+- Vite
 
 .PARAMETER UseReact
-Whether to support React.
-
-.PARAMETER IsVite
-Whether to add Vite default configs.
+Whether to use React.
 #>
 function Install-MyTypeScript {
     [OutputType([void])]
     param (
-        [switch]$UseNode,
-        [switch]$UseReact,
-        [switch]$IsVite
+        [Parameter(Mandatory)]
+        [ValidateSet('Node', 'Vite')]
+        [string]$Environment,
+        [switch]$UseReact
     )
+    if ($Environment -eq 'Node' -and $UseReact) {
+        throw '$UseReact cannot be used with Node environment.'
+    }
 
-    [string]$commitMessage = 'Add TypeScript'
     [string]$tsConfigPath = '.\tsconfig.json'
+    # Common settings. Adds additional options afterwards depending on the selected environment.
     [hashtable]$tsConfig = [ordered]@{
         # https://www.typescriptlang.org/tsconfig
         'include'         = @(
@@ -40,33 +43,26 @@ function Install-MyTypeScript {
             'noUnusedParameters'                 = $true
             'strict'                             = $true
             <# Modules #>
-            'module'                             = 'esnext'
-            'moduleResolution'                   = 'node16'
+            # 'module'                             = ''
+            # 'moduleResolution'                   = ''
             'noUncheckedSideEffectImports'       = $true
-            'paths'                              = @{
-                '@/*' = @(
-                    './src/*'
-                )
-            }
             'resolveJsonModule'                  = $true
             <# Emit #>
             'outDir'                             = './dist'
             'sourceMap'                          = $true
             <# Interop Constraints #>
+            'erasableSyntaxOnly'                 = $true
             'esModuleInterop'                    = $true
             'forceConsistentCasingInFileNames'   = $true
             'isolatedModules'                    = $true
             'verbatimModuleSyntax'               = $true
             <# Language and Environment #>
-            'lib'                                = @(
-                'esnext'
-                'dom'
-                'dom.iterable'
-            )
-            'target'                             = 'es2016'
+            # 'lib'                                = @()
+            # 'target'                             = ''
             'useDefineForClassFields'            = $true
             <# Projects #>
             'incremental'                        = $true
+            'tsBuildInfoFile'                    = './node_modules/.tmp/tsconfig.tsbuildinfo'
             <# Completeness #>
             'skipLibCheck'                       = $true
         }
@@ -75,49 +71,46 @@ function Install-MyTypeScript {
         'typescript'
     )
 
-    if ($UseNode) {
+    if ($Environment -eq 'Node') {
         # https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping
         # https://github.com/tsconfig/bases/tree/main/bases
-        # For Node 22
-        $tsConfig['compilerOptions']['module'] = 'node16'
-        $tsConfig['compilerOptions']['lib'] = @(
-            'es2023'
-        )
-        $tsConfig['compilerOptions']['target'] = 'es2022'
+        # For Node.js 24
+        $tsConfig['compilerOptions']['module'] = 'nodenext'
+        $tsConfig['compilerOptions']['moduleResolution'] = 'node16'
+        $tsConfig['compilerOptions']['types'] = @('node')
+        $tsConfig['compilerOptions']['lib'] = @('es2024')
+        $tsConfig['compilerOptions']['target'] = 'es2024'
         $devDependencies += '@types/node'
     }
-    if ($UseReact) {
-        $tsConfig['compilerOptions'].Add('jsx', 'react-jsx')
-    }
-    if ($IsVite) {
-        [hashtable]$viteDefaultCompilerOptions = [ordered]@{
-            'moduleDetection' = 'force'
-        }
-
+    elseif ($Environment -eq 'Vite') {
         if ($UseReact) {
             $tsConfigPath = '.\tsconfig.app.json'
-            $viteDefaultCompilerOptions.Add(
-                'tsBuildInfoFile', './node_modules/.tmp/tsconfig.app.tsbuildinfo'
+            $tsConfig['compilerOptions'].Add('jsx', 'react-jsx')
+            $tsConfig['compilerOptions']['tsBuildInfoFile'] = './node_modules/.tmp/tsconfig.app.tsbuildinfo'
+        }
+        $tsConfig['compilerOptions']['module'] = 'esnext'
+        $tsConfig['compilerOptions']['moduleResolution'] = 'bundler'
+        $tsConfig['compilerOptions']['paths'] = @{
+            '@/*' = @(
+                './src/*'
             )
         }
-        foreach ($kv in $viteDefaultCompilerOptions.GetEnumerator()) {
-            $tsConfig['compilerOptions'].Add($kv.Key, $kv.Value)
-        }
-        $tsConfig['compilerOptions']['moduleResolution'] = 'bundler'
+        $tsConfig['compilerOptions']['types'] = @('vite/client')
         $tsConfig['compilerOptions']['lib'] = @(
-            'es2020'
-            'dom'
-            'dom.iterable'
+            'ES2022'
+            'DOM'
+            'DOM.Iterable'
         )
-        $tsConfig['compilerOptions']['target'] = 'es2020'
+        $tsConfig['compilerOptions']['moduleDetection'] = 'force'
+        $tsConfig['compilerOptions']['target'] = 'es2022'
         $tsConfig['compilerOptions'].Add('noEmit', $true)
         $tsConfig['compilerOptions'].Remove('outDir')
-        $commitMessage = 'Make tsconfig more strict'
-
-        git rm $tsConfigPath
+        if (Test-MyStrictPath -LiteralPath $tsConfigPath) {
+            git rm $tsConfigPath
+        }
     }
     pnpm add -D @devDependencies
     Export-MyJSON -LiteralPath $tsConfigPath -CustomObject $tsConfig
     git add '.\package.json' '.\pnpm-lock.yaml' $tsConfigPath
-    git commit -m $commitMessage
+    git commit -m "Add TypeScript ($Environment)"
 }
