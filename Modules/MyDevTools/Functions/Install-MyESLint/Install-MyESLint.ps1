@@ -51,7 +51,6 @@ function Install-MyESLint {
         $devDependencies += @(
             'eslint-plugin-jsx-a11y'
             'eslint-plugin-react'
-            'eslint-plugin-react-compiler'
             'eslint-plugin-react-hooks'
             'eslint-plugin-react-refresh'
         )
