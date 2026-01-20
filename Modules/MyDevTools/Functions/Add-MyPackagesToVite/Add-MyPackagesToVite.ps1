@@ -21,13 +21,14 @@ function Add-MyPackagesToVite {
     if (-not (Test-MyCommandExists -Command 'pnpm')) {
         throw 'A command "pnpm" could not be found. You can install pnpm by using the command "corepack enable pnpm".'
     }
-    # You should select "TypeScript + SWC" in "Select a variant" when initializing Vite.
+    # You should select "TypeScript + React Compiler (Rolldown)" in "Select a variant" when initializing Vite.
     if ($UseReact) {
         [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
-        [bool]$hasViteJsPluginReactSwc = $package['devDependencies'].ContainsKey('@vitejs/plugin-react-swc')
+        [bool]$hasViteJsBabelPluginReactCompiler = $package['devDependencies'].ContainsKey('babel-plugin-react-compiler')
 
-        if (-not $hasViteJsPluginReactSwc) {
-            throw '"@vitejs/plugin-react-swc" could not be found in package.json. You should select "TypeScript + SWC" in "Select a variant" when initializing Vite'
+        if (-not $hasViteJsBabelPluginReactCompiler) {
+            throw '"babel-plugin-react-compiler" could not be found in package.json.' +
+            'You should select "TypeScript + React Compiler (Rolldown)" in "Select a variant" when initializing Vite.'
         }
     }
 

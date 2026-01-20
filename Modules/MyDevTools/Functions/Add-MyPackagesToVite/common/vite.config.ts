@@ -1,8 +1,14 @@
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react";
 import type { UserConfig } from "vite";
 
 export default {
-  plugins: [react()],
+  plugins: [
+    react({
+      babel: {
+        plugins: [["babel-plugin-react-compiler"]],
+      },
+    }),
+  ],
   resolve: {
     alias: {
       "@": "/src",
