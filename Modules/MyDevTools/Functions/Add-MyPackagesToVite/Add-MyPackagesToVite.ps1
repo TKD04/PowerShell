@@ -18,6 +18,7 @@ function Add-MyPackagesToVite {
         [switch]$DeployToGitHubPages
     )
 
+    [hashtable]$splat = @{}
     if (-not (Test-MyCommandExists -Command 'pnpm')) {
         throw 'A command "pnpm" could not be found. You can install pnpm by using the command "corepack enable pnpm".'
     }
@@ -26,6 +27,7 @@ function Add-MyPackagesToVite {
         [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
         [bool]$hasViteJsBabelPluginReactCompiler = $package['devDependencies'].ContainsKey('babel-plugin-react-compiler')
 
+        $splat['Environment'] = 'ViteReact'
         if (-not $hasViteJsBabelPluginReactCompiler) {
             throw '"babel-plugin-react-compiler" could not be found in package.json.' +
             'You should select "TypeScript + React Compiler (Rolldown)" in "Select a variant" when initializing Vite.'
@@ -54,8 +56,8 @@ function Add-MyPackagesToVite {
     }
     git commit -m 'Add the alias `@/` -> `./src/*` to the Vite config file'
 
-    Install-MyTypeScript -Environment 'Vite' -UseReact:$UseReact
-    Install-MyESLint -IsViteReact:$UseReact
+    Install-MyTypeScript @splat
+    Install-MyESLint @splat
     Install-MyVitest
     Install-MyPrettier -UseTailwindcss
     Install-MyTailwindCss -IsVite

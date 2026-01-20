@@ -4,23 +4,17 @@ Adds TypeScript and its settings to the current directory.
 
 .PARAMETER Environment
 Exactly one environment must be selected:
-- Node.js
+- Node
 - Vite
-
-.PARAMETER UseReact
-Whether to use React.
+- ViteReact
 #>
 function Install-MyTypeScript {
     [OutputType([void])]
     param (
         [Parameter(Mandatory)]
-        [ValidateSet('Node', 'Vite')]
-        [string]$Environment,
-        [switch]$UseReact
+        [ValidateSet('Node', 'Vite', 'ViteReact')]
+        [string]$Environment
     )
-    if ($Environment -eq 'Node' -and $UseReact) {
-        throw '$UseReact cannot be used with Node environment.'
-    }
 
     [string]$tsConfigPath = '.\tsconfig.json'
     # Common settings. Adds additional options afterwards depending on the selected environment.
@@ -71,42 +65,44 @@ function Install-MyTypeScript {
         'typescript'
     )
 
-    if ($Environment -eq 'Node') {
-        # https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping
-        # https://github.com/tsconfig/bases/tree/main/bases
-        # For Node.js 24
-        $tsConfig['compilerOptions']['module'] = 'nodenext'
-        $tsConfig['compilerOptions']['moduleResolution'] = 'node16'
-        $tsConfig['compilerOptions']['types'] = @('node')
-        $tsConfig['compilerOptions']['lib'] = @('es2024')
-        $tsConfig['compilerOptions']['target'] = 'es2024'
-        $devDependencies += '@types/node'
-    }
-    elseif ($Environment -eq 'Vite') {
-        if ($UseReact) {
-            $tsConfigPath = '.\tsconfig.app.json'
-            $tsConfig['compilerOptions'].Add('jsx', 'react-jsx')
-            $tsConfig['compilerOptions']['tsBuildInfoFile'] = './node_modules/.tmp/tsconfig.app.tsbuildinfo'
+    switch -Wildcard ($Environment) {
+        'Node' {
+            # https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping
+            # https://github.com/tsconfig/bases/tree/main/bases
+            # For Node.js 24
+            $tsConfig['compilerOptions']['module'] = 'nodenext'
+            $tsConfig['compilerOptions']['moduleResolution'] = 'node16'
+            $tsConfig['compilerOptions']['types'] = @('node')
+            $tsConfig['compilerOptions']['lib'] = @('es2024')
+            $tsConfig['compilerOptions']['target'] = 'es2024'
+            $devDependencies += '@types/node'
         }
-        $tsConfig['compilerOptions']['module'] = 'esnext'
-        $tsConfig['compilerOptions']['moduleResolution'] = 'bundler'
-        $tsConfig['compilerOptions']['paths'] = @{
-            '@/*' = @(
-                './src/*'
+        'Vite*' {
+            if ($Environment -eq 'ViteReact') {
+                $tsConfigPath = '.\tsconfig.app.json'
+                $tsConfig['compilerOptions'].Add('jsx', 'react-jsx')
+                $tsConfig['compilerOptions']['tsBuildInfoFile'] = './node_modules/.tmp/tsconfig.app.tsbuildinfo'
+            }
+            $tsConfig['compilerOptions']['module'] = 'esnext'
+            $tsConfig['compilerOptions']['moduleResolution'] = 'bundler'
+            $tsConfig['compilerOptions']['paths'] = @{
+                '@/*' = @(
+                    './src/*'
+                )
+            }
+            $tsConfig['compilerOptions']['types'] = @('vite/client')
+            $tsConfig['compilerOptions']['lib'] = @(
+                'ES2022'
+                'DOM'
+                'DOM.Iterable'
             )
-        }
-        $tsConfig['compilerOptions']['types'] = @('vite/client')
-        $tsConfig['compilerOptions']['lib'] = @(
-            'ES2022'
-            'DOM'
-            'DOM.Iterable'
-        )
-        $tsConfig['compilerOptions']['moduleDetection'] = 'force'
-        $tsConfig['compilerOptions']['target'] = 'es2022'
-        $tsConfig['compilerOptions'].Add('noEmit', $true)
-        $tsConfig['compilerOptions'].Remove('outDir')
-        if (Test-MyStrictPath -LiteralPath $tsConfigPath) {
-            git rm $tsConfigPath
+            $tsConfig['compilerOptions']['moduleDetection'] = 'force'
+            $tsConfig['compilerOptions']['target'] = 'es2022'
+            $tsConfig['compilerOptions'].Add('noEmit', $true)
+            $tsConfig['compilerOptions'].Remove('outDir')
+            if (Test-MyStrictPath -LiteralPath $tsConfigPath) {
+                git rm $tsConfigPath
+            }
         }
     }
     pnpm add -D @devDependencies
