@@ -31,7 +31,7 @@ function Install-MyESLint {
         '@eslint/js'
         # eslint-config-airbnb-extended@2.3.3 uses @^3
         '@stylistic/eslint-plugin@^3'
-        'eslint',
+        'eslint'
         'eslint-config-airbnb-extended'
         'eslint-config-prettier'
         'eslint-import-resolver-typescript'
