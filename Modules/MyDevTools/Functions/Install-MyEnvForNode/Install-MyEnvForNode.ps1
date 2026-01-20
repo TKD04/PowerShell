@@ -18,7 +18,7 @@ function Install-MyEnvForNode {
     Initialize-MyGit -UseNode
     Initialize-MyNpm
     Install-MyTypeScript -Environment 'Node'
-    Install-MyESLint -UseNode
+    Install-MyESLint -Environment 'Node'
     if ($UseVitest) {
         Install-MyVitest
     }

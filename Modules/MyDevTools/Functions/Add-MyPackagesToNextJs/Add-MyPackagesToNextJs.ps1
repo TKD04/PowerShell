@@ -64,7 +64,7 @@ function Add-MyPackagesToNextJs {
     git add '.\tsconfig.json'
     git commit -m 'Make tsconfig.json more strict'
 
-    Install-MyESLint -IsNextJs
+    Install-MyESLint -Environment 'Next'
     Install-MyVitest
     Install-MyPrettier -UseTailwindcss
     Install-MyVSCodeSettingsForWeb
