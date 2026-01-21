@@ -33,8 +33,7 @@ function Install-MyEnvForNode {
         Join-Path -Path $PSScriptRoot -ChildPath 'common\Node.gitignore' |
         Copy-Item -Destination '.\.gitignore'
     }
-    New-Item -Path '.\' -Name 'src' -ItemType 'Directory'
-    New-Item -Path '.\src' -Name 'app.ts' -ItemType 'File'
+    New-Item -Path '.\src' -Name 'app.ts' -ItemType 'File' -Force
     git add '.\package.json' '.\src\app.ts'
     git commit -m 'Add environment for Node'
     pnpm run format

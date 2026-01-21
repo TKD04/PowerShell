@@ -22,9 +22,7 @@ function Copy-MyFolderStructure {
     [string]$dirName = Resolve-Path -LiteralPath $LiteralPath | Split-Path -Leaf
     [string]$destPath = '.\_{0}' -f $dirName
 
-    if (-not (Test-MyStrictPath -LiteralPath $destPath -PathType Container)) {
-        New-Item -Path '.\' -Name $destPath -ItemType 'Directory'
-    }
+    New-Item -Path '.\' -Name $destPath -ItemType 'Directory' -Force
     # https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/xcopy#parameter
     xcopy.exe /E /T $LiteralPath $destPath
 }

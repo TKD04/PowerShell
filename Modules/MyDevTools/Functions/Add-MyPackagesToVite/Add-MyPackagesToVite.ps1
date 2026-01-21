@@ -78,12 +78,7 @@ function Add-MyPackagesToVite {
             Write-Warning -Message '.\.github\workflows\vite.yml is already in place (skip).'
         }
         else {
-            if (-not (Test-MyStrictPath -LiteralPath '.\.github' -PathType Container)) {
-                New-Item -Path '.\' -Name '.github' -ItemType 'directory'
-            }
-            if (-not (Test-MyStrictPath -LiteralPath '.\.github\workflows' -PathType Container)) {
-                New-Item -Path '.\.github' -Name 'workflows' -ItemType 'directory'
-            }
+            New-Item -Path '.\.github' -Name 'workflows' -ItemType 'directory' -Force
             Join-Path -Path $PSScriptRoot -ChildPath 'common\vite.yml' |
             Copy-Item -Destination '.\.github\workflows\vite.yml'
             git add '.\.github\workflows\vite.yml'

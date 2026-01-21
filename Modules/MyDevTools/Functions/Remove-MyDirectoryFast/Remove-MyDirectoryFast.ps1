@@ -29,7 +29,7 @@ function Remove-MyDirectoryFast {
     }
 
     if ($PSCmdlet.ShouldProcess($DirectoryFullPath, 'Remove all contents of directory')) {
-        $null = New-Item -ItemType Directory -Path $EmptyDirPath -Force
+        $null = New-Item -Path $EmptyDirPath -ItemType Directory -Force
         try {
             $null = Robocopy.exe $EmptyDirPath $DirectoryFullPath /MIR /NJH /NJS /NP /NS /NC /NFL /NDL
             if ($LASTEXITCODE -ge 8) {
