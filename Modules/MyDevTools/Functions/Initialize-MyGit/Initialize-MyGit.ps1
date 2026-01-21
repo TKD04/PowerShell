@@ -29,7 +29,7 @@ function Initialize-MyGit {
         Copy-Item -Destination '.\.gitignore' -Force
     }
     elseif (-not (Test-MyStrictPath -LiteralPath '.\.gitignore' -PathType Leaf)) {
-        New-Item -Path '.\' -Name '.gitignore' -ItemType 'file'
+        New-Item -Path '.\.gitignore' -ItemType 'file'
     }
     else {
         Write-Warning -Message '.gitignore is already in place (skip).'

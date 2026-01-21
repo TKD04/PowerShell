@@ -40,7 +40,7 @@ function Install-MyTailwindCss {
             '@tailwindcss/postcss'
             'postcss'
         )
-        New-Item -Path '.\' -Name 'src' -ItemType 'Directory' -Force
+        New-Item -Path '.\src' -ItemType 'Directory' -Force
         Join-Path -Path $PSScriptRoot -ChildPath 'common\postcss.config.mjs' |
         Copy-Item -Destination '.\postcss.config.mjs'
         Join-Path -Path $PSScriptRoot -ChildPath 'common\no-framework-style.css' |
