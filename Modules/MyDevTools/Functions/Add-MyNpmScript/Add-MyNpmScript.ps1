@@ -20,8 +20,8 @@ function Add-MyNpmScript {
     if (-not $package.ContainsKey('scripts')) {
         $package['scripts'] = @{}
     }
-    foreach ($kv in $NameToScript.GetEnumerator()) {
-        $package['scripts'][$kv.Key] = $kv.Value
+    foreach ($key in $NameToScript.Keys) {
+        $package['scripts'][$key] = $NameToScript[$key]
     }
     Export-MyJSON -LiteralPath $packageJsonFullPath -CustomObject $package
 }
