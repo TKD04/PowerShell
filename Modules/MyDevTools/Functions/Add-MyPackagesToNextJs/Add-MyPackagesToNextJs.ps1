@@ -14,6 +14,7 @@ function Add-MyPackagesToNextJs {
     )
 
     [hashtable]$missingCompilerOptions = @{
+        <# Type Checking #>
         'allowUnreachableCode'               = $false
         'allowUnusedLabels'                  = $false
         'exactOptionalPropertyTypes'         = $true
@@ -24,9 +25,14 @@ function Add-MyPackagesToNextJs {
         'noUncheckedIndexedAccess'           = $true
         'noUnusedLocals'                     = $true
         'noUnusedParameters'                 = $true
+        <# Modules #>
         'noUncheckedSideEffectImports'       = $true
+        <# Interop Constraints #>
+        'erasableSyntaxOnly'                 = $true
         'forceConsistentCasingInFileNames'   = $true
         'verbatimModuleSyntax'               = $true
+        <# Language and Environment #>
+        'useDefineForClassFields'            = $true
     }
     [hashtable]$tsConfig = Import-MyJSON -LiteralPath '.\tsconfig.json' -AsHashTable
 
