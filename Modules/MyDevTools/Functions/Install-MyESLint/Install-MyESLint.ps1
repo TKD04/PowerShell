@@ -62,7 +62,7 @@ function Install-MyESLint {
 
             # Remove "lint" from npm scripts to replace "next lint" with "eslint . --cache"
             if ($hasNpmScriptLint) {
-                Remove-MyNpmScript('lint')
+                Remove-MyNpmScript -ScriptName 'lint'
                 pnpm rm eslint-config-next
                 git rm '.\eslint.config.mjs'
             }
