@@ -39,6 +39,7 @@ function Install-MyTailwindCss {
         $devDependencies += @(
             '@tailwindcss/postcss'
             'postcss'
+            'postcss-load-config'
         )
         New-Item -Path '.\src' -ItemType 'Directory' -Force
         Join-Path -Path $PSScriptRoot -ChildPath 'common\postcss.config.mjs' |
