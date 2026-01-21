@@ -72,7 +72,7 @@ function Install-MyESLint {
             $eslintConfigSource = 'browser\eslint-next.config.mjs'
         }
         default {
-            # Vite (Plain) or Browser with no framework
+            # Vite (Plain) or Browser
             $eslintConfigSource = 'browser\eslint.config.mjs'
         }
     }
