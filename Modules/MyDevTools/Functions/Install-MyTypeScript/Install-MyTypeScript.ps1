@@ -80,7 +80,7 @@ function Install-MyTypeScript {
         'Vite*' {
             if ($Environment -eq 'ViteReact') {
                 $tsConfigPath = '.\tsconfig.app.json'
-                $tsConfig['compilerOptions'].Add('jsx', 'react-jsx')
+                $tsConfig['compilerOptions']['jsx'] = 'react-jsx'
                 $tsConfig['compilerOptions']['tsBuildInfoFile'] = './node_modules/.tmp/tsconfig.app.tsbuildinfo'
             }
             $tsConfig['compilerOptions']['module'] = 'esnext'
@@ -98,7 +98,7 @@ function Install-MyTypeScript {
             )
             $tsConfig['compilerOptions']['moduleDetection'] = 'force'
             $tsConfig['compilerOptions']['target'] = 'es2022'
-            $tsConfig['compilerOptions'].Add('noEmit', $true)
+            $tsConfig['compilerOptions']['noEmit'] = $true
             $tsConfig['compilerOptions'].Remove('outDir')
             if (Test-MyStrictPath -LiteralPath $tsConfigPath) {
                 git rm $tsConfigPath
