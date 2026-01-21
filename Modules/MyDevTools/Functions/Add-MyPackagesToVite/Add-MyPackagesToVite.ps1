@@ -25,10 +25,10 @@ function Add-MyPackagesToVite {
     # You should select "TypeScript + React Compiler (Rolldown)" in "Select a variant" when initializing Vite.
     if ($UseReact) {
         [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
-        [bool]$hasViteJsBabelPluginReactCompiler = $package['devDependencies'].ContainsKey('babel-plugin-react-compiler')
+        [bool]$hasBabelPluginReactCompiler = $package['devDependencies'].ContainsKey('babel-plugin-react-compiler')
 
         $splat['Environment'] = 'ViteReact'
-        if (-not $hasViteJsBabelPluginReactCompiler) {
+        if (-not $hasBabelPluginReactCompiler) {
             throw '"babel-plugin-react-compiler" could not be found in package.json.' +
             'You should select "TypeScript + React Compiler (Rolldown)" in "Select a variant" when initializing Vite.'
         }
