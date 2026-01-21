@@ -48,12 +48,12 @@ function Add-MyPackagesToVite {
     # Add the alias `@/` -> `.\src` to the Vite config
     if ($UseReact) {
         Join-Path -Path $PSScriptRoot -ChildPath 'common\vite.config.ts' |
-        Copy-Item -Destination '.\vite.config.ts'
+        Copy-Item -Destination '.\vite.config.ts' -Force
         git add '.\package.json' '.\pnpm-lock.yaml' '.\vite.config.ts'
     }
     else {
         Join-Path -Path $PSScriptRoot -ChildPath 'common\vite.config.mjs' |
-        Copy-Item -Destination '.\vite.config.mjs'
+        Copy-Item -Destination '.\vite.config.mjs' -Force
         git add '.\vite.config.mjs'
     }
     git commit -m 'Add the alias `@/` -> `./src/*` to the Vite config file'
@@ -82,7 +82,7 @@ function Add-MyPackagesToVite {
         else {
             New-Item -Path '.\.github\workflows'-ItemType 'Directory' -Force
             Join-Path -Path $PSScriptRoot -ChildPath 'common\vite.yml' |
-            Copy-Item -Destination '.\.github\workflows\vite.yml'
+            Copy-Item -Destination '.\.github\workflows\vite.yml' -Force
             git add '.\.github\workflows\vite.yml'
             git commit -m 'Add vite.yml to deploy to GitHub Pages'
         }

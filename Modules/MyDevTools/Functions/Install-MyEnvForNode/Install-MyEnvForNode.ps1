@@ -29,10 +29,8 @@ function Install-MyEnvForNode {
     }
     Install-MyTypeDoc
     Install-MyVSCodeSettingsForWeb
-    if (-not (Test-MyStrictPath -LiteralPath '.\.gitignore')) {
-        Join-Path -Path $PSScriptRoot -ChildPath 'common\Node.gitignore' |
-        Copy-Item -Destination '.\.gitignore'
-    }
+    Join-Path -Path $PSScriptRoot -ChildPath 'common\Node.gitignore' |
+    Copy-Item -Destination '.\.gitignore' -Force
     New-Item -Path '.\src\app.ts' -ItemType 'File' -Force
     git add '.\package.json' '.\src\app.ts'
     git commit -m 'Add environment for Node'
