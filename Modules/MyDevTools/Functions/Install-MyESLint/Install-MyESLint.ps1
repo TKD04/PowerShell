@@ -6,13 +6,14 @@ It installs the browser settings by default.
 .PARAMETER Environment
 Specifies the target environment.
 - Node
+- Vite (this is same to the default browser settings)
 - ViteReact
 - Next
 #>
 function Install-MyESLint {
     [OutputType([void])]
     param (
-        [ValidateSet('Node', 'ViteReact', 'Next')]
+        [ValidateSet('Node', 'Vite', 'ViteReact', 'Next')]
         [string]$Environment
     )
 
@@ -69,7 +70,7 @@ function Install-MyESLint {
             $eslintConfigSource = 'browser\eslint-next.config.mjs'
         }
         default {
-            # Browser with no framework
+            # Vite (Plain) or Browser with no framework
             $eslintConfigSource = 'browser\eslint.config.mjs'
         }
     }

@@ -18,7 +18,9 @@ function Add-MyPackagesToVite {
         [switch]$DeployToGitHubPages
     )
 
-    [hashtable]$splat = @{}
+    [hashtable]$splat = @{
+        'Environment' = 'Vite'
+    }
     if (-not (Test-MyCommandExists -Command 'pnpm')) {
         throw 'A command "pnpm" could not be found. You can install pnpm by using the command "corepack enable pnpm".'
     }
