@@ -37,7 +37,7 @@ function Install-MyESLint {
         'typescript-eslint'
     )
 
-    if ($Environment -eq 'ViteReact' -or $Environment -eq 'Next') {
+    if ($Environment -cmatch 'React$|^Next$') {
         $devDependencies += @(
             'eslint-plugin-jsx-a11y'
             'eslint-plugin-react'
