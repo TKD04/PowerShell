@@ -55,7 +55,6 @@ function Add-MyPackagesToNextJs {
     <# tscofnig.json #>
     # Make tsconfig.json more strict
     foreach ($key in $missingCompilerOptions.Keys) {
-        <# $kv is the current item #>
         $tsConfig['compilerOptions'][$key] = $key
     }
     Export-MyJSON -LiteralPath '.\tsconfig.json' -CustomObject $tsConfig
