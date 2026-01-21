@@ -64,7 +64,9 @@ function Install-MyESLint {
             if ($hasNpmScriptLint) {
                 Remove-MyNpmScript -ScriptName 'lint'
                 pnpm rm eslint-config-next
-                git rm '.\eslint.config.mjs'
+                if (Test-MyStrictPath -LiteralPath '.\eslint.config.mjs' -PathType Leaf) {
+                    git rm '.\eslint.config.mjs'
+                }
             }
             $devDependencies += '@next/eslint-plugin-next'
             $eslintConfigSource = 'browser\eslint-next.config.mjs'
