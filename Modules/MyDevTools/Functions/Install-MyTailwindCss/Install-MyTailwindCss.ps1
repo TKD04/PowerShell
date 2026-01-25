@@ -14,27 +14,10 @@ function Install-MyTailwindCss {
     [string[]]$devDependencies = @(
         'tailwindcss'
     )
-    [bool]$isViteReact = $IsVite -and (Test-MyStrictPath -LiteralPath '.\tsconfig.app.json' -PathType Leaf)
 
-    <# Vite with React #>
-    if ($isViteReact) {
+    if ($IsVite) {
         $devDependencies += '@tailwindcss/vite'
-        Join-Path -Path $PSScriptRoot -ChildPath 'common\vite-react.config.ts' |
-        Copy-Item -Destination '.\vite.config.ts' -Force
-        Join-Path -Path $PSScriptRoot -ChildPath 'common\vite-react-index.css' |
-        Copy-Item -Destination '.\src\index.css' -Force
-        git add '.\vite.config.ts' '.\src\index.css'
     }
-    <# Vite #>
-    elseif ($IsVite) {
-        $devDependencies += '@tailwindcss/vite'
-        Join-Path -Path $PSScriptRoot -ChildPath 'common\vite.config.mjs' |
-        Copy-Item -Destination '.\vite.config.mjs' -Force
-        Join-Path -Path $PSScriptRoot -ChildPath 'common\vite-style.css' |
-        Copy-Item -Destination '.\src\style.css' -Force
-        git add '.\vite.config.mjs' '.\src\style.css'
-    }
-    <# No framework #>
     else {
         $devDependencies += @(
             '@tailwindcss/postcss'
@@ -44,7 +27,7 @@ function Install-MyTailwindCss {
         New-Item -Path '.\src' -ItemType 'Directory' -Force
         Join-Path -Path $PSScriptRoot -ChildPath 'common\postcss.config.mjs' |
         Copy-Item -Destination '.\postcss.config.mjs' -Force
-        Join-Path -Path $PSScriptRoot -ChildPath 'common\no-framework-style.css' |
+        Join-Path -Path $PSScriptRoot -ChildPath 'common\style.css' |
         Copy-Item -Destination '.\src\style.css' -Force
         git add '.\postcss.config.mjs' '.\src\style.css'
     }

@@ -48,14 +48,18 @@ function Add-MyPackagesToVite {
 
     # Add the alias `@/` -> `.\src` to the Vite config
     if ($UseReact) {
-        Join-Path -Path $PSScriptRoot -ChildPath 'common\vite.config.ts' |
+        Join-Path -Path $PSScriptRoot -ChildPath 'common\vite-react.config.ts' |
         Copy-Item -Destination '.\vite.config.ts' -Force
-        git add '.\package.json' '.\pnpm-lock.yaml' '.\vite.config.ts'
+        Join-Path -Path $PSScriptRoot -ChildPath 'common\vite-react-index.css' |
+        Copy-Item -Destination '.\src\index.css' -Force
+        git add '.\package.json' '.\pnpm-lock.yaml' '.\vite.config.ts' '.\src\index.css'
     }
     else {
         Join-Path -Path $PSScriptRoot -ChildPath 'common\vite.config.mjs' |
         Copy-Item -Destination '.\vite.config.mjs' -Force
-        git add '.\vite.config.mjs'
+        Join-Path -Path $PSScriptRoot -ChildPath 'common\vite-style.css' |
+        Copy-Item -Destination '.\src\style.css' -Force
+        git add '.\vite.config.mjs' '.\src\style.css'
     }
     git commit -m 'Add the alias `@/` -> `./src/*` to the Vite config file'
 
