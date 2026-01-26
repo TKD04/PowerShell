@@ -71,10 +71,10 @@ function Add-MyPackagesToVite {
     Install-MyVSCodeSettingsForWeb
 
     # Add `--open` to `dev` and `preview` npm scripts
-    [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
-    $package['scripts']['dev'] = 'vite --open'
-    $package['scripts']['preview'] = 'vite preview --open'
-    Export-MyJSON -LiteralPath '.\package.json' -CustomObject $package
+    Add-MyNpmScript -NameToScript @{
+        'dev'     = 'vite --open'
+        'preview' = 'vite preview --open'
+    }
     git add '.\package.json'
     git commit -m 'Add `--open` to `dev` and `preview` npm script'
 
