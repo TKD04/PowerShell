@@ -4,15 +4,11 @@ Initializes git in the current directory.
 
 .PARAMETER UseNode
 Whether to adds .gitignore for Node.js.
-
-.PARAMETER UsePython
-Whether to adds .gitignore for Python.
 #>
 function Initialize-MyGit {
     [OutputType([void])]
     param(
-        [switch]$UseNode,
-        [switch]$UsePython
+        [switch]$UseNode
     )
 
     if (Test-MyStrictPath -LiteralPath '.\.git' -PathType Container) {
@@ -22,10 +18,6 @@ function Initialize-MyGit {
     git init @args
     if ($UseNode) {
         Join-Path -Path $PSScriptRoot -ChildPath '\common\Node.gitignore' |
-        Copy-Item -Destination '.\.gitignore' -Force
-    }
-    elseif ($UsePython) {
-        Join-Path -Path $PSScriptRoot -ChildPath '\common\Python.gitignore' |
         Copy-Item -Destination '.\.gitignore' -Force
     }
     elseif (-not (Test-MyStrictPath -LiteralPath '.\.gitignore' -PathType Leaf)) {
