@@ -71,9 +71,6 @@ function Add-MyPackagesToNextJs {
     Install-MyVitest
     Install-MyPrettier -UseTailwindcss
     Install-MyVSCodeSettingsForWeb
-
-    <# pnpm-nextjs.yml #>
-    # Add nextjs.yml to deploy to GitHub Pages
     if ($DeployToGitHubPages) {
         if (Test-Path -Path '.\.github\workflows\*.yml' -PathType Leaf) {
             Write-Warning -Message 'The workflow file is already in place (skip).'

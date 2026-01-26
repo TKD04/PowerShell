@@ -69,17 +69,12 @@ function Add-MyPackagesToVite {
     Install-MyPrettier -UseTailwindcss
     Install-MyTailwindCss -IsVite
     Install-MyVSCodeSettingsForWeb
-
-    # Add `--open` to `dev` and `preview` npm scripts
     Add-MyNpmScript -NameToScript @{
         'dev'     = 'vite --open'
         'preview' = 'vite preview --open'
     }
     git add '.\package.json'
     git commit -m 'Add `--open` to `dev` and `preview` npm script'
-
-    <# vite.yml #>
-    # Add vite.yml to deploy to GitHub Pages
     if ($DeployToGitHubPages) {
         if (Test-Path -Path '.\.github\workflows\*.yml' -PathType Leaf) {
             Write-Warning -Message 'The workflow file is already in place (skip).'
