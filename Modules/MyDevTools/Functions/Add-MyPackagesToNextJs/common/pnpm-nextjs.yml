@@ -37,13 +37,13 @@ jobs:
         with:
           path: |
             .next/cache
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ github.run_id }}
           restore-keys: |
-            ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}-
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --prefer-offline
       - name: Build with Next.js
-        run: pnpm next build
+        run: pnpm build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
