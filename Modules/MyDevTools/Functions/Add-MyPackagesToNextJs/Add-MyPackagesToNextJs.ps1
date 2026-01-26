@@ -75,8 +75,8 @@ function Add-MyPackagesToNextJs {
     <# pnpm-nextjs.yml #>
     # Add nextjs.yml to deploy to GitHub Pages
     if ($DeployToGitHubPages) {
-        if (Test-MyStrictPath -LiteralPath '.\.github\workflows\nextjs.yml' -PathType Leaf) {
-            Write-Warning -Message '.\.github\workflows\nextjs.yml is already in place (skip).'
+        if (Test-Path -Path '.\.github\workflows\*.yml' -PathType Leaf) {
+            Write-Warning -Message 'The workflow file is already in place (skip).'
         }
         else {
             $null = New-Item -Path '.\.github\workflows' -ItemType 'Directory' -Force

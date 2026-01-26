@@ -81,14 +81,14 @@ function Add-MyPackagesToVite {
     <# vite.yml #>
     # Add vite.yml to deploy to GitHub Pages
     if ($DeployToGitHubPages) {
-        if (Test-MyStrictPath -LiteralPath '.\.github\workflows\vite.yml' -PathType Leaf) {
-            Write-Warning -Message '.\.github\workflows\vite.yml is already in place (skip).'
+        if (Test-Path -Path '.\.github\workflows\*.yml' -PathType Leaf) {
+            Write-Warning -Message 'The workflow file is already in place (skip).'
         }
         else {
             $null = New-Item -Path '.\.github\workflows'-ItemType 'Directory' -Force
-            Join-Path -Path $PSScriptRoot -ChildPath 'common\vite.yml' |
-            Copy-Item -Destination '.\.github\workflows\vite.yml' -Force
-            git add '.\.github\workflows\vite.yml'
+            Join-Path -Path $PSScriptRoot -ChildPath 'common\pnpm-vite.yml' |
+            Copy-Item -Destination '.\.github\workflows\pnpm-vite.yml' -Force
+            git add '.\.github\workflows\pnpm-vite.yml'
             git commit -m 'Add vite.yml to deploy to GitHub Pages'
         }
     }
