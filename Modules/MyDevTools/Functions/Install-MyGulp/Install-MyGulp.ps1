@@ -12,7 +12,7 @@ function Install-MyGulp {
     )
 
     pnpm add -D gulp gulp-cli
-    New-Item -Path '.\gulpfile.mjs' -ItemType 'File'
+    $null = New-Item -Path '.\gulpfile.mjs' -ItemType 'File'
     if ($UseTypeScript) {
         pnpm add -D @types/gulp
     }

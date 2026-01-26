@@ -52,7 +52,7 @@ function Add-MyPackagesToNextJs {
     <# globals.d.ts #>
     # Add globals.d.ts to fix error when importing like *.css files
     # https://www.typescriptlang.org/tsconfig/#noUncheckedSideEffectImports
-    New-Item -Path '.\types' -ItemType 'Directory' -Force
+    $null = New-Item -Path '.\types' -ItemType 'Directory' -Force
     Join-Path -Path $PSScriptRoot -ChildPath 'common\globals.d.ts' |
     Copy-Item -Destination '.\types\globals.d.ts' -Force
     git add '.\types\globals.d.ts'
@@ -79,7 +79,7 @@ function Add-MyPackagesToNextJs {
             Write-Warning -Message '.\.github\workflows\nextjs.yml is already in place (skip).'
         }
         else {
-            New-Item -Path '.\.github\workflows' -ItemType 'Directory' -Force
+            $null = New-Item -Path '.\.github\workflows' -ItemType 'Directory' -Force
             Join-Path -Path $PSScriptRoot -ChildPath 'common\pnpm-nextjs.yml' |
             Copy-Item -Destination '.\.github\workflows\pnpm-nextjs.yml' -Force
             git add '.\.github\workflows\pnpm-nextjs.yml'
