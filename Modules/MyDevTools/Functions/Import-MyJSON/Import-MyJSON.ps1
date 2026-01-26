@@ -23,8 +23,10 @@ function Import-MyJSON {
         [switch]$AsHashTable
     )
 
+    [string]$fullPath = (Resolve-Path -LiteralPath $LiteralPath -ErrorAction Stop).Path
+
     try {
-        [string]$json = Get-Content -LiteralPath $LiteralPath -Raw
+        [string]$json = Get-Content -LiteralPath $fullPath -Raw
 
         ConvertFrom-Json -InputObject $json -AsHashtable:$AsHashTable
     }
