@@ -1,7 +1,7 @@
 ﻿<#
 .SYNOPSIS
 Adds some required packages to a Next.js project.
-You should use the command "npx create-next-app@latest --use-pnpm" to create the project.
+You should use the command "pnpm dlx create-next-app@latest --use-pnpm" to create the project.
 Otherwise this function will throw an error.
 
 .PARAMETER DeployToGitHubPages
@@ -37,7 +37,7 @@ function Add-MyPackagesToNextJs {
     [hashtable]$tsConfig = Import-MyJSON -LiteralPath '.\tsconfig.json' -AsHashTable
 
     if (-not (Test-MyStrictPath -LiteralPath '.\pnpm-lock.yaml' -PathType Leaf)) {
-        throw 'You should use the command "npx create-next-app@latest --use-pnpm" to create the project.'
+        throw 'You should use the command "pnpm dlx create-next-app@latest --use-pnpm" to create the project.'
     }
 
     <# .gitignore #>
