@@ -58,7 +58,7 @@ function Add-MyPackagesToNextJs {
     git add '.\types\globals.d.ts'
     git commit -m 'Add globals.d.ts to fix error when importing like *.css files'
 
-    <# tscofnig.json #>
+    <# tsconfig.json #>
     # Make tsconfig.json more strict
     foreach ($key in $missingCompilerOptions.Keys) {
         $tsConfig['compilerOptions'][$key] = $missingCompilerOptions[$key]

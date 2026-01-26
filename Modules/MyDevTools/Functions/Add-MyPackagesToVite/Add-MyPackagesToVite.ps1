@@ -1,9 +1,9 @@
 ﻿<#
 .SYNOPSIS
 Adds some required packages to a Vite.
-You should install "pnpm" on the your system beforehand,
+You should install "pnpm" on your system beforehand,
 for example by using the command "corepack enable pnpm".
-Otherwise this function wil throw an error.
+Otherwise this function will throw an error.
 
 .PARAMETER UseReact
 Whether to support React.
@@ -76,7 +76,7 @@ function Add-MyPackagesToVite {
     $package['scripts']['preview'] = 'vite preview --open'
     Export-MyJSON -LiteralPath '.\package.json' -CustomObject $package
     git add '.\package.json'
-    git commit -m 'Add `--open` to `dev` and `preview` npm scirpt'
+    git commit -m 'Add `--open` to `dev` and `preview` npm script'
 
     <# vite.yml #>
     # Add vite.yml to deploy to GitHub Pages
