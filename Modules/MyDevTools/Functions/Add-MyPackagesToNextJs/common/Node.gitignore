@@ -152,6 +152,3 @@ dist
 
 # vercel
 .vercel
-
-# typescript
-next-env.d.ts
