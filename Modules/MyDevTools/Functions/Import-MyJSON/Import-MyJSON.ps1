@@ -4,12 +4,9 @@ Imports a JSON file as [PSCustomObject] or [HashTable].
 
 .PARAMETER LiteralPath
 A source path to a JSON file.
-
-.PARAMETER AsHashTable
-Whether to import a JSON file as [HashTable].
 #>
 function Import-MyJSON {
-    [OutputType([PSCustomObject])]
+    [OutputType([hashtable])]
     param (
         [Parameter(Mandatory)]
         [ValidateScript({
@@ -19,8 +16,7 @@ function Import-MyJSON {
 
                 $true
             })]
-        [string]$LiteralPath,
-        [switch]$AsHashTable
+        [string]$LiteralPath
     )
 
     [string]$fullPath = (Resolve-Path -LiteralPath $LiteralPath -ErrorAction Stop).Path
@@ -28,7 +24,7 @@ function Import-MyJSON {
     try {
         [string]$json = Get-Content -LiteralPath $fullPath -Raw
 
-        ConvertFrom-Json -InputObject $json -AsHashtable:$AsHashTable
+        ConvertFrom-Json -InputObject $json -AsHashtable
     }
     catch {
         throw "Failed to import JSON from $LiteralPath. $_"

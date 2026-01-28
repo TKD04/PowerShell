@@ -57,7 +57,7 @@ function Install-MyESLint {
             }
         }
         'Next' {
-            [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json' -AsHashTable
+            [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json'
             [bool]$hasNpmScriptLint = $package.ContainsKey('scripts') `
                 -and $package['scripts'].ContainsKey('lint')
 

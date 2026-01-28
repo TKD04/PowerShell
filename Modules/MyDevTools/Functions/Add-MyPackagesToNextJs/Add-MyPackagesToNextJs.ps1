@@ -34,7 +34,7 @@ function Add-MyPackagesToNextJs {
         <# Language and Environment #>
         'useDefineForClassFields'            = $true
     }
-    [hashtable]$tsConfig = Import-MyJSON -LiteralPath '.\tsconfig.json' -AsHashTable
+    [hashtable]$tsConfig = Import-MyJSON -LiteralPath '.\tsconfig.json'
 
     if (-not (Test-MyStrictPath -LiteralPath '.\pnpm-lock.yaml' -PathType Leaf)) {
         throw 'You should use the command "pnpm dlx create-next-app@latest --use-pnpm" to create the project.'
