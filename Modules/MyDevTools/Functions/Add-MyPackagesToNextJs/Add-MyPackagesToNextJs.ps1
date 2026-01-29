@@ -44,8 +44,7 @@ function Add-MyPackagesToNextJs {
     # Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore
     # https://github.com/github/gitignore
     git rm '.\.gitignore'
-    Join-Path -Path $PSScriptRoot -ChildPath 'common\Node.gitignore' |
-    Copy-Item -Destination '.\.gitignore' -Force
+    Copy-MyScriptRootItem -ChildPath 'common\Node.gitignore' -Destination '.\.gitignore' -Force
     git add '.\.gitignore'
     git commit -m 'Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore'
 
@@ -53,8 +52,7 @@ function Add-MyPackagesToNextJs {
     # Add globals.d.ts to fix error when importing like *.css files
     # https://www.typescriptlang.org/tsconfig/#noUncheckedSideEffectImports
     $null = New-Item -Path '.\types' -ItemType 'Directory' -Force
-    Join-Path -Path $PSScriptRoot -ChildPath 'common\globals.d.ts' |
-    Copy-Item -Destination '.\types\globals.d.ts' -Force
+    Copy-MyScriptRootItem -ChildPath 'common\globals.d.ts' -Destination '.\types\globals.d.ts' -Force
     git add '.\types\globals.d.ts'
     git commit -m 'Add globals.d.ts to fix error when importing like *.css files'
 
@@ -77,8 +75,7 @@ function Add-MyPackagesToNextJs {
         }
         else {
             $null = New-Item -Path '.\.github\workflows' -ItemType 'Directory' -Force
-            Join-Path -Path $PSScriptRoot -ChildPath 'common\pnpm-nextjs.yml' |
-            Copy-Item -Destination '.\.github\workflows\pnpm-nextjs.yml' -Force
+            Copy-MyScriptRootItem -ChildPath 'common\pnpm-nextjs.yml' -Destination '.\.github\workflows\pnpm-nextjs.yml' -Force
             git add '.\.github\workflows\pnpm-nextjs.yml'
             git commit -m 'Add pnpm-nextjs.yml to deploy to GitHub Pages'
         }
