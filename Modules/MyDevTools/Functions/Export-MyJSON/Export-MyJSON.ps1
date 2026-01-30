@@ -1,6 +1,6 @@
 ﻿<#
 .SYNOPSIS
-Exports the given [PSCustomObject] as a JSON file.
+Exports the given [hashtable] as a JSON file.
 
 .PARAMETER LiteralPath
 A destination path for an export.

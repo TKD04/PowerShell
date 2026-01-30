@@ -1,6 +1,6 @@
 ﻿<#
 .SYNOPSIS
-Imports a JSON file as [PSCustomObject] or [HashTable].
+Imports a JSON file as [HashTable].
 
 .PARAMETER LiteralPath
 A source path to a JSON file.
