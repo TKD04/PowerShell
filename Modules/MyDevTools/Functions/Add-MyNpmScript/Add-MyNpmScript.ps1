@@ -13,8 +13,6 @@ function Add-MyNpmScript {
     )
 
     [string]$packageJsonFullPath = (Resolve-Path -LiteralPath '.\package.json' -ErrorAction Stop).Path
-    # NOTE: To add new properties we need to use [hashtable] instead of [PSCustomObject]
-    # since [PSCustomObject] returns an error when new properties are added to it.
     [hashtable]$package = Import-MyJSON -LiteralPath $packageJsonFullPath
 
     if (-not $package.ContainsKey('scripts')) {
