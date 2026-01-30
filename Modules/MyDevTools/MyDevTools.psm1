@@ -1,14 +1,16 @@
 ﻿Set-StrictMode -Version 3.0
 $ErrorActionPreference = 'Stop'
 
-if (-not (Test-Path -LiteralPath "$PSScriptRoot\Functions")) {
-    throw 'Functions directory could not be found.'
-}
+& {
+    [string]$scriptDir = Join-Path -Path $PSScriptRoot -ChildPath 'Functions'
+    [string[]]$scriptFiles = @()
 
-# Loads all the functions under the modules by dot-source
-$functionFiles = Get-ChildItem -LiteralPath "$PSScriptRoot\Functions" -File -Filter '*.ps1' -Recurse |
-Select-Object -Property FullName
+    if (-not (Test-Path -LiteralPath $scriptDir -PathType 'Container')) {
+        throw "Functions directory could not be found: $scriptDir"
+    }
 
-foreach ($functionFile in $functionFiles) {
-    . $functionFile.FullName
+    $scriptFiles = (Get-ChildItem -LiteralPath $scriptDir -File -Filter '*.ps1' -Recurse).FullName
+    foreach ($file in $scriptFiles) {
+        . $file
+    }
 }
