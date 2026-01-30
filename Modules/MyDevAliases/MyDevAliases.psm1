@@ -1,7 +1,7 @@
 ﻿Set-StrictMode -Version 3.0
 $ErrorActionPreference = 'Stop'
 
-if (!(Test-Path -LiteralPath "$PSScriptRoot\Functions")) {
+if (-not (Test-Path -LiteralPath "$PSScriptRoot\Functions")) {
     throw 'Functions directory could not be found.'
 }
 
