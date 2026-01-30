@@ -43,7 +43,7 @@
         'rmfiles'
         'rmdirf'
         'rmgh'
-        'rmnodemods'
+        'rmnode'
         'renext'
     )
 }

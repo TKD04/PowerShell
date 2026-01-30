@@ -9,4 +9,4 @@ function Remove-MyNodeModulesDir {
     Remove-MyDirectoryFast -Directory '.\node_modules'
 }
 
-New-Alias -Name 'rmnodemods' -Value 'Remove-MyNodeModulesDir'
+New-Alias -Name 'rmnode' -Value 'Remove-MyNodeModulesDir'
