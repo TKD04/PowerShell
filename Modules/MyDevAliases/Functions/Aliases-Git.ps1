@@ -180,7 +180,9 @@ function Get-MyGitDiffStaged {
 New-Alias -Name 'difs' -Value 'Get-MyGitDiffStaged'
 
 function Get-MyGitLog {
-    git log --oneline --graph @args
+    [string]$format = '%C(yellow)%h%Creset %C(green)%cd%Creset %s %C(red)%d%Creset %C(cyan)[%an]%Creset'
+
+    git log --oneline --graph --format="$format" --date=format:'%Y-%m-%d %H:%M' @args
 }
 
 New-Alias -Name 'l' -Value 'Get-MyGitLog'
@@ -194,7 +196,9 @@ function Get-MyGitLogGrep {
 New-Alias -Name 'lgrep' -Value 'Get-MyGitLogGrep'
 
 function Get-MyGitLog3 {
-    git log --oneline --graph -3 @args
+    [string]$format = '%C(yellow)%h%Creset %C(green)%cd%Creset %s %C(red)%d%Creset %C(cyan)[%an]%Creset'
+
+    git log --oneline --graph --format="$format" --date=format:'%Y-%m-%d %H:%M' -3 @args
 }
 
 New-Alias -Name 'll' -Value 'Get-MyGitLog3'
