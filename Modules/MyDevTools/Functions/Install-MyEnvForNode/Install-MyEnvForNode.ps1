@@ -23,7 +23,6 @@ function Install-MyEnvForNode {
     }
     Install-MyTypeDoc
     Install-MyVSCodeSettingsForWeb
-    Copy-MyScriptRootItem -ChildPath 'common\Node.gitignore' -Destination '.\.gitignore' -Force
     $null = New-Item -Path '.\src\app.ts' -ItemType 'File' -Force
     git add '.\package.json' '.\src\app.ts'
     git commit -m 'Add environment for Node'
