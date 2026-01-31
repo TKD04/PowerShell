@@ -6,7 +6,7 @@ Adds gulp to the current directory.
 Whether to add the rules for TypeScript.
 #>
 function Install-MyGulp {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param (
         [switch]$UseTypeScript
     )

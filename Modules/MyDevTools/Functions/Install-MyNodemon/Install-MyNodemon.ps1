@@ -3,7 +3,7 @@
 Adds nodemon to the current directory.
 #>
 function Install-MyNodemon {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param()
 
     Add-MyNpmScript -NameToScript @{

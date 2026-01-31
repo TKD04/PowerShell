@@ -3,7 +3,7 @@
 Adds TypeDoc to the current directory.
 #>
 function Install-MyTypeDoc {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param ()
 
     Add-MyNpmScript -NameToScript @{

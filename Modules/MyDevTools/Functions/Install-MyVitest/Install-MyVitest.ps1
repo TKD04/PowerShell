@@ -3,7 +3,7 @@
 Adds Vitest to the current directory.
 #>
 function Install-MyVitest {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param()
 
     [string[]]$devDependencies = @(

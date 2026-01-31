@@ -3,7 +3,7 @@
 Removes the node_modules directory from the current directory.
 #>
 function Remove-MyNodeModulesDir {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param()
 
     Remove-MyDirectoryFast -Directory '.\node_modules'

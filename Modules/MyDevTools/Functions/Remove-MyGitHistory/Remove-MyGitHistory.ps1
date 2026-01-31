@@ -3,7 +3,7 @@
 Removes the .git directory from the current directory.
 #>
 function Remove-MyGitHistory {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param()
 
     Remove-MyDirectoryFast -Directory '.\.git'

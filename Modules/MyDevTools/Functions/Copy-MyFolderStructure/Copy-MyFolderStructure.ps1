@@ -6,7 +6,7 @@ Copies the folder structure of the given directory to the current directory.
 A source path to a directory to be copied.
 #>
 function Copy-MyFolderStructure {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param(
         [Parameter(Mandatory)]
         [ValidateNotNullOrWhiteSpace()]

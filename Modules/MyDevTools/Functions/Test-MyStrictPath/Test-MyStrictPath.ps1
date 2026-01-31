@@ -24,7 +24,7 @@ if a path is a blank string (e.g. ' ').
 if a path is a valid one and has trailing whitespace (e.g. '/path/to/file ').
 #>
 function Test-MyStrictPath {
-    [OutputType([bool])]
+    [OutputType([System.Boolean])]
     param (
         [AllowEmptyString()]
         [string]$LiteralPath,

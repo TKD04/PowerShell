@@ -3,7 +3,7 @@
 Adds ts-node to the current directory.
 #>
 function Install-MyTSNode {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param ()
 
     [hashtable]$tsConfigTsnode = [ordered]@{

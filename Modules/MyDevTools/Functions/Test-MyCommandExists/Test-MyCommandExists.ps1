@@ -9,7 +9,7 @@ Tests whether the given commend exists.
 A command to be test.
 #>
 function Test-MyCommandExists {
-    [OutputType([bool])]
+    [OutputType([System.Boolean])]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrWhiteSpace()]

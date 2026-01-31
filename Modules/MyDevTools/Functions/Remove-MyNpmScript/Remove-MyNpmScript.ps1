@@ -6,7 +6,7 @@ Removes the given name of npm script from package.json.
 A name of npm script.
 #>
 function Remove-MyNpmScript {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrWhiteSpace()]

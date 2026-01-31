@@ -3,7 +3,7 @@
 Adds React to the current directory.
 #>
 function Install-MyReact {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param ()
 
     [string[]]$dependencies = @(

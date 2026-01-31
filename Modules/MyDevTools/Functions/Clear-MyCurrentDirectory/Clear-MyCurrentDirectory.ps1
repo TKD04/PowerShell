@@ -3,7 +3,7 @@
 Removes all the files and directories from the current directory.
 #>
 function Clear-MyCurrentDirectory {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param ()
 
     Remove-MyDirectoryFast -Directory $PWD

@@ -12,7 +12,7 @@ Whether to support React.
 Whether to use GitHub Pages to publish a site.
 #>
 function Add-MyPackagesToVite {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param (
         [switch]$UseReact,
         [switch]$DeployToGitHubPages

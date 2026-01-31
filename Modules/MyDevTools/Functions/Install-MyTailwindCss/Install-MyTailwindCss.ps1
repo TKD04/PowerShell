@@ -6,7 +6,7 @@ Adds Tailwind CSS to the current directory.
 Whether to support a project created by Vite.
 #>
 function Install-MyTailwindCss {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param (
         [switch]$IsVite
     )

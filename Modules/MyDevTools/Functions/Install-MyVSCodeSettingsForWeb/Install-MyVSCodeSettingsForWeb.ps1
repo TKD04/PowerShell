@@ -3,7 +3,7 @@
 Adds the VSCode settings for Web to the current directory.
 #>
 function Install-MyVSCodeSettingsForWeb {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param ()
 
     [PSCustomObject]$settings = [PSCustomObject]@{

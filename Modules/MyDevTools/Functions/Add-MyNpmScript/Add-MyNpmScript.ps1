@@ -6,7 +6,7 @@ Adds the given npm scripts to package.json.
 Pairs of script name and script.
 #>
 function Add-MyNpmScript {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param (
         [Parameter(Mandatory)]
         [System.Collections.IDictionary]$NameToScript

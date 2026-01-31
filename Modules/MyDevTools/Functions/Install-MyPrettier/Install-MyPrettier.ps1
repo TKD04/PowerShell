@@ -6,7 +6,7 @@ Adds Prettier to the current directory.
 Whether to support automatic class sorting of tailwindcss.
 #>
 function Install-MyPrettier {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param (
         [switch]$UseTailwindcss
     )

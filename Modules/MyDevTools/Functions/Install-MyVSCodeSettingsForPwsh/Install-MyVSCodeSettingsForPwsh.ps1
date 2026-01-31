@@ -3,7 +3,7 @@
 Adds the VSCode settings for PowerShell to the current directory.
 #>
 function Install-MyVSCodeSettingsForPwsh {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param ()
 
     [PSCustomObject]$settings = [PSCustomObject]@{

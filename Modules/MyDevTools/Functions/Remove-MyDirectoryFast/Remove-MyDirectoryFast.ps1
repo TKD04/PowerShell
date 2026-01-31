@@ -7,7 +7,7 @@ The directory to remove.
 #>
 function Remove-MyDirectoryFast {
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param(
         [Parameter(Mandatory)]
         [ValidateNotNullOrWhiteSpace()]

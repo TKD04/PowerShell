@@ -3,7 +3,7 @@
 Adds the given VSCode settings and extensions to the current directory.
 #>
 function Install-MyVSCodeSettings {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param (
         [PSCustomObject]$Settings,
         [PSCustomObject]$Extensions

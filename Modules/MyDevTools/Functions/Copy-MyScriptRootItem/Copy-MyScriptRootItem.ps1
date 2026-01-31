@@ -13,6 +13,7 @@ Indicates that the function should overwrite the destination item if it already 
 #>
 function Copy-MyScriptRootItem {
     [CmdletBinding()]
+    [OutputType([System.Void])]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrWhiteSpace()]

@@ -6,7 +6,7 @@ Adds the Node develop environment to the current directory.
 Whether to add `watch` to npm scripts.
 #>
 function Install-MyEnvForNode {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param(
         [switch]$AddWatch
     )

@@ -9,7 +9,7 @@ Exactly one environment must be selected:
 - ViteReact
 #>
 function Install-MyTypeScript {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param (
         [Parameter(Mandatory)]
         [ValidateSet('Node', 'Vite', 'ViteReact')]

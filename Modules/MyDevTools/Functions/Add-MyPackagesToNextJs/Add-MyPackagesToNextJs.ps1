@@ -8,7 +8,7 @@ Otherwise this function will throw an error.
 Whether to use GitHub Pages to publish a site.
 #>
 function Add-MyPackagesToNextJs {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param (
         [switch]$DeployToGitHubPages
     )

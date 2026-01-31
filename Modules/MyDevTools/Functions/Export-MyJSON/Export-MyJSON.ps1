@@ -12,7 +12,7 @@ A hashtable to be export.
 Specifies how many levels of contained objects are included in the JSON representation.
 #>
 function Export-MyJSON {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrWhiteSpace()]

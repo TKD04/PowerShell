@@ -3,7 +3,7 @@
 Initializes npm in the current directory.
 #>
 function Initialize-MyNpm {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param()
 
     npm init -y

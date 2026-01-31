@@ -6,7 +6,7 @@ Initializes git in the current directory.
 Whether to adds .gitignore for Node.js.
 #>
 function Initialize-MyGit {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param(
         [switch]$UseNode
     )

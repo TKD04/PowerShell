@@ -15,7 +15,7 @@ Whether to rename the matched files recursively.
 Whether to use git mv to rename files.
 #>
 function Rename-MyFileExtension {
-    [OutputType([void])]
+    [OutputType([System.Void])]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrWhiteSpace()]
