@@ -10,6 +10,7 @@ function Remove-MyDirectoryFast {
     [OutputType([void])]
     param(
         [Parameter(Mandatory)]
+        [ValidateNotNullOrWhiteSpace()]
         [ValidateScript({
                 if (-not (Test-MyStrictPath -LiteralPath $_ -PathType Container)) {
                     throw "Invalid path: $_"

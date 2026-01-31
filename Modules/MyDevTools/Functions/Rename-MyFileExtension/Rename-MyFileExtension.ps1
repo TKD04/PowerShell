@@ -18,10 +18,10 @@ function Rename-MyFileExtension {
     [OutputType([void])]
     param (
         [Parameter(Mandatory)]
-        [ValidateNotNullOrEmpty()]
+        [ValidateNotNullOrWhiteSpace()]
         [string]$OldExtension,
         [Parameter(Mandatory)]
-        [ValidateNotNullOrEmpty()]
+        [ValidateNotNullOrWhiteSpace()]
         [string]$NewExtension,
         [switch]$Recurse,
         [switch]$UseGitMv

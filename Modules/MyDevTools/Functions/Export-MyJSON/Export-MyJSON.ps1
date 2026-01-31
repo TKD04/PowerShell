@@ -15,6 +15,7 @@ function Export-MyJSON {
     [OutputType([void])]
     param (
         [Parameter(Mandatory)]
+        [ValidateNotNullOrWhiteSpace()]
         [string]$LiteralPath,
         [Parameter(Mandatory)]
         [System.Collections.IDictionary]$Hashtable,

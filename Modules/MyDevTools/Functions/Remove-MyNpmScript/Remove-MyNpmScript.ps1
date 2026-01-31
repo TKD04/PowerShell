@@ -9,6 +9,7 @@ function Remove-MyNpmScript {
     [OutputType([void])]
     param (
         [Parameter(Mandatory)]
+        [ValidateNotNullOrWhiteSpace()]
         [string]$ScriptName
     )
 

@@ -12,6 +12,7 @@ function Test-MyCommandExists {
     [OutputType([bool])]
     param (
         [Parameter(Mandatory)]
+        [ValidateNotNullOrWhiteSpace()]
         [string]$Command
     )
 

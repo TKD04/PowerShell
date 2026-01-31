@@ -9,6 +9,7 @@ function Import-MyJSON {
     [OutputType([hashtable])]
     param (
         [Parameter(Mandatory)]
+        [ValidateNotNullOrWhiteSpace()]
         [ValidateScript({
                 if (-not (Test-MyStrictPath -LiteralPath $_ -PathType Leaf)) {
                     throw "The path '$_' does not exist or is not accessible."

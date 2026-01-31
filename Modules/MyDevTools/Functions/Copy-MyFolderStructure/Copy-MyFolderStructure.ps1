@@ -9,6 +9,7 @@ function Copy-MyFolderStructure {
     [OutputType([void])]
     param(
         [Parameter(Mandatory)]
+        [ValidateNotNullOrWhiteSpace()]
         [ValidateScript({
                 if (-not (Test-MyStrictPath -LiteralPath $_ -PathType Container)) {
                     throw "The path '$_' does not exist or is not accessible."
