@@ -2,16 +2,12 @@
 .SYNOPSIS
 Adds the Node develop environment to the current directory.
 
-.PARAMETER UseVitest
-Whether to use Vitest.
-
 .PARAMETER AddWatch
 Whether to add `watch` to npm scripts.
 #>
 function Install-MyEnvForNode {
     [OutputType([void])]
     param(
-        [switch]$UseVitest,
         [switch]$AddWatch
     )
 
@@ -19,9 +15,7 @@ function Install-MyEnvForNode {
     Initialize-MyNpm
     Install-MyTypeScript -Environment 'Node'
     Install-MyESLint -Environment 'Node'
-    if ($UseVitest) {
-        Install-MyVitest
-    }
+    Install-MyVitest
     Install-MyPrettier
     if ($AddWatch) {
         Install-MyTSNode
