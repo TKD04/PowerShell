@@ -36,7 +36,7 @@ function Add-MyPackagesToNextJs {
     }
     [hashtable]$tsConfig = Import-MyJSON -LiteralPath '.\tsconfig.json'
 
-    if (-not (Test-MyStrictPath -LiteralPath '.\pnpm-lock.yaml' -PathType Leaf)) {
+    if (-not (Test-MyStrictPath -LiteralPath '.\pnpm-lock.yaml' -PathType 'Leaf')) {
         throw 'You should use the command "pnpm dlx create-next-app@latest --use-pnpm" to create the project.'
     }
 
@@ -62,7 +62,7 @@ function Add-MyPackagesToNextJs {
     Install-MyPrettier -UseTailwindcss
     Install-MyVSCodeSettingsForWeb
     if ($DeployToGitHubPages) {
-        if (Test-Path -Path '.\.github\workflows\*.yml' -PathType Leaf) {
+        if (Test-Path -Path '.\.github\workflows\*.yml' -PathType 'Leaf') {
             Write-Warning -Message 'The workflow file is already in place (skip).'
         }
         else {
@@ -73,5 +73,5 @@ function Add-MyPackagesToNextJs {
         }
     }
 
-    Write-Host -Object '✅ Setup complete: Next.js project is now ready!' -ForegroundColor Green
+    Write-Host -Object '✅ Setup complete: Next.js project is now ready!' -ForegroundColor 'Green'
 }

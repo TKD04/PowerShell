@@ -24,7 +24,7 @@ function Export-MyJSON {
 
     try {
         ConvertTo-Json -InputObject $Hashtable -Depth $Depth |
-        Set-Content -LiteralPath $LiteralPath -ErrorAction Stop
+        Set-Content -LiteralPath $LiteralPath -ErrorAction 'Stop'
     }
     catch {
         throw "Failed to export JSON to $LiteralPath. $_"

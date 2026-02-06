@@ -12,7 +12,7 @@ function Remove-MyDirectoryFast {
         [Parameter(Mandatory)]
         [ValidateNotNullOrWhiteSpace()]
         [ValidateScript({
-                if (-not (Test-MyStrictPath -LiteralPath $_ -PathType Container)) {
+                if (-not (Test-MyStrictPath -LiteralPath $_ -PathType 'Container')) {
                     throw "Invalid path: $_"
                 }
 
@@ -30,19 +30,19 @@ function Remove-MyDirectoryFast {
     }
 
     if ($PSCmdlet.ShouldProcess($DirectoryFullPath, 'Remove all contents of directory')) {
-        $null = New-Item -Path $EmptyDirPath -ItemType Directory -Force
+        $null = New-Item -Path $EmptyDirPath -ItemType 'Directory' -Force
         try {
             $null = Robocopy.exe $EmptyDirPath $DirectoryFullPath /MIR /NJH /NJS /NP /NS /NC /NFL /NDL
             if ($LASTEXITCODE -ge 8) {
                 throw "Robocopy failed with exit code $LASTEXITCODE"
             }
             if (-not $isCurrentDir) {
-                Remove-Item -LiteralPath $DirectoryFullPath -Recurse -Force -ErrorAction Stop
+                Remove-Item -LiteralPath $DirectoryFullPath -Recurse -Force -ErrorAction 'Stop'
             }
 
         }
         finally {
-            Remove-Item -LiteralPath $EmptyDirPath -Recurse -Force -ErrorAction SilentlyContinue
+            Remove-Item -LiteralPath $EmptyDirPath -Recurse -Force -ErrorAction 'SilentlyContinue'
         }
     }
 }

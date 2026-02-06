@@ -11,7 +11,7 @@ function Import-MyJSON {
         [Parameter(Mandatory)]
         [ValidateNotNullOrWhiteSpace()]
         [ValidateScript({
-                if (-not (Test-MyStrictPath -LiteralPath $_ -PathType Leaf)) {
+                if (-not (Test-MyStrictPath -LiteralPath $_ -PathType 'Leaf')) {
                     throw "The path '$_' does not exist or is not accessible."
                 }
 
@@ -20,7 +20,7 @@ function Import-MyJSON {
         [string]$LiteralPath
     )
 
-    [string]$fullPath = (Resolve-Path -LiteralPath $LiteralPath -ErrorAction Stop).Path
+    [string]$fullPath = (Resolve-Path -LiteralPath $LiteralPath -ErrorAction 'Stop').Path
 
     try {
         [string]$json = Get-Content -LiteralPath $fullPath -Raw

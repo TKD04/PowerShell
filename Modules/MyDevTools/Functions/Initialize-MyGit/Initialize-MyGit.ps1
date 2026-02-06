@@ -11,7 +11,7 @@ function Initialize-MyGit {
         [switch]$UseNode
     )
 
-    if (Test-MyStrictPath -LiteralPath '.\.git' -PathType Container) {
+    if (Test-MyStrictPath -LiteralPath '.\.git' -PathType 'Container') {
         throw 'Git repository is already in place (abort).'
     }
 
@@ -19,7 +19,7 @@ function Initialize-MyGit {
     if ($UseNode) {
         Copy-MyScriptRootItem -ChildPath '\common\Node.gitignore' -Destination '.\.gitignore' -Force
     }
-    elseif (-not (Test-MyStrictPath -LiteralPath '.\.gitignore' -PathType Leaf)) {
+    elseif (-not (Test-MyStrictPath -LiteralPath '.\.gitignore' -PathType 'Leaf')) {
         $null = New-Item -Path '.\.gitignore' -ItemType 'File'
     }
     else {

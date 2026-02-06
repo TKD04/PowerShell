@@ -52,7 +52,7 @@ function Install-MyESLint {
         }
         'ViteReact' {
             $eslintConfigSource = 'browser\eslint-vite-react.config.mjs'
-            if (Test-MyStrictPath -LiteralPath '.\eslint.config.js' -PathType Leaf) {
+            if (Test-MyStrictPath -LiteralPath '.\eslint.config.js' -PathType 'Leaf') {
                 git rm '.\eslint.config.js'
             }
         }
@@ -65,7 +65,7 @@ function Install-MyESLint {
             if ($hasNpmScriptLint) {
                 Remove-MyNpmScript -ScriptName 'lint'
                 pnpm rm eslint-config-next
-                if (Test-MyStrictPath -LiteralPath '.\eslint.config.mjs' -PathType Leaf) {
+                if (Test-MyStrictPath -LiteralPath '.\eslint.config.mjs' -PathType 'Leaf') {
                     git rm '.\eslint.config.mjs'
                 }
             }

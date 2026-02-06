@@ -12,7 +12,7 @@ function Add-MyNpmScript {
         [System.Collections.IDictionary]$NameToScript
     )
 
-    [string]$packageJsonFullPath = (Resolve-Path -LiteralPath '.\package.json' -ErrorAction Stop).Path
+    [string]$packageJsonFullPath = (Resolve-Path -LiteralPath '.\package.json' -ErrorAction 'Stop').Path
     [hashtable]$package = Import-MyJSON -LiteralPath $packageJsonFullPath
 
     if (-not $package.ContainsKey('scripts')) {

@@ -72,7 +72,7 @@ function Add-MyPackagesToVite {
     git add '.\package.json'
     git commit -m 'Add `--open` to `dev` and `preview` npm script'
     if ($DeployToGitHubPages) {
-        if (Test-Path -Path '.\.github\workflows\*.yml' -PathType Leaf) {
+        if (Test-Path -Path '.\.github\workflows\*.yml' -PathType 'Leaf') {
             Write-Warning -Message 'The workflow file is already in place (skip).'
         }
         else {
@@ -83,5 +83,5 @@ function Add-MyPackagesToVite {
         }
     }
 
-    Write-Host -Object '✅ Setup complete: Vite project is now ready!' -ForegroundColor Green
+    Write-Host -Object '✅ Setup complete: Vite project is now ready!' -ForegroundColor 'Green'
 }
