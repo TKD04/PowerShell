@@ -45,7 +45,6 @@ export default defineConfig([
       eslintPluginUnicorn.configs.all,
       regexpPlugin.configs["flat/all"],
       perfectionistPlugin.configs["recommended-natural"],
-      eslintConfigPrettier,
     ],
     files: ["src/**/*.{ts,tsx}", "*.{js,mjs,cjs,ts}"],
     ignores: ["src/vite-env.d.ts", "src/lib/utils.ts"],
@@ -180,5 +179,9 @@ export default defineConfig([
         typecheck: true,
       },
     },
+  },
+  {
+    extends: [eslintConfigPrettier],
+    name: "prettier",
   },
 ]);

@@ -39,7 +39,6 @@ export default defineConfig([
       jsdocPlugin.configs["flat/recommended-typescript-error"],
       regexpPlugin.configs["flat/all"],
       perfectionistPlugin.configs["recommended-natural"],
-      eslintConfigPrettier,
     ],
     files: ["src/**/*.ts", "*.{js,mjs,cjs,ts}"],
     languageOptions: {
@@ -134,5 +133,9 @@ export default defineConfig([
         typecheck: true,
       },
     },
+  },
+  {
+    extends: [eslintConfigPrettier],
+    name: "prettier",
   },
 ]);
