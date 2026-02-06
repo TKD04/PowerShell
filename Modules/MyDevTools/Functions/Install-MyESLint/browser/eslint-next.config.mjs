@@ -171,6 +171,10 @@ export default defineConfig([
     ],
     files: ["{app,components,features}/**/*.{ts,tsx}"],
     name: "react",
+    rules: {
+      // Disabled "react/jsx-sort-props" in favor of "perfectionist/sort-jsx-props"
+      "react/jsx-sort-props": "off",
+    },
   },
   {
     extends: [vitestPlugin.configs.all],
