@@ -22,7 +22,7 @@ function Remove-MyNpmScript {
         $package['scripts'].Remove($ScriptName)
     }
     else {
-        throw 'The key "{0}" could not be found in npm scripts.' -f $ScriptName
+        throw "The key '$ScriptName' could not be found in npm scripts."
     }
     Export-MyJSON -LiteralPath $packageJsonFullPath -CustomObject $package
 }
