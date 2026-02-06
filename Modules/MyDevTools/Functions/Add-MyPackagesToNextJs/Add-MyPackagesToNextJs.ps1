@@ -48,14 +48,6 @@ function Add-MyPackagesToNextJs {
     git add '.\.gitignore'
     git commit -m 'Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore'
 
-    <# globals.d.ts #>
-    # Add globals.d.ts to fix error when importing like *.css files
-    # https://www.typescriptlang.org/tsconfig/#noUncheckedSideEffectImports
-    $null = New-Item -Path '.\types' -ItemType 'Directory' -Force
-    Copy-MyScriptRootItem -ChildPath 'common\globals.d.ts' -Destination '.\types\globals.d.ts' -Force
-    git add '.\types\globals.d.ts'
-    git commit -m 'Add globals.d.ts to fix error when importing like *.css files'
-
     <# tsconfig.json #>
     # Make tsconfig.json more strict
     foreach ($key in $missingCompilerOptions.Keys) {
