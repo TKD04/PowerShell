@@ -16,18 +16,33 @@ function Rename-MyFileExtension {
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrWhiteSpace()]
+        [ValidateScript({
+                if ($_ -like '*.*') {
+                    throw "Omit the leading dot: $_"
+                }
+
+                $true
+            })]
         [string]$OldExtension,
         [Parameter(Mandatory)]
         [ValidateNotNullOrWhiteSpace()]
+        [ValidateScript({
+                if ($_ -like '*.*') {
+                    throw "Omit the leading dot: $_"
+                }
+
+                $true
+            })]
         [string]$NewExtension,
         [switch]$Recurse
     )
 
-    $files = Get-ChildItem -File -Filter "*.$OldExtension" -Recurse:$Recurse
+    [System.IO.FileInfo[]]$files = Get-ChildItem -File -Filter "*.$OldExtension" -Recurse:$Recurse
 
     foreach ($file in $files) {
-        $newName = $file.FullName -replace "\.$OldExtension$", ".$NewExtension"
-        Rename-Item -LiteralPath $file.FullName -NewName $newName
+        [string]$newFileName = $file.BaseName + '.' + $NewExtension
+
+        Rename-Item -LiteralPath $file.FullName -NewName $newFileName
     }
 }
 
