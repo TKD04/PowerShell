@@ -20,6 +20,9 @@ function Remove-MyNpmScript {
 
     if ($hasScript) {
         $package['scripts'].Remove($ScriptName)
+        if ($package['scripts'].Count -eq 0) {
+            $package.Remove('scripts')
+        }
     }
     else {
         throw "The key '$ScriptName' could not be found in npm scripts."
