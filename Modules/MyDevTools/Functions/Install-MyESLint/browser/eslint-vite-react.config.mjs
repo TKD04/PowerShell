@@ -161,7 +161,7 @@ export default defineConfig([
       reactPlugin.configs.flat["jsx-runtime"],
       reactRefreshPlugin.configs.vite,
     ],
-    files: ["src/**/*.tsx"],
+    files: ["src/**/*.tsx", "src/hooks/**/use*.ts"],
     ignores: ["src/**/*.test.tsx"],
     name: "react",
     rules: {
