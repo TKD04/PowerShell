@@ -22,11 +22,13 @@ function Export-MyJSON {
         [int]$Depth = 4
     )
 
+    [string]$fullPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($LiteralPath)
+
     try {
         ConvertTo-Json -InputObject $Hashtable -Depth $Depth |
-        Set-Content -LiteralPath $LiteralPath -ErrorAction 'Stop'
+        Set-Content -LiteralPath $fullPath -ErrorAction 'Stop'
     }
     catch {
-        throw "Failed to export JSON to $LiteralPath. $_"
+        throw "Failed to export JSON to '$fullPath': $_"
     }
 }
