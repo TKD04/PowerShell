@@ -19,7 +19,7 @@ function Export-MyJSON {
         [string]$LiteralPath,
         [Parameter(Mandatory)]
         [System.Collections.IDictionary]$Hashtable,
-        [int]$Depth = 4
+        [int]$Depth = 10
     )
 
     [string]$fullPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($LiteralPath)
