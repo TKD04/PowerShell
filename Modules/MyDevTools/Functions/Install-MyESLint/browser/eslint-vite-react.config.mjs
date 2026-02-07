@@ -26,6 +26,7 @@ export default defineConfig([
     "docs/",
     "public/",
     "coverage/",
+    // Added by "shadcn/ui"
     "src/components/ui/",
   ]),
   {
@@ -47,7 +48,11 @@ export default defineConfig([
       perfectionistPlugin.configs["recommended-natural"],
     ],
     files: ["src/**/*.{ts,tsx}", "*.{js,mjs,cjs,ts}"],
-    ignores: ["src/vite-env.d.ts", "src/lib/utils.ts"],
+    ignores: [
+      "src/vite-env.d.ts",
+      // Added by "shadcn/ui"
+      "src/lib/utils.ts",
+    ],
     languageOptions: {
       globals: globals.browser,
       parserOptions: {

@@ -25,6 +25,7 @@ export default defineConfig([
     "docs/",
     "public/",
     "coverage/",
+    // Added by "shadcn/ui"
     "components/ui/",
     ".next/",
     "out/",
@@ -52,7 +53,11 @@ export default defineConfig([
       "{constants,hooks,lib}/**/*.ts",
       "*.{js,mjs,cjs,ts}",
     ],
-    ignores: ["next-env.d.ts", "lib/utils.ts"],
+    ignores: [
+      "next-env.d.ts",
+      // Added by "shadcn/ui"
+      "lib/utils.ts",
+    ],
     languageOptions: {
       globals: globals.browser,
       parserOptions: {
