@@ -20,7 +20,7 @@ function Import-MyJSON {
         [string]$LiteralPath
     )
 
-    [string]$fullPath = (Resolve-Path -LiteralPath $LiteralPath -ErrorAction 'Stop').Path
+    [string]$fullPath = (Resolve-Path -LiteralPath $LiteralPath -ErrorAction 'Stop').ProviderPath
 
     try {
         [string]$json = Get-Content -LiteralPath $fullPath -Raw
