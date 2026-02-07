@@ -111,7 +111,10 @@ export default defineConfig([
         "error",
         {
           allowList: {
-            env: true,
+            props: true,
+            Props: true,
+            ref: true,
+            Ref: true,
           },
         },
       ],
