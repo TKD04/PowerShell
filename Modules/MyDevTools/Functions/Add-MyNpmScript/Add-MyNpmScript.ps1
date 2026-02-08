@@ -21,5 +21,5 @@ function Add-MyNpmScript {
     foreach ($key in $NameToScript.Keys) {
         $package['scripts'][$key] = $NameToScript[$key]
     }
-    Export-MyJSON -LiteralPath $packageJsonFullPath -CustomObject $package
+    Export-MyJSON -LiteralPath $packageJsonFullPath -Hashtable $package
 }

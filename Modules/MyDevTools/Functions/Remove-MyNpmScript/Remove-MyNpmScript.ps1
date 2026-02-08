@@ -27,5 +27,5 @@ function Remove-MyNpmScript {
     else {
         throw "The key '$ScriptName' could not be found in npm scripts."
     }
-    Export-MyJSON -LiteralPath $packageJsonFullPath -CustomObject $package
+    Export-MyJSON -LiteralPath $packageJsonFullPath -Hashtable $package
 }

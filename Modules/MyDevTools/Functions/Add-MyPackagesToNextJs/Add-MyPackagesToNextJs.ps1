@@ -53,7 +53,7 @@ function Add-MyPackagesToNextJs {
     foreach ($key in $missingCompilerOptions.Keys) {
         $tsConfig['compilerOptions'][$key] = $missingCompilerOptions[$key]
     }
-    Export-MyJSON -LiteralPath '.\tsconfig.json' -CustomObject $tsConfig
+    Export-MyJSON -LiteralPath '.\tsconfig.json' -Hashtable $tsConfig
     git add '.\tsconfig.json'
     git commit -m 'Make tsconfig.json more strict'
 

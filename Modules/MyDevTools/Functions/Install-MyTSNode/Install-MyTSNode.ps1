@@ -14,7 +14,7 @@ function Install-MyTSNode {
     [hashtable]$tsConfig = Import-MyJSON -LiteralPath '.\tsconfig.json'
 
     $tsConfig.Add('ts-node', $tsConfigTsnode)
-    Export-MyJSON -LiteralPath '.\tsconfig.json' -CustomObject $tsConfig
+    Export-MyJSON -LiteralPath '.\tsconfig.json' -Hashtable $tsConfig
     pnpm add -D ts-node @swc/core @swc/helpers
     git add '.\package.json' '.\pnpm-lock.yaml' '.\tsconfig.json'
     git commit -m 'Add ts-node'
