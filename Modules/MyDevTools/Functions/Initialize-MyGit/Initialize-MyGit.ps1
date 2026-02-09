@@ -20,7 +20,7 @@ function Initialize-MyGit {
         Copy-MyScriptRootItem -ChildPath '\common\Node.gitignore' -Destination '.\.gitignore' -Force
     }
     elseif (-not (Test-MyStrictPath -LiteralPath '.\.gitignore' -PathType 'Leaf')) {
-        $null = New-Item -Path '.\.gitignore' -ItemType 'File'
+        Copy-MyScriptRootItem -ChildPath '\common\OS.gitignore' -Destination '.\.gitignore' -Force
     }
     else {
         Write-Warning -Message '.gitignore is already in place (skip).'
