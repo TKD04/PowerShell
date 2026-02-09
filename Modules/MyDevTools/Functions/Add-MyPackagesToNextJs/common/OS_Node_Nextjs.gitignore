@@ -177,4 +177,5 @@ vite.config.ts.timestamp-*
 .pnpm-debug.log*
 # vercel
 .vercel
+# typescript
 next-env.d.ts
