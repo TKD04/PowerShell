@@ -44,7 +44,7 @@ function Add-MyPackagesToNextJs {
     # Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore
     # https://github.com/github/gitignore
     git rm '.\.gitignore'
-    Copy-MyScriptRootItem -ChildPath 'common\Node.gitignore' -Destination '.\.gitignore' -Force
+    Copy-MyScriptRootItem -ChildPath 'common\OS_Node_Nextjs.gitignore' -Destination '.\.gitignore' -Force
     git add '.\.gitignore'
     git commit -m 'Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore'
 
