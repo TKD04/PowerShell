@@ -27,8 +27,10 @@ export default defineConfig([
     "coverage/",
     // Added by "shadcn/ui"
     "components/ui/",
-    ".next/",
-    "out/",
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
   ]),
   {
     extends: [
@@ -54,7 +56,6 @@ export default defineConfig([
       "*.{js,mjs,cjs,ts}",
     ],
     ignores: [
-      "next-env.d.ts",
       // Added by "shadcn/ui"
       "lib/utils.ts",
     ],
