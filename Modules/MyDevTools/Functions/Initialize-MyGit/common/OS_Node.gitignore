@@ -1,4 +1,5 @@
 # Windows
+# https://github.com/github/gitignore/blob/main/Global/Windows.gitignore
 # Windows thumbnail cache files
 Thumbs.db
 Thumbs.db:encryptable
@@ -20,6 +21,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # macOS
+# https://github.com/github/gitignore/blob/main/Global/macOS.gitignore
 # General
 .DS_Store
 __MACOSX/
@@ -44,6 +46,7 @@ Temporary Items
 .apdisk
 
 # Linux
+# https://github.com/github/gitignore/blob/main/Global/Linux.gitignore
 *~
 # temporary files which can be created if a process still has a handle open of a deleted file
 .fuse_hidden*
@@ -57,6 +60,7 @@ Temporary Items
 nohup.out
 
 # Node
+# https://github.com/github/gitignore/blob/main/Node.gitignore
 # Logs
 logs
 *.log
