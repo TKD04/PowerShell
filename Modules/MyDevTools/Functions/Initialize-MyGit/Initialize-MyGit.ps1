@@ -17,7 +17,7 @@ function Initialize-MyGit {
 
     git init
     if ($UseNode) {
-        Copy-MyScriptRootItem -ChildPath '\common\Node.gitignore' -Destination '.\.gitignore' -Force
+        Copy-MyScriptRootItem -ChildPath '\common\OS_Node.gitignore' -Destination '.\.gitignore' -Force
     }
     elseif (-not (Test-MyStrictPath -LiteralPath '.\.gitignore' -PathType 'Leaf')) {
         Copy-MyScriptRootItem -ChildPath '\common\OS.gitignore' -Destination '.\.gitignore' -Force
