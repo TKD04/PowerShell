@@ -25,8 +25,7 @@ $RECYCLE.BIN/
 __MACOSX/
 .AppleDouble
 .LSOverride
-Icon[
-]
+Icon?
 # Thumbnails
 ._*
 # Files that might appear in the root of a volume
