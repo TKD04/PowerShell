@@ -179,7 +179,7 @@ export default defineConfig([
       airbnbXRules.react.strict,
       reactRefreshPlugin.configs.next,
     ],
-    files: ["{app,components,features}/**/*.{ts,tsx}", "hooks/**/use*.ts"],
+    files: ["{app,components,features}/**/*.tsx", "hooks/**/use*.ts"],
     ignores: ["{app,components,features}/**/*.test.tsx"],
     name: "react",
     rules: {
