@@ -6,7 +6,7 @@ function Install-MyVSCodeSettingsForWeb {
     [OutputType([System.Void])]
     param ()
 
-    [PSCustomObject]$settings = [PSCustomObject]@{
+    [hashtable]$settings = @{
         <# General #>
         'editor.formatOnSave'                        = $true
         'files.autoGuessEncoding'                    = $true
@@ -26,12 +26,6 @@ function Install-MyVSCodeSettingsForWeb {
             'files.trimTrailingWhitespace' = $false
         }
     }
-    [PSCustomObject]$extensions = [PSCustomObject]@{
-        'recommendations' = @(
-            'dbaeumer.vscode-eslint'
-            'esbenp.prettier-vscode'
-        )
-    }
 
-    Install-MyVSCodeSettings -Settings $settings -Extensions $extensions
+    Install-MyVSCodeSettings -Settings $settings
 }

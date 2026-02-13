@@ -6,7 +6,7 @@ function Install-MyVSCodeSettingsForPwsh {
     [OutputType([System.Void])]
     param ()
 
-    [PSCustomObject]$settings = [PSCustomObject]@{
+    [hashtable]$settings = @{
         <# General #>
         'editor.formatOnSave'                          = $true
         'files.autoGuessEncoding'                      = $true
@@ -21,7 +21,7 @@ function Install-MyVSCodeSettingsForPwsh {
             'files.encoding' = 'utf8bom'
         }
     }
-    [PSCustomObject]$extensions = [PSCustomObject]@{
+    [hashtable]$extensions = [hashtable]@{
         'recommendations' = @(
             'ms-vscode.powershell'
         )

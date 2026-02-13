@@ -5,8 +5,8 @@ Adds the given VSCode settings and extensions to the current directory.
 function Install-MyVSCodeSettings {
     [OutputType([System.Void])]
     param (
-        [PSCustomObject]$Settings,
-        [PSCustomObject]$Extensions
+        [hashtable]$Settings,
+        [hashtable]$Extensions
     )
 
     if ($null -eq $Settings -and $null -eq $Extensions) {
