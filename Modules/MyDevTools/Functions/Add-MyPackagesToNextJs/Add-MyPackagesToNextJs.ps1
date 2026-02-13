@@ -48,6 +48,12 @@ function Add-MyPackagesToNextJs {
     git add '.\.gitignore'
     git commit -m 'Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore'
 
+    <# globals.d.ts #>
+    # To allow layout.tsx to import "./global.css"
+    Copy-MyScriptRootItem -ChildPath 'common\globals.d.ts' -Destination '.\globals.d.ts' -Force
+    git add '.\globals.d.ts'
+    git commit -m 'Add `global.d.ts` to allow `layout.tsx` to import "./global.css"'
+
     <# tsconfig.json #>
     # Make tsconfig.json more strict
     foreach ($key in $missingCompilerOptions.Keys) {
