@@ -2,6 +2,9 @@
   "[powershell]": {
     "files.encoding": "utf8bom"
   },
+  "editor.codeActionsOnSave": {
+    "source.sort.json": "always"
+  },
   "editor.formatOnSave": true,
   "files.autoGuessEncoding": true,
   "files.insertFinalNewline": true,
