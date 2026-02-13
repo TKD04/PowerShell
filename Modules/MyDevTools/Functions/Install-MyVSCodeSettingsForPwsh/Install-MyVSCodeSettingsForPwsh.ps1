@@ -8,6 +8,9 @@ function Install-MyVSCodeSettingsForPwsh {
 
     [hashtable]$settings = @{
         <# General #>
+        'editor.codeActionsOnSave'                     = @{
+            'source.sort.json' = 'always'
+        }
         'editor.formatOnSave'                          = $true
         'files.autoGuessEncoding'                      = $true
         'files.insertFinalNewline'                     = $true
