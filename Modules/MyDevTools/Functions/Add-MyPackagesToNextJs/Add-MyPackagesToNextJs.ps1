@@ -68,7 +68,6 @@ function Add-MyPackagesToNextJs {
     Install-MyPrettier -UseTailwindcss
     Install-MyVSCodeSettingsForWeb
     if ($DeployToGitHubPages) {
-        Remove-MyNpmScript -ScriptName 'start'
         if (Test-Path -Path '.\.github\workflows\*.yml' -PathType 'Leaf') {
             Write-Warning -Message 'The workflow file is already in place (skip).'
         }
