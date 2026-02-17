@@ -9,14 +9,14 @@ function Add-MyNpmScript {
     [OutputType([System.Void])]
     param (
         [Parameter(Mandatory)]
-        [System.Collections.IDictionary]$NameToScript
+        [hashtable]$NameToScript
     )
 
     [string]$packageJsonFullPath = (Resolve-Path -LiteralPath '.\package.json' -ErrorAction 'Stop').ProviderPath
     [hashtable]$package = Import-MyJSON -LiteralPath $packageJsonFullPath
 
     if (-not $package.ContainsKey('scripts')) {
-        $package['scripts'] = [ordered]@{}
+        $package['scripts'] = @{}
     }
     foreach ($key in $NameToScript.Keys) {
         $package['scripts'][$key] = $NameToScript[$key]

@@ -18,7 +18,7 @@ function Export-MyJSON {
         [ValidateNotNullOrWhiteSpace()]
         [string]$LiteralPath,
         [Parameter(Mandatory)]
-        [System.Collections.IDictionary]$Hashtable,
+        [hashtable]$Hashtable,
         [ValidateRange(1, 100)]
         [int]$Depth = 10
     )

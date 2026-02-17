@@ -6,7 +6,7 @@ function Install-MyTSNode {
     [OutputType([System.Void])]
     param ()
 
-    [hashtable]$tsConfigTsnode = [ordered]@{
+    [hashtable]$tsConfigTsnode = @{
         transpileOnly = $true
         files         = $true
         swc           = $true

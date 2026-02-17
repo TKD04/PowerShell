@@ -18,12 +18,12 @@ function Install-MyTypeScript {
 
     [string]$tsConfigPath = '.\tsconfig.json'
     # Common settings. Adds additional options afterwards depending on the selected environment.
-    [hashtable]$tsConfig = [ordered]@{
+    [hashtable]$tsConfig = @{
         # https://www.typescriptlang.org/tsconfig
         'include'         = @(
             'src'
         )
-        'compilerOptions' = [ordered]@{
+        'compilerOptions' = @{
             <# Type Checking #>
             'allowUnreachableCode'               = $false
             'allowUnusedLabels'                  = $false

@@ -6,7 +6,7 @@ Imports a JSON file as [HashTable].
 A source path to a JSON file.
 #>
 function Import-MyJSON {
-    [OutputType([System.Collections.IDictionary])]
+    [OutputType([hashtable])]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrWhiteSpace()]
