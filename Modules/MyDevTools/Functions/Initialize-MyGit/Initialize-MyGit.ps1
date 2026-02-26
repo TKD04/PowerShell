@@ -17,10 +17,12 @@ function Initialize-MyGit {
 
     git init
     if ($UseNode) {
-        Copy-MyScriptRootItem -ChildPath '\common\OS_Node.gitignore' -Destination '.\.gitignore' -Force
+        Join-Path -Path $PSScriptRoot -ChildPath '\common\OS_Node.gitignore' |
+        Copy-Item -Destination '.\.gitignore' -Force
     }
     elseif (-not (Test-MyStrictPath -LiteralPath '.\.gitignore' -PathType 'Leaf')) {
-        Copy-MyScriptRootItem -ChildPath '\common\OS.gitignore' -Destination '.\.gitignore' -Force
+        Join-Path -Path $PSScriptRoot -ChildPath '\common\OS.gitignore' |
+        Copy-Item -Destination '.\.gitignore' -Force
     }
     else {
         Write-Warning -Message '.gitignore is already in place (skip).'

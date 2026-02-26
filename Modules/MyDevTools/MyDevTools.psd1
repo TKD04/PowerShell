@@ -7,7 +7,6 @@
         'Add-MyPackagesToVite'
         'Clear-MyCurrentDirectory'
         'Copy-MyFolderStructure'
-        'Copy-MyScriptRootItem'
         'Export-MyJSON'
         'Import-MyJSON'
         'Initialize-MyGit'
