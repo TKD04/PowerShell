@@ -23,8 +23,8 @@ function Install-MyEnvForNode {
     }
     Install-MyTypeDoc
     Install-MyVSCodeSettingsForWeb
-    $null = New-Item -Path '.\src\app.ts' -ItemType 'File' -Force
-    git add '.\package.json' '.\src\app.ts'
+    $null = New-Item -Path './src/app.ts' -ItemType 'File' -Force
+    git add './package.json' './src/app.ts'
     git commit -m 'Add environment for Node'
     pnpm run format
     git add .

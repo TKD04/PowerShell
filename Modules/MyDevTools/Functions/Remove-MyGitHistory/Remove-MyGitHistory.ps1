@@ -6,7 +6,7 @@ function Remove-MyGitHistory {
     [OutputType([System.Void])]
     param()
 
-    Remove-MyDirectoryFast -Directory '.\.git'
+    Remove-MyDirectoryFast -Directory './.git'
 }
 
 Set-Alias -Name 'rmgh' -Value 'Remove-MyGitHistory'

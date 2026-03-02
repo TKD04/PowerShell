@@ -16,7 +16,7 @@ function Install-MyTypeScript {
         [string]$Environment
     )
 
-    [string]$tsConfigPath = '.\tsconfig.json'
+    [string]$tsConfigPath = './tsconfig.json'
     # Common settings. Adds additional options afterwards depending on the selected environment.
     [hashtable]$tsConfig = @{
         # https://www.typescriptlang.org/tsconfig
@@ -79,7 +79,7 @@ function Install-MyTypeScript {
         }
         'Vite*' {
             if ($Environment -eq 'ViteReact') {
-                $tsConfigPath = '.\tsconfig.app.json'
+                $tsConfigPath = './tsconfig.app.json'
                 $tsConfig['compilerOptions']['jsx'] = 'react-jsx'
                 $tsConfig['compilerOptions']['tsBuildInfoFile'] = './node_modules/.tmp/tsconfig.app.tsbuildinfo'
             }
@@ -107,6 +107,6 @@ function Install-MyTypeScript {
     }
     pnpm add -D @devDependencies
     Export-MyJSON -LiteralPath $tsConfigPath -Hashtable $tsConfig
-    git add '.\package.json' '.\pnpm-lock.yaml' $tsConfigPath
+    git add './package.json' './pnpm-lock.yaml' $tsConfigPath
     git commit -m "Add TypeScript ($Environment)"
 }

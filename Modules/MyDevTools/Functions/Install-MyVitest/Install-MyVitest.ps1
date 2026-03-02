@@ -16,6 +16,6 @@ function Install-MyVitest {
         'coverage' = 'vitest run --coverage'
     }
     pnpm add -D @devDependencies
-    git add '.\package.json' '.\pnpm-lock.yaml'
+    git add './package.json' './pnpm-lock.yaml'
     git commit -m 'Add Vitest'
 }

@@ -48,16 +48,16 @@ function Install-MyESLint {
     switch ($Environment) {
         'Node' {
             $devDependencies += 'eslint-plugin-n'
-            $eslintConfigSource = 'node\eslint.config.mjs'
+            $eslintConfigSource = 'node/eslint.config.mjs'
         }
         'ViteReact' {
-            $eslintConfigSource = 'browser\eslint-vite-react.config.mjs'
-            if (Test-MyStrictPath -LiteralPath '.\eslint.config.js' -PathType 'Leaf') {
-                git rm '.\eslint.config.js'
+            $eslintConfigSource = 'browser/eslint-vite-react.config.mjs'
+            if (Test-MyStrictPath -LiteralPath './eslint.config.js' -PathType 'Leaf') {
+                git rm './eslint.config.js'
             }
         }
         'Next' {
-            [hashtable]$package = Import-MyJSON -LiteralPath '.\package.json'
+            [hashtable]$package = Import-MyJSON -LiteralPath './package.json'
             [bool]$hasNpmScriptLint = $package.ContainsKey('scripts') `
                 -and $package['scripts'].ContainsKey('lint')
 
@@ -65,16 +65,16 @@ function Install-MyESLint {
             if ($hasNpmScriptLint) {
                 Remove-MyNpmScript -ScriptName 'lint'
                 pnpm rm eslint-config-next
-                if (Test-MyStrictPath -LiteralPath '.\eslint.config.mjs' -PathType 'Leaf') {
-                    git rm '.\eslint.config.mjs'
+                if (Test-MyStrictPath -LiteralPath './eslint.config.mjs' -PathType 'Leaf') {
+                    git rm './eslint.config.mjs'
                 }
             }
             $devDependencies += '@next/eslint-plugin-next'
-            $eslintConfigSource = 'browser\eslint-next.config.mjs'
+            $eslintConfigSource = 'browser/eslint-next.config.mjs'
         }
         default {
             # Vite (Plain) or Browser
-            $eslintConfigSource = 'browser\eslint.config.mjs'
+            $eslintConfigSource = 'browser/eslint.config.mjs'
         }
     }
     pnpm add -D @devDependencies
@@ -82,7 +82,7 @@ function Install-MyESLint {
         'lint' = 'eslint . --cache'
     }
     Join-Path -Path $PSScriptRoot -ChildPath $eslintConfigSource |
-    Copy-Item -Destination '.\eslint.config.mjs' -Force
-    git add '.\package.json' '.\pnpm-lock.yaml' '.\eslint.config.mjs'
+    Copy-Item -Destination './eslint.config.mjs' -Force
+    git add './package.json' './pnpm-lock.yaml' './eslint.config.mjs'
     git commit -m 'Add ESLint'
 }

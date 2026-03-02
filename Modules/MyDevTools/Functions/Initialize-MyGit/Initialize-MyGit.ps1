@@ -11,23 +11,23 @@ function Initialize-MyGit {
         [switch]$UseNode
     )
 
-    if (Test-MyStrictPath -LiteralPath '.\.git' -PathType 'Container') {
+    if (Test-MyStrictPath -LiteralPath './.git' -PathType 'Container') {
         throw 'Git repository is already in place (abort).'
     }
 
     git init
     if ($UseNode) {
-        Join-Path -Path $PSScriptRoot -ChildPath '\common\OS_Node.gitignore' |
-        Copy-Item -Destination '.\.gitignore' -Force
+        Join-Path -Path $PSScriptRoot -ChildPath '/common/OS_Node.gitignore' |
+        Copy-Item -Destination './.gitignore' -Force
     }
-    elseif (-not (Test-MyStrictPath -LiteralPath '.\.gitignore' -PathType 'Leaf')) {
-        Join-Path -Path $PSScriptRoot -ChildPath '\common\OS.gitignore' |
-        Copy-Item -Destination '.\.gitignore' -Force
+    elseif (-not (Test-MyStrictPath -LiteralPath './.gitignore' -PathType 'Leaf')) {
+        Join-Path -Path $PSScriptRoot -ChildPath '/common/OS.gitignore' |
+        Copy-Item -Destination './.gitignore' -Force
     }
     else {
         Write-Warning -Message '.gitignore is already in place (skip).'
     }
-    git add '.\.gitignore'
+    git add './.gitignore'
     git commit -m 'First commit'
 }
 

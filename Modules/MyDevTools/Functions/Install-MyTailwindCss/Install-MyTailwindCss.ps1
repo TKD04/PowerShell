@@ -24,14 +24,14 @@ function Install-MyTailwindCss {
             'postcss'
             'postcss-load-config'
         )
-        $null = New-Item -Path '.\src' -ItemType 'Directory' -Force
-        Join-Path -Path $PSScriptRoot -ChildPath 'common\postcss.config.mjs' |
-        Copy-Item -Destination '.\postcss.config.mjs' -Force
-        Join-Path -Path $PSScriptRoot -ChildPath 'common\style.css' |
-        Copy-Item -Destination '.\src\style.css' -Force
-        git add '.\postcss.config.mjs' '.\src\style.css'
+        $null = New-Item -Path './src' -ItemType 'Directory' -Force
+        Join-Path -Path $PSScriptRoot -ChildPath 'common/postcss.config.mjs' |
+        Copy-Item -Destination './postcss.config.mjs' -Force
+        Join-Path -Path $PSScriptRoot -ChildPath 'common/style.css' |
+        Copy-Item -Destination './src/style.css' -Force
+        git add './postcss.config.mjs' './src/style.css'
     }
     pnpm add -D @devDependencies
-    git add '.\package.json' '.\pnpm-lock.yaml'
+    git add './package.json' './pnpm-lock.yaml'
     git commit -m 'Add Tailwind CSS'
 }
