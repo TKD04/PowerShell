@@ -12,7 +12,7 @@ function Initialize-MyGit {
     )
 
     if (Test-MyStrictPath -LiteralPath './.git' -PathType 'Container') {
-        throw 'Git repository is already in place (abort).'
+        throw 'Git repository is already in place.'
     }
 
     git init

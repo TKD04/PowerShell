@@ -12,7 +12,7 @@ function Import-MyJSON {
         [ValidateNotNullOrWhiteSpace()]
         [ValidateScript({
                 if (-not (Test-MyStrictPath -LiteralPath $_ -PathType 'Leaf')) {
-                    throw "The path '$_' does not exist or is not accessible."
+                    throw "The path '$_' does not exist."
                 }
 
                 $true
@@ -28,6 +28,6 @@ function Import-MyJSON {
         ConvertFrom-Json -InputObject $json -AsHashtable
     }
     catch {
-        throw "Failed to import JSON from $LiteralPath. $_"
+        throw "Failed to import JSON from '$LiteralPath'."
     }
 }

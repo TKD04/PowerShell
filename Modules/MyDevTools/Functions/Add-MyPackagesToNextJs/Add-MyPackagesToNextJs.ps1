@@ -37,7 +37,7 @@ function Add-MyPackagesToNextJs {
     [hashtable]$tsConfig = Import-MyJSON -LiteralPath './tsconfig.json'
 
     if (-not (Test-MyStrictPath -LiteralPath './pnpm-lock.yaml' -PathType 'Leaf')) {
-        throw 'You should use the command "pnpm dlx create-next-app@latest --use-pnpm" to create the project.'
+        throw 'The file "./pnpm-lock.yaml" was not found. Create the project using the command "pnpm dlx create-next-app@latest --use-pnpm".'
     }
 
     <# .gitignore #>

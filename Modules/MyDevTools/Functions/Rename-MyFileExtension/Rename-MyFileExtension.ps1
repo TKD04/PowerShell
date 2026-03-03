@@ -18,7 +18,7 @@ function Rename-MyFileExtension {
         [ValidateNotNullOrWhiteSpace()]
         [ValidateScript({
                 if ($_ -like '*.*') {
-                    throw "Omit the leading dot: $_"
+                    throw "Omit the leading dot from the extension '$_'."
                 }
 
                 $true
@@ -28,7 +28,7 @@ function Rename-MyFileExtension {
         [ValidateNotNullOrWhiteSpace()]
         [ValidateScript({
                 if ($_ -like '*.*') {
-                    throw "Omit the leading dot: $_"
+                    throw "Omit the leading dot from the extension '$_'."
                 }
 
                 $true

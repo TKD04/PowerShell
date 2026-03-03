@@ -30,6 +30,6 @@ function Export-MyJSON {
         Set-Content -LiteralPath $fullPath -ErrorAction 'Stop'
     }
     catch {
-        throw "Failed to export JSON to '$fullPath': $_"
+        throw "Failed to export JSON to '$fullPath'."
     }
 }

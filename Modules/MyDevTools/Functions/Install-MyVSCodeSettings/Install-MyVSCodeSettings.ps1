@@ -10,7 +10,7 @@ function Install-MyVSCodeSettings {
     )
 
     if ($null -eq $Settings -and $null -eq $Extensions) {
-        throw 'Either $Settings or $Extensions must be [PSCustomObject] at least.'
+        throw 'Either $Settings or $Extensions must be specified.'
     }
     $null = New-Item -Path './.vscode' -ItemType 'Directory' -Force
     Push-Location -LiteralPath './.vscode'

@@ -22,7 +22,7 @@ function Add-MyPackagesToVite {
         'Environment' = 'Vite'
     }
     if (-not (Test-MyCommandExists -Command 'pnpm')) {
-        throw 'A command "pnpm" could not be found. You can install pnpm by using the command "corepack enable pnpm".'
+        throw 'The command "pnpm" was not found.'
     }
     # You should select "TypeScript + React Compiler (Rolldown)" in "Select a variant" when initializing Vite.
     if ($UseReact) {
@@ -32,8 +32,7 @@ function Add-MyPackagesToVite {
 
         $splat['Environment'] = 'ViteReact'
         if (-not $hasBabelPluginReactCompiler) {
-            throw '"babel-plugin-react-compiler" could not be found in package.json.' +
-            'You should select "TypeScript + React Compiler (Rolldown)" in "Select a variant" when initializing Vite.'
+            throw 'The package "babel-plugin-react-compiler" was not found. Select "TypeScript + React Compiler (Rolldown)" in "Select a variant" when initializing Vite.'
         }
     }
 
