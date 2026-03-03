@@ -43,8 +43,6 @@ function Add-MyPackagesToNextJs {
     <# .gitignore #>
     # Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore
     # https://github.com/github/gitignore
-    git rm './.gitignore'
-
     Join-Path -Path $PSScriptRoot -ChildPath 'common/OS_Node_Nextjs.gitignore' |
     Copy-Item -Destination './.gitignore' -Force
     git add './.gitignore'

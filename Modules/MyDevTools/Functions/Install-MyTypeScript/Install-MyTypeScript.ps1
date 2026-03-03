@@ -100,9 +100,6 @@ function Install-MyTypeScript {
             $tsConfig['compilerOptions']['target'] = 'es2022'
             $tsConfig['compilerOptions']['noEmit'] = $true
             $tsConfig['compilerOptions'].Remove('outDir')
-            if (Test-MyStrictPath -LiteralPath $tsConfigPath) {
-                git rm $tsConfigPath
-            }
         }
     }
     pnpm add -D @devDependencies
