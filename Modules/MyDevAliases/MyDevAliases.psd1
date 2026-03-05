@@ -1,5 +1,5 @@
 ﻿@{
-    RootModule        = '.\MyDevAliases.psm1'
+    RootModule        = 'MyDevAliases.psm1'
     ModuleVersion     = '0.0.1'
     FunctionsToExport = @(
         'Exit-MyPowerShell'

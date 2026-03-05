@@ -1,5 +1,5 @@
 ﻿@{
-    RootModule        = '.\MyDevTools.psm1'
+    RootModule        = 'MyDevTools.psm1'
     ModuleVersion     = '0.0.1'
     FunctionsToExport = @(
         'Add-MyNpmScript'
