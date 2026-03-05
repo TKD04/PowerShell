@@ -42,6 +42,8 @@
         'Push-MyGit'
         'Install-MyPnpmVite'
         'Install-MyPnpmNext'
+        'Remove-MyGitHistory'
+        'Remove-MyNodeModulesDir'
     )
     AliasesToExport   = @(
         'e'
@@ -85,5 +87,7 @@
         'pn'
         'pnvite'
         'pnnext'
+        'rmgh'
+        'rmnode'
     )
 }

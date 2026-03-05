@@ -27,8 +27,6 @@
         'Install-MyVSCodeSettingsForWeb'
         'Remove-MyAllFiles'
         'Remove-MyDirectoryFast'
-        'Remove-MyGitHistory'
-        'Remove-MyNodeModulesDir'
         'Remove-MyNpmScript'
         'Rename-MyFileExtension'
         'Test-MyCommandExists'
@@ -41,8 +39,6 @@
         'ninit'
         'rmfiles'
         'rmdirf'
-        'rmgh'
-        'rmnode'
         'renext'
     )
 }
