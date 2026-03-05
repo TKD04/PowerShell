@@ -18,14 +18,13 @@ function Remove-MyNpmScript {
     [boolean]$hasScript = $package.ContainsKey('scripts') `
         -and $package['scripts'].ContainsKey($ScriptName)
 
-    if ($hasScript) {
-        $package['scripts'].Remove($ScriptName)
-        if ($package['scripts'].Count -eq 0) {
-            $package.Remove('scripts')
-        }
-    }
-    else {
+    if (-not $hasScript) {
         throw "The npm script '$ScriptName' was not found."
+    }
+
+    $package['scripts'].Remove($ScriptName)
+    if ($package['scripts'].Count -eq 0) {
+        $package.Remove('scripts')
     }
     Export-MyJSON -LiteralPath $packageJsonFullPath -Hashtable $package
 }

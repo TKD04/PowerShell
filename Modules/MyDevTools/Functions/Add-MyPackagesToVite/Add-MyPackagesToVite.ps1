@@ -30,10 +30,11 @@ function Add-MyPackagesToVite {
         [bool]$hasBabelPluginReactCompiler = $package.ContainsKey('devDependencies') `
             -and $package['devDependencies'].ContainsKey('babel-plugin-react-compiler')
 
-        $splat['Environment'] = 'ViteReact'
         if (-not $hasBabelPluginReactCompiler) {
             throw 'The package "babel-plugin-react-compiler" was not found. Select "TypeScript + React Compiler (Rolldown)" in "Select a variant" when initializing Vite.'
         }
+
+        $splat['Environment'] = 'ViteReact'
     }
 
     Initialize-MyGit -UseNode
