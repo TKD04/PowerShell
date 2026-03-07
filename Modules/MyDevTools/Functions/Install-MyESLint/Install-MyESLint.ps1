@@ -60,9 +60,7 @@ function Install-MyESLint {
             [hashtable]$package = Import-MyJSON -LiteralPath './package.json'
             [bool]$hasNpmScriptLint = $package.ContainsKey('scripts') -and $package['scripts'].ContainsKey('lint')
 
-            # Remove "lint" from npm scripts to replace "next lint" with "eslint . --cache"
             if ($hasNpmScriptLint) {
-                Remove-MyNpmScript -ScriptName 'lint'
                 pnpm rm eslint-config-next
             }
             $devDependencies += '@next/eslint-plugin-next'
