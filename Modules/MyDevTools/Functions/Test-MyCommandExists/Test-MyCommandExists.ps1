@@ -1,5 +1,3 @@
-using namespace System.Management.Automation
-
 # https://devblogs.microsoft.com/scripting/use-a-powershell-function-to-see-if-a-command-exists/
 <#
 .SYNOPSIS
@@ -16,7 +14,7 @@ function Test-MyCommandExists {
         [string]$Command
     )
 
-    [ActionPreference]$oldErrorActionPreference = $ErrorActionPreference
+    [System.Management.Automation.ActionPreference]$oldErrorActionPreference = $ErrorActionPreference
 
     $ErrorActionPreference = 'Stop'
     try {
