@@ -8,14 +8,14 @@ Specifies whether to enable automatic class sorting for Tailwind CSS.
 function Install-MyPrettier {
     [OutputType([System.Void])]
     param (
-        [switch]$UseTailwindCSS
+        [switch]$UseTailwindCss
     )
 
     [string[]]$devDependencies = @(
         'prettier'
     )
 
-    if ($UseTailwindCSS) {
+    if ($UseTailwindCss) {
         $devDependencies += @(
             'prettier-plugin-tailwindcss'
         )
