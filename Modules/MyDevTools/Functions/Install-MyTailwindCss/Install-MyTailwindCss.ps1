@@ -5,7 +5,7 @@ Adds Tailwind CSS to the current directory.
 .PARAMETER IsVite
 Specifies whether the project uses Vite.
 #>
-function Install-MyTailwindCss {
+function Install-MyTailwindCSS {
     [OutputType([System.Void])]
     param (
         [switch]$IsVite

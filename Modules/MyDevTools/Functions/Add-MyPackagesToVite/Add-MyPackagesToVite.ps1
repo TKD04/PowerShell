@@ -63,8 +63,8 @@ function Add-MyPackagesToVite {
     Install-MyTypeScript @splat
     Install-MyESLint @splat
     Install-MyVitest
-    Install-MyPrettier -UseTailwindcss
-    Install-MyTailwindCss -IsVite
+    Install-MyPrettier -UseTailwindCSS
+    Install-MyTailwindCSS -IsVite
     Install-MyVSCodeSettingsForWeb
     Add-MyNpmScript -NameToScript @{
         'dev'     = 'vite --open'

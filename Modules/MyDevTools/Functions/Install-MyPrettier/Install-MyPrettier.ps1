@@ -2,20 +2,20 @@
 .SYNOPSIS
 Adds Prettier to the current directory.
 
-.PARAMETER UseTailwindcss
+.PARAMETER UseTailwindCSS
 Specifies whether to enable automatic class sorting for Tailwind CSS.
 #>
 function Install-MyPrettier {
     [OutputType([System.Void])]
     param (
-        [switch]$UseTailwindcss
+        [switch]$UseTailwindCSS
     )
 
     [string[]]$devDependencies = @(
         'prettier'
     )
 
-    if ($UseTailwindcss) {
+    if ($UseTailwindCSS) {
         $devDependencies += @(
             'prettier-plugin-tailwindcss'
         )

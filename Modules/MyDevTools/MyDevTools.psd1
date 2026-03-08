@@ -17,7 +17,7 @@
         'Install-MyNodemon'
         'Install-MyPrettier'
         'Install-MyReact'
-        'Install-MyTailwindCss'
+        'Install-MyTailwindCSS'
         'Install-MyTSNode'
         'Install-MyTypeDoc'
         'Install-MyTypeScript'

@@ -63,7 +63,7 @@ function Add-MyPackagesToNextJs {
 
     Install-MyESLint -Environment 'Next'
     Install-MyVitest
-    Install-MyPrettier -UseTailwindcss
+    Install-MyPrettier -UseTailwindCSS
     Install-MyVSCodeSettingsForWeb
     if ($DeployToGitHubPages) {
         if (Test-Path -Path './.github/workflows/*.yml' -PathType 'Leaf') {
