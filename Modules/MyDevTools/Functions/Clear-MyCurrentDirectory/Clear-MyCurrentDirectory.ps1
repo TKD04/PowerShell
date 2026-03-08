@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-Removes all the files and directories from the current directory.
+Removes all files and subdirectories in the current directory.
 #>
 function Clear-MyCurrentDirectory {
     [OutputType([System.Void])]

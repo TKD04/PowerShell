@@ -1,6 +1,6 @@
 ﻿<#
 .SYNOPSIS
-Adds Vitest to the current directory.
+Adds Vitest to the current directory and creates npm scripts for running tests and coverage.
 #>
 function Install-MyVitest {
     [OutputType([System.Void])]

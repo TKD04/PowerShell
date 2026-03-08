@@ -1,6 +1,6 @@
 ﻿<#
 .SYNOPSIS
-Adds React to the current directory.
+Adds React and React DOM to the current directory.
 #>
 function Install-MyReact {
     [OutputType([System.Void])]

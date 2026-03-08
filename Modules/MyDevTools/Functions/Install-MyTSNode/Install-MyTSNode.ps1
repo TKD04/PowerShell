@@ -1,6 +1,6 @@
 ﻿<#
 .SYNOPSIS
-Adds ts-node to the current directory.
+Adds ts-node to the current directory and updates the ts-node settings in tsconfig.json.
 #>
 function Install-MyTSNode {
     [OutputType([System.Void])]

@@ -1,6 +1,6 @@
 ﻿<#
 .SYNOPSIS
-Adds TypeDoc to the current directory.
+Adds TypeDoc to the current directory and creates a "docs" npm script.
 #>
 function Install-MyTypeDoc {
     [OutputType([System.Void])]

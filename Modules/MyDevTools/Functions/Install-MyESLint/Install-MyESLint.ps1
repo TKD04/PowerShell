@@ -1,12 +1,11 @@
 <#
 .SYNOPSIS
-Adds ESLint and its settings to the current directory.
-It installs the browser settings by default.
+Adds ESLint and its configuration to the current directory.
 
 .PARAMETER Environment
-Specifies the target environment.
+Specifies the target environment:
 - Node
-- Vite (this is same to the default browser settings)
+- Vite (uses the browser configuration)
 - ViteReact
 - Next
 #>
@@ -67,7 +66,7 @@ function Install-MyESLint {
             $eslintConfigSource = 'browser/eslint-next.config.mjs'
         }
         default {
-            # Vite (Plain) or Browser
+            # Vite (uses the browser configuration)
             $eslintConfigSource = 'browser/eslint.config.mjs'
         }
     }

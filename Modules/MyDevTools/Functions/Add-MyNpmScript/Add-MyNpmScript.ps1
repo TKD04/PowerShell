@@ -1,9 +1,9 @@
 ﻿<#
 .SYNOPSIS
-Adds the given npm scripts to package.json.
+Adds one or more npm scripts to the "scripts" section of package.json.
 
 .PARAMETER NameToScript
-Pairs of script name and script.
+Specifies a hashtable containing pairs of script names and their corresponding commands.
 #>
 function Add-MyNpmScript {
     [OutputType([System.Void])]

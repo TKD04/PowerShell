@@ -11,7 +11,7 @@ function Initialize-MyNpm {
     }
 
     npm init -y
-    # Remove `test` in npm scripts which is generated automatically
+    # Remove automatically generated "test" npm script.
     [hashtable]$package = Import-MyJSON -LiteralPath './package.json'
     $package['scripts'].Remove('test')
     Export-MyJSON -LiteralPath './package.json' -Hashtable $package

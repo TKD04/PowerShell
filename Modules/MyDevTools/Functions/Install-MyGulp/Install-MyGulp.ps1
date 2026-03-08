@@ -1,9 +1,9 @@
 <#
 .SYNOPSIS
-Adds gulp to the current directory.
+Adds gulp.js to the current directory.
 
 .PARAMETER UseTypeScript
-Whether to add the rules for TypeScript.
+Specifies whether to include TypeScript type definitions for gulp.js.
 #>
 function Install-MyGulp {
     [OutputType([System.Void])]

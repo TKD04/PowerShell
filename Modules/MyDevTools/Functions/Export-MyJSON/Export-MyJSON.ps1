@@ -1,15 +1,15 @@
 ﻿<#
 .SYNOPSIS
-Exports the given [hashtable] as a JSON file.
+Exports the specified hashtable as a JSON file.
 
 .PARAMETER LiteralPath
-A destination path for an export.
+Specifies the destination path for the exported JSON file.
 
 .PARAMETER Hashtable
-A hashtable to be export.
+Specifies the hashtable to export.
 
 .PARAMETER Depth
-Specifies how many levels of contained objects are included in the JSON representation.
+Specifies the maximum depth of nested objects to include in the JSON representation.
 #>
 function Export-MyJSON {
     [OutputType([System.Void])]

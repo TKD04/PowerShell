@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-Adds the VSCode settings for PowerShell to the current directory.
+Adds the VS Code settings for PowerShell development to the .vscode directory.
 #>
 function Install-MyVSCodeSettingsForPwsh {
     [OutputType([System.Void])]

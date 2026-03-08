@@ -1,9 +1,9 @@
 ﻿<#
 .SYNOPSIS
-Initializes git in the current directory.
+Initializes a git repository in the current directory.
 
 .PARAMETER UseNode
-Whether to adds .gitignore for Node.js.
+Specifies whether to add a .gitignore file for Node.js projects.
 #>
 function Initialize-MyGit {
     [OutputType([System.Void])]

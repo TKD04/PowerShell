@@ -1,9 +1,9 @@
 ﻿<#
 .SYNOPSIS
-Removes all the files and directories inside the specified directory using a fast robocopy trick.
+Quickly removes all contents of the specified directory using Robocopy.
 
 .PARAMETER Directory
-The directory to remove.
+Specifies the directory whose contents will be removed.
 #>
 function Remove-MyDirectoryFast {
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]

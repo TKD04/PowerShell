@@ -3,7 +3,7 @@
 Adds Prettier to the current directory.
 
 .PARAMETER UseTailwindcss
-Whether to support automatic class sorting of tailwindcss.
+Specifies whether to enable automatic class sorting for Tailwind CSS.
 #>
 function Install-MyPrettier {
     [OutputType([System.Void])]

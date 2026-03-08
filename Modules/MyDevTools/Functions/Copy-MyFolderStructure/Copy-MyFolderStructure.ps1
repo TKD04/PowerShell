@@ -1,9 +1,9 @@
 ﻿<#
 .SYNOPSIS
-Copies the folder structure of the given directory to the current directory.
+Copies the folder structure of the specified directory to the current directory.
 
 .PARAMETER SrcPath
-A source path to a directory to be copied.
+Specifies the path of the source directory to copy.
 #>
 function Copy-MyFolderStructure {
     [OutputType([System.Void])]

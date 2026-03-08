@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-Adds the VSCode settings for Web to the current directory.
+Adds the VS Code settings for web development to the .vscode directory.
 #>
 function Install-MyVSCodeSettingsForWeb {
     [OutputType([System.Void])]

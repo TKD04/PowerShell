@@ -155,7 +155,7 @@ function Set-MyGitClean {
 New-Alias -Name 'cl' -Value 'Set-MyGitClean'
 
 function Set-MyGitCleanX {
-    # It even removes the files and directories on .gitignore.
+    # Removes all untracked files, including those in .gitignore.
     git clean -xdf
 }
 

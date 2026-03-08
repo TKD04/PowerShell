@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-Adds nodemon to the current directory.
+Adds nodemon to the current directory and sets up a "watch" npm script for TypeScript files.
 #>
 function Install-MyNodemon {
     [OutputType([System.Void])]

@@ -3,10 +3,10 @@ using namespace System.Management.Automation
 # https://devblogs.microsoft.com/scripting/use-a-powershell-function-to-see-if-a-command-exists/
 <#
 .SYNOPSIS
-Tests whether the given commend exists.
+Tests whether the specified command exists.
 
 .PARAMETER Command
-A command to be test.
+Specifies the name of the command to test.
 #>
 function Test-MyCommandExists {
     [OutputType([System.Boolean])]

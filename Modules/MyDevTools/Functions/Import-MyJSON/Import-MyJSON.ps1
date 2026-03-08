@@ -1,9 +1,9 @@
 ﻿<#
 .SYNOPSIS
-Imports a JSON file as [HashTable].
+Imports a JSON file as a hashtable.
 
 .PARAMETER LiteralPath
-A source path to a JSON file.
+Specifies the path to the JSON file to import.
 #>
 function Import-MyJSON {
     [OutputType([hashtable])]

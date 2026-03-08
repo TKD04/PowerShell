@@ -1,9 +1,9 @@
 ﻿<#
 .SYNOPSIS
-Removes the given name of npm script from package.json.
+Removes the specified npm script from package.json.
 
 .PARAMETER ScriptName
-A name of npm script.
+Specifies the name of npm script to remove.
 #>
 function Remove-MyNpmScript {
     [OutputType([System.Void])]

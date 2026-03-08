@@ -1,15 +1,15 @@
 ﻿<#
 .SYNOPSIS
-Renames the file extensions the new one.
+Renames file extensions to a new one.
 
 .PARAMETER OldExtension
-The file extension which you want to replace with the new one.
+Specifies the file extension to replace (without the leading dot).
 
 .PARAMETER NewExtension
-The file extension which you want to replace the old one with
+Specifies the new file extension (without the leading dot).
 
 .PARAMETER Recurse
-Whether to rename the matched files recursively.
+Specifies whether to rename matching files recursively.
 #>
 function Rename-MyFileExtension {
     [OutputType([System.Void])]

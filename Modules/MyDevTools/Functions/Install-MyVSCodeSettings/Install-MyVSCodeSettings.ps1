@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-Adds the given VSCode settings and extensions to the current directory.
+Adds the specified VS Code settings and extensions to the .vscode directory.
 #>
 function Install-MyVSCodeSettings {
     [OutputType([System.Void])]

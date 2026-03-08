@@ -1,11 +1,11 @@
 ﻿<#
 .SYNOPSIS
-Adds some required packages to a Next.js project.
-You should use the command "pnpm dlx create-next-app@latest --use-pnpm" to create the project.
-Otherwise this function will throw an error.
+Adds required packages to a Next.js project.
+Uses the command "pnpm dlx create-next-app@latest --use-pnpm" to create the project first.
+Otherwise, this function will throw an error.
 
 .PARAMETER DeployToGitHubPages
-Whether to use GitHub Pages to publish a site.
+Specifies whether to deploy the site using GitHub Pages.
 #>
 function Add-MyPackagesToNextJs {
     [OutputType([System.Void])]
@@ -41,22 +41,19 @@ function Add-MyPackagesToNextJs {
     }
 
     <# .gitignore #>
-    # Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore
-    # https://github.com/github/gitignore
     Join-Path -Path $PSScriptRoot -ChildPath 'common/OS_Node_Nextjs.gitignore' |
     Copy-Item -Destination './.gitignore' -Force
     git add './.gitignore'
     git commit -m 'Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore'
 
     <# globals.d.ts #>
-    # To allow layout.tsx to import "./global.css"
+    # Allow layout.tsx to import "./global.css"
     Join-Path -Path $PSScriptRoot -ChildPath 'common/globals.d.ts' |
     Copy-Item -Destination './globals.d.ts' -Force
     git add './globals.d.ts'
     git commit -m 'Add `global.d.ts` to allow `layout.tsx` to import "./global.css"'
 
     <# tsconfig.json #>
-    # Make tsconfig.json more strict
     foreach ($key in $missingCompilerOptions.Keys) {
         $tsConfig['compilerOptions'][$key] = $missingCompilerOptions[$key]
     }

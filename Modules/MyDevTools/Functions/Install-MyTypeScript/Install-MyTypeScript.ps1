@@ -69,7 +69,7 @@ function Install-MyTypeScript {
         'Node' {
             # https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping
             # https://github.com/tsconfig/bases/tree/main/bases
-            # For Node.js 24
+            # For Node.js 24.
             $tsConfig['compilerOptions']['module'] = 'nodenext'
             $tsConfig['compilerOptions']['moduleResolution'] = 'node16'
             $tsConfig['compilerOptions']['types'] = @('node')

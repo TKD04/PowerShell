@@ -1,9 +1,9 @@
 <#
 .SYNOPSIS
-Adds the Node develop environment to the current directory.
+Sets up a Node.js development environment in the current directory.
 
 .PARAMETER AddWatch
-Whether to add `watch` to npm scripts.
+Specifies whether to add a "watch" npm script.
 #>
 function Install-MyEnvForNode {
     [OutputType([System.Void])]
