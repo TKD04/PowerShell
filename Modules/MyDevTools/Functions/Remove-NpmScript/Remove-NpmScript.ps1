@@ -1,0 +1,29 @@
+﻿<#
+.SYNOPSIS
+Removes the specified npm script from package.json.
+
+.PARAMETER ScriptName
+Specifies the name of npm script to remove.
+#>
+function Remove-NpmScript {
+    [OutputType([System.Void])]
+    param (
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrWhiteSpace()]
+        [string]$ScriptName
+    )
+
+    [string]$packageJsonFullPath = (Resolve-Path -LiteralPath './package.json' -ErrorAction 'Stop').ProviderPath
+    [hashtable]$package = Import-JSON -LiteralPath $packageJsonFullPath
+    [boolean]$hasScript = $package.ContainsKey('scripts') -and $package['scripts'].ContainsKey($ScriptName)
+
+    if (-not $hasScript) {
+        throw "The npm script '$ScriptName' was not found."
+    }
+
+    $package['scripts'].Remove($ScriptName)
+    if ($package['scripts'].Count -eq 0) {
+        $package.Remove('scripts')
+    }
+    Export-JSON -LiteralPath $packageJsonFullPath -Hashtable $package
+}

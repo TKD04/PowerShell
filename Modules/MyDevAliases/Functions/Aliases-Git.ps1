@@ -1,228 +1,228 @@
-function Add-MyGit {
+function Add-Git {
     git add @args
 }
 
-New-Alias -Name 'a' -Value 'Add-MyGit'
+New-Alias -Name 'a' -Value 'Add-Git'
 
-function Add-MyGitP {
+function Add-GitP {
     git add -p @args
 }
 
-New-Alias -Name 'ap' -Value 'Add-MyGitP'
+New-Alias -Name 'ap' -Value 'Add-GitP'
 
-function Set-MyGitUnstage {
+function Set-GitUnstage {
     git reset HEAD @args
 }
 
-New-Alias -Name 'unst' -Value 'Set-MyGitUnstage'
+New-Alias -Name 'unst' -Value 'Set-GitUnstage'
 
-function Move-MyGit {
+function Move-Git {
     git mv @args
 }
 
-New-Alias -Name 'gmv' -Value 'Move-MyGit'
+New-Alias -Name 'gmv' -Value 'Move-Git'
 
-function Remove-MyGit {
+function Remove-Git {
     git rm @args
 }
 
-New-Alias -Name 'grm' -Value 'Remove-MyGit'
+New-Alias -Name 'grm' -Value 'Remove-Git'
 
-function Set-MyGitCommit {
+function Set-GitCommit {
     git commit -m @args
 }
 
-New-Alias -Name 'c' -Value 'Set-MyGitCommit'
+New-Alias -Name 'c' -Value 'Set-GitCommit'
 
-function Set-MyGitCommitAll {
+function Set-GitCommitAll {
     git add .
     git commit -m @args
 }
 
-New-Alias -Name 'ca' -Value 'Set-MyGitCommitAll'
+New-Alias -Name 'ca' -Value 'Set-GitCommitAll'
 
-function Set-MyGitCommitAmend {
+function Set-GitCommitAmend {
     git commit --amend @args
 }
 
-New-Alias -Name 'cam' -Value 'Set-MyGitCommitAmend'
+New-Alias -Name 'cam' -Value 'Set-GitCommitAmend'
 
-function Set-MyGitCommitAmendNoEdit {
+function Set-GitCommitAmendNoEdit {
     git commit --amend --no-edit @args
 }
 
-New-Alias -Name 'camn' -Value 'Set-MyGitCommitAmendNoEdit'
+New-Alias -Name 'camn' -Value 'Set-GitCommitAmendNoEdit'
 
-function Reset-MyGitMixed {
+function Reset-GitMixed {
     git reset @args
 }
 
-New-Alias -Name 'rem' -Value 'Reset-MyGitMixed'
+New-Alias -Name 'rem' -Value 'Reset-GitMixed'
 
-function Reset-MyGitSoft {
+function Reset-GitSoft {
     git reset --soft @args
 }
 
-New-Alias -Name 'res' -Value 'Reset-MyGitSoft'
+New-Alias -Name 'res' -Value 'Reset-GitSoft'
 
-function Reset-MyGitHard {
+function Reset-GitHard {
     git reset --hard @args
 }
 
-New-Alias -Name 'reh' -Value 'Reset-MyGitHard'
+New-Alias -Name 'reh' -Value 'Reset-GitHard'
 
-function Restore-MyGit {
+function Restore-Git {
     git restore @args
 }
 
-New-Alias -Name 'restore' -Value 'Restore-MyGit'
+New-Alias -Name 'restore' -Value 'Restore-Git'
 
-function Set-MyGitCheckout {
+function Set-GitCheckout {
     git checkout @args
 }
-New-Alias -Name 'che' -Value 'Set-MyGitCheckout'
+New-Alias -Name 'che' -Value 'Set-GitCheckout'
 
-function Set-MyGitCheckoutB {
+function Set-GitCheckoutB {
     git checkout -b @args
 }
 
-New-Alias -Name 'cheb' -Value 'Set-MyGitCheckoutB'
+New-Alias -Name 'cheb' -Value 'Set-GitCheckoutB'
 
-function Set-MyGitBranch {
+function Set-GitBranch {
     git branch @args
 }
 
-New-Alias -Name 'bra' -Value 'Set-MyGitBranch'
+New-Alias -Name 'bra' -Value 'Set-GitBranch'
 
-function Set-MyGitBranchD {
+function Set-GitBranchD {
     git branch -d @args
 }
 
-New-Alias -Name 'brad' -Value 'Set-MyGitBranchD'
+New-Alias -Name 'brad' -Value 'Set-GitBranchD'
 
-function Merge-MyGit {
+function Merge-Git {
     git merge @args
 }
 
-New-Alias -Name 'merge' -Value 'Merge-MyGit'
+New-Alias -Name 'merge' -Value 'Merge-Git'
 
-function Merge-MyGitAbort {
+function Merge-GitAbort {
     git merge --abort @args
 }
 
-New-Alias -Name 'mergea' -Value 'Merge-MyGitAbort'
+New-Alias -Name 'mergea' -Value 'Merge-GitAbort'
 
-function Set-MyGitRebase {
+function Set-GitRebase {
     git rebase @args
 }
 
-New-Alias -Name 'rebase' -Value 'Set-MyGitRebase'
+New-Alias -Name 'rebase' -Value 'Set-GitRebase'
 
-function Set-MyGitStash {
+function Set-GitStash {
     git stash @args
 }
 
-New-Alias -Name 'stash' -Value 'Set-MyGitStash'
+New-Alias -Name 'stash' -Value 'Set-GitStash'
 
-function Set-MyGitStashU {
+function Set-GitStashU {
     git stash -u @args
 }
 
-New-Alias -Name 'stashu' -Value 'Set-MyGitStashU'
+New-Alias -Name 'stashu' -Value 'Set-GitStashU'
 
-function Set-MyGitStashList {
+function Set-GitStashList {
     git stash list @args
 }
 
-New-Alias -Name 'stashl' -Value 'Set-MyGitStashList'
+New-Alias -Name 'stashl' -Value 'Set-GitStashList'
 
-function Pop-MyGit {
+function Pop-Git {
     git stash pop @args
 }
 
-New-Alias -Name 'pop' -Value 'Pop-MyGit'
+New-Alias -Name 'pop' -Value 'Pop-Git'
 
-function Set-MyGitDrop {
+function Set-GitDrop {
     git stash drop @args
 }
 
-New-Alias -Name 'drop' -Value 'Set-MyGitDrop'
+New-Alias -Name 'drop' -Value 'Set-GitDrop'
 
-function Set-MyGitClean {
+function Set-GitClean {
     git clean -df
 }
 
-New-Alias -Name 'cl' -Value 'Set-MyGitClean'
+New-Alias -Name 'cl' -Value 'Set-GitClean'
 
-function Set-MyGitCleanX {
+function Set-GitCleanX {
     # Removes all untracked files, including those in .gitignore.
     git clean -xdf
 }
 
-New-Alias -Name 'clx' -Value 'Set-MyGitCleanX'
+New-Alias -Name 'clx' -Value 'Set-GitCleanX'
 
-function Get-MyGitStatus {
+function Get-GitStatus {
     git status -sb @args
 }
 
-New-Alias -Name 'st' -Value 'Get-MyGitStatus'
+New-Alias -Name 'st' -Value 'Get-GitStatus'
 
-function Get-MyGitDiff {
+function Get-GitDiff {
     git diff @args
 }
 
-New-Alias -Name 'dif' -Value 'Get-MyGitDiff'
+New-Alias -Name 'dif' -Value 'Get-GitDiff'
 
-function Get-MyGitDiffStaged {
+function Get-GitDiffStaged {
     git diff --staged @args
 }
 
-New-Alias -Name 'difs' -Value 'Get-MyGitDiffStaged'
+New-Alias -Name 'difs' -Value 'Get-GitDiffStaged'
 
-function Get-MyGitLog {
+function Get-GitLog {
     [string]$format = '%C(yellow)%h%Creset %C(green)%cd%Creset %s %C(red)%d%Creset %C(cyan)[%an]%Creset'
 
     git log --oneline --graph --format="$format" --date=format:'%Y-%m-%d %H:%M' @args
 }
 
-New-Alias -Name 'l' -Value 'Get-MyGitLog'
+New-Alias -Name 'l' -Value 'Get-GitLog'
 
-function Get-MyGitLogGrep {
+function Get-GitLogGrep {
     [string]$format = '%C(yellow)%h%Creset %C(green)%cd%Creset %s %C(red)%d%Creset %C(cyan)[%an]%Creset'
 
     git log --oneline --graph --format="$format" --date=format:'%Y-%m-%d %H:%M' --grep="$args"
 }
 
-New-Alias -Name 'lgrep' -Value 'Get-MyGitLogGrep'
+New-Alias -Name 'lgrep' -Value 'Get-GitLogGrep'
 
-function Get-MyGitLog3 {
+function Get-GitLog3 {
     [string]$format = '%C(yellow)%h%Creset %C(green)%cd%Creset %s %C(red)%d%Creset %C(cyan)[%an]%Creset'
 
     git log --oneline --graph --format="$format" --date=format:'%Y-%m-%d %H:%M' -3 @args
 }
 
-New-Alias -Name 'll' -Value 'Get-MyGitLog3'
+New-Alias -Name 'll' -Value 'Get-GitLog3'
 
-function Show-MyGit {
+function Show-Git {
     git show @args
 }
 
-New-Alias -Name 'show' -Value 'Show-MyGit'
+New-Alias -Name 'show' -Value 'Show-Git'
 
-function Set-MyGitFetch {
+function Set-GitFetch {
     git fetch @args
 }
 
-New-Alias -Name 'fetch' -Value 'Set-MyGitFetch'
+New-Alias -Name 'fetch' -Value 'Set-GitFetch'
 
-function Set-MyGitPull {
+function Set-GitPull {
     git pull @args
 }
 
-New-Alias -Name 'pull' -Value 'Set-MyGitPull'
+New-Alias -Name 'pull' -Value 'Set-GitPull'
 
-function Push-MyGit {
+function Push-Git {
     git push @args
 }
 
-New-Alias -Name 'psh' -Value 'Push-MyGit'
+New-Alias -Name 'psh' -Value 'Push-Git'

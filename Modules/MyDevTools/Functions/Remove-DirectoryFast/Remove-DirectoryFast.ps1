@@ -1,0 +1,50 @@
+﻿<#
+.SYNOPSIS
+Quickly removes all contents of the specified directory using Robocopy.
+
+.PARAMETER Directory
+Specifies the directory whose contents will be removed.
+#>
+function Remove-DirectoryFast {
+    [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
+    [OutputType([System.Void])]
+    param(
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrWhiteSpace()]
+        [ValidateScript({
+                if (-not (Test-StrictPath -LiteralPath $_ -PathType 'Container')) {
+                    throw "The path '$_' does not exist."
+                }
+
+                $true
+            })]
+        [string]$Directory
+    )
+
+    [string]$EmptyDirPath = Join-Path -Path ([System.IO.Path]::GetTempPath()) -ChildPath ([System.Guid]::NewGuid())
+    [string]$DirectoryFullPath = (Resolve-Path -LiteralPath $Directory).ProviderPath
+    [bool]$isCurrentDir = $PWD.Path -ieq $DirectoryFullPath
+
+    if ($DirectoryFullPath -match '^[A-Z]:\\$|^\\\\[^\\]+\\[^\\]+$') {
+        throw "Refused to remove drive root '$DirectoryFullPath'."
+    }
+
+    if ($PSCmdlet.ShouldProcess($DirectoryFullPath, 'Remove all contents of directory')) {
+        $null = New-Item -Path $EmptyDirPath -ItemType 'Directory' -Force
+        try {
+            $null = Robocopy.exe $EmptyDirPath $DirectoryFullPath /MIR /NJH /NJS /NP /NS /NC /NFL /NDL
+            if ($LASTEXITCODE -ge 8) {
+                throw "Robocopy failed with exit code '$LASTEXITCODE'."
+            }
+            if (-not $isCurrentDir) {
+                Remove-Item -LiteralPath $DirectoryFullPath -Recurse -Force -ErrorAction 'Stop'
+            }
+
+        }
+        finally {
+            Remove-Item -LiteralPath $EmptyDirPath -Recurse -Force -ErrorAction 'SilentlyContinue'
+        }
+    }
+}
+
+New-Alias -Name 'rmdirf' -Value 'Remove-DirectoryFast'

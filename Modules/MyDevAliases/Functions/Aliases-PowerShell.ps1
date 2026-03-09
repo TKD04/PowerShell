@@ -1,5 +1,5 @@
-﻿function Exit-MyPowerShell {
+﻿function Exit-PowerShell {
     exit
 }
 
-New-Alias -Name 'e' -Value 'Exit-MyPowerShell'
+New-Alias -Name 'e' -Value 'Exit-PowerShell'
