@@ -9,7 +9,7 @@ Specifies the target environment:
 - ViteReact
 - Next
 #>
-function Install-ESLint {
+function Install-EsLint {
     [OutputType([System.Void])]
     param (
         [ValidateSet('Node', 'Vite', 'ViteReact', 'Next')]
@@ -56,7 +56,7 @@ function Install-ESLint {
             }
         }
         'Next' {
-            [hashtable]$package = Import-JSON -LiteralPath './package.json'
+            [hashtable]$package = Import-Json -LiteralPath './package.json'
             [bool]$hasNpmScriptLint = $package.ContainsKey('scripts') -and $package['scripts'].ContainsKey('lint')
 
             if ($hasNpmScriptLint) {

@@ -2,7 +2,7 @@
 .SYNOPSIS
 Adds the specified VS Code settings and extensions to the .vscode directory.
 #>
-function Install-VSCodeSettings {
+function Install-VsCodeSettings {
     [OutputType([System.Void])]
     param (
         [hashtable]$Settings,
@@ -15,11 +15,11 @@ function Install-VSCodeSettings {
     $null = New-Item -Path './.vscode' -ItemType 'Directory' -Force
     Push-Location -LiteralPath './.vscode'
     if ($null -ne $Settings) {
-        Export-JSON -LiteralPath './settings.json' -Hashtable $Settings
+        Export-Json -LiteralPath './settings.json' -Hashtable $Settings
         git add './settings.json'
     }
     if ($null -ne $Extensions) {
-        Export-JSON -LiteralPath './extensions.json' -Hashtable $Extensions
+        Export-Json -LiteralPath './extensions.json' -Hashtable $Extensions
         git add './extensions.json'
     }
     Pop-Location

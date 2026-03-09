@@ -5,7 +5,7 @@ Imports a JSON file as a hashtable.
 .PARAMETER LiteralPath
 Specifies the path to the JSON file to import.
 #>
-function Import-JSON {
+function Import-Json {
     [OutputType([hashtable])]
     param (
         [Parameter(Mandatory)]

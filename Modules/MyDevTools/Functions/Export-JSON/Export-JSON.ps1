@@ -11,7 +11,7 @@ Specifies the hashtable to export.
 .PARAMETER Depth
 Specifies the maximum depth of nested objects to include in the JSON representation.
 #>
-function Export-JSON {
+function Export-Json {
     [OutputType([System.Void])]
     param (
         [Parameter(Mandatory)]

@@ -12,9 +12,9 @@ function Initialize-Npm {
 
     npm init -y
     # Remove automatically generated "test" npm script.
-    [hashtable]$package = Import-JSON -LiteralPath './package.json'
+    [hashtable]$package = Import-Json -LiteralPath './package.json'
     $package['scripts'].Remove('test')
-    Export-JSON -LiteralPath './package.json' -Hashtable $package
+    Export-Json -LiteralPath './package.json' -Hashtable $package
 
     git add './package.json'
     git commit -m 'Initialize npm'

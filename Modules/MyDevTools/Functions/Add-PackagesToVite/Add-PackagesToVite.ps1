@@ -25,7 +25,7 @@ function Add-PackagesToVite {
     }
     # Ensure "TypeScript + React Compiler (Rolldown)" is selected for React projects.
     if ($UseReact) {
-        [hashtable]$package = Import-JSON -LiteralPath './package.json'
+        [hashtable]$package = Import-Json -LiteralPath './package.json'
         [bool]$hasBabelPluginReactCompiler = $package.ContainsKey('devDependencies') -and $package['devDependencies'].ContainsKey('babel-plugin-react-compiler')
 
         if (-not $hasBabelPluginReactCompiler) {
@@ -61,11 +61,11 @@ function Add-PackagesToVite {
     git commit -m 'Add the alias `@/` -> `./src/*` to the Vite config file'
 
     Install-TypeScript @splat
-    Install-ESLint @splat
+    Install-EsLint @splat
     Install-Vitest
     Install-Prettier -UseTailwindCss
     Install-TailwindCss -IsVite
-    Install-VSCodeSettingsForWeb
+    Install-VsCodeSettingsForWeb
     Add-NpmScript -NameToScript @{
         'dev'     = 'vite --open'
         'preview' = 'vite preview --open'

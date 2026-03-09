@@ -2,7 +2,7 @@
 .SYNOPSIS
 Adds the VS Code settings for PowerShell development to the .vscode directory.
 #>
-function Install-VSCodeSettingsForPwsh {
+function Install-VsCodeSettingsForPwsh {
     [OutputType([System.Void])]
     param ()
 
@@ -30,5 +30,5 @@ function Install-VSCodeSettingsForPwsh {
         )
     }
 
-    Install-VSCodeSettings -Settings $settings -Extensions $extensions
+    Install-VsCodeSettings -Settings $settings -Extensions $extensions
 }

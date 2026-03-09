@@ -2,7 +2,7 @@
 .SYNOPSIS
 Adds ts-node to the current directory and updates the ts-node settings in tsconfig.json.
 #>
-function Install-TSNode {
+function Install-TsNode {
     [OutputType([System.Void])]
     param ()
 
@@ -11,10 +11,10 @@ function Install-TSNode {
         files         = $true
         swc           = $true
     }
-    [hashtable]$tsConfig = Import-JSON -LiteralPath './tsconfig.json'
+    [hashtable]$tsConfig = Import-Json -LiteralPath './tsconfig.json'
 
     $tsConfig.Add('ts-node', $tsConfigTsnode)
-    Export-JSON -LiteralPath './tsconfig.json' -Hashtable $tsConfig
+    Export-Json -LiteralPath './tsconfig.json' -Hashtable $tsConfig
     pnpm add -D ts-node @swc/core @swc/helpers
     git add './package.json' './pnpm-lock.yaml' './tsconfig.json'
     git commit -m 'Add ts-node'

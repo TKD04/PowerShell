@@ -2,7 +2,7 @@
 .SYNOPSIS
 Adds the VS Code settings for web development to the .vscode directory.
 #>
-function Install-VSCodeSettingsForWeb {
+function Install-VsCodeSettingsForWeb {
     [OutputType([System.Void])]
     param ()
 
@@ -33,5 +33,5 @@ function Install-VSCodeSettingsForWeb {
         }
     }
 
-    Install-VSCodeSettings -Settings $settings
+    Install-VsCodeSettings -Settings $settings
 }

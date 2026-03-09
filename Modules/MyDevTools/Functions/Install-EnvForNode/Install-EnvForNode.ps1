@@ -14,15 +14,15 @@ function Install-EnvForNode {
     Initialize-Git -UseNode
     Initialize-Npm
     Install-TypeScript -Environment 'Node'
-    Install-ESLint -Environment 'Node'
+    Install-EsLint -Environment 'Node'
     Install-Vitest
     Install-Prettier
     if ($AddWatch) {
-        Install-TSNode
+        Install-TsNode
         Install-Nodemon
     }
     Install-TypeDoc
-    Install-VSCodeSettingsForWeb
+    Install-VsCodeSettingsForWeb
     $null = New-Item -Path './src/app.ts' -ItemType 'File' -Force
     git add './package.json' './src/app.ts'
     git commit -m 'Add environment for Node'

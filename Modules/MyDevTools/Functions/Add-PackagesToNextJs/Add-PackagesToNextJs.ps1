@@ -34,7 +34,7 @@ function Add-PackagesToNextJs {
         <# Language and Environment #>
         'useDefineForClassFields'            = $true
     }
-    [hashtable]$tsConfig = Import-JSON -LiteralPath './tsconfig.json'
+    [hashtable]$tsConfig = Import-Json -LiteralPath './tsconfig.json'
 
     if (-not (Test-StrictPath -LiteralPath './pnpm-lock.yaml' -PathType 'Leaf')) {
         throw 'The file "./pnpm-lock.yaml" was not found. Create the project using the command "pnpm dlx create-next-app@latest --use-pnpm".'
@@ -57,14 +57,14 @@ function Add-PackagesToNextJs {
     foreach ($key in $missingCompilerOptions.Keys) {
         $tsConfig['compilerOptions'][$key] = $missingCompilerOptions[$key]
     }
-    Export-JSON -LiteralPath './tsconfig.json' -Hashtable $tsConfig
+    Export-Json -LiteralPath './tsconfig.json' -Hashtable $tsConfig
     git add './tsconfig.json'
     git commit -m 'Make tsconfig.json more strict'
 
-    Install-ESLint -Environment 'Next'
+    Install-EsLint -Environment 'Next'
     Install-Vitest
     Install-Prettier -UseTailwindCSS
-    Install-VSCodeSettingsForWeb
+    Install-VsCodeSettingsForWeb
     if ($DeployToGitHubPages) {
         if (Test-Path -Path './.github/workflows/*.yml' -PathType 'Leaf') {
             Write-Warning -Message 'The workflow file is already in place (skip).'

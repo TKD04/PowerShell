@@ -103,7 +103,7 @@ function Install-TypeScript {
         }
     }
     pnpm add -D @devDependencies
-    Export-JSON -LiteralPath $tsConfigPath -Hashtable $tsConfig
+    Export-Json -LiteralPath $tsConfigPath -Hashtable $tsConfig
     git add './package.json' './pnpm-lock.yaml' $tsConfigPath
     git commit -m "Add TypeScript ($Environment)"
 }
