@@ -6,14 +6,14 @@ function Install-TsNode {
     [OutputType([System.Void])]
     param ()
 
-    [hashtable]$tsConfigTsnode = @{
+    [hashtable]$tsConfigTsNode = @{
         transpileOnly = $true
         files         = $true
         swc           = $true
     }
     [hashtable]$tsConfig = Import-Json -LiteralPath './tsconfig.json'
 
-    $tsConfig.Add('ts-node', $tsConfigTsnode)
+    $tsConfig.Add('ts-node', $tsConfigTsNode)
     Export-Json -LiteralPath './tsconfig.json' -Hashtable $tsConfig
     pnpm add -D ts-node @swc/core @swc/helpers
     git add './package.json' './pnpm-lock.yaml' './tsconfig.json'
