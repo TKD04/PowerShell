@@ -5,7 +5,6 @@
         'Add-NpmScript'
         'Add-VsCodeFrontendSetting'
         'Add-VsCodePowerShellSetting'
-        'Clear-Directory'
         'Copy-DirectoryStructure'
         'Export-Json'
         'Import-Json'
@@ -32,7 +31,6 @@
         'Test-StrictPath'
     )
     AliasesToExport   = @(
-        'cldir'
         'cptree'
         'ginit'
         'ninit'

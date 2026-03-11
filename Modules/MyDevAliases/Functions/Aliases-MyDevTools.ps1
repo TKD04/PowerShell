@@ -1,4 +1,13 @@
-﻿function Remove-GitRepository {
+﻿function Clear-Directory {
+    [OutputType([System.Void])]
+    param ()
+
+    Remove-DirectoryFast -Directory $PWD
+}
+
+Set-Alias -Name 'cldir' -Value 'Clear-Directory'
+
+function Remove-GitRepository {
     [OutputType([System.Void])]
     param()
 

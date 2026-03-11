@@ -41,6 +41,7 @@
         'Update-GitRemote'
         'Push-Git'
         # MyDevTools
+        'Clear-Directory'
         'Remove-GitRepository'
         'Remove-NodeModule'
         # pnpm
@@ -89,6 +90,7 @@
         'pull'
         'psh'
         # MyDevTools
+        'cldir'
         'rmgh'
         'rmnode'
         # pnpm
