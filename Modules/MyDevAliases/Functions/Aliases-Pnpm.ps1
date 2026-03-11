@@ -1,13 +1,13 @@
 ﻿New-Alias -Name 'pn' -Value 'pnpm'
 
-function Install-PnpmVite {
+function New-PnpmViteProject {
     pnpm create vite@latest
 }
 
-New-Alias -Name 'pnvite' -Value 'Install-PnpmVite'
+New-Alias -Name 'pnvite' -Value 'New-PnpmViteProject'
 
-function Install-PnpmNext {
+function New-PnpmNextJsProject {
     pnpm dlx create-next-app@latest --use-pnpm
 }
 
-New-Alias -Name 'pnnext' -Value 'Install-PnpmNext'
+New-Alias -Name 'pnnext' -Value 'New-PnpmNextJsProject'

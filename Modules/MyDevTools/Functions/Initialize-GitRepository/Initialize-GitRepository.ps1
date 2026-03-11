@@ -5,7 +5,7 @@ Initializes a git repository in the current directory.
 .PARAMETER UseNode
 Specifies whether to add a .gitignore file for Node.js projects.
 #>
-function Initialize-Git {
+function Initialize-GitRepository {
     [OutputType([System.Void])]
     param(
         [switch]$UseNode
@@ -31,4 +31,4 @@ function Initialize-Git {
     git commit -m 'First commit'
 }
 
-Set-Alias -Name 'ginit' -Value 'Initialize-Git'
+Set-Alias -Name 'ginit' -Value 'Initialize-GitRepository'

@@ -2,11 +2,11 @@
 .SYNOPSIS
 Removes all files and subdirectories in the current directory.
 #>
-function Clear-CurrentDirectory {
+function Clear-Directory {
     [OutputType([System.Void])]
     param ()
 
     Remove-DirectoryFast -Directory $PWD
 }
 
-Set-Alias -Name 'cldir' -Value 'Clear-CurrentDirectory'
+Set-Alias -Name 'cldir' -Value 'Clear-Directory'

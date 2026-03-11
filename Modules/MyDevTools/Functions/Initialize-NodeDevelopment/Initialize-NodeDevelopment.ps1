@@ -5,7 +5,7 @@ Sets up a Node.js development environment in the current directory.
 .PARAMETER AddWatch
 Specifies whether to add a "watch" npm script.
 #>
-function Install-EnvForNode {
+function Initialize-NodeDevelopment {
     [OutputType([System.Void])]
     param(
         [switch]$AddWatch
@@ -22,7 +22,7 @@ function Install-EnvForNode {
         Install-Nodemon
     }
     Install-TypeDoc
-    Install-VsCodeSettingsForWeb
+    Add-VsCodeFrontendSetting
     $null = New-Item -Path './src/app.ts' -ItemType 'File' -Force
     git add './package.json' './src/app.ts'
     git commit -m 'Add environment for Node'

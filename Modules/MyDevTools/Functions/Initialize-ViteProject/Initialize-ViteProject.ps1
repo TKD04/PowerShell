@@ -10,7 +10,7 @@ Specifies whether to set up React support.
 .PARAMETER DeployToGitHubPages
 Specifies whether to deploy the site using GitHub Page.
 #>
-function Add-PackagesToVite {
+function Initialize-ViteProject {
     [OutputType([System.Void])]
     param (
         [switch]$UseReact,
@@ -65,7 +65,7 @@ function Add-PackagesToVite {
     Install-Vitest
     Install-Prettier -UseTailwindCss
     Install-TailwindCss -IsVite
-    Install-VsCodeSettingsForWeb
+    Add-VsCodeFrontendSetting
     Add-NpmScript -NameToScript @{
         'dev'     = 'vite --open'
         'preview' = 'vite preview --open'

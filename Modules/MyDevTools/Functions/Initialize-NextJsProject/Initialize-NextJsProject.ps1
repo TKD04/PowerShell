@@ -7,7 +7,7 @@ Otherwise, this function will throw an error.
 .PARAMETER DeployToGitHubPages
 Specifies whether to deploy the site using GitHub Pages.
 #>
-function Add-PackagesToNextJs {
+function Initialize-NextJsProject {
     [OutputType([System.Void])]
     param (
         [switch]$DeployToGitHubPages
@@ -63,8 +63,8 @@ function Add-PackagesToNextJs {
 
     Install-EsLint -Environment 'Next'
     Install-Vitest
-    Install-Prettier -UseTailwindCSS
-    Install-VsCodeSettingsForWeb
+    Install-Prettier -UseTailwindCss
+    Add-VsCodeFrontendSetting
     if ($DeployToGitHubPages) {
         if (Test-Path -Path './.github/workflows/*.yml' -PathType 'Leaf') {
             Write-Warning -Message 'The workflow file is already in place (skip).'

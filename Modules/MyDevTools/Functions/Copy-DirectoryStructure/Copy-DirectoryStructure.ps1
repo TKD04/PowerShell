@@ -5,7 +5,7 @@ Copies the folder structure of the specified directory to the current directory.
 .PARAMETER SrcPath
 Specifies the path of the source directory to copy.
 #>
-function Copy-FolderStructure {
+function Copy-DirectoryStructure {
     [OutputType([System.Void])]
     param(
         [Parameter(Mandatory)]
@@ -28,4 +28,4 @@ function Copy-FolderStructure {
     xcopy.exe /E /T $LiteralPath $destPath
 }
 
-Set-Alias -Name 'cptree' -Value 'Copy-FolderStructure'
+Set-Alias -Name 'cptree' -Value 'Copy-DirectoryStructure'

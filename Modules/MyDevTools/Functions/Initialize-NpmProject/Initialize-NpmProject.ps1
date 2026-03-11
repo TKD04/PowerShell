@@ -2,7 +2,7 @@
 .SYNOPSIS
 Initializes npm in the current directory.
 #>
-function Initialize-Npm {
+function Initialize-NpmProject {
     [OutputType([System.Void])]
     param()
 
@@ -24,4 +24,4 @@ function Initialize-Npm {
     git commit -m 'Add pnpm as packageManager'
 }
 
-Set-Alias -Name 'ninit' -Value 'Initialize-Npm'
+Set-Alias -Name 'ninit' -Value 'Initialize-NpmProject'

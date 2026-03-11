@@ -1,17 +1,17 @@
-﻿function Remove-GitHistory {
+﻿function Remove-GitRepository {
     [OutputType([System.Void])]
     param()
 
     Remove-DirectoryFast -Directory './.git'
 }
 
-Set-Alias -Name 'rmgh' -Value 'Remove-GitHistory'
+Set-Alias -Name 'rmgh' -Value 'Remove-GitRepository'
 
-function Remove-NodeModulesDir {
+function Remove-NodeModule {
     [OutputType([System.Void])]
     param()
 
     Remove-DirectoryFast -Directory './node_modules'
 }
 
-New-Alias -Name 'rmnode' -Value 'Remove-NodeModulesDir'
+New-Alias -Name 'rmnode' -Value 'Remove-NodeModule'

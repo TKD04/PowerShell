@@ -2,7 +2,7 @@
 .SYNOPSIS
 Adds the specified VS Code settings and extensions to the .vscode directory.
 #>
-function Install-VsCodeSettings {
+function Initialize-VsCodeSetting {
     [OutputType([System.Void])]
     param (
         [hashtable]$Settings,
