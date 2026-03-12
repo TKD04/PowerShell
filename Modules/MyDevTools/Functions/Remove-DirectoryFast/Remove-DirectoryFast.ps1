@@ -26,7 +26,7 @@ function Remove-DirectoryFast {
     [bool]$isCurrentDir = $PWD.Path -ieq $DirectoryFullPath
 
     if ($DirectoryFullPath -match '^[A-Z]:\\$|^\\\\[^\\]+\\[^\\]+$') {
-        throw "Refused to remove drive root '$DirectoryFullPath'."
+        throw "Refusing to remove drive root '$DirectoryFullPath'."
     }
 
     if ($PSCmdlet.ShouldProcess($DirectoryFullPath, 'Remove all contents of directory')) {
