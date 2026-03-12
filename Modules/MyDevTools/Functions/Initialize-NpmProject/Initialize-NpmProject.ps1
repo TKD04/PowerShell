@@ -6,7 +6,7 @@ function Initialize-NpmProject {
     [OutputType([System.Void])]
     param()
 
-    if ((Test-CommandExists -Command 'pnpm')) {
+    if (-not (Test-CommandExists -Command 'pnpm')) {
         throw 'The command "pnpm" was not found.'
     }
 
