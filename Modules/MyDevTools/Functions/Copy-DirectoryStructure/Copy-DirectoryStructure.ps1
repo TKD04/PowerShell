@@ -2,7 +2,7 @@
 .SYNOPSIS
 Copies the folder structure of the specified directory to the current directory.
 
-.PARAMETER SrcPath
+.PARAMETER LiteralPath
 Specifies the path of the source directory to copy.
 #>
 function Copy-DirectoryStructure {
