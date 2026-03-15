@@ -1,27 +1,90 @@
 <#
 .SYNOPSIS
-Adds the specified VS Code settings and extensions to the .vscode directory.
+Adds VS Code settings and extensions for the specified environment to the .vscode directory.
+
+.PARAMETER Environment
+Specifies the target environment:
+- Frontend
+- PowerShell
 #>
 function Initialize-VsCodeSetting {
     [OutputType([System.Void])]
     param (
-        [hashtable]$Settings,
-        [hashtable]$Extensions
+        [Parameter(Mandatory)]
+        [ValidateSet('Frontend', 'PowerShell')]
+        [string]$Environment
     )
 
-    if ($null -eq $Settings -and $null -eq $Extensions) {
-        throw 'Either $Settings or $Extensions must be specified.'
+    if (Test-StrictPath -LiteralPath './.vscode/settings.json' -PathType 'Leaf') {
+        throw 'VS Code settings is already in place.'
+    }
+    if (Test-StrictPath -LiteralPath './.vscode/extensions.json' -PathType 'Leaf') {
+        throw 'VS Code recommended extensions is already in place.'
+    }
+
+    [hashtable]$settings = @{
+        <# General #>
+        'editor.codeActionsOnSave'     = @{
+            'source.sort.json' = 'always'
+        }
+        'editor.formatOnSave'          = $true
+        'files.autoGuessEncoding'      = $true
+        'files.insertFinalNewline'     = $true
+        'files.trimFinalNewlines'      = $true
+        'files.trimTrailingWhitespace' = $true
+        <# Markdown #>
+        '[markdown]'                   = @{
+            'files.trimTrailingWhitespace' = $false
+        }
+    }
+    [hashtable]$extensions = $null
+
+    switch ($Environment) {
+        'Frontend' {
+            <# General #>
+            $settings['editor.codeActionsOnSave'] = @{
+                'source.addMissingImports.ts' = 'always'
+                'source.removeUnused.ts'      = 'always'
+                'source.removeUnusedImports'  = 'always'
+                'source.sort.json'            = 'always'
+            }
+            $settings += @{
+                <# Web #>
+                'editor.defaultFormatter'                    = 'esbenp.prettier-vscode'
+                'editor.tabSize'                             = 2
+                <# HTML #>
+                'editor.linkedEditing'                       = $true
+                <# TypeScript/JavaScript #>
+                'javascript.updateImportsOnFileMove.enabled' = 'always'
+                'typescript.updateImportsOnFileMove.enabled' = 'always'
+            }
+        }
+        'PowerShell' {
+            $settings += @{
+                <# PowerShell #>
+                'powershell.codeFormatting.autoCorrectAliases' = $true
+                'powershell.codeFormatting.useCorrectCasing'   = $true
+                'powershell.codeFormatting.useConstantStrings' = $true
+                '[powershell]'                                 = @{
+                    'files.encoding' = 'utf8bom'
+                }
+            }
+            $extensions = @{
+                'recommendations' = @(
+                    'ms-vscode.powershell'
+                )
+            }
+        }
     }
     $null = New-Item -Path './.vscode' -ItemType 'Directory' -Force
-    Push-Location -LiteralPath './.vscode'
-    if ($null -ne $Settings) {
-        Export-Json -LiteralPath './settings.json' -Hashtable $Settings
-        git add './settings.json'
+    if ($null -ne $settings) {
+        Export-Json -LiteralPath './.vscode/settings.json' -Hashtable $settings
+        git add './.vscode/settings.json'
     }
-    if ($null -ne $Extensions) {
-        Export-Json -LiteralPath './extensions.json' -Hashtable $Extensions
-        git add './extensions.json'
+    if ($null -ne $extensions) {
+        Export-Json -LiteralPath './.vscode/extensions.json' -Hashtable $extensions
+        git add './.vscode/extensions.json'
     }
-    Pop-Location
+
     git commit -m 'Add .vscode'
 }

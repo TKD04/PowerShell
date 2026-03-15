@@ -65,7 +65,7 @@ function Initialize-ViteProject {
     Install-Vitest
     Install-Prettier -UseTailwindCss
     Install-TailwindCss -IsVite
-    Add-VsCodeFrontendSetting
+    Initialize-VsCodeSetting -Environment 'Frontend'
     Add-NpmScript -NameToScript @{
         'dev'     = 'vite --open'
         'preview' = 'vite preview --open'

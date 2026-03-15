@@ -22,7 +22,7 @@ function Initialize-NodeDevelopment {
         Install-Nodemon
     }
     Install-TypeDoc
-    Add-VsCodeFrontendSetting
+    Initialize-VsCodeSetting -Environment 'Frontend'
     $null = New-Item -Path './src/app.ts' -ItemType 'File' -Force
     git add './package.json' './src/app.ts'
     git commit -m 'Add environment for Node'

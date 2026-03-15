@@ -64,7 +64,7 @@ function Initialize-NextJsProject {
     Install-EsLint -Environment 'Next'
     Install-Vitest
     Install-Prettier -UseTailwindCss
-    Add-VsCodeFrontendSetting
+    Initialize-VsCodeSetting -Environment 'Frontend'
     if ($DeployToGitHubPages) {
         if (Test-Path -Path './.github/workflows/*.yml' -PathType 'Leaf') {
             Write-Warning -Message 'The workflow file is already in place (skip).'
