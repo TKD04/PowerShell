@@ -47,10 +47,13 @@ function Install-EsLint {
     switch ($Environment) {
         'Node' {
             $devDependencies += 'eslint-plugin-n'
-            $eslintConfigSource = 'node/eslint.config.mjs'
+            $eslintConfigSource = 'templates/eslint-node.config.mjs'
+        }
+        'Vite' {
+            $eslintConfigSource = 'templates/eslint-browser-vite.config.mjs'
         }
         'ViteReact' {
-            $eslintConfigSource = 'browser/eslint-vite-react.config.mjs'
+            $eslintConfigSource = 'templates/eslint-browser-vite-react.config.mjs'
             if (Test-StrictPath -LiteralPath './eslint.config.js' -PathType 'Leaf') {
                 git rm './eslint.config.js'
             }
@@ -63,11 +66,7 @@ function Install-EsLint {
                 pnpm rm eslint-config-next
             }
             $devDependencies += '@next/eslint-plugin-next'
-            $eslintConfigSource = 'browser/eslint-next.config.mjs'
-        }
-        default {
-            # Vite (uses the browser configuration)
-            $eslintConfigSource = 'browser/eslint.config.mjs'
+            $eslintConfigSource = 'templates/eslint-browser-next.config.mjs'
         }
     }
     pnpm add -D @devDependencies

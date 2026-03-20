@@ -41,14 +41,14 @@ function Initialize-NextJsProject {
     }
 
     <# .gitignore #>
-    Join-Path -Path $PSScriptRoot -ChildPath 'common/OS_Node_Nextjs.gitignore' |
+    Join-Path -Path $PSScriptRoot -ChildPath 'templates/OS_Node_Nextjs.gitignore' |
     Copy-Item -Destination './.gitignore' -Force
     git add './.gitignore'
     git commit -m 'Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore'
 
     <# globals.d.ts #>
     # Allow layout.tsx to import "./global.css"
-    Join-Path -Path $PSScriptRoot -ChildPath 'common/globals.d.ts' |
+    Join-Path -Path $PSScriptRoot -ChildPath 'templates/globals.d.ts' |
     Copy-Item -Destination './globals.d.ts' -Force
     git add './globals.d.ts'
     git commit -m 'Add `global.d.ts` to allow `layout.tsx` to import "./global.css"'
@@ -71,7 +71,7 @@ function Initialize-NextJsProject {
         }
         else {
             $null = New-Item -Path './.github/workflows' -ItemType 'Directory' -Force
-            Join-Path -Path $PSScriptRoot -ChildPath 'common/pnpm-nextjs.yml' |
+            Join-Path -Path $PSScriptRoot -ChildPath 'templates/pnpm-nextjs.yml' |
             Copy-Item -Destination './.github/workflows/pnpm-nextjs.yml' -Force
             git add './.github/workflows/pnpm-nextjs.yml'
             git commit -m 'Add pnpm-nextjs.yml to deploy to GitHub Pages'

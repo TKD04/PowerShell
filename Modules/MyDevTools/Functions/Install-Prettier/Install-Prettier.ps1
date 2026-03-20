@@ -19,7 +19,7 @@ function Install-Prettier {
         $devDependencies += @(
             'prettier-plugin-tailwindcss'
         )
-        Join-Path -Path $PSScriptRoot -ChildPath 'common/prettier-tailwindcss.config.mjs' |
+        Join-Path -Path $PSScriptRoot -ChildPath 'templates/prettier-tailwindcss.config.mjs' |
         Copy-Item -Destination './prettier.config.mjs' -Force
         git add './prettier.config.mjs'
     }

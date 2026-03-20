@@ -17,11 +17,11 @@ function Initialize-GitRepository {
 
     git init
     if ($UseNode) {
-        Join-Path -Path $PSScriptRoot -ChildPath 'common/OS_Node.gitignore' |
+        Join-Path -Path $PSScriptRoot -ChildPath 'templates/OS_Node.gitignore' |
         Copy-Item -Destination './.gitignore' -Force
     }
     elseif (-not (Test-StrictPath -LiteralPath './.gitignore' -PathType 'Leaf')) {
-        Join-Path -Path $PSScriptRoot -ChildPath 'common/OS.gitignore' |
+        Join-Path -Path $PSScriptRoot -ChildPath 'templates/OS.gitignore' |
         Copy-Item -Destination './.gitignore' -Force
     }
     else {

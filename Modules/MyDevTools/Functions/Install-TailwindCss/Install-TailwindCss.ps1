@@ -25,9 +25,9 @@ function Install-TailwindCss {
             'postcss-load-config'
         )
         $null = New-Item -Path './src' -ItemType 'Directory' -Force
-        Join-Path -Path $PSScriptRoot -ChildPath 'common/postcss.config.mjs' |
+        Join-Path -Path $PSScriptRoot -ChildPath 'templates/postcss.config.mjs' |
         Copy-Item -Destination './postcss.config.mjs' -Force
-        Join-Path -Path $PSScriptRoot -ChildPath 'common/style.css' |
+        Join-Path -Path $PSScriptRoot -ChildPath 'templates/style.css' |
         Copy-Item -Destination './src/style.css' -Force
         git add './postcss.config.mjs' './src/style.css'
     }

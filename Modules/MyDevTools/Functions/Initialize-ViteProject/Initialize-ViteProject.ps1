@@ -45,16 +45,16 @@ function Initialize-ViteProject {
 
     # Add the "@/ -> ./src" alias and Tailwind @import to the Vite config and CSS.
     if ($UseReact) {
-        Join-Path -Path $PSScriptRoot -ChildPath 'common/vite-react.config.ts' |
+        Join-Path -Path $PSScriptRoot -ChildPath 'templates/vite-react.config.ts' |
         Copy-Item -Destination './vite.config.ts' -Force
-        Join-Path -Path $PSScriptRoot -ChildPath 'common/vite-react-index.css' |
+        Join-Path -Path $PSScriptRoot -ChildPath 'templates/vite-react-index.css' |
         Copy-Item -Destination './src/index.css' -Force
         git add './package.json' './pnpm-lock.yaml' './vite.config.ts' './src/index.css'
     }
     else {
-        Join-Path -Path $PSScriptRoot -ChildPath 'common/vite.config.mjs' |
+        Join-Path -Path $PSScriptRoot -ChildPath 'templates/vite.config.mjs' |
         Copy-Item -Destination './vite.config.mjs' -Force
-        Join-Path -Path $PSScriptRoot -ChildPath 'common/vite-style.css' |
+        Join-Path -Path $PSScriptRoot -ChildPath 'templates/vite-style.css' |
         Copy-Item -Destination './src/style.css' -Force
         git add './vite.config.mjs' './src/style.css'
     }
@@ -78,7 +78,7 @@ function Initialize-ViteProject {
         }
         else {
             $null = New-Item -Path './.github/workflows'-ItemType 'Directory' -Force
-            Join-Path -Path $PSScriptRoot -ChildPath 'common/pnpm-vite.yml' |
+            Join-Path -Path $PSScriptRoot -ChildPath 'templates/pnpm-vite.yml' |
             Copy-Item -Destination './.github/workflows/pnpm-vite.yml' -Force
             git add './.github/workflows/pnpm-vite.yml'
             git commit -m 'Add vite.yml to deploy to GitHub Pages'
