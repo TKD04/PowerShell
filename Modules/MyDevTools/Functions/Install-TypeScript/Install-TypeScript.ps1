@@ -70,35 +70,41 @@ function Install-TypeScript {
             # https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping
             # https://github.com/tsconfig/bases/tree/main/bases
             # For Node.js 24.
-            $tsConfig['compilerOptions']['module'] = 'nodenext'
-            $tsConfig['compilerOptions']['moduleResolution'] = 'node16'
-            $tsConfig['compilerOptions']['types'] = @('node')
-            $tsConfig['compilerOptions']['lib'] = @('es2024')
-            $tsConfig['compilerOptions']['target'] = 'es2024'
+            $tsConfig['compilerOptions'] += @{
+                'module'           = 'nodenext'
+                'moduleResolution' = 'node16'
+                'types'            = @('node')
+                'lib'              = @('es2024')
+                'target'           = 'es2024'
+            }
             $devDependencies += '@types/node'
         }
         'Vite*' {
             if ($Environment -eq 'ViteReact') {
+                $tsConfig['compilerOptions'] += @{
+                    'jsx'             = 'react-jsx'
+                    'tsBuildInfoFile' = './node_modules/.tmp/tsconfig.app.tsbuildinfo'
+                }
                 $tsConfigPath = './tsconfig.app.json'
-                $tsConfig['compilerOptions']['jsx'] = 'react-jsx'
-                $tsConfig['compilerOptions']['tsBuildInfoFile'] = './node_modules/.tmp/tsconfig.app.tsbuildinfo'
             }
-            $tsConfig['compilerOptions']['module'] = 'esnext'
-            $tsConfig['compilerOptions']['moduleResolution'] = 'bundler'
-            $tsConfig['compilerOptions']['paths'] = @{
-                '@/*' = @(
-                    './src/*'
+            $tsConfig['compilerOptions'] += @{
+                'module'           = 'esnext'
+                'moduleResolution' = 'bundler'
+                'paths'            = @{
+                    '@/*' = @(
+                        './src/*'
+                    )
+                }
+                'types'            = @('vite/client')
+                'lib'              = @(
+                    'ES2022'
+                    'DOM'
+                    'DOM.Iterable'
                 )
+                'moduleDetection'  = 'force'
+                'target'           = 'es2022'
+                'noEmit'           = $true
             }
-            $tsConfig['compilerOptions']['types'] = @('vite/client')
-            $tsConfig['compilerOptions']['lib'] = @(
-                'ES2022'
-                'DOM'
-                'DOM.Iterable'
-            )
-            $tsConfig['compilerOptions']['moduleDetection'] = 'force'
-            $tsConfig['compilerOptions']['target'] = 'es2022'
-            $tsConfig['compilerOptions']['noEmit'] = $true
             $tsConfig['compilerOptions'].Remove('outDir')
         }
     }
