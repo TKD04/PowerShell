@@ -77,9 +77,9 @@ function Install-TypeScript {
         }
         'Vite*' {
             if ($Environment -eq 'ViteReact') {
+                $tsConfig['compilerOptions']['tsBuildInfoFile'] = './node_modules/.tmp/tsconfig.app.tsbuildinfo'
                 $tsConfig['compilerOptions'] += @{
-                    'jsx'             = 'react-jsx'
-                    'tsBuildInfoFile' = './node_modules/.tmp/tsconfig.app.tsbuildinfo'
+                    'jsx' = 'react-jsx'
                 }
                 $tsConfigPath = './tsconfig.app.json'
             }
