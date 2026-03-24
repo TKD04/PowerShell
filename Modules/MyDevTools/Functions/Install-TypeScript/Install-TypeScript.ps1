@@ -40,7 +40,6 @@ function Install-TypeScript {
             'noUncheckedSideEffectImports'       = $true
             'resolveJsonModule'                  = $true
             <# Emit #>
-            'outDir'                             = './dist'
             'sourceMap'                          = $true
             <# Interop Constraints #>
             'erasableSyntaxOnly'                 = $true
@@ -70,6 +69,7 @@ function Install-TypeScript {
                 'module'           = 'nodenext'
                 'moduleResolution' = 'node16'
                 'types'            = @('node')
+                'outDir'           = './dist'
                 'lib'              = @('es2024')
                 'target'           = 'es2024'
             }
@@ -101,7 +101,6 @@ function Install-TypeScript {
                 'target'           = 'es2022'
                 'noEmit'           = $true
             }
-            $tsConfig['compilerOptions'].Remove('outDir')
         }
     }
     pnpm add -D @devDependencies
