@@ -17,9 +17,6 @@ function Initialize-ViteProject {
         [switch]$DeployToGitHubPages
     )
 
-    [hashtable]$splat = @{
-        'Environment' = 'Vite'
-    }
     if (-not (Test-CommandExists -Command 'pnpm')) {
         throw 'The command "pnpm" was not found.'
     }
@@ -31,8 +28,6 @@ function Initialize-ViteProject {
         if (-not $hasBabelPluginReactCompiler) {
             throw 'The package "babel-plugin-react-compiler" was not found. Select "TypeScript + React Compiler (Rolldown)" in "Select a variant" when initializing Vite.'
         }
-
-        $splat['Environment'] = 'ViteReact'
     }
 
     Initialize-Git -UseNode
@@ -60,8 +55,8 @@ function Initialize-ViteProject {
     }
     git commit -m 'Add the alias `@/` -> `./src/*` to the Vite config file'
 
-    Install-TypeScript @splat
-    Install-EsLint @splat
+    Install-TypeScript -Environment ($UseReact ? 'ViteReact' : 'Vite')
+    Install-EsLint -Environment ($UseReact ? 'ViteReact' : 'Vite')
     Install-Vitest
     Install-Prettier -UseTailwindCss
     Install-TailwindCss -IsVite
