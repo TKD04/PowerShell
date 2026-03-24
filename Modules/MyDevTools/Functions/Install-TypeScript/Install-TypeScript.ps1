@@ -37,8 +37,6 @@ function Install-TypeScript {
             'noUnusedParameters'                 = $true
             'strict'                             = $true
             <# Modules #>
-            # 'module'                             = ''
-            # 'moduleResolution'                   = ''
             'noUncheckedSideEffectImports'       = $true
             'resolveJsonModule'                  = $true
             <# Emit #>
@@ -51,8 +49,6 @@ function Install-TypeScript {
             'isolatedModules'                    = $true
             'verbatimModuleSyntax'               = $true
             <# Language and Environment #>
-            # 'lib'                                = @()
-            # 'target'                             = ''
             'useDefineForClassFields'            = $true
             <# Projects #>
             'incremental'                        = $true
