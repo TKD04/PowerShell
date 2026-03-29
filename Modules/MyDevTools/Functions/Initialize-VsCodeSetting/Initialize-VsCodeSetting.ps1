@@ -50,13 +50,12 @@ function Initialize-VsCodeSetting {
             }
             $settings += @{
                 <# Web #>
-                'editor.defaultFormatter'                    = 'esbenp.prettier-vscode'
-                'editor.tabSize'                             = 2
+                'editor.defaultFormatter'               = 'esbenp.prettier-vscode'
+                'editor.tabSize'                        = 2
                 <# HTML #>
-                'editor.linkedEditing'                       = $true
+                'editor.linkedEditing'                  = $true
                 <# TypeScript/JavaScript #>
-                'javascript.updateImportsOnFileMove.enabled' = 'always'
-                'typescript.updateImportsOnFileMove.enabled' = 'always'
+                'js/ts.updateImportsOnFileMove.enabled' = 'always'
             }
             $extensions = @{
                 'recommendations' = @(
