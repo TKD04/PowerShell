@@ -18,7 +18,9 @@ function Install-EsLint {
 
     [string]$eslintConfigSource = ''
     [string[]]$devDependencies = @(
+        '@e18e/eslint-plugin'
         '@eslint/js'
+        '@eslint/json'
         '@vitest/eslint-plugin'
         # eslint-config-airbnb-extended@2.3.3 uses @^3
         '@stylistic/eslint-plugin@^3'
@@ -30,6 +32,7 @@ function Install-EsLint {
         'eslint-plugin-jsdoc'
         'eslint-plugin-perfectionist'
         'eslint-plugin-regexp'
+        'eslint-plugin-security'
         'eslint-plugin-simple-import-sort'
         'eslint-plugin-unicorn'
         'globals'
