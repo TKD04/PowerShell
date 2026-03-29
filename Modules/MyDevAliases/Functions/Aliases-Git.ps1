@@ -83,6 +83,12 @@ function Get-GitBranch {
 
 New-Alias -Name 'bra' -Value 'Get-GitBranch'
 
+function Get-GitBranchAll {
+    git branch -a @args
+}
+
+New-Alias -Name 'braa' -Value 'Get-GitBranchAll'
+
 function Switch-GitBranch {
     git checkout @args
 }
