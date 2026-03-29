@@ -1,4 +1,5 @@
 import js from "@eslint/js";
+import vitestPlugin from "@vitest/eslint-plugin";
 import { defineConfig, globalIgnores } from "eslint/config";
 import {
   configs as airbnbXConfigs,
@@ -16,7 +17,6 @@ import reactRefreshPlugin from "eslint-plugin-react-refresh";
 import regexpPlugin from "eslint-plugin-regexp";
 import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
-import vitestPlugin from "eslint-plugin-vitest";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
