@@ -58,6 +58,12 @@ function Initialize-VsCodeSetting {
                 'javascript.updateImportsOnFileMove.enabled' = 'always'
                 'typescript.updateImportsOnFileMove.enabled' = 'always'
             }
+            $extensions = @{
+                'recommendations' = @(
+                    'dbaeumer.vscode-eslint'
+                    'esbenp.prettier-vscode'
+                )
+            }
         }
         'PowerShell' {
             $settings += @{
