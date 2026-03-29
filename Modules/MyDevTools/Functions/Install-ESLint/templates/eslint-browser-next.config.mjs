@@ -27,9 +27,9 @@ export default defineConfig([
     "coverage/",
     // Added by "shadcn/ui"
     "components/ui/",
-    ".next/**",
-    "out/**",
-    "build/**",
+    ".next/",
+    "out/",
+    "build/",
     "next-env.d.ts",
   ]),
   {
