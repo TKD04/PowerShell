@@ -33,6 +33,8 @@ function Initialize-NextJsProject {
         'verbatimModuleSyntax'               = $true
         <# Language and Environment #>
         'useDefineForClassFields'            = $true
+        <# Projects #>
+        'tsBuildInfoFile'                    = './node_modules/.tmp/tsconfig.tsbuildinfo'
     }
     [hashtable]$tsConfig = Import-Json -LiteralPath './tsconfig.json'
 
