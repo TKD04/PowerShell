@@ -13,6 +13,10 @@ function Initialize-NextJsProject {
         [switch]$DeployToGitHubPages
     )
 
+    if (-not (Test-GitClean)) {
+        throw 'Git working tree or staging area contains uncommitted changes.'
+    }
+
     [hashtable]$missingCompilerOptions = @{
         <# Type Checking #>
         'allowUnreachableCode'               = $false

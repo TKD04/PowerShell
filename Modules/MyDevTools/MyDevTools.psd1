@@ -28,6 +28,7 @@
         'Remove-NpmScript'
         'Rename-FileExtension'
         'Test-CommandExists'
+        'Test-GitClean'
         'Test-StrictPath'
     )
     AliasesToExport   = @(
