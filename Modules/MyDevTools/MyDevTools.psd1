@@ -21,7 +21,6 @@
         'Install-React'
         'Install-TailwindCss'
         'Install-TsNode'
-        'Install-TypeDoc'
         'Install-TypeScript'
         'Install-Vitest'
         'Remove-DirectoryFast'

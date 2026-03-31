@@ -21,7 +21,6 @@ function Initialize-NodeDevelopment {
         Install-TsNode
         Install-Nodemon
     }
-    Install-TypeDoc
     Initialize-VsCodeSetting -Environment 'Frontend'
     $null = New-Item -Path './src/app.ts' -ItemType 'File' -Force
     git add './package.json' './src/app.ts'
