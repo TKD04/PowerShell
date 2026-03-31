@@ -25,7 +25,11 @@ function Install-EsLint {
         # eslint-config-airbnb-extended@2.3.3 uses @^3
         '@stylistic/eslint-plugin@^3'
         'eslint'
-        'eslint-config-airbnb-extended'
+        <#
+        # eslint-config-airbnb-extended@^3 introduces breaking dependency changes,
+        # so we'll hold off on upgrading for now.
+        #>
+        'eslint-config-airbnb-extended@^2'
         'eslint-config-prettier'
         'eslint-import-resolver-typescript'
         'eslint-plugin-import-x'
