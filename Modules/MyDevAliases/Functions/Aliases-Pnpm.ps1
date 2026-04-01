@@ -11,3 +11,9 @@ function New-PnpmNextJsProject {
 }
 
 New-Alias -Name 'pnnext' -Value 'New-PnpmNextJsProject'
+
+function Start-PnpmServe {
+    pnpm dlx serve@latest @args
+}
+
+New-Alias -Name 'pnserve' -Value 'Start-PnpmServe'

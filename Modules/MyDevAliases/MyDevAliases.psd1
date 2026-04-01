@@ -49,6 +49,7 @@
         # pnpm
         'New-PnpmViteProject'
         'New-PnpmNextJsProject'
+        'Start-PnpmServe'
         # PowerShell
         'Stop-PowerShellSession'
     )
@@ -101,6 +102,7 @@
         'pn'
         'pnvite'
         'pnnext'
+        'pnserve'
         # PowerShell
         'e'
     )
