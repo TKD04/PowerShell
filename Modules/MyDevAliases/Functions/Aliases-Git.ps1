@@ -75,6 +75,8 @@ function Restore-Git {
     git restore @args
 }
 
+New-Alias -Name 'restore' -Value 'Restore-Git'
+
 function Select-GitCherryPick {
     git cherry-pick @args
 }
