@@ -72,14 +72,17 @@ function Initialize-NextJsProject {
     Install-Prettier -UseTailwindCss
     Initialize-VsCodeSetting -Environment 'Frontend'
     if ($DeployToGitHubPages) {
-        if (Test-Path -Path './.github/workflows/*.yml' -PathType 'Leaf') {
+        [string]$workflowFileName = 'pnpm-nextjs.yml'
+        [string]$workflowDestPath = "./.github/workflows/$workflowFileName"
+
+        if (Test-Path -Path $workflowDestPath -PathType 'Leaf') {
             Write-Warning -Message 'The workflow file is already in place (skip).'
         }
         else {
             $null = New-Item -Path './.github/workflows' -ItemType 'Directory' -Force
-            Join-Path -Path $PSScriptRoot -ChildPath 'templates/pnpm-nextjs.yml' |
-            Copy-Item -Destination './.github/workflows/pnpm-nextjs.yml' -Force
-            git add './.github/workflows/pnpm-nextjs.yml'
+            Join-Path -Path $PSScriptRoot -ChildPath "templates/$workflowFileName" |
+            Copy-Item -Destination $workflowDestPath -Force
+            git add $workflowDestPath
             git commit -m 'Add pnpm-nextjs.yml to deploy to GitHub Pages'
         }
     }
