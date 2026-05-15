@@ -10,7 +10,6 @@
         'Import-Json'
         'Initialize-GitRepository'
         'Initialize-NextJsProject'
-        'Initialize-NodeDevelopment'
         'Initialize-NpmProject'
         'Initialize-ViteProject'
         'Initialize-VsCodeSetting'
