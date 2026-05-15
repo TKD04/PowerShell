@@ -3,7 +3,7 @@
 Initializes a git repository in the current directory.
 
 .PARAMETER UseNode
-Specifies whether to add a .gitignore file for Node.js projects.
+Specifies whether to add a gitignore file for Node.js projects.
 #>
 function Initialize-GitRepository {
     [OutputType([System.Void])]

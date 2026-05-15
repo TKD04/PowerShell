@@ -50,10 +50,10 @@ function Initialize-NextJsProject {
     Join-Path -Path $PSScriptRoot -ChildPath 'templates/OS_Node_Nextjs.gitignore' |
     Copy-Item -Destination './.gitignore' -Force
     git add './.gitignore'
-    git commit -m 'Replace generated .gitignore by Next.js with Node.gitignore from github/gitignore'
+    git commit -m 'Replace generated gitignore by Next.js with Node.gitignore from github/gitignore'
 
     <# globals.d.ts #>
-    # Allow layout.tsx to import "./global.css"
+    # Allow layout.tsx to import "./global.css".
     Join-Path -Path $PSScriptRoot -ChildPath 'templates/globals.d.ts' |
     Copy-Item -Destination './globals.d.ts' -Force
     git add './globals.d.ts'

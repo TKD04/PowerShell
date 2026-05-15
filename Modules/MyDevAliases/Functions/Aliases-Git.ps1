@@ -167,7 +167,7 @@ function Clear-GitUntracked {
 New-Alias -Name 'cl' -Value 'Clear-GitUntracked'
 
 function Clear-GitUntrackedX {
-    # Removes all untracked files, including those in .gitignore.
+    # Removes all untracked files, including those in gitignore.
     git clean -xdf
 }
 
