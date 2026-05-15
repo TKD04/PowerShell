@@ -15,7 +15,6 @@
         'Initialize-VsCodeSetting'
         'Install-EsLint'
         'Install-Gulp'
-        'Install-Nodemon'
         'Install-Prettier'
         'Install-React'
         'Install-TailwindCss'
