@@ -11,8 +11,8 @@ function Initialize-NodeDevelopment {
         [switch]$AddWatch
     )
 
-    Initialize-Git -UseNode
-    Initialize-Npm
+    Initialize-GitRepository -UseNode
+    Initialize-NpmProject
     Install-TypeScript -Environment 'Node'
     Install-EsLint -Environment 'Node'
     Install-Vitest
