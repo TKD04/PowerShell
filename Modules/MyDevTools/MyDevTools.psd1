@@ -18,7 +18,6 @@
         'Install-Prettier'
         'Install-React'
         'Install-TailwindCss'
-        'Install-TsNode'
         'Install-TypeScript'
         'Install-Vitest'
         'Remove-DirectoryFast'
