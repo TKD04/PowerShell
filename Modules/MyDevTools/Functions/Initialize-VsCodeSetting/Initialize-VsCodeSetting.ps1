@@ -85,12 +85,8 @@ function Initialize-VsCodeSetting {
     $null = New-Item -Path './.vscode' -ItemType 'Directory' -Force
     if ($null -ne $settings) {
         Export-Json -LiteralPath './.vscode/settings.json' -Hashtable $settings
-        git add './.vscode/settings.json'
     }
     if ($null -ne $extensions) {
         Export-Json -LiteralPath './.vscode/extensions.json' -Hashtable $extensions
-        git add './.vscode/extensions.json'
     }
-
-    git commit -m 'Add .vscode'
 }

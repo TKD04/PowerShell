@@ -51,23 +51,17 @@ function Initialize-NextJsProject {
     # that combines rules for Windows, macOS, Linux, Node, and Next.js.
     Join-Path -Path $PSScriptRoot -ChildPath 'templates/OS_Node_Nextjs.gitignore' |
     Copy-Item -Destination './.gitignore' -Force
-    git add './.gitignore'
-    git commit -m 'Replace generated gitignore by Next.js with Node.gitignore from github/gitignore'
 
     <# globals.d.ts #>
     # Add globals.d.ts so layout.tsx can import "./global.css" without TypeScript errors.
     Join-Path -Path $PSScriptRoot -ChildPath 'templates/globals.d.ts' |
     Copy-Item -Destination './globals.d.ts' -Force
-    git add './globals.d.ts'
-    git commit -m 'Add `global.d.ts` to allow `layout.tsx` to import "./global.css"'
 
     <# tsconfig.json #>
     foreach ($key in $missingCompilerOptions.Keys) {
         $tsConfig['compilerOptions'][$key] = $missingCompilerOptions[$key]
     }
     Export-Json -LiteralPath './tsconfig.json' -Hashtable $tsConfig
-    git add './tsconfig.json'
-    git commit -m 'Make tsconfig.json more strict'
 
     Install-EsLint -Environment 'Next'
     Install-Prettier -UseTailwindCss
@@ -85,10 +79,11 @@ function Initialize-NextJsProject {
             $null = New-Item -Path $workflowDirectory -ItemType 'Directory' -Force
             Join-Path -Path $PSScriptRoot -ChildPath "templates/$workflowFileName" |
             Copy-Item -Destination $workflowDestPath -Force
-            git add $workflowDestPath
-            git commit -m 'Add pnpm-nextjs.yml to deploy to GitHub Pages'
         }
     }
+
+    git add .
+    git commit -m 'chore(scaffold): Next.js setup enhancements'
 
     Write-Host -Object '✅ Setup complete: Next.js project is now ready!' -ForegroundColor 'Green'
 }

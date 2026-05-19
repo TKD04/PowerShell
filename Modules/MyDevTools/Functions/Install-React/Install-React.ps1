@@ -17,6 +17,4 @@ function Install-React {
 
     pnpm add @dependencies
     pnpm add -D @devDependencies
-    git add './package.json' './pnpm-lock.yaml'
-    git commit -m 'Add React'
 }

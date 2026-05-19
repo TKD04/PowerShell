@@ -21,12 +21,9 @@ function Install-Prettier {
         )
         Join-Path -Path $PSScriptRoot -ChildPath 'templates/prettier-tailwindcss.config.mjs' |
         Copy-Item -Destination './prettier.config.mjs' -Force
-        git add './prettier.config.mjs'
     }
     Add-NpmScript -NameToScript @{
         'format' = 'prettier . --write'
     }
     pnpm add -D @devDependencies
-    git add './package.json' './pnpm-lock.yaml'
-    git commit -m 'Add Prettier'
 }

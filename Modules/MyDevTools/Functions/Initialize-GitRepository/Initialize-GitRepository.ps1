@@ -28,7 +28,7 @@ function Initialize-GitRepository {
         Write-Warning -Message '.gitignore is already in place (skip).'
     }
     git add './.gitignore'
-    git commit -m 'First commit'
+    git commit -m 'chore: initial commit'
 }
 
 Set-Alias -Name 'ginit' -Value 'Initialize-GitRepository'
