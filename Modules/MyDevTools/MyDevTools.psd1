@@ -10,7 +10,7 @@
         'Import-Json'
         'Initialize-GitRepository'
         'Initialize-NextJsProject'
-        'Initialize-NpmProject'
+        'Initialize-PnpmProject'
         'Initialize-ViteProject'
         'Initialize-VsCodeSetting'
         'Install-EsLint'
@@ -30,7 +30,7 @@
     AliasesToExport   = @(
         'cptree'
         'ginit'
-        'ninit'
+        'pinit'
         'rmfiles'
         'rmdirf'
         'renext'
