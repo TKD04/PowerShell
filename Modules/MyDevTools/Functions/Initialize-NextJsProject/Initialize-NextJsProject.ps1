@@ -74,14 +74,15 @@ function Initialize-NextJsProject {
     Install-Prettier -UseTailwindCss
     Initialize-VsCodeSetting -Environment 'Frontend'
     if ($DeployToGitHubPages) {
+        [string]$workflowDirectory = './.github/workflows'
         [string]$workflowFileName = 'pnpm-nextjs.yml'
-        [string]$workflowDestPath = "./.github/workflows/$workflowFileName"
+        [string]$workflowDestPath = Join-Path -Path $workflowDirectory -ChildPath $workflowFileName
 
         if (Test-Path -Path $workflowDestPath -PathType 'Leaf') {
             Write-Warning -Message 'The workflow file is already in place (skip).'
         }
         else {
-            $null = New-Item -Path './.github/workflows' -ItemType 'Directory' -Force
+            $null = New-Item -Path $workflowDirectory -ItemType 'Directory' -Force
             Join-Path -Path $PSScriptRoot -ChildPath "templates/$workflowFileName" |
             Copy-Item -Destination $workflowDestPath -Force
             git add $workflowDestPath
