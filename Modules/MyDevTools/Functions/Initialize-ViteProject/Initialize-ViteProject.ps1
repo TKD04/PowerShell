@@ -59,13 +59,17 @@ function Initialize-ViteProject {
         'preview' = 'vite preview --open'
     }
     if ($DeployToGitHubPages) {
-        if (Test-Path -Path './.github/workflows/*.yml' -PathType 'Leaf') {
+        [string]$workflowDirectory = './.github/workflows'
+        [string]$workflowFileName = 'pnpm-vite.yml'
+        [string]$workflowDestPath = Join-Path -Path $workflowDirectory -ChildPath $workflowFileName
+
+        if (Test-Path -Path $workflowDestPath -PathType 'Leaf') {
             Write-Warning -Message 'The workflow file is already in place (skip).'
         }
         else {
-            $null = New-Item -Path './.github/workflows'-ItemType 'Directory' -Force
-            Join-Path -Path $PSScriptRoot -ChildPath 'templates/pnpm-vite.yml' |
-            Copy-Item -Destination './.github/workflows/pnpm-vite.yml' -Force
+            $null = New-Item -Path $workflowDirectory -ItemType 'Directory' -Force
+            Join-Path -Path $PSScriptRoot -ChildPath "templates/$workflowFileName" |
+            Copy-Item -Destination $workflowDestPath -Force
         }
     }
 
