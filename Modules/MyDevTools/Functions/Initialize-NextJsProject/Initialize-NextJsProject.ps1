@@ -70,8 +70,8 @@ function Initialize-NextJsProject {
     git commit -m 'Make tsconfig.json more strict'
 
     Install-EsLint -Environment 'Next'
-    Install-Vitest
     Install-Prettier -UseTailwindCss
+    Install-Vitest
     Initialize-VsCodeSetting -Environment 'Frontend'
     if ($DeployToGitHubPages) {
         [string]$workflowDirectory = './.github/workflows'
