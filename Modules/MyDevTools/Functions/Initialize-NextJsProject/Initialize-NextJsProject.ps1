@@ -47,13 +47,15 @@ function Initialize-NextJsProject {
     }
 
     <# .gitignore #>
+    # Replace the gitignore created by "create-next-app" with a custom gitignore
+    # that combines rules for Windows, macOS, Linux, Node, and Next.js.
     Join-Path -Path $PSScriptRoot -ChildPath 'templates/OS_Node_Nextjs.gitignore' |
     Copy-Item -Destination './.gitignore' -Force
     git add './.gitignore'
     git commit -m 'Replace generated gitignore by Next.js with Node.gitignore from github/gitignore'
 
     <# globals.d.ts #>
-    # Allow layout.tsx to import "./global.css".
+    # Add globals.d.ts so layout.tsx can import "./global.css" without TypeScript errors.
     Join-Path -Path $PSScriptRoot -ChildPath 'templates/globals.d.ts' |
     Copy-Item -Destination './globals.d.ts' -Force
     git add './globals.d.ts'
