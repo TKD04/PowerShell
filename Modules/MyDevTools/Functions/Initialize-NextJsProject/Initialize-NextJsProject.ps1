@@ -58,6 +58,7 @@ function Initialize-NextJsProject {
     Copy-Item -Destination './globals.d.ts' -Force
 
     <# tsconfig.json #>
+    $tsconfig['compilerOptions'] ??= @{}
     foreach ($key in $missingCompilerOptions.Keys) {
         $tsConfig['compilerOptions'][$key] = $missingCompilerOptions[$key]
     }
