@@ -66,7 +66,7 @@ function Install-EsLint {
         'ViteReact' {
             $eslintConfigSource = 'templates/eslint-browser-vite-react.config.mjs'
             if (Test-StrictPath -LiteralPath './eslint.config.js' -PathType 'Leaf') {
-                git rm './eslint.config.js'
+                Remove-Item -LiteralPath './eslint.config.js'
             }
         }
         'Next' {
