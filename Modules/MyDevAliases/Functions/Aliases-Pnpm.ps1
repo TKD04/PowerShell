@@ -1,6 +1,4 @@
-﻿New-Alias -Name 'pn' -Value 'pnpm'
-
-function New-PnpmViteProject {
+﻿function New-PnpmViteProject {
     pnpm create vite@latest
 }
 
