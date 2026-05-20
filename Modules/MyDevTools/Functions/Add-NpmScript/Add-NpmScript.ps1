@@ -15,9 +15,7 @@ function Add-NpmScript {
     [string]$packageJsonFullPath = (Resolve-Path -LiteralPath './package.json' -ErrorAction 'Stop').ProviderPath
     [hashtable]$package = Import-Json -LiteralPath $packageJsonFullPath
 
-    if (-not $package.ContainsKey('scripts')) {
-        $package['scripts'] = @{}
-    }
+    $package['scripts'] ??= @{}
     foreach ($key in $NameToScript.Keys) {
         $package['scripts'][$key] = $NameToScript[$key]
     }
