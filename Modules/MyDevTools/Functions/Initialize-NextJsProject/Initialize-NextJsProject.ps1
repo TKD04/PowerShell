@@ -52,6 +52,11 @@ function Initialize-NextJsProject {
     Join-Path -Path $PSScriptRoot -ChildPath 'templates/OS_Node_Nextjs.gitignore' |
     Copy-Item -Destination './.gitignore' -Force
 
+    <# pnpm-workspace.yaml #>
+    # Add pnpm-workspace.yaml to enable allowBuilds.
+    Join-Path -Path $PSScriptRoot -ChildPath 'templates/pnpm-workspace.yaml' |
+    Copy-Item -Destination './pnpm-workspace.yaml' -Force
+
     <# globals.d.ts #>
     # Add globals.d.ts so layout.tsx can import "./global.css" without TypeScript errors.
     Join-Path -Path $PSScriptRoot -ChildPath 'templates/globals.d.ts' |
