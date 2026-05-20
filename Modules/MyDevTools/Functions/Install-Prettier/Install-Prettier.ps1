@@ -11,6 +11,10 @@ function Install-Prettier {
         [switch]$UseTailwindCss
     )
 
+    if (-not (Test-CommandExists -Command 'pnpm')) {
+        throw 'The command "pnpm" was not found.'
+    }
+
     [string[]]$devDependencies = @(
         'prettier'
     )

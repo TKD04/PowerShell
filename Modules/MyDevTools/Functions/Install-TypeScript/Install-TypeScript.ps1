@@ -16,6 +16,10 @@ function Install-TypeScript {
         [string]$Environment
     )
 
+    if (-not (Test-CommandExists -Command 'pnpm')) {
+        throw 'The command "pnpm" was not found.'
+    }
+
     [string]$tsConfigPath = './tsconfig.json'
     [hashtable]$tsConfig = @{
         # https://www.typescriptlang.org/tsconfig

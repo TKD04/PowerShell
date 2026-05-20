@@ -11,6 +11,10 @@ function Install-TailwindCss {
         [switch]$IsVite
     )
 
+    if (-not (Test-CommandExists -Command 'pnpm')) {
+        throw 'The command "pnpm" was not found.'
+    }
+
     [string[]]$devDependencies = @(
         'tailwindcss'
     )

@@ -16,6 +16,10 @@ function Install-EsLint {
         [string]$Environment
     )
 
+    if (-not (Test-CommandExists -Command 'pnpm')) {
+        throw 'The command "pnpm" was not found.'
+    }
+
     [string]$eslintConfigSource = ''
     [string[]]$devDependencies = @(
         '@e18e/eslint-plugin'

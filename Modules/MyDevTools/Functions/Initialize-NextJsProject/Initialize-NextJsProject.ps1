@@ -13,6 +13,12 @@ function Initialize-NextJsProject {
         [switch]$DeployToGitHubPages
     )
 
+    if (Test-CommandExists -Command 'git') {
+        throw 'The command "git" was not found.'
+    }
+    if (-not (Test-CommandExists -Command 'pnpm')) {
+        throw 'The command "pnpm" was not found.'
+    }
     if (-not (Test-GitClean)) {
         throw 'Git working tree or staging area contains uncommitted changes.'
     }

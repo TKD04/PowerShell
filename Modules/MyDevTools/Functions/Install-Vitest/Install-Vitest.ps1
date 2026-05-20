@@ -6,6 +6,10 @@ function Install-Vitest {
     [OutputType([System.Void])]
     param()
 
+    if (-not (Test-CommandExists -Command 'pnpm')) {
+        throw 'The command "pnpm" was not found.'
+    }
+
     [string[]]$devDependencies = @(
         '@vitest/coverage-v8'
         'vitest'
