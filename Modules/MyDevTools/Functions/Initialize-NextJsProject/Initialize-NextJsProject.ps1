@@ -80,6 +80,8 @@ function Initialize-NextJsProject {
             Join-Path -Path $PSScriptRoot -ChildPath "templates/$workflowFileName" |
             Copy-Item -Destination $workflowDestPath -Force
         }
+        # Remove the preview script because GitHub Pages only serves static exports.
+        Remove-NpmScript -ScriptName 'preview'
     }
 
     git add .
