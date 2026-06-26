@@ -16,7 +16,6 @@
         'Install-EsLint'
         'Install-Gulp'
         'Install-Oxfmt'
-        'Install-Prettier'
         'Install-React'
         'Install-TailwindCss'
         'Install-TypeScript'
