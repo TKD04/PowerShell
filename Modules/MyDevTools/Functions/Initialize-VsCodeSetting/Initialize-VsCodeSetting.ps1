@@ -50,7 +50,7 @@ function Initialize-VsCodeSetting {
             }
             $settings += @{
                 <# Web #>
-                'editor.defaultFormatter'                     = 'esbenp.prettier-vscode'
+                'editor.defaultFormatter'                     = 'oxc.oxc-vscode'
                 'editor.tabSize'                              = 2
                 <# HTML #>
                 'editor.linkedEditing'                        = $true
@@ -61,7 +61,7 @@ function Initialize-VsCodeSetting {
             $extensions = @{
                 'recommendations' = @(
                     'dbaeumer.vscode-eslint'
-                    'esbenp.prettier-vscode'
+                    'oxc.oxc-vscode'
                 )
             }
         }
