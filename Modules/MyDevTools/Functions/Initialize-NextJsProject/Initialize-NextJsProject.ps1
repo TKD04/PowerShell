@@ -76,7 +76,7 @@ function Initialize-NextJsProject {
     Export-Json -LiteralPath './tsconfig.json' -Hashtable $tsConfig
 
     Install-EsLint -Environment 'Next'
-    Install-Prettier -UseTailwindCss
+    Install-Oxfmt -UseTailwindCss
     Install-Vitest
     Initialize-VsCodeSetting -Environment 'Frontend'
     if ($DeployToGitHubPages) {

@@ -57,7 +57,7 @@ function Initialize-ViteProject {
     Install-TypeScript -Environment ($UseReact ? 'ViteReact' : 'Vite')
     Install-EsLint -Environment ($UseReact ? 'ViteReact' : 'Vite')
     Install-Vitest
-    Install-Prettier -UseTailwindCss
+    Install-Oxfmt -UseTailwindCss
     Install-TailwindCss -IsVite
     Initialize-VsCodeSetting -Environment 'Frontend'
     Add-NpmScript -NameToScript @{
