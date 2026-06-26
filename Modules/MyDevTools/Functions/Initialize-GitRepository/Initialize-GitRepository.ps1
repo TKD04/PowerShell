@@ -11,7 +11,7 @@ function Initialize-GitRepository {
         [switch]$UseNode
     )
 
-    if (Test-CommandExists -Command 'git') {
+    if (-not (Test-CommandExists -Command 'git')) {
         throw 'The command "git" was not found.'
     }
     if (Test-StrictPath -LiteralPath './.git' -PathType 'Container') {

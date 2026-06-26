@@ -17,7 +17,7 @@ function Initialize-ViteProject {
         [switch]$DeployToGitHubPages
     )
 
-    if (Test-CommandExists -Command 'git') {
+    if (-not (Test-CommandExists -Command 'git')) {
         throw 'The command "git" was not found.'
     }
     if (-not (Test-CommandExists -Command 'corepack')) {

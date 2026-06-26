@@ -6,7 +6,7 @@ function Initialize-PnpmProject {
     [OutputType([System.Void])]
     param()
 
-    if (Test-CommandExists -Command 'git') {
+    if (-not (Test-CommandExists -Command 'git')) {
         throw 'The command "git" was not found.'
     }
     if (-not (Test-CommandExists -Command 'corepack')) {
