@@ -2,23 +2,20 @@ import e18e from "@e18e/eslint-plugin";
 import js from "@eslint/js";
 import json from "@eslint/json";
 import vitestPlugin from "@vitest/eslint-plugin";
-import { defineConfig, globalIgnores } from "eslint/config";
 import {
   configs as airbnbXConfigs,
   plugins as airbnbXPlugins,
   rules as airbnbXRules,
 } from "eslint-config-airbnb-extended";
 import eslintConfigPrettier from "eslint-config-prettier";
-import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript";
-import { createNodeResolver } from "eslint-plugin-import-x";
 import jsdocPlugin from "eslint-plugin-jsdoc";
 import perfectionistPlugin from "eslint-plugin-perfectionist";
 import regexpPlugin from "eslint-plugin-regexp";
 import eslintPluginSecurity from "eslint-plugin-security";
-import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
+import tsdocPlugin from "eslint-plugin-tsdoc";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
+import { defineConfig, globalIgnores } from "eslint/config";
 import globals from "globals";
-import tseslint from "typescript-eslint";
 
 export default defineConfig([
   globalIgnores(["dist/", "docs/", "coverage/"]),
@@ -27,50 +24,28 @@ export default defineConfig([
       js.configs.recommended,
       airbnbXPlugins.stylistic,
       airbnbXPlugins.importX,
-      airbnbXPlugins.typescriptEslint,
       airbnbXPlugins.node,
       airbnbXConfigs.base.recommended,
-      airbnbXConfigs.base.typescript,
       airbnbXConfigs.node.recommended,
-      /*
-       * Overrides the recommended Import and TypeScript-ESLint rules with
-       * the stricter ones.
-       */
       airbnbXRules.base.importsStrict,
-      airbnbXRules.typescript.typescriptEslintStrict,
       eslintPluginUnicorn.configs.all,
       e18e.configs.recommended,
       eslintPluginSecurity.configs.recommended,
-      jsdocPlugin.configs["flat/recommended-typescript-error"],
       regexpPlugin.configs["flat/all"],
       perfectionistPlugin.configs["recommended-natural"],
     ],
     files: ["src/**/*.ts", "*.{js,mjs,cjs,ts}"],
     languageOptions: {
       globals: globals.node,
-      parserOptions: {
-        /*
-         * "projectService" is intentionally NOT specified here.
-         * It is already enabled by "airbnbXConfigs.base.typescript" and is
-         * preserved via deep-merge behavior in ESLint flat config.
-         * https://github.com/eslint-config/airbnb-extended/blob/master/packages/eslint-config-airbnb-extended/rules/typescript/typescriptEslint.ts#L13
-         */
-        // eslint-disable-next-line n/no-unsupported-features/node-builtins
-        tsconfigRootDir: import.meta.dirname,
-      },
     },
     name: "base",
-    plugins: {
-      jsdoc: jsdocPlugin,
-      "simple-import-sort": eslintPluginSimpleImportSort,
-    },
     rules: {
       /*
        * Disabled since Vite allows importing assets from the public folder
        * via root-relative paths.
        */
       "import-x/no-absolute-path": "off",
-      // Disabled "import-x/order" in favor of "simple-import-sort/imports"
+      // Disabled "import-x/order" in favor of "perfectionist/sort-imports"
       "import-x/order": "off",
       /*
        * Re-enabled "ForOfStatement" (previously restricted by eslint-config-airbnb-extended)
@@ -97,28 +72,39 @@ export default defineConfig([
           selector: "WithStatement",
         },
       ],
-      // Disabled "perfectionist/sort-imports" in favor of "simple-import-sort/imports"
-      "perfectionist/sort-imports": "off",
       "regexp/require-unicode-sets-regexp": "off",
-      "simple-import-sort/exports": "error",
-      "simple-import-sort/imports": "error",
       /*
        * Keep "unicorn/all" enabled and disable this unnecessary rule.
        * https://github.com/sindresorhus/eslint-plugin-unicorn/blob/bd0901b160e7cbef7a3e3140ea628fc41b8b215d/docs/rules/prefer-json-parse-buffer.md
        */
       "unicorn/prefer-json-parse-buffer": "off",
     },
-    settings: {
-      "import-x/resolver-next": [
-        createTypeScriptImportResolver(),
-        createNodeResolver(),
-      ],
-    },
   },
   {
-    extends: [tseslint.configs.disableTypeChecked],
-    files: ["*.{js,mjs,cjs}"],
-    name: "js",
+    extends: [
+      airbnbXPlugins.typescriptEslint,
+      airbnbXConfigs.base.typescript,
+      airbnbXRules.typescript.typescriptEslintStrict,
+    ],
+    files: ["src/**/*.ts", "*.ts"],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+    name: "typescript",
+  },
+  {
+    extends: [jsdocPlugin.configs["flat/recommended-tsdoc-error"]],
+    files: ["src/**/*.ts"],
+    name: "tsdoc",
+    plugins: {
+      tsdoc: tsdocPlugin,
+    },
+    rules: {
+      "tsdoc/syntax": "error",
+    },
   },
   {
     extends: [vitestPlugin.configs.all],
@@ -132,12 +118,11 @@ export default defineConfig([
   },
   {
     // https://github.com/e18e/eslint-plugin?tab=readme-ov-file#linting-packagejson
-    extends: ["e18e/recommended"],
+    extends: [e18e.configs.recommended],
     files: ["package.json"],
     language: "json/json",
     name: "dependencies",
     plugins: {
-      e18e,
       json,
     },
   },

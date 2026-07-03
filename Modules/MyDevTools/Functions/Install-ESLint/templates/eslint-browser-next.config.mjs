@@ -2,25 +2,22 @@ import e18e from "@e18e/eslint-plugin";
 import js from "@eslint/js";
 import json from "@eslint/json";
 import vitestPlugin from "@vitest/eslint-plugin";
-import { defineConfig, globalIgnores } from "eslint/config";
 import {
   configs as airbnbXConfigs,
   plugins as airbnbXPlugins,
   rules as airbnbXRules,
 } from "eslint-config-airbnb-extended";
 import eslintConfigPrettier from "eslint-config-prettier";
-import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript";
-import { createNodeResolver } from "eslint-plugin-import-x";
 import jsdocPlugin from "eslint-plugin-jsdoc";
 import perfectionistPlugin from "eslint-plugin-perfectionist";
 import reactHooksPlugin from "eslint-plugin-react-hooks";
 import reactRefreshPlugin from "eslint-plugin-react-refresh";
 import regexpPlugin from "eslint-plugin-regexp";
 import eslintPluginSecurity from "eslint-plugin-security";
-import eslintPluginSimpleImportSort from "eslint-plugin-simple-import-sort";
+import tsdocPlugin from "eslint-plugin-tsdoc";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
+import { defineConfig, globalIgnores } from "eslint/config";
 import globals from "globals";
-import tseslint from "typescript-eslint";
 
 export default defineConfig([
   globalIgnores([
@@ -28,27 +25,21 @@ export default defineConfig([
     "docs/",
     "public/",
     "coverage/",
-    // Added by "shadcn/ui"
-    "components/ui/",
     ".next/",
     "out/",
     "build/",
     "next-env.d.ts",
+    // Added by "shadcn/ui"
+    "lib/utils.ts",
+    "components/ui/",
   ]),
   {
     extends: [
       js.configs.recommended,
       airbnbXPlugins.stylistic,
       airbnbXPlugins.importX,
-      airbnbXPlugins.typescriptEslint,
       airbnbXConfigs.base.recommended,
-      airbnbXConfigs.base.typescript,
-      /*
-       * Overrides the recommended Import and TypeScript-ESLint rules with
-       * the stricter ones.
-       */
       airbnbXRules.base.importsStrict,
-      airbnbXRules.typescript.typescriptEslintStrict,
       eslintPluginUnicorn.configs.all,
       e18e.configs.recommended,
       eslintPluginSecurity.configs.recommended,
@@ -60,33 +51,17 @@ export default defineConfig([
       "{constants,hooks,lib}/**/*.ts",
       "*.{js,mjs,cjs,ts}",
     ],
-    ignores: [
-      // Added by "shadcn/ui"
-      "lib/utils.ts",
-    ],
     languageOptions: {
       globals: globals.browser,
-      parserOptions: {
-        /*
-         * "projectService" is intentionally NOT specified here.
-         * It is already enabled by "airbnbXConfigs.base.typescript" and is
-         * preserved via deep-merge behavior in ESLint flat config.
-         * https://github.com/eslint-config/airbnb-extended/blob/master/packages/eslint-config-airbnb-extended/rules/typescript/typescriptEslint.ts#L13
-         */
-        tsconfigRootDir: import.meta.dirname,
-      },
     },
     name: "base",
-    plugins: {
-      "simple-import-sort": eslintPluginSimpleImportSort,
-    },
     rules: {
       /*
        * Disabled since Vite allows importing assets from the public folder
        * via root-relative paths.
        */
       "import-x/no-absolute-path": "off",
-      // Disabled "import-x/order" in favor of "simple-import-sort/imports"
+      // Disabled "import-x/order" in favor of "perfectionist/sort-imports"
       "import-x/order": "off",
       /*
        * Re-enabled "ForOfStatement" (previously restricted by eslint-config-airbnb-extended)
@@ -113,11 +88,7 @@ export default defineConfig([
           selector: "WithStatement",
         },
       ],
-      // Disabled "perfectionist/sort-imports" in favor of "simple-import-sort/imports"
-      "perfectionist/sort-imports": "off",
       "regexp/require-unicode-sets-regexp": "off",
-      "simple-import-sort/exports": "error",
-      "simple-import-sort/imports": "error",
       /*
        * Keep "unicorn/all" enabled and disable this unnecessary rule.
        * https://github.com/sindresorhus/eslint-plugin-unicorn/blob/bd0901b160e7cbef7a3e3140ea628fc41b8b215d/docs/rules/prefer-json-parse-buffer.md
@@ -137,28 +108,32 @@ export default defineConfig([
         },
       ],
     },
-    settings: {
-      "import-x/resolver-next": [
-        createTypeScriptImportResolver(),
-        createNodeResolver(),
-      ],
-    },
   },
   {
-    extends: [tseslint.configs.disableTypeChecked],
-    files: ["*.{js,mjs,cjs}"],
-    name: "js",
-  },
-  {
-    extends: [jsdocPlugin.configs["flat/recommended-typescript-error"]],
-    files: [
-      "{app,components,features}/**/*.ts",
-      "{constants,hooks,lib}/**/*.ts",
+    extends: [
+      airbnbXPlugins.typescriptEslint,
+      airbnbXConfigs.base.typescript,
+      airbnbXRules.typescript.typescriptEslintStrict,
+      airbnbXConfigs.next.typescript,
     ],
-    ignores: ["lib/utils.ts"],
-    name: "jsdoc",
+    files: ["{app,components,features}/**/*.{ts,tsx}", "{constants,hooks,lib}/**/*.ts"],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+    name: "typescript",
+  },
+  {
+    extends: [jsdocPlugin.configs["flat/recommended-tsdoc-error"]],
+    files: ["{app,components,features}/**/*.ts", "{constants,hooks,lib}/**/*.ts"],
+    name: "tsdoc",
     plugins: {
-      jsdoc: jsdocPlugin,
+      tsdoc: tsdocPlugin,
+    },
+    rules: {
+      "tsdoc/syntax": "error",
     },
   },
   {
@@ -168,9 +143,8 @@ export default defineConfig([
        * eslint-plugin-react-hooks' recommended rules.
        * https://react.dev/blog/2025/10/07/react-compiler-1#migrating-from-eslint-plugin-react-compiler-to-eslint-plugin-react-hooks
        */
-      reactHooksPlugin.configs.flat.recommended,
+      reactHooksPlugin.configs.flat["recommended-latest"],
       airbnbXPlugins.react,
-      airbnbXPlugins.reactHooks,
       airbnbXPlugins.reactA11y,
       airbnbXPlugins.next,
       /*
@@ -179,8 +153,6 @@ export default defineConfig([
        * https://github.com/eslint-config/airbnb-extended/blob/1b7d222c1f6ab866b84541f5e176e015547cbb71/packages/eslint-config-airbnb-extended/extensions/next/recommended.ts#L14
        */
       airbnbXConfigs.next.recommended,
-      airbnbXConfigs.next.typescript,
-      // Overrides the recommended React rules with the stricter ones.
       airbnbXRules.react.strict,
       reactRefreshPlugin.configs.next,
     ],
@@ -194,10 +166,7 @@ export default defineConfig([
   },
   {
     extends: [vitestPlugin.configs.all],
-    files: [
-      "{app,components,features}/**/*.test.{ts,tsx}",
-      "{constants,hooks,lib}/**/*.test.ts",
-    ],
+    files: ["{app,components,features}/**/*.test.{ts,tsx}", "{constants,hooks,lib}/**/*.test.ts"],
     name: "test",
     settings: {
       vitest: {
@@ -207,12 +176,11 @@ export default defineConfig([
   },
   {
     // https://github.com/e18e/eslint-plugin?tab=readme-ov-file#linting-packagejson
-    extends: ["e18e/recommended"],
+    extends: [e18e.configs.recommended],
     files: ["package.json"],
     language: "json/json",
     name: "dependencies",
     plugins: {
-      e18e,
       json,
     },
   },

@@ -23,41 +23,35 @@ function Install-EsLint {
     [string]$eslintConfigSource = ''
     [string[]]$devDependencies = @(
         '@e18e/eslint-plugin'
-        '@eslint/js'
         '@eslint/json'
         '@vitest/eslint-plugin'
-        # eslint-config-airbnb-extended@2.3.3 uses @^3
-        '@stylistic/eslint-plugin@^3'
-        'eslint'
-        <#
-        # eslint-config-airbnb-extended@^3 introduces breaking dependency changes,
-        # so we'll hold off on upgrading for now.
-        #>
-        'eslint-config-airbnb-extended@^2'
         'eslint-config-prettier'
-        'eslint-import-resolver-typescript'
-        'eslint-plugin-import-x'
         'eslint-plugin-jsdoc'
         'eslint-plugin-perfectionist'
         'eslint-plugin-regexp'
         'eslint-plugin-security'
-        'eslint-plugin-simple-import-sort'
-        'eslint-plugin-unicorn'
+        'eslint-plugin-tsdoc'
+        # eslint-plugin-unicorn@>=66.0.0 requires eslint@>=10.4.0.
+        # Since eslint-config-airbnb-extended@^3 depends on eslint@^9,
+        # we stick to eslint-plugin-unicorn@^65 for compatibility.
+        'eslint-plugin-unicorn@^65'
         'globals'
-        'typescript-eslint'
+
+        # Peer dependencies managed by eslint-config-airbnb-extended
+        # (Review and update these locks when bumping major versions)
+        '@eslint/js^9'
+        'eslint^9'
+        'eslint-config-airbnb-extended@^3'
     )
 
     if ($Environment -cmatch 'React$|^Next$') {
         $devDependencies += @(
-            'eslint-plugin-jsx-a11y'
-            'eslint-plugin-react'
             'eslint-plugin-react-hooks'
             'eslint-plugin-react-refresh'
         )
     }
     switch ($Environment) {
         'Node' {
-            $devDependencies += 'eslint-plugin-n'
             $eslintConfigSource = 'templates/eslint-node.config.mjs'
         }
         'Vite' {
@@ -74,12 +68,20 @@ function Install-EsLint {
             [bool]$hasNpmScriptLint = $package.ContainsKey('scripts') -and $package['scripts'].ContainsKey('lint')
 
             if ($hasNpmScriptLint) {
-                pnpm rm eslint-config-next
+                pnpm rm 'eslint-config-next'
             }
-            $devDependencies += '@next/eslint-plugin-next'
             $eslintConfigSource = 'templates/eslint-browser-next.config.mjs'
         }
     }
+    <# pnpm-workspace.yaml #>
+    # Skip for Next.js because Initialize-NextJsProject provides
+    # its own pnpm-workspace.yaml with allowBuilds entries
+    # for esbuild, sharp, and unrs-resolver.
+    if (-not $Environment -eq 'Next') {
+        Join-Path -Path $PSScriptRoot -ChildPath 'templates/pnpm-workspace.yaml' |
+        Copy-Item -Destination './pnpm-workspace.yaml' -Force
+    }
+
     pnpm add -D @devDependencies
     Add-NpmScript -NameToScript @{
         'lint' = 'eslint . --cache'
