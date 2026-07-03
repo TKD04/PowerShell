@@ -59,7 +59,7 @@ function Initialize-NextJsProject {
     Copy-Item -Destination './.gitignore' -Force
 
     <# pnpm-workspace.yaml #>
-    # Add pnpm-workspace.yaml to enable allowBuilds.
+    # Add pnpm-workspace.yaml to allow required packages to run build scripts.
     Join-Path -Path $PSScriptRoot -ChildPath 'templates/pnpm-workspace.yaml' |
     Copy-Item -Destination './pnpm-workspace.yaml' -Force
 
