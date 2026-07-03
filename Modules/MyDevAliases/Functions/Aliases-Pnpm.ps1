@@ -1,5 +1,11 @@
 ﻿New-Alias -Name 'pn' -Value 'pnpm'
 
+function Update-CorepackPnpm {
+    corepack use pnpm@latest
+}
+
+New-Alias -Name 'pnlatest' -Value 'Update-CorepackPnpm'
+
 function New-PnpmViteProject {
     pnpm create vite@latest
 }

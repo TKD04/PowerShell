@@ -47,6 +47,7 @@
         'Remove-GitRepository'
         'Remove-NodeModule'
         # pnpm
+        'Update-CorepackPnpm'
         'New-PnpmViteProject'
         'New-PnpmNextJsProject'
         'Start-PnpmServe'
@@ -100,6 +101,7 @@
         'rmnode'
         # pnpm
         'pn'
+        'pnlatest'
         'pnvite'
         'pnnext'
         'pnserve'
