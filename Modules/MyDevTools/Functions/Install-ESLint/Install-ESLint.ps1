@@ -39,8 +39,8 @@ function Install-EsLint {
 
         # Peer dependencies managed by eslint-config-airbnb-extended
         # (Review and update these locks when bumping major versions)
-        '@eslint/js^9'
-        'eslint^9'
+        '@eslint/js@^9'
+        'eslint@^9'
         'eslint-config-airbnb-extended@^3'
     )
 
