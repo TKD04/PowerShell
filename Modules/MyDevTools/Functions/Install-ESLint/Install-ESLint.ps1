@@ -77,7 +77,7 @@ function Install-EsLint {
     # Skip for Next.js because Initialize-NextJsProject provides
     # its own pnpm-workspace.yaml with allowBuilds entries
     # for esbuild, sharp, and unrs-resolver.
-    if (-not $Environment -eq 'Next') {
+    if ($Environment -ne 'Next') {
         Join-Path -Path $PSScriptRoot -ChildPath 'templates/pnpm-workspace.yaml' |
         Copy-Item -Destination './pnpm-workspace.yaml' -Force
     }
