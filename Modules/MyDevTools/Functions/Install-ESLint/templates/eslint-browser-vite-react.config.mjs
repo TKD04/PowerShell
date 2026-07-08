@@ -19,6 +19,30 @@ import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import { defineConfig, globalIgnores } from "eslint/config";
 import globals from "globals";
 
+const shadcnUiIgnores = ["src/lib/utils.ts", "src/components/ui/"];
+const airbnbXBaseConfigs = [
+  // Plugins
+  airbnbXPlugins.stylistic,
+  airbnbXPlugins.importX,
+  airbnbXPlugins.typescriptEslint,
+  // Recommended
+  airbnbXConfigs.base.recommended,
+  airbnbXConfigs.base.typescript,
+  // Strict
+  airbnbXRules.base.importsStrict,
+  airbnbXRules.typescript.typescriptEslintStrict,
+];
+const airbnbXReactConfigs = [
+  // Plugins
+  airbnbXPlugins.react,
+  airbnbXPlugins.reactA11y,
+  // Recommend
+  airbnbXConfigs.react.recommended,
+  airbnbXConfigs.react.typescript,
+  // Strict
+  airbnbXRules.react.strict,
+];
+
 export default defineConfig([
   globalIgnores([
     "dist/",
@@ -26,26 +50,27 @@ export default defineConfig([
     "public/",
     "coverage/",
     "src/vite-env.d.ts",
-    // Added by "shadcn/ui"
-    "src/lib/utils.ts",
-    "src/components/ui/",
+    ...shadcnUiIgnores,
   ]),
   {
     extends: [
       js.configs.recommended,
-      airbnbXPlugins.stylistic,
-      airbnbXPlugins.importX,
-      airbnbXConfigs.base.recommended,
-      airbnbXRules.base.importsStrict,
+      ...airbnbXBaseConfigs,
       eslintPluginUnicorn.configs.all,
       e18e.configs.recommended,
       eslintPluginSecurity.configs.recommended,
       regexpPlugin.configs["flat/all"],
       perfectionistPlugin.configs["recommended-natural"],
     ],
-    files: ["src/**/*.{ts,tsx}", "*.{js,mjs,cjs,ts}"],
+    files: ["src/**/*.{ts,tsx}", "*.{mjs,ts}"],
     languageOptions: {
       globals: globals.browser,
+      parserOptions: {
+        projectService: {
+          allowDefaultProject: ["*.mjs"],
+        },
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
     name: "base",
     rules: {
@@ -103,21 +128,6 @@ export default defineConfig([
     },
   },
   {
-    extends: [
-      airbnbXPlugins.typescriptEslint,
-      airbnbXConfigs.base.typescript,
-      airbnbXRules.typescript.typescriptEslintStrict,
-    ],
-    files: ["src/**/*.{ts,tsx}", "*.ts"],
-    languageOptions: {
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
-    name: "typescript",
-  },
-  {
     extends: [jsdocPlugin.configs["flat/recommended-tsdoc-error"]],
     files: ["src/**/*.ts"],
     name: "tsdoc",
@@ -136,11 +146,7 @@ export default defineConfig([
        * https://react.dev/blog/2025/10/07/react-compiler-1#migrating-from-eslint-plugin-react-compiler-to-eslint-plugin-react-hooks
        */
       reactHooksPlugin.configs.flat["recommended-latest"],
-      airbnbXPlugins.react,
-      airbnbXPlugins.reactA11y,
-      airbnbXConfigs.react.recommended,
-      airbnbXConfigs.react.typescript,
-      airbnbXRules.react.strict,
+      ...airbnbXReactConfigs,
       reactRefreshPlugin.configs.vite,
     ],
     files: ["src/**/*.tsx", "src/hooks/**/use*.ts"],

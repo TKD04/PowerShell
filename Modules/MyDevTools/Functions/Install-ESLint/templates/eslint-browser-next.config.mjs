@@ -19,6 +19,36 @@ import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import { defineConfig, globalIgnores } from "eslint/config";
 import globals from "globals";
 
+const shadcnUiIgnores = ["src/lib/utils.ts", "src/components/ui/"];
+const airbnbXBaseConfigs = [
+  // Plugins
+  airbnbXPlugins.stylistic,
+  airbnbXPlugins.importX,
+  airbnbXPlugins.typescriptEslint,
+  // Recommended
+  airbnbXConfigs.base.recommended,
+  airbnbXConfigs.base.typescript,
+  // Strict
+  airbnbXRules.base.importsStrict,
+  airbnbXRules.typescript.typescriptEslintStrict,
+];
+const airbnbXNextConfigs = [
+  // Plugins
+  airbnbXPlugins.react,
+  airbnbXPlugins.reactA11y,
+  airbnbXPlugins.next,
+  // Recommend
+  /*
+   * "jsx-runtime" configs from eslint-react-plugin are already included in
+   * airbnbXConfigs.next.recommended.
+   * https://github.com/eslint-config/airbnb-extended/blob/1b7d222c1f6ab866b84541f5e176e015547cbb71/packages/eslint-config-airbnb-extended/extensions/next/recommended.ts#L14
+   */
+  airbnbXConfigs.next.recommended,
+  airbnbXConfigs.next.typescript,
+  // Strict
+  airbnbXRules.react.strict,
+];
+
 export default defineConfig([
   globalIgnores([
     "dist/",
@@ -29,17 +59,12 @@ export default defineConfig([
     "out/",
     "build/",
     "next-env.d.ts",
-    // Added by "shadcn/ui"
-    "lib/utils.ts",
-    "components/ui/",
+    ...shadcnUiIgnores,
   ]),
   {
     extends: [
       js.configs.recommended,
-      airbnbXPlugins.stylistic,
-      airbnbXPlugins.importX,
-      airbnbXConfigs.base.recommended,
-      airbnbXRules.base.importsStrict,
+      ...airbnbXBaseConfigs,
       eslintPluginUnicorn.configs.all,
       e18e.configs.recommended,
       eslintPluginSecurity.configs.recommended,
@@ -49,10 +74,16 @@ export default defineConfig([
     files: [
       "{app,components,features}/**/*.{ts,tsx}",
       "{constants,hooks,lib}/**/*.ts",
-      "*.{js,mjs,cjs,ts}",
+      "*.{mjs,ts}",
     ],
     languageOptions: {
       globals: globals.browser,
+      parserOptions: {
+        projectService: {
+          allowDefaultProject: ["*.mjs"],
+        },
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
     name: "base",
     rules: {
@@ -110,22 +141,6 @@ export default defineConfig([
     },
   },
   {
-    extends: [
-      airbnbXPlugins.typescriptEslint,
-      airbnbXConfigs.base.typescript,
-      airbnbXRules.typescript.typescriptEslintStrict,
-      airbnbXConfigs.next.typescript,
-    ],
-    files: ["{app,components,features}/**/*.{ts,tsx}", "{constants,hooks,lib}/**/*.ts"],
-    languageOptions: {
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
-    name: "typescript",
-  },
-  {
     extends: [jsdocPlugin.configs["flat/recommended-tsdoc-error"]],
     files: ["{app,components,features}/**/*.ts", "{constants,hooks,lib}/**/*.ts"],
     name: "tsdoc",
@@ -144,21 +159,12 @@ export default defineConfig([
        * https://react.dev/blog/2025/10/07/react-compiler-1#migrating-from-eslint-plugin-react-compiler-to-eslint-plugin-react-hooks
        */
       reactHooksPlugin.configs.flat["recommended-latest"],
-      airbnbXPlugins.react,
-      airbnbXPlugins.reactA11y,
-      airbnbXPlugins.next,
-      /*
-       * "jsx-runtime" configs from eslint-react-plugin are already included in
-       * airbnbXConfigs.next.recommended.
-       * https://github.com/eslint-config/airbnb-extended/blob/1b7d222c1f6ab866b84541f5e176e015547cbb71/packages/eslint-config-airbnb-extended/extensions/next/recommended.ts#L14
-       */
-      airbnbXConfigs.next.recommended,
-      airbnbXRules.react.strict,
+      ...airbnbXNextConfigs,
       reactRefreshPlugin.configs.next,
     ],
     files: ["{app,components,features}/**/*.tsx", "hooks/**/use*.ts"],
     ignores: ["{app,components,features}/**/*.test.tsx"],
-    name: "react",
+    name: "next",
     rules: {
       // Disabled "react/jsx-sort-props" in favor of "perfectionist/sort-jsx-props"
       "react/jsx-sort-props": "off",

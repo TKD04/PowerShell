@@ -17,26 +17,43 @@ import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import { defineConfig, globalIgnores } from "eslint/config";
 import globals from "globals";
 
+const airbnbXBaseConfigs = [
+  // Plugins
+  airbnbXPlugins.stylistic,
+  airbnbXPlugins.importX,
+  airbnbXPlugins.node,
+  airbnbXPlugins.typescriptEslint,
+  // Recommended
+  airbnbXConfigs.base.recommended,
+  airbnbXConfigs.node.recommended,
+  airbnbXConfigs.base.typescript,
+  // Strict
+  airbnbXRules.base.importsStrict,
+  airbnbXRules.typescript.typescriptEslintStrict,
+];
+
 export default defineConfig([
   globalIgnores(["dist/", "docs/", "coverage/"]),
   {
     extends: [
       js.configs.recommended,
-      airbnbXPlugins.stylistic,
-      airbnbXPlugins.importX,
-      airbnbXPlugins.node,
-      airbnbXConfigs.base.recommended,
-      airbnbXConfigs.node.recommended,
-      airbnbXRules.base.importsStrict,
+      ...airbnbXBaseConfigs,
       eslintPluginUnicorn.configs.all,
       e18e.configs.recommended,
       eslintPluginSecurity.configs.recommended,
       regexpPlugin.configs["flat/all"],
       perfectionistPlugin.configs["recommended-natural"],
     ],
-    files: ["src/**/*.ts", "*.{js,mjs,cjs,ts}"],
+    files: ["src/**/*.ts", "*.{mjs,ts}"],
     languageOptions: {
       globals: globals.node,
+      parserOptions: {
+        projectService: {
+          allowDefaultProject: ["*.mjs"],
+        },
+        // eslint-disable-next-line n/no-unsupported-features/node-builtins
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
     name: "base",
     rules: {
@@ -79,21 +96,6 @@ export default defineConfig([
        */
       "unicorn/prefer-json-parse-buffer": "off",
     },
-  },
-  {
-    extends: [
-      airbnbXPlugins.typescriptEslint,
-      airbnbXConfigs.base.typescript,
-      airbnbXRules.typescript.typescriptEslintStrict,
-    ],
-    files: ["src/**/*.ts", "*.ts"],
-    languageOptions: {
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
-    name: "typescript",
   },
   {
     extends: [jsdocPlugin.configs["flat/recommended-tsdoc-error"]],
