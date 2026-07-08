@@ -163,7 +163,6 @@ export default defineConfig([
       reactRefreshPlugin.configs.next,
     ],
     files: ["{app,components,features}/**/*.tsx", "hooks/**/use*.ts"],
-    ignores: ["{app,components,features}/**/*.test.tsx"],
     name: "next",
     rules: {
       // Disabled "react/jsx-sort-props" in favor of "perfectionist/sort-jsx-props"

@@ -150,7 +150,6 @@ export default defineConfig([
       reactRefreshPlugin.configs.vite,
     ],
     files: ["src/**/*.tsx", "src/hooks/**/use*.ts"],
-    ignores: ["src/**/*.test.tsx"],
     name: "react",
     rules: {
       // Disabled "react/jsx-sort-props" in favor of "perfectionist/sort-jsx-props"
