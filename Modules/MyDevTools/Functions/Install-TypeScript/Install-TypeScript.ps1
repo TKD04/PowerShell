@@ -70,7 +70,7 @@ function Install-TypeScript {
             # For Node.js 24.
             $tsConfig['compilerOptions'] += @{
                 'module'           = 'nodenext'
-                'moduleResolution' = 'node16'
+                'moduleResolution' = 'nodenext'
                 'types'            = @('node')
                 'outDir'           = './dist'
                 'lib'              = @('es2024')
