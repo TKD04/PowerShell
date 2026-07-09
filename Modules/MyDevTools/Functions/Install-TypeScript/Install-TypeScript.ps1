@@ -96,12 +96,12 @@ function Install-TypeScript {
                 }
                 'types'            = @('vite/client')
                 'lib'              = @(
-                    'ES2022'
+                    'ES2023'
                     'DOM'
                     'DOM.Iterable'
                 )
                 'moduleDetection'  = 'force'
-                'target'           = 'es2022'
+                'target'           = 'ES2023'
                 'noEmit'           = $true
             }
         }
