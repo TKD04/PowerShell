@@ -68,42 +68,39 @@ function Install-TypeScript {
             # https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping
             # https://github.com/tsconfig/bases/tree/main/bases
             # For Node.js 24.
-            $tsConfig['compilerOptions'] += @{
-                'module'           = 'nodenext'
-                'moduleResolution' = 'nodenext'
-                'types'            = @('node')
-                'outDir'           = './dist'
-                'lib'              = @('es2024')
-                'target'           = 'es2024'
-            }
+            $tsConfig['compilerOptions']['module'] = 'nodenext'
+            $tsConfig['compilerOptions']['moduleResolution'] = 'nodenext'
+            $tsConfig['compilerOptions']['types'] = @('node')
+            $tsConfig['compilerOptions']['outDir'] = './dist'
+            $tsConfig['compilerOptions']['lib'] = @('es2024')
+            $tsConfig['compilerOptions']['target'] = 'es2024'
+
             $devDependencies += '@types/node'
         }
         'Vite*' {
             if ($Environment -eq 'ViteReact') {
-                $tsConfig['compilerOptions']['tsBuildInfoFile'] = './node_modules/.tmp/tsconfig.app.tsbuildinfo'
-                $tsConfig['compilerOptions'] += @{
-                    'jsx' = 'react-jsx'
-                }
                 $tsConfigPath = './tsconfig.app.json'
+
+                $tsConfig['compilerOptions']['tsBuildInfoFile'] = './node_modules/.tmp/tsconfig.app.tsbuildinfo'
+                $tsConfig['compilerOptions']['jsx'] = 'react-jsx'
             }
-            $tsConfig['compilerOptions'] += @{
-                'module'           = 'esnext'
-                'moduleResolution' = 'bundler'
-                'paths'            = @{
-                    '@/*' = @(
-                        './src/*'
-                    )
-                }
-                'types'            = @('vite/client')
-                'lib'              = @(
-                    'ES2023'
-                    'DOM'
-                    'DOM.Iterable'
+            $tsConfig['compilerOptions']['module'] = 'esnext'
+            $tsConfig['compilerOptions']['moduleResolution'] = 'bundler'
+            $tsConfig['compilerOptions']['paths'] = @{
+                '@/*' = @(
+                    './src/*'
                 )
-                'moduleDetection'  = 'force'
-                'target'           = 'ES2023'
-                'noEmit'           = $true
             }
+            $tsConfig['compilerOptions']['types'] = @('vite/client')
+            $tsConfig['compilerOptions']['lib'] = @(
+                'ES2023'
+                'DOM'
+                'DOM.Iterable'
+            )
+            $tsConfig['compilerOptions']['moduleDetection'] = 'force'
+            $tsConfig['compilerOptions']['target'] = 'ES2023'
+            $tsConfig['compilerOptions']['noEmit'] = $true
+
         }
     }
     pnpm add -D @devDependencies
