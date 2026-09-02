@@ -49,7 +49,7 @@ export default defineConfig([
       globals: globals.node,
       parserOptions: {
         projectService: {
-          allowDefaultProject: ["*.mjs"],
+          allowDefaultProject: ["*.config.{ts,mjs}"],
         },
         // eslint-disable-next-line n/no-unsupported-features/node-builtins
         tsconfigRootDir: import.meta.dirname,

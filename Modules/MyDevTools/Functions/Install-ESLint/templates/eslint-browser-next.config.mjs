@@ -80,7 +80,7 @@ export default defineConfig([
       globals: globals.browser,
       parserOptions: {
         projectService: {
-          allowDefaultProject: ["*.mjs"],
+          allowDefaultProject: ["*.config.{ts,mjs}"],
         },
         tsconfigRootDir: import.meta.dirname,
       },
