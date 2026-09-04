@@ -45,14 +45,12 @@ function Initialize-ViteProject {
         Copy-Item -Destination './vite.config.ts' -Force
         Join-Path -Path $PSScriptRoot -ChildPath 'templates/vite-react-index.css' |
         Copy-Item -Destination './src/index.css' -Force
-        git add './package.json' './pnpm-lock.yaml' './vite.config.ts' './src/index.css'
     }
     else {
         Join-Path -Path $PSScriptRoot -ChildPath 'templates/vite.config.ts' |
         Copy-Item -Destination './vite.config.ts' -Force
         Join-Path -Path $PSScriptRoot -ChildPath 'templates/vite-style.css' |
         Copy-Item -Destination './src/style.css' -Force
-        git add './vite.config.ts' './src/style.css'
     }
     Install-TypeScript -Environment ($UseReact ? 'ViteReact' : 'Vite')
     Install-EsLint -Environment ($UseReact ? 'ViteReact' : 'Vite')
