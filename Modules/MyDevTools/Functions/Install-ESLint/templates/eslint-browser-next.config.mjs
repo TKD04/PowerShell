@@ -14,6 +14,8 @@ import reactHooksPlugin from "eslint-plugin-react-hooks";
 import reactRefreshPlugin from "eslint-plugin-react-refresh";
 import regexpPlugin from "eslint-plugin-regexp";
 import eslintPluginSecurity from "eslint-plugin-security";
+import tailwindCssPlugin from "eslint-plugin-tailwindcss";
+import testingLibraryPlugin from "eslint-plugin-testing-library";
 import tsdocPlugin from "eslint-plugin-tsdoc";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
 import { defineConfig, globalIgnores } from "eslint/config";
@@ -170,7 +172,17 @@ export default defineConfig([
     },
   },
   {
-    extends: [vitestPlugin.configs.all],
+    extends: [tailwindCssPlugin.configs.recommended],
+    files: ["{app,components,features}/**/*.{ts,tsx}", "{constants,hooks,lib}/**/*.ts"],
+    name: "tailwindcss",
+    settings: {
+      tailwindcss: {
+        cssConfigPath: "./app/globals.css",
+      },
+    },
+  },
+  {
+    extends: [vitestPlugin.configs.all, testingLibraryPlugin.configs["flat/react"]],
     files: ["{app,components,features}/**/*.test.{ts,tsx}", "{constants,hooks,lib}/**/*.test.ts"],
     name: "test",
     settings: {

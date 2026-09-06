@@ -48,6 +48,8 @@ function Install-EsLint {
         $devDependencies += @(
             'eslint-plugin-react-hooks'
             'eslint-plugin-react-refresh'
+            'eslint-plugin-tailwindcss'
+            'eslint-plugin-testing-library'
         )
     }
     switch ($Environment) {
