@@ -145,6 +145,7 @@ export default defineConfig([
   {
     extends: [jsdocPlugin.configs["flat/recommended-tsdoc-error"]],
     files: ["{app,components,features}/**/*.ts", "{constants,hooks,lib}/**/*.ts"],
+    ignores: ["{app,components,features}/**/*.test.{ts,tsx}", "{constants,hooks,lib}/**/*.test.ts"],
     name: "tsdoc",
     plugins: {
       tsdoc: tsdocPlugin,
