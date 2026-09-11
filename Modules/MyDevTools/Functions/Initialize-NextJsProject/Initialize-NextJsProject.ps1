@@ -19,6 +19,12 @@ function Initialize-NextJsProject {
     if (-not (Test-CommandExists -Command 'pnpm')) {
         throw 'The command "pnpm" was not found.'
     }
+    if (-not (Test-StrictPath -LiteralPath './.git' -PathType 'Container')) {
+        throw 'Git repository was not initialized.'
+    }
+    if (-not (Test-StrictPath -LiteralPath './pnpm-lock.yaml' -PathType 'Leaf')) {
+        throw 'The file "./pnpm-lock.yaml" was not found. Create the project using the command "pnpm dlx create-next-app@latest --use-pnpm".'
+    }
     if (-not (Test-GitClean)) {
         throw 'Git working tree or staging area contains uncommitted changes.'
     }
@@ -47,10 +53,6 @@ function Initialize-NextJsProject {
         'tsBuildInfoFile'                    = './node_modules/.tmp/tsconfig.tsbuildinfo'
     }
     [hashtable]$tsConfig = Import-Json -LiteralPath './tsconfig.json'
-
-    if (-not (Test-StrictPath -LiteralPath './pnpm-lock.yaml' -PathType 'Leaf')) {
-        throw 'The file "./pnpm-lock.yaml" was not found. Create the project using the command "pnpm dlx create-next-app@latest --use-pnpm".'
-    }
 
     <# .gitignore #>
     # Replace the gitignore created by "create-next-app" with a custom gitignore

@@ -23,6 +23,9 @@ function Initialize-ViteProject {
     if (-not (Test-CommandExists -Command 'pnpm')) {
         throw 'The command "pnpm" was not found.'
     }
+    if (Test-StrictPath -LiteralPath './.git' -PathType 'Container') {
+        throw 'Git repository is already in place.'
+    }
     # Ensure "TypeScript + React Compiler (Rolldown)" is selected for React projects.
     if ($UseReact) {
         [hashtable]$package = Import-Json -LiteralPath './package.json'
