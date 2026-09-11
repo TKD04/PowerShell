@@ -134,13 +134,13 @@ function Get-GitStash {
     git stash list @args
 }
 
-New-Alias -Name 'stashl' -Value 'Get-GitStash'
+New-Alias -Name 'stal' -Value 'Get-GitStash'
 
 function Save-GitStashUntracked {
     git stash -u @args
 }
 
-New-Alias -Name 'stash' -Value 'Save-GitStashUntracked'
+New-Alias -Name 'sta' -Value 'Save-GitStashUntracked'
 
 function Receive-GitStash {
     git stash pop @args
