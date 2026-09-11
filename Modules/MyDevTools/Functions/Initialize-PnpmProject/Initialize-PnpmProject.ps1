@@ -16,16 +16,12 @@ function Initialize-PnpmProject {
         throw 'Project already initialized.'
     }
 
-    [hashtable]$package = @{
-        private = $true
-    }
-
+    corepack prepare pnpm@latest --activate
+    pnpm init
+    [hashtable]$package = Import-Json -LiteralPath './package.json'
+    $package['private'] = $true
     Export-Json -LiteralPath './package.json' -Hashtable $package
-    corepack use pnpm@latest
-    git add './package.json'
-    if (Test-StrictPath -LiteralPath './pnpm-lock.yaml') {
-        git add './pnpm-lock.yaml'
-    }
+    git add .
     git commit -m 'chore: init pnpm project'
 }
 

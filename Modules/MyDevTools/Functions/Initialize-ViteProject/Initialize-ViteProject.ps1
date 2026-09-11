@@ -20,9 +20,6 @@ function Initialize-ViteProject {
     if (-not (Test-CommandExists -Command 'git')) {
         throw 'The command "git" was not found.'
     }
-    if (-not (Test-CommandExists -Command 'corepack')) {
-        throw 'The command "corepack" was not found.'
-    }
     if (-not (Test-CommandExists -Command 'pnpm')) {
         throw 'The command "pnpm" was not found.'
     }
@@ -37,7 +34,6 @@ function Initialize-ViteProject {
     }
 
     Initialize-GitRepository -UseNode
-    corepack use pnpm@latest
     pnpm install
     # Add the "@/ -> ./src" alias and Tailwind @import to the Vite config and CSS.
     if ($UseReact) {
