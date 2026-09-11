@@ -77,7 +77,7 @@
         'mergea'
         'rebase'
         'stashl'
-        'stashu'
+        'stash'
         'pop'
         'drop'
         'cl'

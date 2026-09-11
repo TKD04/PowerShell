@@ -140,7 +140,7 @@ function Save-GitStashUntracked {
     git stash -u @args
 }
 
-New-Alias -Name 'stashu' -Value 'Save-GitStashUntracked'
+New-Alias -Name 'stash' -Value 'Save-GitStashUntracked'
 
 function Receive-GitStash {
     git stash pop @args
