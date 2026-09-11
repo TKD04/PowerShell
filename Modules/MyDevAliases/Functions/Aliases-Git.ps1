@@ -136,12 +136,6 @@ function Get-GitStash {
 
 New-Alias -Name 'stashl' -Value 'Get-GitStash'
 
-function Save-GitStash {
-    git stash @args
-}
-
-New-Alias -Name 'stash' -Value 'Save-GitStash'
-
 function Save-GitStashUntracked {
     git stash -u @args
 }
