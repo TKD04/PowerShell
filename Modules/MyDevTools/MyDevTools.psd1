@@ -3,6 +3,7 @@
     ModuleVersion     = '0.0.1'
     FunctionsToExport = @(
         'Add-NpmScript'
+        'ConvertTo-LossyWebp'
         'Add-VsCodeFrontendSetting'
         'Add-VsCodePowerShellSetting'
         'Copy-DirectoryStructure'
@@ -23,6 +24,7 @@
         'Remove-DirectoryFast'
         'Remove-NpmScript'
         'Rename-FileExtension'
+        'Rename-FilesToRandomRecursive'
         'Test-CommandExists'
         'Test-GitClean'
         'Test-StrictPath'
