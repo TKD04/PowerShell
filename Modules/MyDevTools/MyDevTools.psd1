@@ -24,7 +24,7 @@
         'Remove-DirectoryFast'
         'Remove-NpmScript'
         'Rename-FileExtension'
-        'Rename-FilesToRandomRecursive'
+        'Rename-ItemsToSequential'
         'Test-CommandExists'
         'Test-GitClean'
         'Test-StrictPath'
