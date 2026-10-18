@@ -21,6 +21,7 @@
         'Install-TailwindCss'
         'Install-TypeScript'
         'Install-Vitest'
+        'Invoke-ComputerSleep'
         'Remove-DirectoryFast'
         'Remove-NpmScript'
         'Rename-FileExtension'
