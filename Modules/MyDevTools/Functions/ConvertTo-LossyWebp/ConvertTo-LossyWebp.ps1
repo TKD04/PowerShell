@@ -8,6 +8,8 @@ Specifies a file search pattern (e.g., "*.png", "*.jpg").
 .PARAMETER Quality
 Specifies the compression quality as an integer from 0 to 100.
 Default is 75.
+.PARAMETER Preset
+Specifies a set of pre-defined parameters for various types of material.
 .NOTES
 Prerequisite: The "cwebp" executable must be installed and available in the system's PATH.
 #>
@@ -28,7 +30,9 @@ function ConvertTo-LossyWebp {
         [ValidatePattern('^(?=.*[\*\.])[^\\/:\<\>\|]+$')]
         [string]$FileFilter,
         [ValidateRange(0, 100)]
-        [byte]$Quality = 75
+        [byte]$Quality = 75,
+        [ValidateSet('default', 'photo', 'picture', 'drawing', 'icon', 'text')]
+        [string]$Preset = 'default'
     )
 
     if (-not (Test-CommandExists -Command 'cwebp')) {
@@ -38,6 +42,7 @@ function ConvertTo-LossyWebp {
     [string]$outputDirName = 'webp_q' + $Quality.ToString()
     [string]$outputDirFullName = Join-Path -Path $LiteralPath -ChildPath "$outputDirName"
     [string[]]$WebpOptions = @(
+        '-preset', $Preset
         '-q', $Quality.ToString()
         '-m', '6'
         '-pass', '10'
