@@ -51,6 +51,7 @@ function ConvertTo-LossyWebp {
         '-af'
         '-sharp_yuv'
         '-mt'
+        '-progress'
     )
 
     $null = New-Item -Path $outputDirFullName -ItemType 'Directory' -Force
