@@ -35,7 +35,7 @@ function ConvertTo-LossyWebp {
         throw 'The command "cwebp" was not found.'
     }
 
-    [string]$outputDirName = 'webp_q' + $Quality
+    [string]$outputDirName = 'webp_q' + $Quality.ToString()
     [string]$outputDirFullName = Join-Path -Path $LiteralPath -ChildPath "$outputDirName"
     [string[]]$WebpOptions = @(
         '-q', $Quality.ToString()
