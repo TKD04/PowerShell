@@ -38,11 +38,11 @@ function ConvertTo-LossyWebp {
     [string]$outputDirName = 'webp_q' + $Quality
     [string]$outputDirFullName = Join-Path -Path $LiteralPath -ChildPath "$outputDirName"
     [string[]]$WebpOptions = @(
+        '-q', $Quality.ToString()
         '-m', '6'
         '-pass', '10'
         '-af'
         '-sharp_yuv'
-        '-q', $Quality.ToString()
         '-mt'
     )
 
@@ -51,6 +51,6 @@ function ConvertTo-LossyWebp {
     ForEach-Object {
         [string]$destFullPath = Join-Path -Path $outputDirFullName -ChildPath ($_.BaseName + '.webp')
 
-        &'cwebp' $WebpOptions $_.FullName '-o' $destFullPath
+        &'cwebp' $WebpOptions '-o' $destFullPath -- $_.FullName
     }
 }
