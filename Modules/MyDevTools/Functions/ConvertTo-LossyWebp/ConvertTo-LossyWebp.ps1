@@ -12,6 +12,8 @@ Default is 75.
 Specifies a set of pre-defined parameters for various types of material.
 .NOTES
 Prerequisite: The "cwebp" executable must be installed and available in the system's PATH.
+.LINK
+https://developers.google.com/speed/webp/docs/cwebp
 #>
 function ConvertTo-LossyWebp {
     [CmdletBinding()]
