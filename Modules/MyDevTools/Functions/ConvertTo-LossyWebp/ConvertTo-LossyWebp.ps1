@@ -10,6 +10,8 @@ Specifies the compression quality as an integer from 0 to 100.
 Default is 75.
 .PARAMETER Preset
 Specifies a set of pre-defined parameters for various types of material.
+.PARAMETER SleepOnCompletion
+Specifies whether to put the computer to sleep after the image conversion is completed.
 .NOTES
 Prerequisite: The "cwebp" executable must be installed and available in the system's PATH.
 .LINK
@@ -35,7 +37,8 @@ function ConvertTo-LossyWebp {
         [ValidateRange(0, 100)]
         [byte]$Quality = 75,
         [ValidateSet('default', 'photo', 'picture', 'drawing', 'icon', 'text')]
-        [string]$Preset = 'default'
+        [string]$Preset = 'default',
+        [switch]$SleepOnCompletion
     )
 
     if (-not (Test-CommandExists -Command 'cwebp')) {
@@ -54,6 +57,7 @@ function ConvertTo-LossyWebp {
         '-mt'
         '-progress'
     )
+    [bool]$isSuccess = $false
 
     Enable-SleepPrevention
     try {
@@ -64,8 +68,13 @@ function ConvertTo-LossyWebp {
 
             &'cwebp' $WebpOptions '-o' $destFullPath -- $_.FullName
         }
+
+        $isSuccess = $true
     }
     finally {
         Disable-SleepPrevention
+        if ($SleepOnCompletion -and $isSuccess) {
+            Invoke-ComputerSleep
+        }
     }
 }
