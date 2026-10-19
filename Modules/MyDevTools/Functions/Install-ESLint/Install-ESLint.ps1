@@ -12,6 +12,7 @@ Specifies the target environment:
 function Install-EsLint {
     [OutputType([System.Void])]
     param (
+        [Parameter(Mandatory)]
         [ValidateSet('Node', 'Vite', 'ViteReact', 'Next')]
         [string]$Environment
     )
