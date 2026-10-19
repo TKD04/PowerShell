@@ -36,7 +36,7 @@ function Rename-ItemsToSequential {
 
     Enable-SleepPrevention
     try {
-        # Rename files with sequential numbers.
+        # 1. Rename files with sequential numbers.
         [System.IO.FileInfo[]]$files = Get-ChildItem -LiteralPath $rootFullName -File -Recurse
         [int]$fileIndex = 1
 
