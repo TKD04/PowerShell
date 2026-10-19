@@ -7,6 +7,7 @@
         'Add-VsCodeFrontendSetting'
         'Add-VsCodePowerShellSetting'
         'Copy-DirectoryStructure'
+        'Disable-SleepPrevention'
         'Enable-SleepPrevention'
         'Export-Json'
         'Import-Json'
