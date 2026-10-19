@@ -25,7 +25,7 @@ function Rename-ItemsToSequential {
 
     [System.IO.DirectoryInfo]$rootDirectory = Get-Item -LiteralPath $LiteralPath
     [string]$rootFullName = $rootDirectory.FullName
-    [bool]$isInTargetTree = $PWD.ProviderPath -eq $rootFullName -or
+    [bool]$isInTargetTree = $PWD.ProviderPath -ieq $rootFullName -or
     $PWD.ProviderPath.StartsWith($rootFullName + [System.IO.Path]::DirectorySeparatorChar)
 
     if ($isInTargetTree) {

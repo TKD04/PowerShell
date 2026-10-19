@@ -78,7 +78,7 @@ function Install-TypeScript {
             $devDependencies += '@types/node'
         }
         'Vite*' {
-            if ($Environment -eq 'ViteReact') {
+            if ($Environment -ceq 'ViteReact') {
                 $tsConfigPath = './tsconfig.app.json'
 
                 $tsConfig['compilerOptions']['tsBuildInfoFile'] = './node_modules/.tmp/tsconfig.app.tsbuildinfo'
