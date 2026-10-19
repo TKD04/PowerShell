@@ -30,8 +30,9 @@ function Remove-DirectoryFast {
     }
 
     if ($PSCmdlet.ShouldProcess($DirectoryFullPath, 'Remove all contents of directory')) {
-        $null = New-Item -Path $EmptyDirPath -ItemType 'Directory' -Force
+        Enable-SleepPrevention
         try {
+            $null = New-Item -Path $EmptyDirPath -ItemType 'Directory' -Force
             $null = Robocopy.exe $EmptyDirPath $DirectoryFullPath /MIR /NJH /NJS /NP /NS /NC /NFL /NDL
             if ($LASTEXITCODE -ge 8) {
                 throw "Robocopy failed with exit code '$LASTEXITCODE'."
@@ -43,6 +44,7 @@ function Remove-DirectoryFast {
         }
         finally {
             Remove-Item -LiteralPath $EmptyDirPath -Recurse -Force -ErrorAction 'SilentlyContinue'
+            Disable-SleepPrevention
         }
     }
 }

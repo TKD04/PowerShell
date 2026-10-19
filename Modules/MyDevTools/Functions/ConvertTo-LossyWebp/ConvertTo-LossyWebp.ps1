@@ -54,11 +54,17 @@ function ConvertTo-LossyWebp {
         '-progress'
     )
 
-    $null = New-Item -Path $outputDirFullName -ItemType 'Directory' -Force
-    Get-ChildItem -LiteralPath $LiteralPath -File -Filter $FileFilter |
-    ForEach-Object {
-        [string]$destFullPath = Join-Path -Path $outputDirFullName -ChildPath ($_.BaseName + '.webp')
+    Enable-SleepPrevention
+    try {
+        $null = New-Item -Path $outputDirFullName -ItemType 'Directory' -Force
+        Get-ChildItem -LiteralPath $LiteralPath -File -Filter $FileFilter |
+        ForEach-Object {
+            [string]$destFullPath = Join-Path -Path $outputDirFullName -ChildPath ($_.BaseName + '.webp')
 
-        &'cwebp' $WebpOptions '-o' $destFullPath -- $_.FullName
+            &'cwebp' $WebpOptions '-o' $destFullPath -- $_.FullName
+        }
+    }
+    finally {
+        Disable-SleepPrevention
     }
 }
