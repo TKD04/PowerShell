@@ -10,6 +10,7 @@ function Rename-ItemsToSequential {
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
     param (
         [Parameter(Mandatory)]
+        [ValidateNotNullOrWhiteSpace()]
         [ValidateScript({
                 if (-not (Test-StrictPath -LiteralPath $_ -PathType 'Container')) {
                     throw '$LiteralPath is not a directory or inaccessible.'
