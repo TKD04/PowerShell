@@ -7,6 +7,7 @@
         'Add-VsCodeFrontendSetting'
         'Add-VsCodePowerShellSetting'
         'Copy-DirectoryStructure'
+        'Enable-SleepPrevention'
         'Export-Json'
         'Import-Json'
         'Initialize-GitRepository'
