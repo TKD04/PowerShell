@@ -57,7 +57,6 @@ function ConvertTo-LossyWebp {
         '-mt'
         '-progress'
     )
-    [bool]$isSuccess = $false
 
     Enable-SleepPrevention
     try {
@@ -68,12 +67,10 @@ function ConvertTo-LossyWebp {
 
             &'cwebp' $WebpOptions '-o' $destFullPath -- $_.FullName
         }
-
-        $isSuccess = $true
     }
     finally {
         Disable-SleepPrevention
-        if ($SleepOnCompletion -and $isSuccess) {
+        if ($SleepOnCompletion) {
             Invoke-ComputerSleep
         }
     }
