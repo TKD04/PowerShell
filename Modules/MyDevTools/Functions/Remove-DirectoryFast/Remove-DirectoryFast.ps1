@@ -38,7 +38,7 @@ function Remove-DirectoryFast {
                 throw "Robocopy failed with exit code '$LASTEXITCODE'."
             }
             if (-not $isCurrentDir) {
-                Remove-Item -LiteralPath $DirectoryFullPath -Recurse -Force -ErrorAction 'Stop'
+                Remove-Item -LiteralPath $DirectoryFullPath -Recurse -Force
             }
 
         }

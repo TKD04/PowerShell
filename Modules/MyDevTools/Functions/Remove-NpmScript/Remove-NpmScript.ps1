@@ -14,7 +14,7 @@ function Remove-NpmScript {
         [string]$ScriptName
     )
 
-    [string]$packageJsonFullPath = (Resolve-Path -LiteralPath './package.json' -ErrorAction 'Stop').ProviderPath
+    [string]$packageJsonFullPath = (Resolve-Path -LiteralPath './package.json').ProviderPath
     [hashtable]$package = Import-Json -LiteralPath $packageJsonFullPath
     [boolean]$hasScript = $package.ContainsKey('scripts') -and $package['scripts'].ContainsKey($ScriptName)
 

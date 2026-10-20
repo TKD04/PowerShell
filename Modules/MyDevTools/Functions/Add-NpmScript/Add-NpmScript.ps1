@@ -13,7 +13,7 @@ function Add-NpmScript {
         [hashtable]$NameToScript
     )
 
-    [string]$packageJsonFullPath = (Resolve-Path -LiteralPath './package.json' -ErrorAction 'Stop').ProviderPath
+    [string]$packageJsonFullPath = (Resolve-Path -LiteralPath './package.json').ProviderPath
     [hashtable]$package = Import-Json -LiteralPath $packageJsonFullPath
     [string]$scriptNames = $NameToScript.Keys -join ', '
 

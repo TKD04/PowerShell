@@ -28,6 +28,6 @@ function Export-Json {
 
     if ($PSCmdlet.ShouldProcess($fullPath, 'Export json file')) {
         ConvertTo-Json -InputObject $Hashtable -Depth $Depth |
-        Set-Content -LiteralPath $fullPath -ErrorAction 'Stop'
+        Set-Content -LiteralPath $fullPath
     }
 }
