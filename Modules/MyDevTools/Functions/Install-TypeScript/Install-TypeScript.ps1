@@ -9,6 +9,7 @@ Exactly one environment must be selected:
 - ViteReact
 #>
 function Install-TypeScript {
+    [CmdletBinding(SupportsShouldProcess)]
     [OutputType([System.Void])]
     param (
         [Parameter(Mandatory)]
@@ -103,6 +104,8 @@ function Install-TypeScript {
 
         }
     }
-    pnpm add -D @devDependencies
-    Export-Json -LiteralPath $tsConfigPath -Hashtable $tsConfig
+    if ($PSCmdlet.ShouldProcess($PWD.ProviderPath, 'Install TypeScript')) {
+        pnpm add -D @devDependencies
+        Export-Json -LiteralPath $tsConfigPath -Hashtable $tsConfig -WhatIf $false
+    }
 }

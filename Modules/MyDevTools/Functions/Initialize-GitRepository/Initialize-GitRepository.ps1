@@ -6,6 +6,7 @@ Initializes a git repository in the current directory.
 Specifies whether to add a gitignore file for Node.js projects.
 #>
 function Initialize-GitRepository {
+    [CmdletBinding(SupportsShouldProcess)]
     [OutputType([System.Void])]
     param(
         [switch]$UseNode
@@ -18,20 +19,22 @@ function Initialize-GitRepository {
         throw 'Git repository is already in place.'
     }
 
-    git init
-    if ($UseNode) {
-        Join-Path -Path $PSScriptRoot -ChildPath 'templates/OS_Node.gitignore' |
-        Copy-Item -Destination './.gitignore' -Force
+    if ($PSCmdlet.ShouldProcess($PWD.ProviderPath, 'Initialize Git repository')) {
+        git init
+        if ($UseNode) {
+            Join-Path -Path $PSScriptRoot -ChildPath 'templates/OS_Node.gitignore' |
+            Copy-Item -Destination './.gitignore' -Force
+        }
+        elseif (-not (Test-StrictPath -LiteralPath './.gitignore' -PathType 'Leaf')) {
+            Join-Path -Path $PSScriptRoot -ChildPath 'templates/OS.gitignore' |
+            Copy-Item -Destination './.gitignore' -Force
+        }
+        else {
+            Write-Warning -Message '.gitignore is already in place (skip).'
+        }
+        git add './.gitignore'
+        git commit -m 'chore: initial commit'
     }
-    elseif (-not (Test-StrictPath -LiteralPath './.gitignore' -PathType 'Leaf')) {
-        Join-Path -Path $PSScriptRoot -ChildPath 'templates/OS.gitignore' |
-        Copy-Item -Destination './.gitignore' -Force
-    }
-    else {
-        Write-Warning -Message '.gitignore is already in place (skip).'
-    }
-    git add './.gitignore'
-    git commit -m 'chore: initial commit'
 }
 
 Set-Alias -Name 'ginit' -Value 'Initialize-GitRepository'

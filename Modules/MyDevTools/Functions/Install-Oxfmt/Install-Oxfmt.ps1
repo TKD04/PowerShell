@@ -6,6 +6,7 @@ Adds Oxfmt to the current directory.
 Specifies whether to enable automatic class sorting for Tailwind CSS.
 #>
 function Install-Oxfmt {
+    [CmdletBinding(SupportsShouldProcess)]
     [OutputType([System.Void])]
     param (
         [switch]$UseTailwindCss
@@ -20,10 +21,12 @@ function Install-Oxfmt {
     )
     [string]$templateFile = $UseTailwindCss ? '.oxfmtrc-tailwindcss.json' : '.oxfmtrc.json'
 
-    Join-Path -Path $PSScriptRoot -ChildPath "templates/$templateFile" |
-    Copy-Item -Destination './.oxfmtrc.json' -Force
-    Add-NpmScript -NameToScript @{
-        'format' = 'oxfmt'
+    if ($PSCmdlet.ShouldProcess($PWD.ProviderPath, 'Install Oxfmt')) {
+        Join-Path -Path $PSScriptRoot -ChildPath "templates/$templateFile" |
+        Copy-Item -Destination './.oxfmtrc.json' -Force
+        Add-NpmScript -NameToScript @{
+            'format' = 'oxfmt'
+        } -WhatIf $false
+        pnpm add -D @devDependencies
     }
-    pnpm add -D @devDependencies
 }

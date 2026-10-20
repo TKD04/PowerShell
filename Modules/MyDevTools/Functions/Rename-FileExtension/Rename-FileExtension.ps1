@@ -12,6 +12,7 @@ Specifies the new file extension (without the leading dot).
 Specifies whether to rename matching files recursively.
 #>
 function Rename-FileExtension {
+    [CmdletBinding(SupportsShouldProcess)]
     [OutputType([System.Void])]
     param (
         [Parameter(Mandatory)]
@@ -42,7 +43,9 @@ function Rename-FileExtension {
     foreach ($file in $files) {
         [string]$newFileName = $file.BaseName + '.' + $NewExtension
 
-        Rename-Item -LiteralPath $file.FullName -NewName $newFileName
+        if ($PSCmdlet.ShouldProcess($file.FullName, "Rename to $newFileName")) {
+            Rename-Item -LiteralPath $file.FullName -NewName $newFileName
+        }
     }
 }
 

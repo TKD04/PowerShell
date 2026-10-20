@@ -18,7 +18,7 @@ Prerequisite: The "cwebp" executable must be installed and available in the syst
 https://developers.google.com/speed/webp/docs/cwebp
 #>
 function ConvertTo-LossyWebP {
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess)]
     [OutputType([System.Void])]
     param (
         [Parameter(Mandatory)]
@@ -67,7 +67,9 @@ function ConvertTo-LossyWebP {
         ForEach-Object {
             [string]$destFullPath = Join-Path -Path $outputDirFullName -ChildPath ($_.BaseName + '.webp')
 
-            &'cwebp' $WebpOptions '-o' $destFullPath -- $_.FullName
+            if ($PSCmdlet.ShouldProcess($destFullPath, 'Convert to WebP')) {
+                &'cwebp' $WebpOptions '-o' $destFullPath -- $_.FullName
+            }
         }
     }
     finally {

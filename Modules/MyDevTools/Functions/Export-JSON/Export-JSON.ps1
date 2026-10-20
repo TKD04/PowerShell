@@ -12,6 +12,7 @@ Specifies the hashtable to export.
 Specifies the maximum depth of nested objects to include in the JSON representation.
 #>
 function Export-Json {
+    [CmdletBinding(SupportsShouldProcess)]
     [OutputType([System.Void])]
     param (
         [Parameter(Mandatory)]
@@ -26,8 +27,10 @@ function Export-Json {
     [string]$fullPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($LiteralPath)
 
     try {
-        ConvertTo-Json -InputObject $Hashtable -Depth $Depth |
-        Set-Content -LiteralPath $fullPath -ErrorAction 'Stop'
+        if ($PSCmdlet.ShouldProcess($fullPath, 'Export json file')) {
+            ConvertTo-Json -InputObject $Hashtable -Depth $Depth |
+            Set-Content -LiteralPath $fullPath -ErrorAction 'Stop'
+        }
     }
     catch {
         throw "Failed to export JSON to '$fullPath'."

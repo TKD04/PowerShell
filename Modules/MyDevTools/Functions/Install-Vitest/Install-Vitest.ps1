@@ -3,6 +3,7 @@
 Adds Vitest to the current directory and creates npm scripts for running tests and coverage.
 #>
 function Install-Vitest {
+    [CmdletBinding(SupportsShouldProcess)]
     [OutputType([System.Void])]
     param()
 
@@ -15,9 +16,11 @@ function Install-Vitest {
         'vitest'
     )
 
-    Add-NpmScript -NameToScript @{
-        'test'     = 'vitest'
-        'coverage' = 'vitest run --coverage'
+    if ($PSCmdlet.ShouldProcess($PWD.ProviderPath, 'Install Vitest')) {
+        Add-NpmScript -NameToScript @{
+            'test'     = 'vitest'
+            'coverage' = 'vitest run --coverage'
+        } -WhatIf $false
+        pnpm add -D @devDependencies
     }
-    pnpm add -D @devDependencies
 }

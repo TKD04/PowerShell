@@ -8,6 +8,7 @@ Otherwise, this function will throw an error.
 Specifies whether to deploy the site using GitHub Pages.
 #>
 function Initialize-NextJsProject {
+    [CmdletBinding(SupportsShouldProcess)]
     [OutputType([System.Void])]
     param (
         [switch]$DeployToGitHubPages
@@ -54,52 +55,54 @@ function Initialize-NextJsProject {
     }
     [hashtable]$tsConfig = Import-Json -LiteralPath './tsconfig.json'
 
-    <# .gitignore #>
-    # Replace the gitignore created by "create-next-app" with a custom gitignore
-    # that combines rules for Windows, macOS, Linux, Node, and Next.js.
-    Join-Path -Path $PSScriptRoot -ChildPath 'templates/OS_Node_Nextjs.gitignore' |
-    Copy-Item -Destination './.gitignore' -Force
+    if ($PSCmdlet.ShouldProcess($PWD.ProviderPath, 'Initialize Next.js project')) {
+        <# .gitignore #>
+        # Replace the gitignore created by "create-next-app" with a custom gitignore
+        # that combines rules for Windows, macOS, Linux, Node, and Next.js.
+        Join-Path -Path $PSScriptRoot -ChildPath 'templates/OS_Node_Nextjs.gitignore' |
+        Copy-Item -Destination './.gitignore' -Force
 
-    <# pnpm-workspace.yaml #>
-    # Add pnpm-workspace.yaml to allow required packages to run build scripts.
-    Join-Path -Path $PSScriptRoot -ChildPath 'templates/pnpm-workspace.yaml' |
-    Copy-Item -Destination './pnpm-workspace.yaml' -Force
+        <# pnpm-workspace.yaml #>
+        # Add pnpm-workspace.yaml to allow required packages to run build scripts.
+        Join-Path -Path $PSScriptRoot -ChildPath 'templates/pnpm-workspace.yaml' |
+        Copy-Item -Destination './pnpm-workspace.yaml' -Force
 
-    <# globals.d.ts #>
-    # Add globals.d.ts so layout.tsx can import "./global.css" without TypeScript errors.
-    Join-Path -Path $PSScriptRoot -ChildPath 'templates/globals.d.ts' |
-    Copy-Item -Destination './globals.d.ts' -Force
+        <# globals.d.ts #>
+        # Add globals.d.ts so layout.tsx can import "./global.css" without TypeScript errors.
+        Join-Path -Path $PSScriptRoot -ChildPath 'templates/globals.d.ts' |
+        Copy-Item -Destination './globals.d.ts' -Force
 
-    <# tsconfig.json #>
-    $tsConfig['compilerOptions'] ??= @{}
-    foreach ($key in $missingCompilerOptions.Keys) {
-        $tsConfig['compilerOptions'][$key] = $missingCompilerOptions[$key]
-    }
-    Export-Json -LiteralPath './tsconfig.json' -Hashtable $tsConfig
-
-    Install-EsLint -Environment 'Next'
-    Install-Oxfmt -UseTailwindCss
-    Install-Vitest
-    Initialize-VsCodeSetting -Environment 'Frontend'
-    if ($DeployToGitHubPages) {
-        [string]$workflowDirectory = './.github/workflows'
-        [string]$workflowFileName = 'pnpm-nextjs.yml'
-        [string]$workflowDestPath = Join-Path -Path $workflowDirectory -ChildPath $workflowFileName
-
-        if (Test-Path -Path $workflowDestPath -PathType 'Leaf') {
-            Write-Warning -Message 'The workflow file is already in place (skip).'
+        <# tsconfig.json #>
+        $tsConfig['compilerOptions'] ??= @{}
+        foreach ($key in $missingCompilerOptions.Keys) {
+            $tsConfig['compilerOptions'][$key] = $missingCompilerOptions[$key]
         }
-        else {
-            $null = New-Item -Path $workflowDirectory -ItemType 'Directory' -Force
-            Join-Path -Path $PSScriptRoot -ChildPath "templates/$workflowFileName" |
-            Copy-Item -Destination $workflowDestPath -Force
+        Export-Json -LiteralPath './tsconfig.json' -Hashtable $tsConfig -WhatIf $false
+
+        Install-EsLint -Environment 'Next' -WhatIf $false
+        Install-Oxfmt -UseTailwindCss -WhatIf $false
+        Install-Vitest -WhatIf $false -WhatIf $false
+        Initialize-VsCodeSetting -Environment 'Frontend' -WhatIf $false
+        if ($DeployToGitHubPages) {
+            [string]$workflowDirectory = './.github/workflows'
+            [string]$workflowFileName = 'pnpm-nextjs.yml'
+            [string]$workflowDestPath = Join-Path -Path $workflowDirectory -ChildPath $workflowFileName
+
+            if (Test-Path -Path $workflowDestPath -PathType 'Leaf') {
+                Write-Warning -Message 'The workflow file is already in place (skip).'
+            }
+            else {
+                $null = New-Item -Path $workflowDirectory -ItemType 'Directory' -Force
+                Join-Path -Path $PSScriptRoot -ChildPath "templates/$workflowFileName" |
+                Copy-Item -Destination $workflowDestPath -Force
+            }
+            # Remove the preview script because GitHub Pages only serves static exports.
+            Remove-NpmScript -ScriptName 'preview' -WhatIf $false
         }
-        # Remove the preview script because GitHub Pages only serves static exports.
-        Remove-NpmScript -ScriptName 'preview'
+
+        git add .
+        git commit -m 'chore(scaffold): Next.js setup enhancements'
+
+        Write-Host -Object '✅ Setup complete: Next.js project is now ready!' -ForegroundColor 'Green'
     }
-
-    git add .
-    git commit -m 'chore(scaffold): Next.js setup enhancements'
-
-    Write-Host -Object '✅ Setup complete: Next.js project is now ready!' -ForegroundColor 'Green'
 }

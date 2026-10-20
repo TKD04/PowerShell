@@ -8,6 +8,7 @@ Specifies the target environment:
 - PowerShell
 #>
 function Initialize-VsCodeSetting {
+    [CmdletBinding(SupportsShouldProcess)]
     [OutputType([System.Void])]
     param (
         [Parameter(Mandatory)]
@@ -38,6 +39,7 @@ function Initialize-VsCodeSetting {
         }
     }
     [hashtable]$extensions = $null
+    [string]$vscodeFullPath = Join-Path -Path $PWD.ProviderPath -ChildPath '.vscode'
 
     switch ($Environment) {
         'Frontend' {
@@ -82,11 +84,17 @@ function Initialize-VsCodeSetting {
             }
         }
     }
-    $null = New-Item -Path './.vscode' -ItemType 'Directory' -Force
-    if ($null -ne $settings) {
-        Export-Json -LiteralPath './.vscode/settings.json' -Hashtable $settings
-    }
-    if ($null -ne $extensions) {
-        Export-Json -LiteralPath './.vscode/extensions.json' -Hashtable $extensions
+    if ($PSCmdlet.ShouldProcess($vscodeFullPath, 'Initialize VS Code settings')) {
+        $null = New-Item -Path $vscodeFullPath -ItemType 'Directory' -Force
+        if ($null -ne $settings) {
+            [string]$settingsFullPath = Join-Path -Path $vscodeFullPath -ChildPath 'settings.json'
+
+            Export-Json -LiteralPath $settingsFullPath -Hashtable $settings -WhatIf $false
+        }
+        if ($null -ne $extensions) {
+            [string]$extensionsFullPath = Join-Path -Path $vscodeFullPath -ChildPath 'extensions.json'
+
+            Export-Json -LiteralPath $extensionsFullPath -Hashtable $extensions -WhatIf $false
+        }
     }
 }

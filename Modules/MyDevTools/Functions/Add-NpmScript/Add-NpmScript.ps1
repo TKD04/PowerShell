@@ -6,6 +6,7 @@ Adds one or more npm scripts to the "scripts" section of package.json.
 Specifies a hashtable containing pairs of script names and their corresponding commands.
 #>
 function Add-NpmScript {
+    [CmdletBinding(SupportsShouldProcess)]
     [OutputType([System.Void])]
     param (
         [Parameter(Mandatory)]
@@ -14,10 +15,13 @@ function Add-NpmScript {
 
     [string]$packageJsonFullPath = (Resolve-Path -LiteralPath './package.json' -ErrorAction 'Stop').ProviderPath
     [hashtable]$package = Import-Json -LiteralPath $packageJsonFullPath
+    [string]$scriptNames = $NameToScript.Keys -join ', '
 
     $package['scripts'] ??= @{}
     foreach ($key in $NameToScript.Keys) {
         $package['scripts'][$key] = $NameToScript[$key]
     }
-    Export-Json -LiteralPath $packageJsonFullPath -Hashtable $package
+    if ($PSCmdlet.ShouldProcess($packageJsonFullPath, "Add npm script(s): [$scriptNames]")) {
+        Export-Json -LiteralPath $packageJsonFullPath -Hashtable $package -WhatIf $false
+    }
 }

@@ -11,6 +11,7 @@ Specifies whether to set up React support.
 Specifies whether to deploy the site using GitHub Page.
 #>
 function Initialize-ViteProject {
+    [CmdletBinding(SupportsShouldProcess)]
     [OutputType([System.Void])]
     param (
         [switch]$UseReact,
@@ -36,48 +37,50 @@ function Initialize-ViteProject {
         }
     }
 
-    Initialize-GitRepository -UseNode
-    pnpm install
-    # Add the "@/ -> ./src" alias and Tailwind @import to the Vite config and CSS.
-    if ($UseReact) {
-        Join-Path -Path $PSScriptRoot -ChildPath 'templates/vite-react.config.ts' |
-        Copy-Item -Destination './vite.config.ts' -Force
-        Join-Path -Path $PSScriptRoot -ChildPath 'templates/vite-react-index.css' |
-        Copy-Item -Destination './src/index.css' -Force
-    }
-    else {
-        Join-Path -Path $PSScriptRoot -ChildPath 'templates/vite.config.ts' |
-        Copy-Item -Destination './vite.config.ts' -Force
-        Join-Path -Path $PSScriptRoot -ChildPath 'templates/vite-style.css' |
-        Copy-Item -Destination './src/style.css' -Force
-    }
-    Install-TypeScript -Environment ($UseReact ? 'ViteReact' : 'Vite')
-    Install-EsLint -Environment ($UseReact ? 'ViteReact' : 'Vite')
-    Install-Vitest
-    Install-Oxfmt -UseTailwindCss
-    Install-TailwindCss -IsVite
-    Initialize-VsCodeSetting -Environment 'Frontend'
-    Add-NpmScript -NameToScript @{
-        'dev'     = 'vite --open'
-        'preview' = 'vite preview --open'
-    }
-    if ($DeployToGitHubPages) {
-        [string]$workflowDirectory = './.github/workflows'
-        [string]$workflowFileName = 'pnpm-vite.yml'
-        [string]$workflowDestPath = Join-Path -Path $workflowDirectory -ChildPath $workflowFileName
-
-        if (Test-Path -Path $workflowDestPath -PathType 'Leaf') {
-            Write-Warning -Message 'The workflow file is already in place (skip).'
+    if ($PSCmdlet.ShouldProcess($PWD.ProviderPath, 'Initialize Vite project')) {
+        Initialize-GitRepository -UseNode -WhatIf $false
+        pnpm install
+        # Add the "@/ -> ./src" alias and Tailwind @import to the Vite config and CSS.
+        if ($UseReact) {
+            Join-Path -Path $PSScriptRoot -ChildPath 'templates/vite-react.config.ts' |
+            Copy-Item -Destination './vite.config.ts' -Force
+            Join-Path -Path $PSScriptRoot -ChildPath 'templates/vite-react-index.css' |
+            Copy-Item -Destination './src/index.css' -Force
         }
         else {
-            $null = New-Item -Path $workflowDirectory -ItemType 'Directory' -Force
-            Join-Path -Path $PSScriptRoot -ChildPath "templates/$workflowFileName" |
-            Copy-Item -Destination $workflowDestPath -Force
+            Join-Path -Path $PSScriptRoot -ChildPath 'templates/vite.config.ts' |
+            Copy-Item -Destination './vite.config.ts' -Force
+            Join-Path -Path $PSScriptRoot -ChildPath 'templates/vite-style.css' |
+            Copy-Item -Destination './src/style.css' -Force
         }
+        Install-TypeScript -Environment ($UseReact ? 'ViteReact' : 'Vite') -WhatIf $false
+        Install-EsLint -Environment ($UseReact ? 'ViteReact' : 'Vite') -WhatIf $false
+        Install-Vitest -WhatIf $false
+        Install-Oxfmt -UseTailwindCss -WhatIf $false
+        Install-TailwindCss -IsVite -WhatIf $false
+        Initialize-VsCodeSetting -Environment 'Frontend' -WhatIf $false
+        Add-NpmScript -NameToScript @{
+            'dev'     = 'vite --open'
+            'preview' = 'vite preview --open'
+        } -WhatIf $false
+        if ($DeployToGitHubPages) {
+            [string]$workflowDirectory = './.github/workflows'
+            [string]$workflowFileName = 'pnpm-vite.yml'
+            [string]$workflowDestPath = Join-Path -Path $workflowDirectory -ChildPath $workflowFileName
+
+            if (Test-Path -Path $workflowDestPath -PathType 'Leaf') {
+                Write-Warning -Message 'The workflow file is already in place (skip).'
+            }
+            else {
+                $null = New-Item -Path $workflowDirectory -ItemType 'Directory' -Force
+                Join-Path -Path $PSScriptRoot -ChildPath "templates/$workflowFileName" |
+                Copy-Item -Destination $workflowDestPath -Force
+            }
+        }
+
+        git add .
+        git commit -m 'chore(scaffold): Vite project setup'
+
+        Write-Host -Object '✅ Setup complete: Vite project is now ready!' -ForegroundColor 'Green'
     }
-
-    git add .
-    git commit -m 'chore(scaffold): Vite project setup'
-
-    Write-Host -Object '✅ Setup complete: Vite project is now ready!' -ForegroundColor 'Green'
 }

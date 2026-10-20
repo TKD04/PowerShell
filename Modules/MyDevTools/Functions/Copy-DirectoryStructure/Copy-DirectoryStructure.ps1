@@ -6,6 +6,7 @@ Copies the folder structure of the specified directory to the current directory.
 Specifies the path of the source directory to copy.
 #>
 function Copy-DirectoryStructure {
+    [CmdletBinding(SupportsShouldProcess)]
     [OutputType([System.Void])]
     param(
         [Parameter(Mandatory)]
@@ -28,9 +29,11 @@ function Copy-DirectoryStructure {
         throw "The path '$destFullName' is already in place."
     }
 
-    $null = New-Item -Path $destFullName -ItemType 'Directory' -Force
-    # https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/xcopy#parameter
-    $null = xcopy.exe /E /T $targetDir.FullName $destFullName
+    if ($PSCmdlet.ShouldProcess($destFullName, 'Copy directory structure')) {
+        $null = New-Item -Path $destFullName -ItemType 'Directory' -Force
+        # https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/xcopy#parameter
+        $null = xcopy.exe /E /T $targetDir.FullName $destFullName
+    }
 }
 
 Set-Alias -Name 'cptree' -Value 'Copy-DirectoryStructure'

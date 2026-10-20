@@ -3,6 +3,7 @@
 Initializes pnpm project in the current directory.
 #>
 function Initialize-PnpmProject {
+    [CmdletBinding(SupportsShouldProcess)]
     [OutputType([System.Void])]
     param()
 
@@ -22,13 +23,15 @@ function Initialize-PnpmProject {
         throw 'Project already initialized.'
     }
 
-    corepack prepare pnpm@latest --activate
-    pnpm init
-    [hashtable]$package = Import-Json -LiteralPath './package.json'
-    $package['private'] = $true
-    Export-Json -LiteralPath './package.json' -Hashtable $package
-    git add .
-    git commit -m 'chore: init pnpm project'
+    if ($PSCmdlet.ShouldProcess($PWD.ProviderPath, 'Initialize pnpm project')) {
+        corepack prepare pnpm@latest --activate
+        pnpm init
+        [hashtable]$package = Import-Json -LiteralPath './package.json'
+        $package['private'] = $true
+        Export-Json -LiteralPath './package.json' -Hashtable $package
+        git add .
+        git commit -m 'chore: init pnpm project'
+    }
 }
 
 Set-Alias -Name 'pinit' -Value 'Initialize-PnpmProject'

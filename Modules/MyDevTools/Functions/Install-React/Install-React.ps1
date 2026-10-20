@@ -3,6 +3,7 @@
 Adds React and React DOM to the current directory.
 #>
 function Install-React {
+    [CmdletBinding(SupportsShouldProcess)]
     [OutputType([System.Void])]
     param ()
 
@@ -19,6 +20,9 @@ function Install-React {
         '@types/react-dom'
     )
 
-    pnpm add @dependencies
-    pnpm add -D @devDependencies
+    if ($PSCmdlet.ShouldProcess($PWD.ProviderPath, 'Install React')) {
+        pnpm add @dependencies
+        pnpm add -D @devDependencies
+
+    }
 }

@@ -10,6 +10,7 @@ Specifies the target environment:
 - Next
 #>
 function Install-EsLint {
+    [CmdletBinding(SupportsShouldProcess)]
     [OutputType([System.Void])]
     param (
         [Parameter(Mandatory)]
@@ -53,42 +54,44 @@ function Install-EsLint {
             'eslint-plugin-testing-library'
         )
     }
-    switch ($Environment) {
-        'Node' {
-            $eslintConfigSource = 'templates/eslint-node.config.mjs'
-        }
-        'Vite' {
-            $eslintConfigSource = 'templates/eslint-browser-vite.config.mjs'
-        }
-        'ViteReact' {
-            $eslintConfigSource = 'templates/eslint-browser-vite-react.config.mjs'
-            if (Test-StrictPath -LiteralPath './eslint.config.js' -PathType 'Leaf') {
-                Remove-Item -LiteralPath './eslint.config.js'
+    if ($PSCmdlet.ShouldProcess($PWD.ProviderPath, 'Install ESLint')) {
+        switch ($Environment) {
+            'Node' {
+                $eslintConfigSource = 'templates/eslint-node.config.mjs'
+            }
+            'Vite' {
+                $eslintConfigSource = 'templates/eslint-browser-vite.config.mjs'
+            }
+            'ViteReact' {
+                $eslintConfigSource = 'templates/eslint-browser-vite-react.config.mjs'
+                if (Test-StrictPath -LiteralPath './eslint.config.js' -PathType 'Leaf') {
+                    Remove-Item -LiteralPath './eslint.config.js'
+                }
+            }
+            'Next' {
+                [hashtable]$package = Import-Json -LiteralPath './package.json'
+                [bool]$hasNpmScriptLint = $package.ContainsKey('scripts') -and $package['scripts'].ContainsKey('lint')
+
+                if ($hasNpmScriptLint) {
+                    pnpm rm 'eslint-config-next'
+                }
+                $eslintConfigSource = 'templates/eslint-browser-next.config.mjs'
             }
         }
-        'Next' {
-            [hashtable]$package = Import-Json -LiteralPath './package.json'
-            [bool]$hasNpmScriptLint = $package.ContainsKey('scripts') -and $package['scripts'].ContainsKey('lint')
-
-            if ($hasNpmScriptLint) {
-                pnpm rm 'eslint-config-next'
-            }
-            $eslintConfigSource = 'templates/eslint-browser-next.config.mjs'
+        <# pnpm-workspace.yaml #>
+        # Skip for Next.js because Initialize-NextJsProject provides
+        # its own pnpm-workspace.yaml with allowBuilds entries
+        # for esbuild, sharp, and unrs-resolver.
+        if ($Environment -ne 'Next') {
+            Join-Path -Path $PSScriptRoot -ChildPath 'templates/pnpm-workspace.yaml' |
+            Copy-Item -Destination './pnpm-workspace.yaml' -Force
         }
-    }
-    <# pnpm-workspace.yaml #>
-    # Skip for Next.js because Initialize-NextJsProject provides
-    # its own pnpm-workspace.yaml with allowBuilds entries
-    # for esbuild, sharp, and unrs-resolver.
-    if ($Environment -ne 'Next') {
-        Join-Path -Path $PSScriptRoot -ChildPath 'templates/pnpm-workspace.yaml' |
-        Copy-Item -Destination './pnpm-workspace.yaml' -Force
-    }
 
-    pnpm add -D @devDependencies
-    Add-NpmScript -NameToScript @{
-        'lint' = 'eslint . --cache'
+        pnpm add -D @devDependencies
+        Add-NpmScript -NameToScript @{
+            'lint' = 'eslint . --cache'
+        } -WhatIf $false
+        Join-Path -Path $PSScriptRoot -ChildPath $eslintConfigSource |
+        Copy-Item -Destination './eslint.config.mjs' -Force
     }
-    Join-Path -Path $PSScriptRoot -ChildPath $eslintConfigSource |
-    Copy-Item -Destination './eslint.config.mjs' -Force
 }
