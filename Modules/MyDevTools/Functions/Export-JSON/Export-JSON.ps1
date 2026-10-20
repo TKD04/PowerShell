@@ -26,13 +26,8 @@ function Export-Json {
 
     [string]$fullPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($LiteralPath)
 
-    try {
-        if ($PSCmdlet.ShouldProcess($fullPath, 'Export json file')) {
-            ConvertTo-Json -InputObject $Hashtable -Depth $Depth |
-            Set-Content -LiteralPath $fullPath -ErrorAction 'Stop'
-        }
-    }
-    catch {
-        throw "Failed to export JSON to '$fullPath'."
+    if ($PSCmdlet.ShouldProcess($fullPath, 'Export json file')) {
+        ConvertTo-Json -InputObject $Hashtable -Depth $Depth |
+        Set-Content -LiteralPath $fullPath -ErrorAction 'Stop'
     }
 }

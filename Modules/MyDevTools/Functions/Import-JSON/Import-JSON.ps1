@@ -21,13 +21,7 @@ function Import-Json {
     )
 
     [string]$fullPath = (Resolve-Path -LiteralPath $LiteralPath -ErrorAction 'Stop').ProviderPath
+    [string]$json = Get-Content -LiteralPath $fullPath -Raw
 
-    try {
-        [string]$json = Get-Content -LiteralPath $fullPath -Raw
-
-        ConvertFrom-Json -InputObject $json -AsHashtable
-    }
-    catch {
-        throw "Failed to import JSON from '$LiteralPath'."
-    }
+    ConvertFrom-Json -InputObject $json -AsHashtable
 }
