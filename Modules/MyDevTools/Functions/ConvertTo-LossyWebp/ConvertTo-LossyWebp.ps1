@@ -17,7 +17,7 @@ Prerequisite: The "cwebp" executable must be installed and available in the syst
 .LINK
 https://developers.google.com/speed/webp/docs/cwebp
 #>
-function ConvertTo-LossyWebp {
+function ConvertTo-LossyWebP {
     [CmdletBinding()]
     [OutputType([System.Void])]
     param (

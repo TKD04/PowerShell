@@ -3,7 +3,7 @@
     ModuleVersion     = '0.0.1'
     FunctionsToExport = @(
         'Add-NpmScript'
-        'ConvertTo-LossyWebp'
+        'ConvertTo-LossyWebP'
         'Add-VsCodeFrontendSetting'
         'Add-VsCodePowerShellSetting'
         'Copy-DirectoryStructure'
