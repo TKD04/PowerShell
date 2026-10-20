@@ -1,19 +1,26 @@
 ﻿<#
 .SYNOPSIS
 Converts image files in a specified directory into lossy WebP format using cwebp.
+
 .PARAMETER LiteralPath
 Specifies the path to the directory containing the target images.
+
 .PARAMETER FileFilter
 Specifies a file search pattern (e.g., "*.png", "*.jpg").
+
 .PARAMETER Quality
 Specifies the compression quality as an integer from 0 to 100.
 Default is 75.
+
 .PARAMETER Preset
 Specifies a set of pre-defined parameters for various types of material.
+
 .PARAMETER SleepOnCompletion
 Specifies whether to put the computer to sleep after the image conversion is completed.
+
 .NOTES
 Prerequisite: The "cwebp" executable must be installed and available in the system's PATH.
+
 .LINK
 https://developers.google.com/speed/webp/docs/cwebp
 #>

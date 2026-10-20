@@ -1,8 +1,10 @@
 ﻿<#
 .SYNOPSIS
 Safely renames all files and directories within a specified target directory into sequential numbers.
+
 .PARAMETER LiteralPath
 Specifies the literal path to the target directory. Root drives (e.g., C:\) are prohibited via validation to prevent catastrophic bulk operations.
+
 .NOTES
 Automatically relocates the current working directory ($PWD) if it resides within or at the target tree to prevent file locks.
 #>
