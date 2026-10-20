@@ -48,6 +48,8 @@ function ConvertTo-LossyWebp {
     [string]$outputDirName = 'webp_q' + $Quality.ToString()
     [string]$outputDirFullName = Join-Path -Path $LiteralPath -ChildPath "$outputDirName"
     [string[]]$WebpOptions = @(
+        # Since -preset overwrites the other parameters' values (except the -q one),
+        # this option should preferably appear first in the order of the arguments.
         '-preset', $Preset
         '-q', $Quality.ToString()
         '-m', '6'
