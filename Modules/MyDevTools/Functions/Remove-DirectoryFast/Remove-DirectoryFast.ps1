@@ -21,8 +21,8 @@ function Remove-DirectoryFast {
         [string]$Directory
     )
 
+    [string]$DirectoryFullPath = Convert-Path -LiteralPath $Directory
     [string]$EmptyDirPath = Join-Path -Path ([System.IO.Path]::GetTempPath()) -ChildPath ([System.Guid]::NewGuid())
-    [string]$DirectoryFullPath = (Resolve-Path -LiteralPath $Directory).ProviderPath
     [bool]$isCurrentDir = $PWD.Path -ieq $DirectoryFullPath
 
     if ($DirectoryFullPath -match '^[A-Z]:\\$|^\\\\[^\\]+\\[^\\]+$') {

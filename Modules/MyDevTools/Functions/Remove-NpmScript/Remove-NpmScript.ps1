@@ -14,7 +14,13 @@ function Remove-NpmScript {
         [string]$ScriptName
     )
 
-    [string]$packageJsonFullPath = (Resolve-Path -LiteralPath './package.json').ProviderPath
+    [string]$packageRelativeName = './package.json'
+
+    if (-not (Test-StrictPath -LiteralPath $packageRelativeName -PathType 'Leaf')) {
+        throw "$($packageRelativeName) was not found."
+    }
+
+    [string]$packageJsonFullPath = Convert-Path -LiteralPath $packageRelativeName
     [hashtable]$package = Import-Json -LiteralPath $packageJsonFullPath
     [boolean]$hasScript = $package.ContainsKey('scripts') -and $package['scripts'].ContainsKey($ScriptName)
 

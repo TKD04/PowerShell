@@ -20,8 +20,6 @@ function Import-Json {
         [string]$LiteralPath
     )
 
-    [string]$fullPath = (Resolve-Path -LiteralPath $LiteralPath).ProviderPath
-    [string]$json = Get-Content -LiteralPath $fullPath -Raw
-
-    ConvertFrom-Json -InputObject $json -AsHashtable
+    Get-Content -LiteralPath $LiteralPath -Raw |
+    ConvertFrom-Json -AsHashtable
 }
