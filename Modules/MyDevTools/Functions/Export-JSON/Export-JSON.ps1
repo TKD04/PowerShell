@@ -17,6 +17,16 @@ function Export-Json {
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrWhiteSpace()]
+        [ValidateScript({
+                if (-not (Test-Path -LiteralPath $_ -IsValid)) {
+                    throw "The path '$_' is not valid."
+                }
+                if (-not ([System.IO.Path]::GetExtension($_) -in '.json', '.jsonc')) {
+                    throw "The file '$_' must have a .json or .jsonc extension."
+                }
+
+                $true
+            })]
         [string]$LiteralPath,
         [Parameter(Mandatory)]
         [hashtable]$Hashtable,

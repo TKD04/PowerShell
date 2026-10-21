@@ -14,6 +14,9 @@ function Import-Json {
                 if (-not (Test-StrictPath -LiteralPath $_ -PathType 'Leaf')) {
                     throw "The path '$_' does not exist."
                 }
+                if (-not ([System.IO.Path]::GetExtension($_) -in '.json', '.jsonc')) {
+                    throw "The file '$_' must have a .json or .jsonc extension."
+                }
 
                 $true
             })]
