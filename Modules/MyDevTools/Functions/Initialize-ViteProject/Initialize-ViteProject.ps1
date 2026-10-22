@@ -19,10 +19,10 @@ function Initialize-ViteProject {
     )
 
     if (-not (Test-CommandExists -Command 'git')) {
-        throw 'The command "git" was not found.'
+        throw 'The command "git" does not exist.'
     }
     if (-not (Test-CommandExists -Command 'pnpm')) {
-        throw 'The command "pnpm" was not found.'
+        throw 'The command "pnpm" does not exist.'
     }
     if (Test-StrictPath -LiteralPath './.git' -PathType 'Container') {
         throw 'Git repository is already in place.'

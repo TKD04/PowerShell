@@ -13,7 +13,7 @@ function Remove-DirectoryFast {
         [ValidateNotNullOrWhiteSpace()]
         [ValidateScript({
                 if (-not (Test-StrictPath -LiteralPath $_ -PathType 'Container')) {
-                    throw "The path '$_' does not exist."
+                    throw "The path '$($_)' does not exist."
                 }
 
                 $true
@@ -26,7 +26,7 @@ function Remove-DirectoryFast {
     [bool]$isCurrentDir = $PWD.Path -ieq $DirectoryFullPath
 
     if ($DirectoryFullPath -match '^[A-Z]:\\$|^\\\\[^\\]+\\[^\\]+$') {
-        throw "Refusing to remove drive root '$DirectoryFullPath'."
+        throw "Refusing to remove drive root '$($DirectoryFullPath)'."
     }
 
     if ($PSCmdlet.ShouldProcess($DirectoryFullPath, 'Remove all contents of directory')) {
@@ -35,7 +35,7 @@ function Remove-DirectoryFast {
             $null = New-Item -Path $EmptyDirPath -ItemType 'Directory' -Force
             $null = Robocopy.exe $EmptyDirPath $DirectoryFullPath /MIR /NJH /NJS /NP /NS /NC /NFL /NDL
             if ($LASTEXITCODE -ge 8) {
-                throw "Robocopy failed with exit code '$LASTEXITCODE'."
+                throw "Robocopy failed with exit code '$($LASTEXITCODE)'."
             }
             if (-not $isCurrentDir) {
                 Remove-Item -LiteralPath $DirectoryFullPath -Recurse -Force

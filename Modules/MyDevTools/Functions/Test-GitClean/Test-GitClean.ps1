@@ -7,7 +7,7 @@ function Test-GitClean {
     param ()
 
     if (-not (Test-CommandExists -Command 'git')) {
-        'The command "git" was not found.'
+        'The command "git" does not exist.'
     }
 
     [string]$changesWithoutBranch = (git status --porcelain | Where-Object { $_ -cnotmatch '^##' }) -join "`n"

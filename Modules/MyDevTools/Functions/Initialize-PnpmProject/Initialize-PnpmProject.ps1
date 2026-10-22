@@ -8,16 +8,16 @@ function Initialize-PnpmProject {
     param()
 
     if (-not (Test-CommandExists -Command 'git')) {
-        throw 'The command "git" was not found.'
+        throw 'The command "git" does not exist.'
     }
     if (-not (Test-CommandExists -Command 'corepack')) {
-        throw 'The command "corepack" was not found.'
+        throw 'The command "corepack" does not exist.'
     }
     if (-not (Test-CommandExists -Command 'pnpm')) {
-        throw 'The command "pnpm" was not found.'
+        throw 'The command "pnpm" does not exist.'
     }
     if (-not (Test-StrictPath -LiteralPath './.git' -PathType 'Container')) {
-        throw 'Git repository was not initialized.'
+        throw 'Git repository must be initialized.'
     }
     if (Test-StrictPath -LiteralPath './package.json') {
         throw 'Project already initialized.'

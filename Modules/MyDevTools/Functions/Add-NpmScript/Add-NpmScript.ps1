@@ -16,7 +16,7 @@ function Add-NpmScript {
     [string]$packageRelativeName = './package.json'
 
     if (-not (Test-StrictPath -LiteralPath $packageRelativeName -PathType 'Leaf')) {
-        throw "$($packageRelativeName) was not found."
+        throw "The path '$($packageRelativeName)' does not exist."
     }
 
     [string]$packageJsonFullPath = Convert-Path -LiteralPath $packageRelativeName
@@ -27,7 +27,7 @@ function Add-NpmScript {
     foreach ($key in $NameToScript.Keys) {
         $package['scripts'][$key] = $NameToScript[$key]
     }
-    if ($PSCmdlet.ShouldProcess($packageJsonFullPath, "Add npm script(s): [$scriptNames]")) {
+    if ($PSCmdlet.ShouldProcess($packageJsonFullPath, "Add npm script(s): [$($scriptNames)]")) {
         Export-Json -LiteralPath $packageJsonFullPath -Hashtable $package -WhatIf $false
     }
 }

@@ -15,7 +15,7 @@ function Rename-ItemsToSequential {
         [ValidateNotNullOrWhiteSpace()]
         [ValidateScript({
                 if (-not (Test-StrictPath -LiteralPath $_ -PathType 'Container')) {
-                    throw '$LiteralPath is not a directory or inaccessible.'
+                    throw "The path '$($_)' is not a directory or inaccessible."
                 }
                 if ($null -eq (Get-Item -LiteralPath $_).Parent) {
                     throw 'Root drives are not allowed to prevent catastrophic bulk operations.'
@@ -50,7 +50,7 @@ function Rename-ItemsToSequential {
 
                 $fileIndex += 1
             } while (Test-StrictPath -LiteralPath $destPath)
-            if ($PSCmdlet.ShouldProcess($file.FullName, "Rename file to $newName")) {
+            if ($PSCmdlet.ShouldProcess($file.FullName, "Rename file to $($newName)")) {
                 Rename-Item -LiteralPath $file.FullName -NewName $newName
             }
         }
@@ -67,7 +67,7 @@ function Rename-ItemsToSequential {
 
                 $dirIndex += 1
             } while (Test-StrictPath -LiteralPath $destPath)
-            if ($PSCmdlet.ShouldProcess($directory.FullName, "Rename directory to $newName")) {
+            if ($PSCmdlet.ShouldProcess($directory.FullName, "Rename directory to $($newName)")) {
                 Rename-Item -LiteralPath $directory.FullName -NewName $newName
             }
         }
@@ -79,7 +79,7 @@ function Rename-ItemsToSequential {
 
             $dirIndex += 1
         } while (Test-StrictPath -LiteralPath $destPath)
-        if ($PSCmdlet.ShouldProcess($rootDirectory.FullName, "Rename root directory to $newName")) {
+        if ($PSCmdlet.ShouldProcess($rootDirectory.FullName, "Rename root directory to $($newName)")) {
             Rename-Item -LiteralPath $rootDirectory.FullName -NewName $newName
         }
     }

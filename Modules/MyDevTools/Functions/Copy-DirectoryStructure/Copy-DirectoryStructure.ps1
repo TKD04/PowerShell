@@ -13,7 +13,7 @@ function Copy-DirectoryStructure {
         [ValidateNotNullOrWhiteSpace()]
         [ValidateScript({
                 if (-not (Test-StrictPath -LiteralPath $_ -PathType 'Container')) {
-                    throw "The path '$_' does not exist."
+                    throw "The path '$($_)' does not exist."
                 }
 
                 $true
@@ -26,7 +26,7 @@ function Copy-DirectoryStructure {
     [string]$destFullName = Join-Path -Path (Get-Location).Path -ChildPath $destDirName
 
     if (Test-StrictPath -LiteralPath $destFullName) {
-        throw "The path '$destFullName' is already in place."
+        throw "The path '$($destFullName)' is already in place."
     }
 
     if ($PSCmdlet.ShouldProcess($destFullName, 'Copy directory structure')) {

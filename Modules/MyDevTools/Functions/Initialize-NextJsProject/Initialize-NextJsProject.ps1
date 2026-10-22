@@ -15,19 +15,19 @@ function Initialize-NextJsProject {
     )
 
     if (-not (Test-CommandExists -Command 'git')) {
-        throw 'The command "git" was not found.'
+        throw 'The command "git" does not exist.'
     }
     if (-not (Test-CommandExists -Command 'pnpm')) {
-        throw 'The command "pnpm" was not found.'
+        throw 'The command "pnpm" does not exist.'
     }
     if (-not (Test-StrictPath -LiteralPath './.git' -PathType 'Container')) {
-        throw 'Git repository was not initialized.'
+        throw 'Git repository must be initialized.'
     }
     if (-not (Test-StrictPath -LiteralPath './pnpm-lock.yaml' -PathType 'Leaf')) {
-        throw 'The file "./pnpm-lock.yaml" was not found. Create the project using the command "pnpm dlx create-next-app@latest --use-pnpm".'
+        throw 'The path "./pnpm-lock.yaml" does not exist.'
     }
     if (-not (Test-GitClean)) {
-        throw 'Git working tree or staging area contains uncommitted changes.'
+        throw 'Git working tree or staging area must not contain any uncommitted changes.'
     }
 
     [hashtable]$missingCompilerOptions = @{

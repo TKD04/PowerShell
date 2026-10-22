@@ -19,7 +19,7 @@ function Rename-FileExtension {
         [ValidateNotNullOrWhiteSpace()]
         [ValidateScript({
                 if ($_ -like '*.*') {
-                    throw "Omit the leading dot from the extension '$_'."
+                    throw "Omit the leading dot from the extension '$($_)'."
                 }
 
                 $true
@@ -29,7 +29,7 @@ function Rename-FileExtension {
         [ValidateNotNullOrWhiteSpace()]
         [ValidateScript({
                 if ($_ -like '*.*') {
-                    throw "Omit the leading dot from the extension '$_'."
+                    throw "Omit the leading dot from the extension '$($_)'."
                 }
 
                 $true
@@ -43,7 +43,7 @@ function Rename-FileExtension {
     foreach ($file in $files) {
         [string]$newFileName = $file.BaseName + '.' + $NewExtension
 
-        if ($PSCmdlet.ShouldProcess($file.FullName, "Rename to $newFileName")) {
+        if ($PSCmdlet.ShouldProcess($file.FullName, "Rename to $($newFileName)")) {
             Rename-Item -LiteralPath $file.FullName -NewName $newFileName
         }
     }

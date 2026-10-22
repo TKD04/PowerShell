@@ -32,7 +32,7 @@ function ConvertTo-LossyWebP {
         [ValidateNotNullOrWhiteSpace()]
         [ValidateScript({
                 if (-not (Test-StrictPath -LiteralPath $_ -PathType 'Container')) {
-                    throw '$LiteralPath is not a directory or inaccessible.'
+                    throw "The path '$($_)' is not a directory or inaccessible."
                 }
 
                 $true
@@ -49,7 +49,7 @@ function ConvertTo-LossyWebP {
     )
 
     if (-not (Test-CommandExists -Command 'cwebp')) {
-        throw 'The command "cwebp" was not found.'
+        throw 'The command "cwebp" does not exist.'
     }
 
     [string]$outputDirName = 'webp_q' + $Quality.ToString()

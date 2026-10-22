@@ -19,10 +19,10 @@ function Export-Json {
         [ValidateNotNullOrWhiteSpace()]
         [ValidateScript({
                 if (-not (Test-Path -LiteralPath $_ -IsValid)) {
-                    throw "The path '$_' is not valid."
+                    throw "The path '$($_)' is not valid."
                 }
                 if (-not ([System.IO.Path]::GetExtension($_) -in '.json', '.jsonc')) {
-                    throw "The file '$_' must have a .json or .jsonc extension."
+                    throw "The file '$($_)' must have a .json or .jsonc extension."
                 }
 
                 $true

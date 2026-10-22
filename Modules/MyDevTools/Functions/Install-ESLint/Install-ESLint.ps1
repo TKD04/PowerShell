@@ -19,7 +19,7 @@ function Install-EsLint {
     )
 
     if (-not (Test-CommandExists -Command 'pnpm')) {
-        throw 'The command "pnpm" was not found.'
+        throw 'The command "pnpm" does not exist.'
     }
 
     [string]$eslintConfigSource = ''
