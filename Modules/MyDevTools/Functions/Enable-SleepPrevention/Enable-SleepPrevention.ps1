@@ -1,11 +1,17 @@
 ﻿<#
 .SYNOPSIS
 Enables system sleep prevention.
+
+.NOTES
+Prerequisite: Must be run on a Windows OS environment.
 #>
 function Enable-SleepPrevention {
     [OutputType([System.Void])]
     param ()
 
+    if (-not $IsWindows) {
+        throw 'This function is supported only on Windows.'
+    }
     if (-not ([System.Management.Automation.PSTypeName]'SleepBlocker').Type) {
         Add-Type -TypeDefinition @'
         using System;

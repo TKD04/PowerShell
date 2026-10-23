@@ -4,6 +4,9 @@ Copies the folder structure of the specified directory to the current directory.
 
 .PARAMETER LiteralPath
 Specifies the path of the source directory to copy.
+
+.NOTES
+Prerequisite: Must be run on a Windows OS environment.
 #>
 function Copy-DirectoryStructure {
     [CmdletBinding(SupportsShouldProcess)]
@@ -20,6 +23,10 @@ function Copy-DirectoryStructure {
             })]
         [string]$LiteralPath
     )
+
+    if (-not $IsWindows) {
+        throw 'This function is supported only on Windows.'
+    }
 
     [System.IO.DirectoryInfo]$targetDir = Get-Item -LiteralPath $LiteralPath
     [string]$destDirName = "_$($targetDir.Name)"

@@ -4,6 +4,9 @@ Quickly removes all contents of the specified directory using Robocopy.
 
 .PARAMETER Directory
 Specifies the directory whose contents will be removed.
+
+.NOTES
+Prerequisite: Must be run on a Windows OS environment.
 #>
 function Remove-DirectoryFast {
     [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
@@ -20,6 +23,10 @@ function Remove-DirectoryFast {
             })]
         [string]$Directory
     )
+
+    if (-not $IsWindows) {
+        throw 'This function is supported only on Windows.'
+    }
 
     [string]$DirectoryFullPath = Convert-Path -LiteralPath $Directory
     [string]$EmptyDirPath = Join-Path -Path ([System.IO.Path]::GetTempPath()) -ChildPath ([System.Guid]::NewGuid())
