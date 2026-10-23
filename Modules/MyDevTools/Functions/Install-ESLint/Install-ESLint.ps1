@@ -57,13 +57,13 @@ function Install-EsLint {
     if ($PSCmdlet.ShouldProcess($PWD.ProviderPath, 'Install ESLint')) {
         switch ($Environment) {
             'Node' {
-                $eslintConfigSource = 'templates/eslint-node.config.mjs'
+                $eslintConfigSource = Join-Path -Path 'templates' -ChildPath 'eslint-node.config.mjs'
             }
             'Vite' {
-                $eslintConfigSource = 'templates/eslint-browser-vite.config.mjs'
+                $eslintConfigSource = Join-Path -Path 'templates' -ChildPath 'eslint-browser-vite.config.mjs'
             }
             'ViteReact' {
-                $eslintConfigSource = 'templates/eslint-browser-vite-react.config.mjs'
+                $eslintConfigSource = Join-Path -Path 'templates' -ChildPath 'eslint-browser-vite-react.config.mjs'
                 if (Test-StrictPath -LiteralPath './eslint.config.js' -PathType 'Leaf') {
                     Remove-Item -LiteralPath './eslint.config.js'
                 }
@@ -75,7 +75,7 @@ function Install-EsLint {
                 if ($hasNpmScriptLint) {
                     pnpm rm 'eslint-config-next'
                 }
-                $eslintConfigSource = 'templates/eslint-browser-next.config.mjs'
+                $eslintConfigSource = Join-Path -Path 'templates' -ChildPath 'eslint-browser-next.config.mjs'
             }
         }
         <# pnpm-workspace.yaml #>
@@ -83,7 +83,7 @@ function Install-EsLint {
         # its own pnpm-workspace.yaml with allowBuilds entries
         # for esbuild, sharp, and unrs-resolver.
         if ($Environment -ne 'Next') {
-            Join-Path -Path $PSScriptRoot -ChildPath 'templates/pnpm-workspace.yaml' |
+            Join-Path -Path $PSScriptRoot -ChildPath 'templates', 'pnpm-workspace.yaml' |
             Copy-Item -Destination './pnpm-workspace.yaml' -Force
         }
 

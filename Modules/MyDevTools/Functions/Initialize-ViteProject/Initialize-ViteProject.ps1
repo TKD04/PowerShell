@@ -42,15 +42,15 @@ function Initialize-ViteProject {
         pnpm install
         # Add the "@/ -> ./src" alias and Tailwind @import to the Vite config and CSS.
         if ($UseReact) {
-            Join-Path -Path $PSScriptRoot -ChildPath 'templates/vite-react.config.ts' |
+            Join-Path -Path $PSScriptRoot -ChildPath 'templates', 'vite-react.config.ts' |
             Copy-Item -Destination './vite.config.ts' -Force
-            Join-Path -Path $PSScriptRoot -ChildPath 'templates/vite-react-index.css' |
+            Join-Path -Path $PSScriptRoot -ChildPath 'templates', 'vite-react-index.css' |
             Copy-Item -Destination './src/index.css' -Force
         }
         else {
-            Join-Path -Path $PSScriptRoot -ChildPath 'templates/vite.config.ts' |
+            Join-Path -Path $PSScriptRoot -ChildPath 'templates', 'vite.config.ts' |
             Copy-Item -Destination './vite.config.ts' -Force
-            Join-Path -Path $PSScriptRoot -ChildPath 'templates/vite-style.css' |
+            Join-Path -Path $PSScriptRoot -ChildPath 'templates', 'vite-style.css' |
             Copy-Item -Destination './src/style.css' -Force
         }
         Install-TypeScript -Environment ($UseReact ? 'ViteReact' : 'Vite') -WhatIf $false
@@ -73,7 +73,7 @@ function Initialize-ViteProject {
             }
             else {
                 $null = New-Item -Path $workflowDirectory -ItemType 'Directory' -Force
-                Join-Path -Path $PSScriptRoot -ChildPath "templates/$workflowFileName" |
+                Join-Path -Path $PSScriptRoot -ChildPath 'templates', $workflowFileName |
                 Copy-Item -Destination $workflowDestPath -Force
             }
         }

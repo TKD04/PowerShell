@@ -22,11 +22,11 @@ function Initialize-GitRepository {
     if ($PSCmdlet.ShouldProcess($PWD.ProviderPath, 'Initialize Git repository')) {
         git init
         if ($UseNode) {
-            Join-Path -Path $PSScriptRoot -ChildPath 'templates/OS_Node.gitignore' |
+            Join-Path -Path $PSScriptRoot -ChildPath 'templates', 'OS_Node.gitignore' |
             Copy-Item -Destination './.gitignore' -Force
         }
         elseif (-not (Test-StrictPath -LiteralPath './.gitignore' -PathType 'Leaf')) {
-            Join-Path -Path $PSScriptRoot -ChildPath 'templates/OS.gitignore' |
+            Join-Path -Path $PSScriptRoot -ChildPath 'templates', 'OS.gitignore' |
             Copy-Item -Destination './.gitignore' -Force
         }
         else {

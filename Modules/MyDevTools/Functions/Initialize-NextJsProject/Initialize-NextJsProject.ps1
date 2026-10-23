@@ -59,17 +59,17 @@ function Initialize-NextJsProject {
         <# .gitignore #>
         # Replace the gitignore created by "create-next-app" with a custom gitignore
         # that combines rules for Windows, macOS, Linux, Node, and Next.js.
-        Join-Path -Path $PSScriptRoot -ChildPath 'templates/OS_Node_Nextjs.gitignore' |
+        Join-Path -Path $PSScriptRoot -ChildPath 'templates', 'OS_Node_Nextjs.gitignore' |
         Copy-Item -Destination './.gitignore' -Force
 
         <# pnpm-workspace.yaml #>
         # Add pnpm-workspace.yaml to allow required packages to run build scripts.
-        Join-Path -Path $PSScriptRoot -ChildPath 'templates/pnpm-workspace.yaml' |
+        Join-Path -Path $PSScriptRoot -ChildPath 'templates', 'pnpm-workspace.yaml' |
         Copy-Item -Destination './pnpm-workspace.yaml' -Force
 
         <# globals.d.ts #>
         # Add globals.d.ts so layout.tsx can import "./global.css" without TypeScript errors.
-        Join-Path -Path $PSScriptRoot -ChildPath 'templates/globals.d.ts' |
+        Join-Path -Path $PSScriptRoot -ChildPath 'templates', 'globals.d.ts' |
         Copy-Item -Destination './globals.d.ts' -Force
 
         <# tsconfig.json #>
@@ -93,7 +93,7 @@ function Initialize-NextJsProject {
             }
             else {
                 $null = New-Item -Path $workflowDirectory -ItemType 'Directory' -Force
-                Join-Path -Path $PSScriptRoot -ChildPath "templates/$workflowFileName" |
+                Join-Path -Path $PSScriptRoot -ChildPath 'templates', $workflowFileName |
                 Copy-Item -Destination $workflowDestPath -Force
             }
             # Remove the preview script because GitHub Pages only serves static exports.
