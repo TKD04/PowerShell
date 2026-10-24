@@ -18,6 +18,9 @@ function Remove-DirectoryFast {
                 if (-not (Test-StrictPath -LiteralPath $_ -PathType 'Container')) {
                     throw "The path '$($_)' does not exist."
                 }
+                if ($null -eq (Get-Item -LiteralPath $_).Parent) {
+                    throw "Refusing to remove drive root '$($_)'."
+                }
 
                 $true
             })]
@@ -31,10 +34,6 @@ function Remove-DirectoryFast {
     [string]$DirectoryFullPath = Convert-Path -LiteralPath $Directory
     [string]$EmptyDirPath = Join-Path -Path ([System.IO.Path]::GetTempPath()) -ChildPath ([System.Guid]::NewGuid())
     [bool]$isCurrentDir = $PWD.Path -ieq $DirectoryFullPath
-
-    if ($DirectoryFullPath -match '^[A-Z]:\\$|^\\\\[^\\]+\\[^\\]+$') {
-        throw "Refusing to remove drive root '$($DirectoryFullPath)'."
-    }
 
     if ($PSCmdlet.ShouldProcess($DirectoryFullPath, 'Remove all contents of directory')) {
         Enable-SleepPrevention
