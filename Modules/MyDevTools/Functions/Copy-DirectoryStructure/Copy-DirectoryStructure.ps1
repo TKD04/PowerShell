@@ -30,7 +30,7 @@ function Copy-DirectoryStructure {
 
     [System.IO.DirectoryInfo]$targetDir = Get-Item -LiteralPath $LiteralPath
     [string]$destDirName = "_$($targetDir.Name)"
-    [string]$destFullName = Join-Path -Path (Get-Location).Path -ChildPath $destDirName
+    [string]$destFullName = Join-Path -Path $PWD.ProviderPath -ChildPath $destDirName
 
     if (Test-StrictPath -LiteralPath $destFullName) {
         throw "The path '$($destFullName)' is already in place."
