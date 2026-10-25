@@ -9,6 +9,7 @@
         'Copy-DirectoryStructure'
         'Disable-SleepPrevention'
         'Enable-SleepPrevention'
+        'Export-ChocolateyPackageList'
         'Export-Json'
         'Import-Json'
         'Initialize-GitRepository'
