@@ -29,6 +29,7 @@
         'Remove-NpmScript'
         'Rename-FileExtension'
         'Rename-ItemsToSequential'
+        'Start-MicrosoftRewardsSearch'
         'Test-CommandExists'
         'Test-GitClean'
         'Test-StrictPath'
