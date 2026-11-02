@@ -56,8 +56,14 @@ function Rename-ItemsToSequential {
         }
 
         # 2. Sort folders by depth in descending order and rename them with sequential numbers.
+        [char[]]$pathSeparators = @(
+            [System.IO.Path]::DirectorySeparatorChar
+            [System.IO.Path]::AltDirectorySeparatorChar
+        )
         [System.IO.DirectoryInfo[]]$directories = Get-ChildItem -LiteralPath $rootFullName -Directory -Recurse |
-        Sort-Object -Property { ($_.FullName.Split('\')).Count } -Descending
+        Sort-Object -Property {
+            ($_.FullName.Split($pathSeparators, [System.StringSplitOptions]::RemoveEmptyEntries)).Count
+        } -Descending
         [int]$dirIndex = 1
 
         foreach ($directory in $directories) {
