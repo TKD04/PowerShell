@@ -104,14 +104,6 @@ function Start-MicrosoftRewardsSearch {
             $wshell.SendKeys('{ENTER}')
             # 4. Wait for a radom interval.
             Start-Sleep -Seconds (Get-Random -Minimum 3 -Maximum 5)
-            # Humane fake: Randomly move cursor to a random position in the screen.
-            [int]$mouseMoveCount = Get-Random -Minimum 0 -Maximum 3
-            for ([int]$i = 0; $i -lt $mouseMoveCount; $i += 1) {
-                [int]$randomX = Get-Random -Minimum 200 -Maximum 800
-                [int]$randomY = Get-Random -Minimum 200 -Maximum 600
-                [System.Windows.Forms.Cursor]::Position = New-Object -TypeName System.Drawing.Point($randomX, $randomY)
-                Start-Sleep -Milliseconds (Get-Random -Minimum 300 -Maximum 500)
-            }
             # Humane fake: Randomly simulate Page Down scrolling (0 to 2 times).
             [int]$pageDownCount = Get-Random -Minimum 0 -Maximum 3
             for ([int]$j = 0; $j -lt $pageDownCount; $j += 1) {
