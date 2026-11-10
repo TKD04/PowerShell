@@ -10,7 +10,8 @@ function Test-GitClean {
         'The command "git" does not exist.'
     }
 
-    [string]$changesWithoutBranch = (git status --porcelain | Where-Object { $_ -cnotmatch '^##' }) -join "`n"
+    [string]$changesWithoutBranch = (git status --porcelain |
+        Where-Object { $_ -cnotmatch '^##' }) -join "`n"
 
     [string]::IsNullOrWhiteSpace($changesWithoutBranch)
 }
