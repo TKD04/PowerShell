@@ -28,6 +28,7 @@ function Start-MicrosoftRewardsSearch {
         throw 'Microsoft Edge is not running.'
     }
 
+    [string]$progressActivityName = 'Microsoft Rewards Automation'
     [string[]]$keywords = @(
         '近くのレストラン'
         '近くのコンサート'
@@ -85,7 +86,7 @@ function Start-MicrosoftRewardsSearch {
         foreach ($keyword in $keywords) {
             $progressCount += 1
             [int]$progressPercent = [System.Math]::Round(($progressCount / $keywords.Count) * 100, [System.MidpointRounding]::AwayFromZero)
-            Write-Progress -Activity 'Microsoft Rewards Automation' `
+            Write-Progress -Activity $progressActivityName `
                 -Status "Progress: $($progressCount)/$($keywords.Count)" `
                 -PercentComplete $progressPercent
 
@@ -114,6 +115,6 @@ function Start-MicrosoftRewardsSearch {
         }
     }
     finally {
-        Write-Progress -Activity 'Microsoft Rewards Automation' -Completed
+        Write-Progress -Activity $progressActivityName -Completed
     }
 }
