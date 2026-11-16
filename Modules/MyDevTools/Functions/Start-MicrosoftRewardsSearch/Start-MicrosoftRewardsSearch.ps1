@@ -28,8 +28,6 @@ function Start-MicrosoftRewardsSearch {
         throw 'Microsoft Edge is not running.'
     }
 
-    Add-Type -AssemblyName 'System.Windows.Forms'
-
     [string[]]$keywords = @(
         '近くのレストラン'
         '近くのコンサート'
@@ -81,6 +79,7 @@ function Start-MicrosoftRewardsSearch {
     }
     $keywords = Get-Random -InputObject $keywords -Shuffle
 
+    Add-Type -AssemblyName 'System.Windows.Forms'
     Start-Process -FilePath 'microsoft-edge:about:blank'
     try {
         foreach ($keyword in $keywords) {
