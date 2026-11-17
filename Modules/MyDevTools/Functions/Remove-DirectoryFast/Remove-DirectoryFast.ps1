@@ -2,7 +2,7 @@
 .SYNOPSIS
 Quickly removes the specified directory using Robocopy.
 
-.PARAMETER Directory
+.PARAMETER LiteralPath
 Specifies the directory whose contents will be removed.
 
 .NOTES
@@ -24,14 +24,14 @@ function Remove-DirectoryFast {
 
                 $true
             })]
-        [string]$Directory
+        [string]$LiteralPath
     )
 
     if (-not $IsWindows) {
         throw 'This function is supported only on Windows.'
     }
 
-    [string]$DirectoryFullPath = Convert-Path -LiteralPath $Directory
+    [string]$DirectoryFullPath = Convert-Path -LiteralPath $LiteralPath
     [string]$EmptyDirPath = Join-Path -Path ([System.IO.Path]::GetTempPath()) -ChildPath ([System.Guid]::NewGuid())
     [bool]$isCurrentDir = $PWD.Path -ieq $DirectoryFullPath
 
