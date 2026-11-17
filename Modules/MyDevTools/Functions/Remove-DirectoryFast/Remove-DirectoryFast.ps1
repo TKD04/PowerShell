@@ -1,6 +1,6 @@
 ﻿<#
 .SYNOPSIS
-Quickly removes all contents of the specified directory using Robocopy.
+Quickly removes the specified directory using Robocopy.
 
 .PARAMETER Directory
 Specifies the directory whose contents will be removed.
