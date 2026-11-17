@@ -18,20 +18,16 @@ function Initialize-GitRepository {
     if (Test-StrictPath -LiteralPath './.git' -PathType 'Container') {
         throw 'Git repository is already in place.'
     }
+    if (Test-StrictPath -LiteralPath './.gitignore' -PathType 'Leaf') {
+        throw '.gitignore is already in place.'
+    }
+
+    [string]$templateFileName = $UseNode ? 'OS_Node.gitignore' : 'OS.gitignore'
 
     if ($PSCmdlet.ShouldProcess($PWD.ProviderPath, 'Initialize Git repository')) {
+        Join-Path -Path $PSScriptRoot -ChildPath 'templates', $templateFileName |
+        Copy-Item -Destination './.gitignore' -Force
         git init
-        if ($UseNode) {
-            Join-Path -Path $PSScriptRoot -ChildPath 'templates', 'OS_Node.gitignore' |
-            Copy-Item -Destination './.gitignore' -Force
-        }
-        elseif (-not (Test-StrictPath -LiteralPath './.gitignore' -PathType 'Leaf')) {
-            Join-Path -Path $PSScriptRoot -ChildPath 'templates', 'OS.gitignore' |
-            Copy-Item -Destination './.gitignore' -Force
-        }
-        else {
-            Write-Warning -Message '.gitignore is already in place (skip).'
-        }
         git add './.gitignore'
         git commit -m 'chore: initial commit'
     }
