@@ -37,7 +37,7 @@ function Remove-DirectoryFast {
     [System.IO.DirectoryInfo]$targetDirectory = Get-Item -LiteralPath $LiteralPath
     [string]$EmptyDirPath = Join-Path -Path ([System.IO.Path]::GetTempPath()) -ChildPath ([System.Guid]::NewGuid())
     [bool]$isCurrentInTarget = $PWD.ProviderPath -ieq $targetDirectory.FullName -or
-    $PWD.ProviderPath.StartsWith($targetDirectory + [System.IO.Path]::DirectorySeparatorChar)
+    $PWD.ProviderPath.StartsWith($targetDirectory.FullName + [System.IO.Path]::DirectorySeparatorChar)
 
     if ($isCurrentInTarget) {
         if ($PSCmdlet.ShouldProcess($PWD.ProviderPath, "Change location to '$($targetDirectory.Parent.FullName)' to avoid file locks")) {
