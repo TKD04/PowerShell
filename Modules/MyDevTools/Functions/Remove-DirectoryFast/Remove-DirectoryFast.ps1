@@ -15,8 +15,11 @@ function Remove-DirectoryFast {
         [Parameter(Mandatory)]
         [ValidateNotNullOrWhiteSpace()]
         [ValidateScript({
-                if (-not (Test-StrictPath -LiteralPath $_ -PathType 'Container')) {
+                if (-not (Test-StrictPath -LiteralPath $_)) {
                     throw "The path '$($_)' does not exist."
+                }
+                if (Test-StrictPath -LiteralPath $_ -PathType 'Leaf') {
+                    throw "The path '$($_)' is a file."
                 }
                 if ($null -eq (Get-Item -LiteralPath $_).Parent) {
                     throw "Refusing to remove drive root '$($_)'."
