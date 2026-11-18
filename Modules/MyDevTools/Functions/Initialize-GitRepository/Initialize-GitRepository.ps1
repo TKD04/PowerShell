@@ -18,9 +18,6 @@ function Initialize-GitRepository {
     if (Test-StrictPath -LiteralPath './.git' -PathType 'Container') {
         throw 'Git repository is already in place.'
     }
-    if (Test-StrictPath -LiteralPath './.gitignore' -PathType 'Leaf') {
-        throw '.gitignore is already in place.'
-    }
 
     [string]$templateFileName = $UseNode ? 'OS_Node.gitignore' : 'OS.gitignore'
 
