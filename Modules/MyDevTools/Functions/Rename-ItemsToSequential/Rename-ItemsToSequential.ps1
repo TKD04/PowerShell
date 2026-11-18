@@ -14,8 +14,11 @@ function Rename-ItemsToSequential {
         [Parameter(Mandatory)]
         [ValidateNotNullOrWhiteSpace()]
         [ValidateScript({
-                if (-not (Test-StrictPath -LiteralPath $_ -PathType 'Container')) {
-                    throw "The path '$($_)' is not a directory or inaccessible."
+                if (-not (Test-StrictPath -LiteralPath $_)) {
+                    throw "The path '$($_)' does not exist."
+                }
+                if (Test-StrictPath -LiteralPath $_ -PathType 'Leaf') {
+                    throw "The path '$($_)' is a file."
                 }
                 if ($null -eq (Get-Item -LiteralPath $_).Parent) {
                     throw 'Root drives are not allowed to prevent catastrophic bulk operations.'
