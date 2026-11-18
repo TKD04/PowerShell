@@ -35,7 +35,7 @@ function Remove-DirectoryFast {
     }
 
     [System.IO.DirectoryInfo]$targetDirectory = Get-Item -LiteralPath $LiteralPath
-    [string]$EmptyDirPath = Join-Path -Path ([System.IO.Path]::GetTempPath()) -ChildPath ([System.Guid]::NewGuid())
+    [string]$EmptyDirectoryFullName = Join-Path -Path ([System.IO.Path]::GetTempPath()) -ChildPath ([System.Guid]::NewGuid())
     [bool]$isCurrentInTarget = $PWD.ProviderPath -ieq $targetDirectory.FullName -or
     $PWD.ProviderPath.StartsWith($targetDirectory.FullName + [System.IO.Path]::DirectorySeparatorChar)
 
@@ -48,15 +48,15 @@ function Remove-DirectoryFast {
     if ($PSCmdlet.ShouldProcess($targetDirectory.FullName, 'Remove all contents of directory')) {
         Enable-SleepPrevention
         try {
-            $null = New-Item -Path $EmptyDirPath -ItemType 'Directory' -Force
-            $null = &'Robocopy.exe' $EmptyDirPath $targetDirectory.FullName '/MIR' '/NJH' '/NJS' '/NP' '/NS' '/NC' '/NFL' '/NDL'
+            $null = New-Item -Path $EmptyDirectoryFullName -ItemType 'Directory' -Force
+            $null = &'Robocopy.exe' $EmptyDirectoryFullName $targetDirectory.FullName '/MIR' '/NJH' '/NJS' '/NP' '/NS' '/NC' '/NFL' '/NDL'
             if ($LASTEXITCODE -ge 8) {
                 throw "Robocopy failed with exit code '$($LASTEXITCODE)'."
             }
             Remove-Item -LiteralPath $targetDirectory.FullName -Recurse -Force
         }
         finally {
-            Remove-Item -LiteralPath $EmptyDirPath -Recurse -Force -ErrorAction 'SilentlyContinue'
+            Remove-Item -LiteralPath $EmptyDirectoryFullName -Recurse -Force -ErrorAction 'SilentlyContinue'
             Disable-SleepPrevention
         }
     }
