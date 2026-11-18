@@ -46,7 +46,7 @@ function Remove-DirectoryFast {
         Enable-SleepPrevention
         try {
             $null = New-Item -Path $EmptyDirPath -ItemType 'Directory' -Force
-            $null = Robocopy.exe $EmptyDirPath $targetDirectory.FullName /MIR /NJH /NJS /NP /NS /NC /NFL /NDL
+            $null = &'Robocopy.exe' $EmptyDirPath $targetDirectory.FullName '/MIR' '/NJH' '/NJS' '/NP' '/NS' '/NC' '/NFL' '/NDL'
             if ($LASTEXITCODE -ge 8) {
                 throw "Robocopy failed with exit code '$($LASTEXITCODE)'."
             }
