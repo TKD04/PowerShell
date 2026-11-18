@@ -31,22 +31,26 @@ function Remove-DirectoryFast {
         throw 'This function is supported only on Windows.'
     }
 
-    [string]$DirectoryFullPath = Convert-Path -LiteralPath $LiteralPath
+    [System.IO.DirectoryInfo]$targetDirectory = Get-Item -LiteralPath $LiteralPath
     [string]$EmptyDirPath = Join-Path -Path ([System.IO.Path]::GetTempPath()) -ChildPath ([System.Guid]::NewGuid())
-    [bool]$isCurrentDir = $PWD.Path -ieq $DirectoryFullPath
+    [bool]$isCurrentInTarget = $PWD.ProviderPath -ieq $targetDirectory.FullName -or
+    $PWD.ProviderPath.StartsWith($targetDirectory + [System.IO.Path]::DirectorySeparatorChar)
 
-    if ($PSCmdlet.ShouldProcess($DirectoryFullPath, 'Remove all contents of directory')) {
+    if ($isCurrentInTarget) {
+        if ($PSCmdlet.ShouldProcess($PWD.ProviderPath, "Change location to '$($targetDirectory.Parent.FullName)' to avoid file locks")) {
+            Set-Location -LiteralPath $targetDirectory.Parent.FullName
+        }
+    }
+
+    if ($PSCmdlet.ShouldProcess($targetDirectory.FullName, 'Remove all contents of directory')) {
         Enable-SleepPrevention
         try {
             $null = New-Item -Path $EmptyDirPath -ItemType 'Directory' -Force
-            $null = Robocopy.exe $EmptyDirPath $DirectoryFullPath /MIR /NJH /NJS /NP /NS /NC /NFL /NDL
+            $null = Robocopy.exe $EmptyDirPath $targetDirectory.FullName /MIR /NJH /NJS /NP /NS /NC /NFL /NDL
             if ($LASTEXITCODE -ge 8) {
                 throw "Robocopy failed with exit code '$($LASTEXITCODE)'."
             }
-            if (-not $isCurrentDir) {
-                Remove-Item -LiteralPath $DirectoryFullPath -Recurse -Force
-            }
-
+            Remove-Item -LiteralPath $targetDirectory.FullName -Recurse -Force
         }
         finally {
             Remove-Item -LiteralPath $EmptyDirPath -Recurse -Force -ErrorAction 'SilentlyContinue'
