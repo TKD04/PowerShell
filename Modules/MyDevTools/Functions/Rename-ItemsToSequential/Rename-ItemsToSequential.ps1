@@ -26,30 +26,29 @@ function Rename-ItemsToSequential {
         [string]$LiteralPath
     )
 
-    [System.IO.DirectoryInfo]$rootDirectory = Get-Item -LiteralPath $LiteralPath
-    [string]$rootFullName = $rootDirectory.FullName
-    [bool]$isInTargetTree = $PWD.ProviderPath -ieq $rootFullName -or
-    $PWD.ProviderPath.StartsWith($rootFullName + [System.IO.Path]::DirectorySeparatorChar)
+    [System.IO.DirectoryInfo]$targetDirectory = Get-Item -LiteralPath $LiteralPath
+    [bool]$isCurrentInTarget = $PWD.ProviderPath -ieq $targetDirectory.FullName -or
+    $PWD.ProviderPath.StartsWith($targetDirectory.FullName + [System.IO.Path]::DirectorySeparatorChar)
 
-    if ($isInTargetTree) {
-        if ($PSCmdlet.ShouldProcess($PWD.ProviderPath, "Change location to $($rootDirectory.Parent.FullName) to avoid file locks")) {
-            Set-Location -LiteralPath $rootDirectory.Parent.FullName
+    if ($isCurrentInTarget) {
+        if ($PSCmdlet.ShouldProcess($PWD.ProviderPath, "Change location to $($targetDirectory.Parent.FullName) to avoid file locks")) {
+            Set-Location -LiteralPath $targetDirectory.Parent.FullName
         }
     }
 
     Enable-SleepPrevention
     try {
         # 1. Rename files with sequential numbers.
-        [System.IO.FileInfo[]]$files = Get-ChildItem -LiteralPath $rootFullName -File -Recurse
+        [System.IO.FileInfo[]]$files = Get-ChildItem -LiteralPath $targetDirectory.FullName -File -Recurse
         [int]$fileIndex = 1
 
         foreach ($file in $files) {
             do {
                 [string]$newName = $fileIndex.ToString()
-                [string]$destPath = Join-Path -Path $file.DirectoryName -ChildPath $newName
+                [string]$newFullName = Join-Path -Path $file.DirectoryName -ChildPath $newName
 
                 $fileIndex += 1
-            } while (Test-StrictPath -LiteralPath $destPath)
+            } while (Test-StrictPath -LiteralPath $newFullName)
             if ($PSCmdlet.ShouldProcess($file.FullName, "Rename file to $($newName)")) {
                 Rename-Item -LiteralPath $file.FullName -NewName $newName
             }
@@ -60,7 +59,7 @@ function Rename-ItemsToSequential {
             [System.IO.Path]::DirectorySeparatorChar
             [System.IO.Path]::AltDirectorySeparatorChar
         )
-        [System.IO.DirectoryInfo[]]$directories = Get-ChildItem -LiteralPath $rootFullName -Directory -Recurse |
+        [System.IO.DirectoryInfo[]]$directories = Get-ChildItem -LiteralPath $targetDirectory.FullName -Directory -Recurse |
         Sort-Object -Property {
             ($_.FullName.Split($pathSeparators, [System.StringSplitOptions]::RemoveEmptyEntries)).Count
         } -Descending
@@ -69,10 +68,10 @@ function Rename-ItemsToSequential {
         foreach ($directory in $directories) {
             do {
                 [string]$newName = "d_$dirIndex"
-                [string]$destPath = Join-Path -Path $directory.Parent.FullName -ChildPath $newName
+                [string]$newFullName = Join-Path -Path $directory.Parent.FullName -ChildPath $newName
 
                 $dirIndex += 1
-            } while (Test-StrictPath -LiteralPath $destPath)
+            } while (Test-StrictPath -LiteralPath $newFullName)
             if ($PSCmdlet.ShouldProcess($directory.FullName, "Rename directory to $($newName)")) {
                 Rename-Item -LiteralPath $directory.FullName -NewName $newName
             }
@@ -81,12 +80,12 @@ function Rename-ItemsToSequential {
         # 3. Finally, rename the root folder itself.
         do {
             [string]$newName = "d_$dirIndex"
-            [string]$destPath = Join-Path -Path $rootDirectory.Parent.FullName -ChildPath $newName
+            [string]$newFullName = Join-Path -Path $targetDirectory.Parent.FullName -ChildPath $newName
 
             $dirIndex += 1
-        } while (Test-StrictPath -LiteralPath $destPath)
-        if ($PSCmdlet.ShouldProcess($rootDirectory.FullName, "Rename root directory to $($newName)")) {
-            Rename-Item -LiteralPath $rootDirectory.FullName -NewName $newName
+        } while (Test-StrictPath -LiteralPath $newFullName)
+        if ($PSCmdlet.ShouldProcess($targetDirectory.FullName, "Rename root directory to $($newName)")) {
+            Rename-Item -LiteralPath $targetDirectory.FullName -NewName $newName
         }
     }
     finally {
