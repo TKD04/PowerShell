@@ -10,11 +10,10 @@ function Export-ChocolateyPackageList {
         throw 'The command "choco" does not exist.'
     }
 
-    [string]$textFileName = (Get-Date -Format 'yyyy-MM-dd') + '_choco-list.txt'
-    [string]$textFileFullName = Join-Path -Path $PWD.ProviderPath -ChildPath $textFileName
+    [string]$exportTextFullName = Join-Path -Path $PWD.ProviderPath -ChildPath ((Get-Date -Format 'yyyy-MM-dd') + '_choco-list.txt')
 
-    if (Test-StrictPath -LiteralPath $textFileFullName) {
-        throw "The path '$($textFileFullName)' is already in place."
+    if (Test-StrictPath -LiteralPath $exportTextFullName) {
+        throw "The path '$($exportTextFullName)' is already in place."
     }
 
     [string[]]$packageNames = &'choco' 'list' '--limit-output' |
@@ -33,5 +32,5 @@ function Export-ChocolateyPackageList {
         throw 'No installed packages found to export.'
     }
 
-    Set-Content -Value $packageNames -LiteralPath $textFileFullName -Encoding 'utf8NoBOM'
+    Set-Content -Value $packageNames -LiteralPath $exportTextFullName -Encoding 'utf8NoBOM'
 }

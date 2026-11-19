@@ -16,13 +16,9 @@ function Initialize-VsCodeSetting {
         [string]$Environment
     )
 
-    if (Test-StrictPath -LiteralPath './.vscode/settings.json' -PathType 'Leaf') {
-        throw 'VS Code settings is already in place.'
-    }
-    if (Test-StrictPath -LiteralPath './.vscode/extensions.json' -PathType 'Leaf') {
-        throw 'VS Code recommended extensions is already in place.'
-    }
-
+    [string]$vscodeDirectoryFullName = Join-Path -Path $PWD.ProviderPath -ChildPath '.vscode'
+    [string]$settingsJsonFullName = Join-Path -Path $vscodeDirectoryFullName -ChildPath 'settings.json'
+    [string]$extensionsJsonFullName = Join-Path -Path $vscodeDirectoryFullName -ChildPath 'extensions.json'
     [hashtable]$settings = @{
         <# General #>
         'editor.codeActionsOnSave'     = @{
@@ -39,7 +35,13 @@ function Initialize-VsCodeSetting {
         }
     }
     [hashtable]$extensions = $null
-    [string]$vscodeFullPath = Join-Path -Path $PWD.ProviderPath -ChildPath '.vscode'
+
+    if (Test-StrictPath -LiteralPath $settingsJsonFullName -PathType 'Leaf') {
+        throw 'VS Code settings is already in place.'
+    }
+    if (Test-StrictPath -LiteralPath $extensionsJsonFullName -PathType 'Leaf') {
+        throw 'VS Code recommended extensions is already in place.'
+    }
 
     switch ($Environment) {
         'Frontend' {
@@ -84,17 +86,13 @@ function Initialize-VsCodeSetting {
             }
         }
     }
-    if ($PSCmdlet.ShouldProcess($vscodeFullPath, 'Initialize VS Code settings')) {
-        $null = New-Item -Path $vscodeFullPath -ItemType 'Directory' -Force
+    if ($PSCmdlet.ShouldProcess($vscodeDirectoryFullName, 'Initialize VS Code settings')) {
+        $null = New-Item -Path $vscodeDirectoryFullName -ItemType 'Directory' -Force
         if ($null -ne $settings) {
-            [string]$settingsFullPath = Join-Path -Path $vscodeFullPath -ChildPath 'settings.json'
-
-            Export-Json -LiteralPath $settingsFullPath -Hashtable $settings -WhatIf $false
+            Export-Json -LiteralPath $settingsJsonFullName -Hashtable $settings -WhatIf $false
         }
         if ($null -ne $extensions) {
-            [string]$extensionsFullPath = Join-Path -Path $vscodeFullPath -ChildPath 'extensions.json'
-
-            Export-Json -LiteralPath $extensionsFullPath -Hashtable $extensions -WhatIf $false
+            Export-Json -LiteralPath $extensionsJsonFullName -Hashtable $extensions -WhatIf $false
         }
     }
 }

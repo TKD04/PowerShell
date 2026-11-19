@@ -52,9 +52,8 @@ function ConvertTo-LossyWebP {
         throw 'The command "cwebp" does not exist.'
     }
 
-    [string]$outputDirName = 'webp_q' + $Quality.ToString()
-    [string]$outputDirFullName = Join-Path -Path $LiteralPath -ChildPath $outputDirName
-    [string[]]$WebpOptions = @(
+    [string]$destDirectoryFullName = Join-Path -Path $LiteralPath -ChildPath "webp_q$($Quality.ToString())"
+    [string[]]$webpOptions = @(
         # Since -preset overwrites the other parameters' values (except the -q one),
         # this option should preferably appear first in the order of the arguments.
         '-preset', $Preset
@@ -69,13 +68,13 @@ function ConvertTo-LossyWebP {
 
     Enable-SleepPrevention
     try {
-        $null = New-Item -Path $outputDirFullName -ItemType 'Directory' -Force
+        $null = New-Item -Path $destDirectoryFullName -ItemType 'Directory' -Force
         Get-ChildItem -LiteralPath $LiteralPath -File -Filter $FileFilter |
         ForEach-Object {
-            [string]$destFullPath = Join-Path -Path $outputDirFullName -ChildPath ($_.BaseName + '.webp')
+            [string]$webpImageFullName = Join-Path -Path $destDirectoryFullName -ChildPath ($_.BaseName + '.webp')
 
-            if ($PSCmdlet.ShouldProcess($destFullPath, 'Convert to WebP')) {
-                &'cwebp' $WebpOptions '-o' $destFullPath -- $_.FullName
+            if ($PSCmdlet.ShouldProcess($webpImageFullName, 'Convert to WebP')) {
+                &'cwebp' $webpOptions '-o' $webpImageFullName -- $_.FullName
             }
         }
     }

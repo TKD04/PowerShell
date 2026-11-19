@@ -19,10 +19,10 @@ function Initialize-GitRepository {
         throw 'Git repository is already in place.'
     }
 
-    [string]$templateFileName = $UseNode ? 'OS_Node.gitignore' : 'OS.gitignore'
+    [string]$templateGitignoreName = $UseNode ? 'OS_Node.gitignore' : 'OS.gitignore'
 
     if ($PSCmdlet.ShouldProcess($PWD.ProviderPath, 'Initialize Git repository')) {
-        Join-Path -Path $PSScriptRoot -ChildPath 'templates', $templateFileName |
+        Join-Path -Path $PSScriptRoot -ChildPath 'templates', $templateGitignoreName |
         Copy-Item -Destination './.gitignore' -Force
         git init
         git add './.gitignore'

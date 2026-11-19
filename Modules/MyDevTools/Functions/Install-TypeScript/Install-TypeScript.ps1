@@ -21,7 +21,7 @@ function Install-TypeScript {
         throw 'The command "pnpm" does not exist.'
     }
 
-    [string]$tsConfigPath = './tsconfig.json'
+    [string]$tsConfigName = 'tsconfig.json'
     [hashtable]$tsConfig = @{
         # https://www.typescriptlang.org/tsconfig
         'include'         = @(
@@ -80,7 +80,7 @@ function Install-TypeScript {
         }
         'Vite*' {
             if ($Environment -ceq 'ViteReact') {
-                $tsConfigPath = './tsconfig.app.json'
+                $tsConfigName = 'tsconfig.app.json'
 
                 $tsConfig['compilerOptions']['tsBuildInfoFile'] = './node_modules/.tmp/tsconfig.app.tsbuildinfo'
                 $tsConfig['compilerOptions']['jsx'] = 'react-jsx'
@@ -105,7 +105,9 @@ function Install-TypeScript {
         }
     }
     if ($PSCmdlet.ShouldProcess($PWD.ProviderPath, 'Install TypeScript')) {
+        [string]$tsConfigFullName = Join-Path -Path $PWD.ProviderPath -ChildPath $tsConfigName
+
         pnpm add -D @devDependencies
-        Export-Json -LiteralPath $tsConfigPath -Hashtable $tsConfig -WhatIf $false
+        Export-Json -LiteralPath $tsConfigFullName -Hashtable $tsConfig -WhatIf $false
     }
 }

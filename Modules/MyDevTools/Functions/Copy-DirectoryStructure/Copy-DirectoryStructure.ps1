@@ -28,18 +28,17 @@ function Copy-DirectoryStructure {
         throw 'This function is supported only on Windows.'
     }
 
-    [System.IO.DirectoryInfo]$targetDir = Get-Item -LiteralPath $LiteralPath
-    [string]$destDirName = "_$($targetDir.Name)"
-    [string]$destFullName = Join-Path -Path $PWD.ProviderPath -ChildPath $destDirName
+    [System.IO.DirectoryInfo]$targetDirectory = Get-Item -LiteralPath $LiteralPath
+    [string]$destDirectoryFullName = Join-Path -Path $PWD.ProviderPath -ChildPath "_$($targetDirectory.Name)"
 
-    if (Test-StrictPath -LiteralPath $destFullName) {
-        throw "The path '$($destFullName)' is already in place."
+    if (Test-StrictPath -LiteralPath $destDirectoryFullName) {
+        throw "The path '$($destDirectoryFullName)' is already in place."
     }
 
-    if ($PSCmdlet.ShouldProcess($destFullName, 'Copy directory structure')) {
-        $null = New-Item -Path $destFullName -ItemType 'Directory' -Force
+    if ($PSCmdlet.ShouldProcess($destDirectoryFullName, 'Copy directory structure')) {
+        $null = New-Item -Path $destDirectoryFullName -ItemType 'Directory' -Force
         # https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/xcopy#parameter
-        $null = xcopy.exe /E /T $targetDir.FullName $destFullName
+        $null = xcopy.exe /E /T $targetDirectory.FullName $destDirectoryFullName
     }
 }
 

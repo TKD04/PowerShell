@@ -34,10 +34,10 @@ function Export-Json {
         [int]$Depth = 10
     )
 
-    [string]$fullPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($LiteralPath)
+    [string]$exportJsonFullName = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($LiteralPath)
 
-    if ($PSCmdlet.ShouldProcess($fullPath, 'Export json file')) {
+    if ($PSCmdlet.ShouldProcess($exportJsonFullName, 'Export json file')) {
         ConvertTo-Json -InputObject $Hashtable -Depth $Depth |
-        Set-Content -LiteralPath $fullPath
+        Set-Content -LiteralPath $exportJsonFullName
     }
 }

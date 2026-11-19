@@ -13,21 +13,20 @@ function Add-NpmScript {
         [hashtable]$NameToScript
     )
 
-    [string]$packageRelativeName = './package.json'
+    [string]$packageJsonFullName = Join-Path -Path $PWD.ProviderPath -ChildPath 'package.json'
 
-    if (-not (Test-StrictPath -LiteralPath $packageRelativeName -PathType 'Leaf')) {
-        throw "The path '$($packageRelativeName)' does not exist."
+    if (-not (Test-StrictPath -LiteralPath $packageJsonFullName -PathType 'Leaf')) {
+        throw "The path '$($packageJsonFullName)' does not exist."
     }
 
-    [string]$packageJsonFullPath = Convert-Path -LiteralPath $packageRelativeName
-    [hashtable]$package = Import-Json -LiteralPath $packageJsonFullPath
+    [hashtable]$package = Import-Json -LiteralPath $packageJsonFullName
     [string]$scriptNames = $NameToScript.Keys -join ', '
 
     $package['scripts'] ??= @{}
     foreach ($key in $NameToScript.Keys) {
         $package['scripts'][$key] = $NameToScript[$key]
     }
-    if ($PSCmdlet.ShouldProcess($packageJsonFullPath, "Add npm script(s): [$($scriptNames)]")) {
-        Export-Json -LiteralPath $packageJsonFullPath -Hashtable $package -WhatIf $false
+    if ($PSCmdlet.ShouldProcess($packageJsonFullName, "Add npm script(s): [$($scriptNames)]")) {
+        Export-Json -LiteralPath $packageJsonFullName -Hashtable $package -WhatIf $false
     }
 }

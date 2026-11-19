@@ -38,13 +38,13 @@ function Rename-FileExtension {
         [switch]$Recurse
     )
 
-    [System.IO.FileInfo[]]$files = Get-ChildItem -File -Filter "*.$OldExtension" -Recurse:$Recurse
+    [System.IO.FileInfo[]]$targetFiles = Get-ChildItem -File -Filter "*.$OldExtension" -Recurse:$Recurse
 
-    foreach ($file in $files) {
-        [string]$newFileName = $file.BaseName + '.' + $NewExtension
+    foreach ($targetFile in $targetFiles) {
+        [string]$newFileName = $targetFile.BaseName + '.' + $NewExtension
 
-        if ($PSCmdlet.ShouldProcess($file.FullName, "Rename to $($newFileName)")) {
-            Rename-Item -LiteralPath $file.FullName -NewName $newFileName
+        if ($PSCmdlet.ShouldProcess($targetFile.FullName, "Rename to $($newFileName)")) {
+            Rename-Item -LiteralPath $targetFile.FullName -NewName $newFileName
         }
     }
 }

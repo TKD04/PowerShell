@@ -19,10 +19,10 @@ function Install-Oxfmt {
     [string[]]$devDependencies = @(
         'oxfmt'
     )
-    [string]$templateFile = $UseTailwindCss ? '.oxfmtrc-tailwindcss.json' : '.oxfmtrc.json'
+    [string]$templateOxfmtrcName = $UseTailwindCss ? '.oxfmtrc-tailwindcss.json' : '.oxfmtrc.json'
 
     if ($PSCmdlet.ShouldProcess($PWD.ProviderPath, 'Install Oxfmt')) {
-        Join-Path -Path $PSScriptRoot -ChildPath 'templates', $templateFile |
+        Join-Path -Path $PSScriptRoot -ChildPath 'templates', $templateOxfmtrcName |
         Copy-Item -Destination './.oxfmtrc.json' -Force
         Add-NpmScript -NameToScript @{
             'format' = 'oxfmt'
