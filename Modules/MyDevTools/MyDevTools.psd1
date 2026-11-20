@@ -33,6 +33,7 @@
         'Test-CommandExists'
         'Test-GitClean'
         'Test-StrictPath'
+        'Wait-ProcessSleepPrevention'
     )
     AliasesToExport   = @(
         'cptree'
