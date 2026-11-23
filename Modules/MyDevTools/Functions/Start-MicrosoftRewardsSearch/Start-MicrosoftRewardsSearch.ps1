@@ -115,6 +115,9 @@ function Start-MicrosoftRewardsSearch {
         }
     }
     finally {
+        if ($null -ne $wshell) {
+            $null = [System.Runtime.InteropServices.Marshal]::ReleaseComObject($wshell)
+        }
         Write-Progress -Activity $progressActivityName -Completed
     }
 }
