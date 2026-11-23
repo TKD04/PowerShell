@@ -76,7 +76,9 @@ function ConvertTo-LossyWebP {
 
     Enable-SleepPrevention
     try {
-        $null = New-Item -Path $destDirectoryFullName -ItemType 'Directory' -Force
+        if ($PSCmdlet.ShouldProcess($destDirectoryFullName, 'Create Directory')) {
+            $null = New-Item -Path $destDirectoryFullName -ItemType 'Directory' -Force
+        }
         Get-ChildItem -LiteralPath $LiteralPath -File -Filter $FileFilter |
         ForEach-Object {
             [string]$webpImageFullName = Join-Path -Path $destDirectoryFullName -ChildPath ($_.BaseName + '.webp')
