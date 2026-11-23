@@ -11,8 +11,11 @@ function Import-Json {
         [Parameter(Mandatory)]
         [ValidateNotNullOrWhiteSpace()]
         [ValidateScript({
-                if (-not (Test-StrictPath -LiteralPath $_ -PathType 'Leaf')) {
+                if (-not (Test-StrictPath -LiteralPath $_)) {
                     throw "The path '$($_)' does not exist."
+                }
+                if (Test-StrictPath -LiteralPath $_ -PathType 'Container') {
+                    throw "The path '$($_)' is a directory."
                 }
                 if (-not ([System.IO.Path]::GetExtension($_) -in '.json', '.jsonc')) {
                     throw "The file '$($_)' must have a .json or .jsonc extension."
