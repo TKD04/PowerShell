@@ -27,11 +27,11 @@ function Remove-NpmScript {
         throw "The npm script '$($ScriptName)' does not exist."
     }
 
+    $package['scripts'].Remove($ScriptName)
+    if ($package['scripts'].Count -eq 0) {
+        $package.Remove('scripts')
+    }
     if ($PSCmdlet.ShouldProcess($packageJsonFullName, "Remove npm script: '$($ScriptName)'")) {
-        $package['scripts'].Remove($ScriptName)
-        if ($package['scripts'].Count -eq 0) {
-            $package.Remove('scripts')
-        }
         Export-Json -LiteralPath $packageJsonFullName -Hashtable $package -WhatIf $false
     }
 }
