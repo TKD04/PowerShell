@@ -94,20 +94,20 @@ function Start-MicrosoftRewardsSearch {
             $null = $wshell.AppActivate('Microsoft Edge')
             Start-Sleep -Milliseconds 600
             # 2. Focus on the search bar(Ctrl+L).
-            $wshell.SendKeys('^{l}')
+            [System.Windows.Forms.SendKeys]::SendWait('^l')
             Start-Sleep -Milliseconds 500
             # 3. Paste keyword and execute the search.
             Set-Clipboard -Value $keyword
             Start-Sleep -Milliseconds 300
-            $wshell.SendKeys('^v')
+            [System.Windows.Forms.SendKeys]::SendWait('^v')
             Start-Sleep -Milliseconds 500
-            $wshell.SendKeys('{ENTER}')
+            [System.Windows.Forms.SendKeys]::SendWait('{ENTER}')
             # 4. Wait for a random interval.
             Start-Sleep -Seconds (Get-Random -Minimum 3 -Maximum 5)
             # Humane fake: Randomly simulate Page Down scrolling (0 to 2 times).
             [int]$pageDownCount = Get-Random -Minimum 0 -Maximum 3
             for ([int]$i = 0; $i -lt $pageDownCount; $i += 1) {
-                $wshell.SendKeys('{PGDN}')
+                [System.Windows.Forms.SendKeys]::SendWait('PGDN')
                 Start-Sleep -Milliseconds (Get-Random -Minimum 400 -Maximum 900)
             }
             # 5. Wait for a random interval.
