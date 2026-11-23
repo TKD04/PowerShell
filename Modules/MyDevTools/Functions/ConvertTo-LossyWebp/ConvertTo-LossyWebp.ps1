@@ -55,7 +55,8 @@ function ConvertTo-LossyWebP {
         throw 'The command "cwebp" does not exist.'
     }
 
-    [string]$destDirectoryFullName = Join-Path -Path $LiteralPath -ChildPath "webp_q$($Quality.ToString())"
+    [string]$destDirectoryFullName = Convert-Path -LiteralPath $LiteralPath |
+    Join-Path -ChildPath "webp_q$($Quality.ToString())"
     [string[]]$webpOptions = @(
         # Since -preset overwrites the other parameters' values (except the -q one),
         # this option should preferably appear first in the order of the arguments.
