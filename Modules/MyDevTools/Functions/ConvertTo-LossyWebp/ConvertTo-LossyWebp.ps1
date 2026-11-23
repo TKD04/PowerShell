@@ -31,8 +31,11 @@ function ConvertTo-LossyWebP {
         [Parameter(Mandatory)]
         [ValidateNotNullOrWhiteSpace()]
         [ValidateScript({
-                if (-not (Test-StrictPath -LiteralPath $_ -PathType 'Container')) {
-                    throw "The path '$($_)' is not a directory or inaccessible."
+                if (-not (Test-StrictPath -LiteralPath $_)) {
+                    "The path '$($_)' does not exist."
+                }
+                if (Test-StrictPath -LiteralPath $_ -PathType 'Leaf') {
+                    throw "The path '$($_)' is not a directory."
                 }
 
                 $true
