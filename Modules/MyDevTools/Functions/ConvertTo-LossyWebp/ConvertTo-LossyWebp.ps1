@@ -70,6 +70,10 @@ function ConvertTo-LossyWebP {
         '-progress'
     )
 
+    if (Test-StrictPath -LiteralPath $destDirectoryFullName) {
+        throw "The path '$($destDirectoryFullName)' is already in place."
+    }
+
     Enable-SleepPrevention
     try {
         $null = New-Item -Path $destDirectoryFullName -ItemType 'Directory' -Force
