@@ -102,7 +102,7 @@ function Start-MicrosoftRewardsSearch {
             $wshell.SendKeys('^v')
             Start-Sleep -Milliseconds 500
             $wshell.SendKeys('{ENTER}')
-            # 4. Wait for a radom interval.
+            # 4. Wait for a random interval.
             Start-Sleep -Seconds (Get-Random -Minimum 3 -Maximum 5)
             # Humane fake: Randomly simulate Page Down scrolling (0 to 2 times).
             [int]$pageDownCount = Get-Random -Minimum 0 -Maximum 3
@@ -110,7 +110,7 @@ function Start-MicrosoftRewardsSearch {
                 $wshell.SendKeys('{PGDN}')
                 Start-Sleep -Milliseconds (Get-Random -Minimum 400 -Maximum 900)
             }
-            # 5. Wait for a radom interval.
+            # 5. Wait for a random interval.
             Start-Sleep -Seconds (Get-Random -Minimum 3 -Maximum 6)
         }
     }
