@@ -38,7 +38,7 @@ function Rename-FileExtension {
         [switch]$Recurse
     )
 
-    [System.IO.FileInfo[]]$targetFiles = Get-ChildItem -File -Filter "*.$OldExtension" -Recurse:$Recurse
+    [System.IO.FileInfo[]]$targetFiles = Get-ChildItem -File -Filter "*.$($OldExtension)" -Recurse:$Recurse
 
     foreach ($targetFile in $targetFiles) {
         [string]$newFileName = $targetFile.BaseName + '.' + $NewExtension
