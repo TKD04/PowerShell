@@ -19,7 +19,7 @@ function Export-ChocolateyPackageList {
     [string[]]$packageNames = &'choco' 'list' '--limit-output' |
     ForEach-Object {
         [string]$packageName = ($_ -split '\|')[0]
-        if ($packageName.StartsWith('choco') -or
+        if ($packageName.StartsWith('chocolatey') -or
             $packageName.EndsWith('.portable') -or
             $packageName.EndsWith('.install')) {
             return
