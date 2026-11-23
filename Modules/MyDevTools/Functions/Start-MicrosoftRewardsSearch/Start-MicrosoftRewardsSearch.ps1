@@ -106,7 +106,7 @@ function Start-MicrosoftRewardsSearch {
             Start-Sleep -Seconds (Get-Random -Minimum 3 -Maximum 5)
             # Humane fake: Randomly simulate Page Down scrolling (0 to 2 times).
             [int]$pageDownCount = Get-Random -Minimum 0 -Maximum 3
-            for ([int]$j = 0; $j -lt $pageDownCount; $j += 1) {
+            for ([int]$i = 0; $i -lt $pageDownCount; $i += 1) {
                 $wshell.SendKeys('{PGDN}')
                 Start-Sleep -Milliseconds (Get-Random -Minimum 400 -Maximum 900)
             }
